@@ -6,7 +6,8 @@
 
 @section('page-content')
     <div class="row">
-        <div class="card-body">
+        <div class="card">
+         <div class="card-body">
             <div class="table-responsive">
                 <h1 class="text-center bg-primary text-light"><i class="fa-solid fa-list"></i>   {{__('admin.All Materials')}}
 
@@ -16,6 +17,7 @@
                         <tr>
                             <th>{{ __('admin.ID') }}</th>
                             <th>{{ __('admin.Title') }}</th>
+                            <th>{{__('admin.Description')}}</th>
                             <th>{{__('admin.File Type')}}</th>
                             <th>{{ __('admin.Course') }}</th>
                             <th>{{ __('admin.Actions') }}</th>
@@ -26,9 +28,13 @@
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $material->title }}</td>
+                                <td>{{\Str::limit($material->description,30) }}</td>
                                 <td>{{ $material->file_type }}</td>
                                 <td>{{ $material->course->name }}</td>
                                 <td>
+                                    <a href="{{route('materials.show',$material->id)}}">
+                                        <i class="fa-solid fa-eye text-info"></i>
+                                    </a>
                                     <a href="#" onclick="event.preventDefault(); document.getElementById('delete-form-{{ $material->id }}').submit();">
                                         <i class="fa-solid fa-trash text-danger"></i>
                                     </a>

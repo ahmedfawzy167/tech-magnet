@@ -5,6 +5,8 @@
 @endsection
 
 @section('page-content')
+<div class="card">
+  <div class="card-body">
         <div class="table-responsive">
           <h1 class="text-center bg-dark text-light mt-2"><i class="fa-solid fa-list"></i> {{__('admin.All Blogs')}}</h1>
           <table class="table table-hover table-bordered mt-3" id="data-table">
@@ -39,8 +41,9 @@
                     @endforeach
                     </tbody>
                 </table>
-                
         </div>
+  </div>
+</div>
 
 @include('layouts.messages')
 @endsection

@@ -25,6 +25,8 @@ return [
     'Currency'                    =>         'Currency',
     'Enrollments'              =>             'Enrollments',
     'Payments'                  =>           'Payments',
+    'Show Material'             =>              'Show Material',
+    'Material Details'           =>           'Material Details',
     'All Roles'                 =>           'All Roles',
     'Show Role'                 =>           'Show Role',
     'Edit Role'                 =>           'Edit Role',

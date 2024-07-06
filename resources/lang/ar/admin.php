@@ -19,6 +19,8 @@ return [
     'New Course'                   =>              'كورس جديد',
     'Created at'                 =>         'دفع في',
     'Payments'                  =>           'المدفوعات',
+    'Show Material'             =>              'اظهار الماتيريل',
+    'Material Details'           =>           'تفاصيل الماتيرل',
     'Amount'                    =>         'القيمة',
     'Currency'                    =>         'العملة',
     'All Objectives'            =>      'كل الاهداف',

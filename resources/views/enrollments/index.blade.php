@@ -8,7 +8,8 @@
 
 @section('page-content')
     <div class="row">
-        <div class="card-body">
+        <div class="card">
+          <div class="card-body">
             <div class="table-responsive">
                 <h1 class="text-center bg-primary text-light"><i class="fa-solid fa-list"></i> All Pending Enrollments</h1>
                 <table class="table table-bordered table-hover">
@@ -44,6 +45,7 @@
                 </table>
             </div>
         </div>
+    </div>
     </div>
 
 @include('layouts.messages')
