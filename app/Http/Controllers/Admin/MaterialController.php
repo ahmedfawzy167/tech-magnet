@@ -54,6 +54,11 @@ class MaterialController extends Controller
         return view('materials.index', compact('materials'));
     }
 
+    public function show(Material $material)
+    {
+        return view('materials.show', compact('material'));
+    }
+
     public function destroy(Material $material)
     {
         $material->delete();
