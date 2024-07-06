@@ -206,7 +206,7 @@
 <li class="nav-item">
     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsereview"
         aria-expanded="true" aria-controls="collapsematerial">
-        <span>{{__('admin.All Reviews')}}</span>
+        <span>{{__('admin.Reviews')}}</span>
     </a>
     <div id="collapsereview" class="collapse" aria-labelledby="headingreview"
         data-parent="#accordionSidebar">
