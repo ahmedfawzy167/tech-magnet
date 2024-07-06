@@ -25,7 +25,7 @@
                     <tbody>
                         @foreach($enrollments as $enrollment)
                         <tr>
-                            <td>{{$enrollment->id}}</td>
+                            <td>{{$loop->iteration}}</td>
                             <td>{{$enrollment->user->name}}</td>
                             <td>{{$enrollment->course->name}}</td>
 

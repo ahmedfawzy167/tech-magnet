@@ -19,7 +19,7 @@
              <tbody>
                 @foreach($blogs as $blog)
                  <tr>
-                  <td>{{$blog->id}}</td>
+                  <td>{{$loop->iteration}}</td>
                   <td>{{$blog->title}}</td>
                   <td>
                     @if($blog->image)

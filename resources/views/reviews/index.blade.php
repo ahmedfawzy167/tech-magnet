@@ -24,7 +24,7 @@
                     <tbody>
                         @forelse($reviews as $review)
                             <tr>
-                                <td>{{ $review->id }}</td>
+                                <td>{{ $loop->iteration }}</td>
                                 <td>{{ $review->user->name }}</td>
                                 <td>{{ $review->course->name }}</td>
                                 <td>{{ $review->content }}</td>

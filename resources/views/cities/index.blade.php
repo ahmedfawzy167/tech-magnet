@@ -23,7 +23,7 @@
                     <tbody>
                         @foreach ($cities as $city)
                             <tr>
-                                <td>{{ $city->id }}</td>
+                                <td>{{ $loop->iteration }}</td>
                                 <td>{{ $city->name }}</td>
                                 <td>
                                     <a href="{{ route('cities.show', $city->id) }}"

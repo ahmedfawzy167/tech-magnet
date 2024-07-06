@@ -14,7 +14,6 @@
                 <table class="table table-hover table-bordered mt-2">
                     <thead class="table-dark">
                         <tr>
-                            <th>{{__('admin.ID')}}</th>
                             <th>{{__('admin.Logo')}}</th>
                             <th>{{__('admin.Email')}}</th>
                             <th>{{__('admin.Phone')}}</th>
@@ -25,7 +24,6 @@
                     <tbody>
                         @foreach($settings as $setting)
                         <tr>
-                            <td>{{$setting->id}}</td>
                             <td><img src="{{asset('storage/'.$setting->logo)}}" width="100px"></td>
                             <td>{{$setting->email}}</td>
                             <td>{{$setting->phone}}</td>

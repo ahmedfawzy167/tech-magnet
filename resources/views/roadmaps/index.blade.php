@@ -15,6 +15,7 @@
                         <tr>
                             <th>{{ __('admin.ID') }}</th>
                             <th>{{ __('admin.Title') }}</th>
+                            <th>{{__('admin.Description')}}</th>
                             <th>{{ __('admin.Actions') }}</th>
                         </tr>
                     </thead>
@@ -23,6 +24,7 @@
                             <tr>
                                 <td>{{ $loop->index + 1 }}</td>
                                 <td>{{ $roadmap->title }}</td>
+                                <td>{{ \Str::limit($roadmap->description,30) }}</td>
                                 <td>
                                     <a href="{{ route('roadmaps.edit',$roadmap->id) }}"
                                         class="btn btn-success"><i class="fa-solid fa-file-signature"></i></a>

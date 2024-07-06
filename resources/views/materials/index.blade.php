@@ -24,7 +24,7 @@
                     <tbody>
                         @forelse($materials as $material)
                             <tr>
-                                <td>{{ $material->id }}</td>
+                                <td>{{ $loop->iteration }}</td>
                                 <td>{{ $material->title }}</td>
                                 <td>{{ $material->file_type }}</td>
                                 <td>{{ $material->course->name }}</td>
