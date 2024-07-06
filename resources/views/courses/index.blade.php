@@ -14,6 +14,7 @@
                     <thead class="table-dark">
                         <tr>
                             <th>{{ __('admin.Name') }}</th>
+                            <th>{{ __('admin.Description') }}</th>
                             <th>{{ __('admin.Price') }}</th>
                             <th>{{ __('admin.Hours') }}</th>
                             <th>{{ __('admin.Category') }}</th>
@@ -26,6 +27,8 @@
                         @forelse($courses as $course)
                             <tr>
                                 <td>{{ $course->name }}</td>
+                                <td>{{\Str::limit($course->description,10) }}</td>
+
                                 <td>{{ $course->price }}</td>
                                 <td>{{ $course->hours }}</td>
                                 <td>{{ $course->category->name }}</td>
