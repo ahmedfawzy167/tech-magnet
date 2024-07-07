@@ -24,7 +24,7 @@ class QuestionController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'question_text' => 'required|string|max:500',
+            'question_text' => 'required|string|alpha|max:500',
             'answers' => 'required|string|max:500',
             'quiz_id' => 'required|numeric|gt:0',
         ]);

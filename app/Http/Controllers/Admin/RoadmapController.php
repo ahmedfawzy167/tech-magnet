@@ -19,17 +19,17 @@ class RoadmapController extends Controller
     public function edit($id)
     {
         $roadmap = Roadmap::findOrFail($id);
-        return view('roadmaps.edit',compact('roadmap'));
+        return view('roadmaps.edit', compact('roadmap'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request,$id)
+    public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
-            'title' => 'required|string|between:2,150',
-            'description' => 'required|string|max:800',
+            'title' => 'required|string|alpha|between:2,100',
+            'description' => 'required|string|alpha|max:1000',
         ]);
 
         if ($validator->fails()) {
@@ -41,7 +41,7 @@ class RoadmapController extends Controller
         $roadmap->description = $request->description;
         $roadmap->save();
 
-        Session::flash('message','Roadmap is Updated Successfully');
+        Session::flash('message', 'Roadmap is Updated Successfully');
         return redirect(route('roadmaps.index'));
     }
 
@@ -52,7 +52,7 @@ class RoadmapController extends Controller
     {
         $roadmap = Roadmap::findOrFail($id);
         $roadmap->delete();
-        Session::flash('message','Roadmap is Deleted Successfully');
+        Session::flash('message', 'Roadmap is Deleted Successfully');
         return redirect(route('roadmaps.index'));
     }
 }

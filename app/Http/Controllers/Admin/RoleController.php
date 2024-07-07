@@ -25,7 +25,7 @@ class RoleController extends Controller
     public function show(Role $role)
     {
         $users = $role->users;
-        return view('roles.show', compact('role','users'));
+        return view('roles.show', compact('role', 'users'));
     }
 
     /**
@@ -39,15 +39,15 @@ class RoleController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request,Role $role)
+    public function update(Request $request, Role $role)
     {
         $request->validate([
-            'name'=> ['required','string','max:100']
+            'name' => ['required', 'string', 'alpha', 'max:100']
         ]);
 
         $role->name = $request->name;
         $role->update();
-        Session::flash('message','Role is Update Successfully');
+        Session::flash('message', 'Role is Update Successfully');
         return redirect(route('roles.index'));
     }
 
@@ -57,7 +57,7 @@ class RoleController extends Controller
     public function destroy(Role $role)
     {
         $role->delete();
-        Session::flash('message','Role is Deleted Successfully');
+        Session::flash('message', 'Role is Deleted Successfully');
         return redirect(route('roles.index'));
     }
 }

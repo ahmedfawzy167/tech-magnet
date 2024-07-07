@@ -33,12 +33,12 @@ class PermissionController extends Controller
     public function update(Request $request, Permission $permission)
     {
         $request->validate([
-            'name'=> ['required','string','max:100']
+            'name' => ['required', 'string', 'alpha', 'max:100']
         ]);
 
         $permission->name = $request->name;
         $permission->update();
-        Session::flash('message','Permission is Update Successfully');
+        Session::flash('message', 'Permission is Update Successfully');
         return redirect(route('permissions.index'));
     }
 
@@ -48,7 +48,7 @@ class PermissionController extends Controller
     public function destroy(Permission $permission)
     {
         $permission->delete();
-        Session::flash('message','Permission is Deleted Successfully');
+        Session::flash('message', 'Permission is Deleted Successfully');
         return redirect(route('permissions.index'));
     }
 }

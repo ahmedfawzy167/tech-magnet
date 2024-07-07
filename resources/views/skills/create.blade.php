@@ -21,7 +21,7 @@
                 </div>
 
                 <div class="form-group col-md-12">
-                    <label for="content"><i class="ion-ios-albums"></i> {{ __('admin.Content') }}</label>
+                    <label for="content">{{ __('admin.Content') }}<span class="text-danger ms-2">*</span></label>
                     <textarea type="text" name="content"
                         class="form-control @error('content') is-invalid @enderror"></textarea>
                     @error('content')

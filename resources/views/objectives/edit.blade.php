@@ -7,8 +7,7 @@
 @section('page-content')
     <div class="card">
         <div class="card-body container">
-            <h1 class="text-center bg-success text-white"> {{ __('admin.Edit Objective') }}
-            </h1>
+            <h1 class="text-center text-light bg-success"><i class="fa-solid fa-pen-to-square"></i> {{trans('admin.Edit Objective')}}</h1></h1>
             <form action="{{ route('objectives.update',$objective->id) }}" method="POST" class="row">
                 @csrf
                 @method('PUT')

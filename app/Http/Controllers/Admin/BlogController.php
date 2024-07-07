@@ -17,7 +17,7 @@ class BlogController extends Controller
     public function index()
     {
         $blogs = Blog::with('image')->get();
-        return view('blogs.index',compact('blogs'));
+        return view('blogs.index', compact('blogs'));
     }
 
 
@@ -35,13 +35,13 @@ class BlogController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'title' => 'required|string|between:2,100',
-            'description' => 'required|string|max:1000',
+            'title' => 'required|string|alpha|between:2,100',
+            'description' => 'required|string|alpha|max:1000',
             'image' => 'required|image|mimes:png,jpg,jpeg|max:2048',
         ]);
 
-        if($validator->fails()) {
-           return redirect()->back()->withErrors($validator)->withInput();
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
         }
 
         $blog = new Blog();
@@ -53,7 +53,7 @@ class BlogController extends Controller
         $ext = $img->getClientOriginalExtension();
         $fileName = Date("Y-m-d-h-i-s") . '.' . $ext;
         $location = "public/";
-        $img->storeAs($location,$fileName);
+        $img->storeAs($location, $fileName);
 
         $image = new Image();
         $image->path = $fileName;
@@ -61,9 +61,8 @@ class BlogController extends Controller
         $image->imageable_type = 'App\Models\Blog';
         $image->save();
 
-        Session::flash('message','Blog is Created Successfully');
+        Session::flash('message', 'Blog is Created Successfully');
         return redirect(route('blogs.index'));
-
     }
 
     /**
@@ -72,14 +71,13 @@ class BlogController extends Controller
     public function show(Blog $blog)
     {
         return view('blogs.show', compact('blog'));
-
     }
     /**
      * Show the form for editing the specified resource.
      */
     public function edit(Blog $blog)
     {
-      return view('blogs.edit',get_defined_vars());
+        return view('blogs.edit', get_defined_vars());
     }
 
     /**
@@ -88,43 +86,42 @@ class BlogController extends Controller
 
     public function update(Request $request, Blog $blog)
     {
-         $validator = Validator::make($request->all(),[
-          'title' => 'required|string|between:2,100',
-          'description' => 'required|string|max:1000',
-          'image' => 'nullable|image|mimes:png,jpg,jpeg|max:2048',
-      ]);
+        $validator = Validator::make($request->all(), [
+            'title' => 'required|string|alpha|between:2,100',
+            'description' => 'required|string|alpha|max:1000',
+            'image' => 'nullable|image|mimes:png,jpg,jpeg|max:2048',
+        ]);
 
-    if($validator->fails()) {
-        return redirect()->back()->withErrors($validator)->withInput();
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+
+        $blog->title = $request->title;
+        $blog->description = $request->description;
+        $blog->save();
+
+
+        $img = $request->file('image');
+        $ext = $img->getClientOriginalExtension();
+        $fileName = Date("Y-m-d-h-i-s") . '.' . $ext;
+        $location = "public/";
+        $img->storeAs($location, $fileName);
+
+        $image = new Image();
+        $image->path = $fileName;
+        $image->imageable_id = $blog->id;
+        $image->imageable_type = 'App\Models\Blog';
+        $image->save();
+
+        Session::flash('message', 'Blog is Updated Successfully');
+        return redirect(route('blogs.index'));
     }
-
-
-    $blog->title = $request->title;
-    $blog->description = $request->description;
-    $blog->save();
-
-
-    $img = $request->file('image');
-    $ext = $img->getClientOriginalExtension();
-    $fileName = Date("Y-m-d-h-i-s") . '.' . $ext;
-    $location = "public/";
-    $img->storeAs($location,$fileName);
-
-    $image = new Image();
-    $image->path = $fileName;
-    $image->imageable_id = $blog->id;
-    $image->imageable_type = 'App\Models\Blog';
-    $image->save();
-
-    Session::flash('message','Blog is Updated Successfully');
-    return redirect(route('blogs.index'));
-
-   }
 
     public function destroy(Blog $blog)
     {
-       $blog->delete();
-       Session::flash('message','Blog is Deletd Successfully');
-       return redirect(route('blogs.index'));
+        $blog->delete();
+        Session::flash('message', 'Blog is Deletd Successfully');
+        return redirect(route('blogs.index'));
     }
 }

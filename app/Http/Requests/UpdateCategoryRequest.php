@@ -22,7 +22,7 @@ class UpdateCategoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'  => 'required|string|between:2,30'
+            'name'  => 'required|string|alpha|between:2,40'
         ];
     }
 }

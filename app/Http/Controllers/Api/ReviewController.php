@@ -9,12 +9,17 @@ use Illuminate\Support\Facades\Validator;
 
 class ReviewController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(Review::class);
+    }
+
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'course_id' => 'required|numeric|gt:0',
             'user_id' => 'required|numeric|gt:0',
-            'content' =>  'required|string|max:500',
+            'content' =>  'required|string|alpha|max:500',
             'rating' => 'required|numeric|gt:0',
         ]);
 

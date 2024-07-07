@@ -26,8 +26,8 @@ class QuizController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required|string|between:2,50',
-            'description' => 'required|max:500',
+            'name' => 'required|string|alpha|between:2,50',
+            'description' => 'required|alpha|max:500',
             'course_id' => 'required|numeric|gt:0',
         ]);
 

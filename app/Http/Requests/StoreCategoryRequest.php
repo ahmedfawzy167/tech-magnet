@@ -22,7 +22,7 @@ class StoreCategoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'  => 'required|string|between:2,50'
+            'name'  => ['required', 'string', 'alpha', 'between:5,40']
         ];
     }
 }

@@ -18,8 +18,8 @@ class RecordingController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'title' => 'required|string|between:2,50',
-            'description' => 'required|max:500',
+            'title' => 'required|string|alpha|between:2,50',
+            'description' => 'required|alpha|max:500',
             'video_src'  => 'required|video/mp4,video/avi|max:14250',
             'user_id' => 'required|numeric:gt:0',
             'course_id' => 'required|numeric:gt:0',

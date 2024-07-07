@@ -19,8 +19,8 @@ class AssignmentController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'title' => 'required|string|between:2,50',
-            'description' => 'required|string|max:500',
+            'title' => 'required|string|alpha|between:2,50',
+            'description' => 'required|string|alpha|max:500',
             'deadline' => 'required|date_format:Y-m-d H:i:s',
             'course_id' => 'required|numeric|gt:0',
         ]);
@@ -41,12 +41,11 @@ class AssignmentController extends Controller
         ], 201);
     }
 
-
     public function update(Request $request, Assignment $assignment)
     {
         $validator = Validator::make($request->all(), [
-            'title' => 'required|string|between:2,50',
-            'description' => 'required|string|max:500',
+            'title' => 'required|string|alpha|between:2,50',
+            'description' => 'required|string|alpha|max:500',
             'deadline' => 'required|date_format:Y-m-d H:i:s',
             'course_id' => 'required|numeric|gt:0',
         ]);
@@ -74,7 +73,6 @@ class AssignmentController extends Controller
 
     public function attach(Request $request)
     {
-
         $user = User::find($request->user_id);
         $assignment = Assignment::find($request->assignment_id);
 

@@ -4,9 +4,10 @@
     {{ __('admin.New Category') }}
 @endsection
 
+
 @section('page-content')
     <div class="card">
-        <div class="card-body container">
+        <div class="card-body">
             <h1 class="text-center bg-primary text-white"><i class="ion-plus-circled"></i> {{ __('admin.Add New Category') }}
             </h1>
             <form action="{{ route('categories.store') }}" method="POST" class="row">
@@ -28,4 +29,6 @@
             </form>
         </div>
     </div>
+    @include('layouts.toastr')
+
 @endsection

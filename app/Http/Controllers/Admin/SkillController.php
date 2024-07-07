@@ -35,8 +35,8 @@ class SkillController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'title' => 'required|string|between:2,150',
-            'content' => 'required|string|max:800',
+            'title' => 'required|string|alpha|between:2,100',
+            'description' => 'required|string|alpha|max:1000',
             'super_skill_id' => 'required|numeric:gt:0',
         ]);
 
@@ -71,8 +71,8 @@ class SkillController extends Controller
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
-            'title' => 'required|string|between:2,150',
-            'content' => 'required|string|max:800',
+            'title' => 'required|string|alpha|between:2,100',
+            'description' => 'required|string|alpha|max:1000',
             'super_skill_id' => 'required|numeric:gt:0',
         ]);
 
