@@ -45,21 +45,11 @@
                             <label for="email"><i class="fa-solid fa-envelope"></i> Email Address</label>
                             <input type="email" id="email" name="email" value="{{ old('email') }}"
                                 class="form-control form-control-lg @error('email') is-invalid @enderror" />
-                            @error('email')
-                                <span class="invalid-feedback">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
                         </div>
                         <div class="form-group">
                             <label for="password"><i class="fa-solid fa-lock"></i> Password</label>
                             <input type="password" id="password" name="password" value="{{ old('password') }}"
                                 class="form-control form-control-lg  @error('password') is-invalid @enderror" />
-                            @error('password')
-                                <span class="invalid-feedback">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
                         </div>
 
                         <div class="row mb-4">
