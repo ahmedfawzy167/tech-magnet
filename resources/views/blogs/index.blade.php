@@ -7,13 +7,13 @@
 @section('page-content')
 <div class="card">
   <div class="card-body">
-        <div class="table-responsive">
-          <h1 class="text-center bg-dark text-light mt-2"><i class="fa-solid fa-list"></i> {{__('admin.All Blogs')}}</h1>
-          <table class="table table-hover table-bordered mt-3" id="data-table">
+          <h1 class="text-center bg-dark text-light"><i class="fa-solid fa-list"></i> {{__('admin.All Blogs')}}</h1>
+          <table class="table table-hover table-bordered" id="data-table">
             <thead class="table-dark">
               <tr>
                 <th>{{__('admin.ID')}}</th>
                 <th>{{__('admin.Title')}}</th>
+                <th>{{__('admin.Description')}}</th>
                 <th>{{__('admin.Image')}}</th>
                 <th>{{__('admin.Actions')}}</th>
               </tr>
@@ -23,6 +23,7 @@
                  <tr>
                   <td>{{$loop->iteration}}</td>
                   <td>{{$blog->title}}</td>
+                  <td>{{\Str::limit($blog->description,20)}}</td>
                   <td>
                     @if($blog->image)
                         <img src="{{ asset('storage/' . $blog->image->path) }}" width="70px" class="mr-2">
@@ -41,7 +42,6 @@
                     @endforeach
                     </tbody>
                 </table>
-        </div>
   </div>
 </div>
 

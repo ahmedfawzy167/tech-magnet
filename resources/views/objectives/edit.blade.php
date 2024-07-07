@@ -7,13 +7,13 @@
 @section('page-content')
     <div class="card">
         <div class="card-body container">
-            <h1 class="text-center bg-success text-white"><i class="ion-plus-circled"></i> {{ __('admin.Edit Objective') }}
+            <h1 class="text-center bg-success text-white"> {{ __('admin.Edit Objective') }}
             </h1>
             <form action="{{ route('objectives.update',$objective->id) }}" method="POST" class="row">
                 @csrf
                 @method('PUT')
                 <div class="form-group col-md-12">
-                    <label for="name"><i class="fa-solid fa-file-signature"></i> {{ __('admin.Name') }}<span class="text-danger ms-2">*</span></label>
+                    <label for="name">{{ __('admin.Name') }}<span class="text-danger ms-2">*</span></label>
                     <input type="text" name="name" id="name" value="{{$objective->name}}"
                         class="form-control @error('name') is-invalid @enderror">
                     @error('name')

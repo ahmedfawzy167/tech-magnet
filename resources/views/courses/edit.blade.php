@@ -7,13 +7,13 @@
 @section('page-content')
     <div class="card">
         <div class="card-body container">
-            <h1 class="text-center bg-primary text-white"><i class="ion-plus-circled"></i> {{ __('admin.Edit Course') }}
-            </h1>
+            <h1 class="text-center text-light bg-success"><i class="fa-solid fa-pen-to-square"></i> {{trans('admin.Edit Course')}}</h1>
+        </h1>
             <form action="{{ route('courses.update',$course->id) }}" method="POST" enctype="multipart/form-data" class="row">
                 @csrf
                 @method('PUT')
                 <div class="form-group col-md-12">
-                    <label for="name"><i class="fa-solid fa-file-signature"></i> {{ __('admin.Name') }}<span class="text-danger ms-2">*</span></label>
+                    <label for="name">{{ __('admin.Name') }}<span class="text-danger ms-2">*</span></label>
                     <input type="text" name="name" id="name" value="{{$course->name}}"
                         class="form-control @error('name') is-invalid @enderror">
                     @error('name')
@@ -22,7 +22,7 @@
                 </div>
 
                 <div class="form-group col-md-12">
-                    <label for="description"><i class="ion-ios-albums"></i> {{ __('admin.Description') }}</label>
+                    <label for="description">{{ __('admin.Description') }}<span class="text-danger ms-2">*</span></label>
                     <textarea type="text" name="description" id="summernote"
                         class="form-control @error('description') is-invalid @enderror">{{ $course->description }}</textarea>
                     @error('description')
@@ -31,7 +31,7 @@
                 </div>
 
                  <div class="col-6">
-                   <label for="price">{{__('admin.Price')}}<span class="text-danger ms-2">*</span></label>
+                  <label for="price">{{__('admin.Price')}}<span class="text-danger ms-2">*</span></label>
                   <input type="text" name="price" id="price" value="{{ $course->price }}" class="form-control @error('price') is-invalid @enderror">
                    @error('price')
                     <strong class="invalid-feedback" role="alert">{{ $message }}</strong>
@@ -39,7 +39,7 @@
                </div>
 
                  <div class="col-6">
-                   <label for="hours">{{__('admin.Hours')}}<span class="text-danger ms-2">*</span></label>
+                  <label for="hours">{{__('admin.Hours')}}<span class="text-danger ms-2">*</span></label>
                   <input type="text" name="hours" id="hours" value="{{ $course->hours }}" class="form-control @error('hours') is-invalid @enderror">
                    @error('hours')
                     <strong class="invalid-feedback" role="alert">{{ $message }}</strong>
@@ -65,7 +65,7 @@
                </div>
 
                 <div class="form-group col-md-12">
-                    <label for="image"><i class="ion-images"></i> {{ __('admin.Image') }}<span class="text-danger ms-2">*</span></label>
+                    <label for="image"> {{ __('admin.Image') }}<span class="text-danger ms-2">*</span></label>
                     <input type="file" name="image" id="images"
                         class="form-control @error('image') is-invalid @enderror">
                     @error('image')

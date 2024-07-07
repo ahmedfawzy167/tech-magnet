@@ -12,7 +12,7 @@
    <form action="{{ route('users.store') }}" method="POST" class="row">
     @csrf
     <div class="form-group col-md-12">
-      <label for="name"> {{__('admin.User Name')}}</label>
+      <label for="name"> {{__('admin.User Name')}}<span class="text-danger ms-2">*</span></label>
       <input type="text" name="name" id="name" value="{{old('name')}}" class="form-control @error('name') is-invalid @enderror">
       @error('name')
         <div class="invalid-feedback">{{ $message }}</div>
@@ -20,7 +20,7 @@
     </div>
 
     <div class="form-group col-md-6">
-        <label for="email"> {{__('admin.Email')}}</label>
+        <label for="email"> {{__('admin.Email')}}<span class="text-danger ms-2">*</span></label>
         <input type="email" name="email" id="email" value="{{old('email')}}"  class="form-control @error('email') is-invalid @enderror">
         @error('email')
          <div class="invalid-feedback">{{ $message }}</div>
@@ -28,7 +28,7 @@
       </div>
 
       <div class="form-group col-md-6">
-        <label for="password"> {{__('admin.Password')}}</label>
+        <label for="password"> {{__('admin.Password')}}<span class="text-danger ms-2">*</span></label>
         <input type="password" name="password" id="password" value="{{old('password')}}"  class="form-control @error('password') is-invalid @enderror">
         @error('password')
           <div class="invalid-feedback">{{ $message }}</div>
@@ -36,7 +36,7 @@
       </div>
 
       <div class="form-group col-md-12">
-        <label for="phone">{{__('admin.Phone')}}</label>
+        <label for="phone">{{__('admin.Phone')}}<span class="text-danger ms-2">*</span></label>
         <input type="number" name="phone" id="phone" class="form-control @error('phone') is-invalid @enderror">
         @error('phone')
          <div class="invalid-feedback">{{ $message }}</div>
@@ -44,7 +44,7 @@
       </div>
 
       <div class="form-group col-md-12">
-        <label for="role_id"> {{__('admin.Role')}}</label>
+        <label for="role_id"> {{__('admin.Role')}}<span class="text-danger ms-2">*</span></label>
         <select name="role_id" id="role_id" class="form-select">
             @foreach ($roles as $role)
               <option value="{{$role->id}}">{{$role->name}}</option>
@@ -54,7 +54,7 @@
       </div>
 
       <div class="form-group col-md-12">
-        <label for="city_id"> {{__('admin.City')}}</label>
+        <label for="city_id"> {{__('admin.City')}}<span class="text-danger ms-2">*</span></label>
         <select name="city_id" id="city_id" class="form-select">
             @foreach ($cities as $city)
               <option value="{{$city->id}}">{{$city->name}}</option>

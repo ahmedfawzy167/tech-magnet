@@ -8,7 +8,6 @@
     <div class="row">
         <div class="card">
          <div class="card-body">
-            <div class="table-responsive">
                 <h1 class="text-center bg-dark text-light"><i class="fa-solid fa-list"></i> {{ __('admin.All Roles') }}
                 </h1>
                 <table class="table table-hover table-bordered" id="data-table">
@@ -43,8 +42,6 @@
                         @endforelse
                     </tbody>
                 </table>
-
-            </div>
         </div>
         </div>
 

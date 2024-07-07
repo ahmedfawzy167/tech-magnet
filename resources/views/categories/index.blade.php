@@ -8,16 +8,14 @@
     <div class="row">
       <div class="card">
         <div class="card-body">
-            <div class="table-responsive">
-                <h1 class="text-center bg-dark text-light"><i class="fa-solid fa-list"></i> {{ __('admin.All Categories') }}
-                </h1>
-                <table class="table table-hover table-bordered" id="data-table">
-                    <thead class="table-dark">
-                        <tr>
-                            <th>{{ __('admin.ID') }}</th>
-                            <th>{{ __('admin.Name') }}</th>
-                            <th>{{ __('admin.Actions') }}</th>
-                        </tr>
+           <h1 class="text-center bg-dark text-light"><i class="fa-solid fa-list"></i> {{ __('admin.All Categories') }}</h1>
+              <table class="table table-hover table-bordered" id="data-table">
+                <thead class="table-dark">
+                     <tr>
+                        <th>{{ __('admin.ID') }}</th>
+                        <th>{{ __('admin.Name') }}</th>
+                        <th>{{ __('admin.Actions') }}</th>
+                     </tr>
                     </thead>
                     <tbody>
                         @forelse($categories as $category)
@@ -25,11 +23,11 @@
                                 <td>{{ $loop->index + 1 }}</td>
                                 <td>{{ $category->name }}</td>
                                 <td>
-                                    <a href="{{ route('categories.show', $category->id) }}"
+                                  <a href="{{ route('categories.show', $category->id) }}"
                                         class="btn btn-info">{{ __('admin.Show') }}</a>
-                                    <a href="{{ route('categories.edit', $category->id) }}"
+                                  <a href="{{ route('categories.edit', $category->id) }}"
                                         class="btn btn-success">{{ __('admin.Edit') }}</a>
-                                    <form action="{{ route('categories.destroy', $category->id) }}" method="post"
+                                  <form action="{{ route('categories.destroy', $category->id) }}" method="post"
                                         style="display: inline-block">
                                         @csrf
                                         @method('delete')
@@ -43,8 +41,6 @@
                         @endforelse
                     </tbody>
                 </table>
-
-            </div>
         </div>
       </div>
 

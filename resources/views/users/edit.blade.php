@@ -13,7 +13,7 @@
     @method('PUT')
 
     <div class="form-group col-12">
-      <label for="name"><i class="fa-solid fa-file-signature"></i> {{__('admin.User Name')}}</label>
+      <label for="name">{{__('admin.Name')}}<span class="text-danger ms-2">*</span></label>
       <input type="text" name="name" id="name" value="{{$user->name}}" class="form-control @error('email') is-invalid @enderror">
       @error('name')
          <div class="invalid-feedback">{{ $message }}</div>
@@ -21,7 +21,7 @@
     </div>
 
     <div class="form-group col-md-6">
-        <label for="email"><i class="fa-solid fa-envelope"></i> {{__('admin.Email')}}</label>
+        <label for="email">{{__('admin.Email')}}<span class="text-danger ms-2">*</span></label>
         <input type="email" name="email" id="email" value="{{$user->email}}" class="form-control @error('email') is-invalid @enderror">
         @error('email')
          <div class="invalid-feedback">{{ $message }}</div>
@@ -29,15 +29,15 @@
       </div>
 
       <div class="form-group col-md-6">
-        <label for="password"><i class="fa-solid fa-lock"></i> {{__('admin.Password')}}</label>
-        <input type="password" name="password" id="password" value="{{$user->password}}" class="form-control @error('password') is-invalid @enderror">
+        <label for="password">{{__('admin.Password')}}<span class="text-danger ms-2">*</span></label>
+        <input type="password" name="password" id="password" class="form-control @error('password') is-invalid @enderror">
         @error('password')
-         <div class="invalid-feedback">{{ $message }}</div>
+         <div class="invalid-feedback">{{ $message }}<span class="text-danger ms-2">*</span></div>
         @enderror
       </div>
 
       <div class="form-group col-md-12">
-        <label for="phone"><i class="fa-solid fa-lock"></i> {{__('admin.Phone')}}</label>
+        <label for="phone">{{__('admin.Phone')}}<span class="text-danger ms-2">*</span></label>
         <input type="number" name="phone" id="phone" value="{{$user->phone}}" class="form-control @error('phone') is-invalid @enderror">
         @error('phone')
          <div class="invalid-feedback">{{ $message }}</div>
@@ -45,7 +45,7 @@
       </div>
 
       <div class="form-group col-md-12">
-        <label for="role_id"> <i class="fa-solid fa-city"></i> {{__('admin.Role')}}</label>
+        <label for="role_id">{{__('admin.Role')}}<span class="text-danger ms-2">*</span></label>
         <select name="role_id" id="role_id" class="form-select">
             @foreach($roles as $role)
               <option value="{{$role->id}}" {{ $role->id == $user->role_id ? 'selected' : ''}}>{{$role->name}}</option>
@@ -54,7 +54,7 @@
       </div>
 
       <div class="form-group col-md-12">
-        <label for="city_id"> <i class="fa-solid fa-city"></i> {{__('admin.City')}}</label>
+        <label for="city_id">{{__('admin.City')}}<span class="text-danger ms-2">*</span></label>
         <select name="city_id" id="city_id" class="form-select">
             @foreach($cities as $city)
               <option value="{{$city->id}}"  {{ $city->id == $user->city_id ? 'selected' : ''}}>{{$city->name}}</option>

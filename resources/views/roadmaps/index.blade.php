@@ -8,9 +8,7 @@
     <div class="row">
         <div class="card">
          <div class="card-body">
-            <div class="table-responsive">
-                <h1 class="text-center bg-primary text-light"><i class="fa-solid fa-list"></i> {{ __('admin.All Roadmaps') }}
-                </h1>
+                <h1 class="text-center bg-dark text-light"><i class="fa-solid fa-list"></i> {{ __('admin.All Roadmaps') }}</h1>
                 <table class="table table-hover table-bordered" id="data-table">
                     <thead class="table-dark">
                         <tr>
@@ -43,8 +41,6 @@
                         @endforelse
                     </tbody>
                 </table>
-
-            </div>
         </div>
         </div>
         @include('layouts.messages')

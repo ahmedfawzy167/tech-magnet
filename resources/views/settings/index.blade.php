@@ -9,7 +9,6 @@
         <div class="card">
          <div class="card-body">
             <h1 class="text-center bg-dark text-light"><i class="fa-solid fa-gear"></i> {{__('admin.Configuration Settings')}}</h1>
-            <div class="table-responsive">
               <a href="{{route('settings.create')}}" class="btn btn-primary">{{__('admin.Add New Setting')}}</a>
                 <table class="table table-hover table-bordered mt-2">
                     <thead class="table-dark">
@@ -40,8 +39,6 @@
                         @endforeach
                     </tbody>
                 </table>
-
-            </div>
         </div>
     </div>
     </div>

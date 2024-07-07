@@ -8,12 +8,10 @@
     <div class="row">
         <div class="card">
         <div class="card-body">
-            <div class="table-responsive">
-                <h1 class="text-center bg-primary text-light"><i class="fa-solid fa-list"></i> {{ __('admin.All Courses') }}
-                </h1>
-                <table class="table table-hover table-bordered" id="data-table">
-                    <thead class="table-dark">
-                        <tr>
+             <h1 class="text-center bg-dark text-light"><i class="fa-solid fa-list"></i> {{ __('admin.All Courses') }}</h1>
+             <table class="table table-hover table-bordered" id="data-table">
+                <thead class="table-dark">
+                    <tr>
                             <th>{{ __('admin.Name') }}</th>
                             <th>{{ __('admin.Description') }}</th>
                             <th>{{ __('admin.Price') }}</th>
@@ -57,8 +55,6 @@
                         @endforelse
                     </tbody>
                 </table>
-
-            </div>
         </div>
     </div>
 
