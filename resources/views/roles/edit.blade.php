@@ -7,8 +7,7 @@
 @section('page-content')
     <div class="card">
         <div class="card-body container">
-            <h1 class="text-center bg-success text-white"><i class="ion-plus-circled"></i> {{ __('admin.Edit Role') }}
-            </h1>
+            <h1 class="text-center text-light bg-success"><i class="fa-solid fa-pen-to-square"></i> {{trans('admin.Edit Role')}}</h1>
             <form action="{{ route('roles.update',$role->id) }}" method="POST" class="row">
                 @csrf
                 @method('PUT')

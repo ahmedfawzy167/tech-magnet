@@ -6,9 +6,8 @@
 
 @section('page-content')
     <div class="card">
-        <div class="card-body container">
-            <h1 class="text-center bg-success text-white"><i class="ion-plus-circled"></i> {{ __('admin.Edit Roadmap') }}
-            </h1>
+        <div class="card-body">
+            <h1 class="text-center text-light bg-success"><i class="fa-solid fa-pen-to-square"></i> {{trans('admin.Edit Roadmap')}}</h1>
             <form action="{{ route('roadmaps.update',$roadmap->id) }}" method="POST"  class="row">
                 @csrf
                 @method('PUT')
@@ -22,7 +21,7 @@
                 </div>
 
                 <div class="form-group col-md-12">
-                    <label for="description"><i class="ion-ios-albums"></i> {{ __('admin.Description') }}</label>
+                    <label for="description"><i class="ion-ios-albums"></i> {{ __('admin.Description') }}<span class="text-danger ms-2">*</span></label>
                     <textarea type="text" name="description"
                         class="form-control @error('description') is-invalid @enderror">{{$roadmap->description}}</textarea>
                     @error('description')

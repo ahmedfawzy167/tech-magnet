@@ -7,11 +7,10 @@
 @section('page-content')
 
  <div class="card">
-    <div class="card-body container">
-     <h1 class="text-center bg-success text-white mt-3"><i class="ion-plus-circled"></i> {{__('admin.Edit Blog')}}</h1>
-     <form action="{{ route('blogs.update',$blog->id) }}" method="post" class="row" enctype="multipart/form-data">
+    <div class="card-body">
+      <h1 class="text-center text-light bg-success"><i class="fa-solid fa-pen-to-square"></i> {{trans('admin.Edit Blog')}}</h1>
+      <form action="{{ route('blogs.update',$blog->id) }}" method="post" class="row" enctype="multipart/form-data">
       @csrf
-
       <div class="form-group col-12 mt-3">
        <label for="title"><i class="fa-solid fa-file-signature"></i> {{__('admin.Title')}}</label>
        <input type="text" name="title" id="title" value="{{$blog->title}}" class="form-control mt-2 @error('title') is-invalid @enderror">
@@ -39,7 +38,7 @@
     </div>
 
       <div class="text-center mt-3">
-        <button type="submit" class="btn btn-primary btn-lg">{{__('admin.Add')}}</button>
+        <button type="submit" class="btn btn-primary btn-lg">{{__('admin.Update')}}</button>
         <button type="reset" class="btn btn-secondary btn-lg">{{__('admin.Reset')}}</button>
        </div>
 
