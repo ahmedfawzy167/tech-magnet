@@ -7,7 +7,7 @@
 @section('page-content')
 
 <div class="card">
- <div class="card-body container">
+ <div class="card-body">
    <h1 class="text-center bg-primary text-white"><i class="ion-plus-circled"></i> {{__('admin.Add New User')}}</h1>
    <form action="{{ route('users.store') }}" method="POST" class="row">
     @csrf
@@ -22,25 +22,16 @@
     <div class="form-group col-md-6">
         <label for="email"> {{__('admin.Email')}}<span class="text-danger ms-2">*</span></label>
         <input type="email" name="email" id="email" value="{{old('email')}}"  class="form-control @error('email') is-invalid @enderror">
-        @error('email')
-         <div class="invalid-feedback">{{ $message }}</div>
-        @enderror
-      </div>
+    </div>
 
       <div class="form-group col-md-6">
         <label for="password"> {{__('admin.Password')}}<span class="text-danger ms-2">*</span></label>
         <input type="password" name="password" id="password" value="{{old('password')}}"  class="form-control @error('password') is-invalid @enderror">
-        @error('password')
-          <div class="invalid-feedback">{{ $message }}</div>
-        @enderror
       </div>
 
       <div class="form-group col-md-12">
         <label for="phone">{{__('admin.Phone')}}<span class="text-danger ms-2">*</span></label>
         <input type="number" name="phone" id="phone" class="form-control @error('phone') is-invalid @enderror">
-        @error('phone')
-         <div class="invalid-feedback">{{ $message }}</div>
-        @enderror
       </div>
 
       <div class="form-group col-md-12">
@@ -50,7 +41,6 @@
               <option value="{{$role->id}}">{{$role->name}}</option>
             @endforeach
         </select>
-
       </div>
 
       <div class="form-group col-md-12">
@@ -60,7 +50,6 @@
               <option value="{{$city->id}}">{{$city->name}}</option>
             @endforeach
         </select>
-
       </div>
 
         <div class="text-center">
@@ -71,5 +60,36 @@
 </form>
 </div>
 </div>
+
+@section('page-scripts')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script>
+         toastr.options = {
+        "closeButton": false,
+        "debug": false,
+        "preventDuplicates": false,
+        "onclick": null,
+        "showDuration": "500",
+        "hideDuration": "1000",
+        "timeOut": "5000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut",
+        "toastClass": "bg-danger text-white"
+    }
+    </script>
+
+    @if ($errors->any())
+        @foreach ($errors->all() as $error)
+          <script>
+              toastr.error('{{ $error }}');
+          </script>
+        @endforeach
+
+    @endif
+
+   @endsection
 
 @endsection

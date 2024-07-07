@@ -6,9 +6,8 @@
 
 @section('page-content')
     <div class="card">
-        <div class="card-body container">
-            <h1 class="text-center text-light bg-success"><i class="fa-solid fa-pen-to-square"></i> {{trans('admin.Edit Super Skill')}}</h1>
-            </h1>
+        <div class="card-body">
+            <h1 class="text-center text-light bg-success"><i class="fa-solid fa-pen-to-square"></i> {{trans('admin.Edit Super Skill')}}</h1></h1>
             <form action="{{ route('super-skills.update', $superSkill->id) }}" method="POST" class="row">
                 @csrf
                 @method('PUT')
@@ -16,9 +15,6 @@
                     <label for="name">{{ __('admin.Name') }}<span class="text-danger ms-2">*</span></label>
                     <input type="text" name="name" id="name" value="{{$superSkill->name}}"
                         class="form-control @error('name') is-invalid @enderror">
-                    @error('name')
-                        <strong class="invalid-feedback" role="alert">{{ $message }}</strong>
-                    @enderror
                 </div>
 
               <div class="form-group col-12">
@@ -38,4 +34,34 @@
             </form>
         </div>
     </div>
+    @section('page-scripts')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script>
+         toastr.options = {
+        "closeButton": false,
+        "debug": false,
+        "preventDuplicates": false,
+        "onclick": null,
+        "showDuration": "500",
+        "hideDuration": "1000",
+        "timeOut": "5000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut",
+        "toastClass": "bg-danger text-white"
+    }
+    </script>
+
+    @if ($errors->any())
+        @foreach ($errors->all() as $error)
+          <script>
+              toastr.error('{{ $error }}');
+          </script>
+        @endforeach
+
+    @endif
+
+   @endsection
 @endsection

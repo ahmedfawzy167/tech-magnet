@@ -6,9 +6,8 @@
 
 @section('page-content')
     <div class="card">
-        <div class="card-body container">
-            <h1 class="text-center text-light bg-success"><i class="fa-solid fa-pen-to-square"></i> {{trans('admin.Edit Skill')}}</h1>
-            </h1>
+        <div class="card-body">
+            <h1 class="text-center text-light bg-success"><i class="fa-solid fa-pen-to-square"></i> {{trans('admin.Edit Skill')}}</h1></h1>
             <form action="{{ route('skills.update',$skill->id) }}" method="POST" class="row">
                 @csrf
                 @method('PUT')
@@ -16,18 +15,14 @@
                     <label for="title"> {{ __('admin.Name') }}</label>
                     <input type="text" name="title" id="title" value="{{$skill->title}}"
                         class="form-control @error('title') is-invalid @enderror">
-                    @error('title')
-                        <strong class="invalid-feedback" role="alert">{{ $message }}</strong>
-                    @enderror
+                    
                 </div>
 
                 <div class="form-group col-md-12">
                     <label for="content">{{ __('admin.Description') }}</label>
                     <textarea type="text" name="content"
                         class="form-control @error('content') is-invalid @enderror">{{$skill->content}}</textarea>
-                    @error('content')
-                        <strong class="invalid-feedback" role="alert">{{ $message }}</strong>
-                    @enderror
+                   
                 </div>
                  
 
@@ -48,4 +43,35 @@
             </form>
         </div>
     </div>
+
+    @section('page-scripts')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script>
+         toastr.options = {
+        "closeButton": false,
+        "debug": false,
+        "preventDuplicates": false,
+        "onclick": null,
+        "showDuration": "500",
+        "hideDuration": "1000",
+        "timeOut": "5000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut",
+        "toastClass": "bg-danger text-white"
+    }
+    </script>
+
+    @if ($errors->any())
+        @foreach ($errors->all() as $error)
+          <script>
+              toastr.error('{{ $error }}');
+          </script>
+        @endforeach
+
+    @endif
+
+   @endsection
 @endsection

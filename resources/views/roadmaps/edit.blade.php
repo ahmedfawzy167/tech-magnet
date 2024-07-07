@@ -15,18 +15,13 @@
                     <label for="title"><i class="fa-solid fa-file-signature"></i> {{ __('admin.Name') }}<span class="text-danger ms-2">*</span></label>
                     <input type="text" name="title" id="title" value="{{$roadmap->title}}"
                         class="form-control @error('title') is-invalid @enderror">
-                    @error('title')
-                        <strong class="invalid-feedback" role="alert">{{ $message }}</strong>
-                    @enderror
                 </div>
 
                 <div class="form-group col-md-12">
                     <label for="description"><i class="ion-ios-albums"></i> {{ __('admin.Description') }}<span class="text-danger ms-2">*</span></label>
                     <textarea type="text" name="description"
                         class="form-control @error('description') is-invalid @enderror">{{$roadmap->description}}</textarea>
-                    @error('description')
-                        <strong class="invalid-feedback" role="alert">{{ $message }}</strong>
-                    @enderror
+                    
                 </div>
 
                 <div class="text-center">
@@ -37,4 +32,34 @@
             </form>
         </div>
     </div>
+    @section('page-scripts')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script>
+         toastr.options = {
+        "closeButton": false,
+        "debug": false,
+        "preventDuplicates": false,
+        "onclick": null,
+        "showDuration": "500",
+        "hideDuration": "1000",
+        "timeOut": "5000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut",
+        "toastClass": "bg-danger text-white"
+    }
+    </script>
+
+    @if ($errors->any())
+        @foreach ($errors->all() as $error)
+          <script>
+              toastr.error('{{ $error }}');
+          </script>
+        @endforeach
+
+    @endif
+
+   @endsection
 @endsection

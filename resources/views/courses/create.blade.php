@@ -6,43 +6,30 @@
 
 @section('page-content')
     <div class="card">
-        <div class="card-body container">
-            <h1 class="text-center bg-primary text-white"><i class="ion-plus-circled"></i> {{ __('admin.Add New Course') }}
-            </h1>
+        <div class="card-body">
+            <h1 class="text-center bg-primary text-white"><i class="ion-plus-circled"></i> {{ __('admin.Add New Course') }}</h1>
             <form action="{{ route('courses.store') }}" method="POST" enctype="multipart/form-data" class="row">
                 @csrf
                 <div class="form-group col-md-12">
                     <label for="name"> {{ __('admin.Name') }}<span class="text-danger ms-2">*</span></label>
                     <input type="text" name="name" id="name" value="{{ old('name') }}"
                         class="form-control @error('name') is-invalid @enderror">
-                    @error('name')
-                        <strong class="invalid-feedback" role="alert">{{ $message }}</strong>
-                    @enderror
                 </div>
 
                 <div class="form-group col-md-12">
                     <label for="description"> {{ __('admin.Description') }}<span class="text-danger ms-2">*</span></label>
                     <textarea type="text" name="description" id="summernote"
                         class="form-control @error('description') is-invalid @enderror"></textarea>
-                    @error('description')
-                        <strong class="invalid-feedback" role="alert">{{ $message }}</strong>
-                    @enderror
                 </div>
 
                  <div class="col-6">
                    <label for="price">{{__('admin.Price')}}<span class="text-danger ms-2">*</span></label>
                   <input type="text" name="price" id="price" class="form-control @error('price') is-invalid @enderror">
-                   @error('price')
-                    <strong class="invalid-feedback" role="alert">{{ $message }}</strong>
-                   @enderror
                </div>
 
                  <div class="col-6">
                    <label for="hours">{{__('admin.Hours')}}<span class="text-danger ms-2">*</span></label>
                   <input type="text" name="hours" id="hours" class="form-control @error('hours') is-invalid @enderror">
-                   @error('hours')
-                    <strong class="invalid-feedback" role="alert">{{ $message }}</strong>
-                   @enderror
                </div>
 
               <div class="form-group col-12">
@@ -67,9 +54,6 @@
                     <label for="images"> {{ __('admin.Image') }}<span class="text-danger ms-2">*</span></label>
                     <input type="file" name="image" id="images"
                         class="form-control @error('image') is-invalid @enderror">
-                    @error('image')
-                        <strong class="invalid-feedback" role="alert">{{ $message }}</strong>
-                    @enderror
                 </div>
 
                 <div class="text-center">
@@ -80,4 +64,35 @@
             </form>
         </div>
     </div>
+
+    @section('page-scripts')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script>
+         toastr.options = {
+        "closeButton": false,
+        "debug": false,
+        "preventDuplicates": false,
+        "onclick": null,
+        "showDuration": "500",
+        "hideDuration": "1000",
+        "timeOut": "5000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut",
+        "toastClass": "bg-danger text-white"
+    }
+    </script>
+
+    @if ($errors->any())
+        @foreach ($errors->all() as $error)
+          <script>
+              toastr.error('{{ $error }}');
+          </script>
+        @endforeach
+
+    @endif
+
+   @endsection
 @endsection
