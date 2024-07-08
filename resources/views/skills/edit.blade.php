@@ -12,14 +12,14 @@
                 @csrf
                 @method('PUT')
                 <div class="form-group col-md-12">
-                    <label for="title"> {{ __('admin.Name') }}</label>
+                    <label for="title"> {{ __('admin.Name') }}<span class="text-danger ms-2">*</span></label>
                     <input type="text" name="title" id="title" value="{{$skill->title}}"
                         class="form-control @error('title') is-invalid @enderror">
                     
                 </div>
 
                 <div class="form-group col-md-12">
-                    <label for="content">{{ __('admin.Description') }}</label>
+                    <label for="content">{{ __('admin.Description') }}<span class="text-danger ms-2">*</span></label>
                     <textarea type="text" name="content"
                         class="form-control @error('content') is-invalid @enderror">{{$skill->content}}</textarea>
                    

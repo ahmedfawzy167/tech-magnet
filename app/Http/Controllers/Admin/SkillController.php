@@ -58,9 +58,8 @@ class SkillController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit($id)
+    public function edit(Skill $skill)
     {
-        $skill = Skill::findOrFail($id);
         $super_skills = SuperSkill::all();
         return view('skills.edit', compact('skill', 'super_skills'));
     }
@@ -68,7 +67,7 @@ class SkillController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Skill $skill)
     {
         $validator = Validator::make($request->all(), [
             'title' => 'required|string|alpha|between:2,100',
@@ -80,11 +79,10 @@ class SkillController extends Controller
             return redirect()->back()->withErrors($validator);
         }
 
-        $skill = Skill::findOrFail($id);
         $skill->title = $request->title;
         $skill->content = $request->content;
         $skill->super_skill_id = $request->super_skill_id;
-        $skill->save();
+        $skill->update();
 
         Session::flash('message', 'Skill is Updated Successfully');
         return redirect(route('skills.index'));
@@ -93,9 +91,8 @@ class SkillController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id)
+    public function destroy(Skill $skill)
     {
-        $skill = Skill::findOrFail($id);
         $skill->delete();
         Session::flash('message', 'Skill is Deleted Successfully');
         return redirect(route('skills.index'));

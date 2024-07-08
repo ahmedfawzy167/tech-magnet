@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreUserRequest;
 use App\Models\City;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Cache;
+use App\Http\Requests\StoreUserRequest;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
@@ -15,7 +16,10 @@ class UserController extends Controller
 {
     public function index()
     {
-        $users = User::with(['city', 'role'])->get();
+        $users = Cache::rememberForever('users', function () {
+            return User::with(['city', 'role'])->get();
+        });
+
         return view('users.index', compact('users'));
     }
 

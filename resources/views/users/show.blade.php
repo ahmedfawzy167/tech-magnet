@@ -14,7 +14,7 @@
       <ul class="list-group list-group-flush">
         <h4 class="list-group-item">{{__('admin.User Name')}}: {{$user->name}}</h4>
         <h4 class="list-group-item">{{__('admin.Email')}}: {{$user->email}}</h4>
-        <h4 class="list-group-item">{{__('admin.Email')}}: {{$user->phone}}</h4>
+        <h4 class="list-group-item">{{__('admin.Phone')}}: {{$user->phone}}</h4>
         <h4 class="list-group-item">{{__('admin.Role')}}: {{$user->role->name}}</h4>
         <h4 class="list-group-item">{{__('admin.City')}}: {{$user->city->name}}</h4>
      </ul>
