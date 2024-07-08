@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
 use App\Models\Blog;
 use App\Models\Image;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
@@ -16,7 +17,9 @@ class BlogController extends Controller
      */
     public function index()
     {
-        $blogs = Blog::with('image')->get();
+        $blogs = Cache::rememberForever('blogs', function () {
+            return Blog::with('image')->get();
+        });
         return view('blogs.index', compact('blogs'));
     }
 

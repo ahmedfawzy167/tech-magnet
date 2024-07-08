@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use App\Models\Category;
-use App\Models\Course;
 use App\Models\Image;
+use App\Models\Course;
+use App\Models\Category;
 use App\Models\Objective;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
@@ -15,7 +16,9 @@ class CourseController extends Controller
 {
     public function index()
     {
-        $courses = Course::with(['category', 'objective', 'image'])->get();
+        $courses = Cache::rememberForever('courses', function () {
+            return Course::with(['category', 'objective', 'image'])->get();
+        });
         return view('courses.index', compact('courses'));
     }
 
