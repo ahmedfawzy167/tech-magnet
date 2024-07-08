@@ -43,7 +43,7 @@ class BlogController extends Controller
             'image' => 'required|image|mimes:png,jpg,jpeg|max:2048',
         ]);
 
-        if ($validator->fails()) {
+        if ($validator->stopOnFirstFailure()->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
@@ -95,7 +95,7 @@ class BlogController extends Controller
             'image' => 'nullable|image|mimes:png,jpg,jpeg|max:2048',
         ]);
 
-        if ($validator->fails()) {
+        if ($validator->stopOnFirstFailure()->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
