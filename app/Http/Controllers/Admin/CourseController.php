@@ -46,7 +46,8 @@ class CourseController extends Controller
             'objective_id' => 'required|numeric:gt:0',
             'image'       => 'required|image|mimes:jpeg,png,jpg|max:3000'
         ]);
-        if ($validator->fails()) {
+
+        if ($validator->stopOnFirstFailure()->fails()) {
             return redirect()->back()->withErrors($validator);
         }
 
@@ -94,7 +95,7 @@ class CourseController extends Controller
             'objective_id' => 'required|numeric:gt:0',
             'image'       => 'nullable|image|mimes:jpeg,png,jpg|max:3000'
         ]);
-        if ($validator->fails()) {
+        if ($validator->stopOnFirstFailure()->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
