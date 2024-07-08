@@ -2,17 +2,18 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\UpdateObjectiveRequest;
-use App\Http\Controllers\Controller;
 use App\Models\Objective;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
+use App\Http\Requests\UpdateObjectiveRequest;
 
 class ObjectiveController extends Controller
 {
     public function index()
     {
-        $objectives = Objective::all();
+        $objectives = DB::table('objectives')->get();
         return view('objectives.index', compact('objectives'));
     }
 

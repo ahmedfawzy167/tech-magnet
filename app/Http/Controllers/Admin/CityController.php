@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\City;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Session;
 use App\Http\Requests\UpdateCityRequest;
 
@@ -12,7 +12,7 @@ class CityController extends Controller
 {
     public function index()
     {
-        $cities = City::all();
+        $cities = DB::table('cities')->get();
         return view('cities.index', compact('cities'));
     }
 
@@ -33,14 +33,14 @@ class CityController extends Controller
         $city->name = $request->name;
         $city->update();
 
-        Session::flash('message','City is Updated Successfully!');
+        Session::flash('message', 'City is Updated Successfully!');
         return redirect(route('cities.index'));
     }
 
     public function destroy(City $city)
     {
         $city->delete();
-        Session::flash('message','City is Deleted Successfully');
+        Session::flash('message', 'City is Deleted Successfully');
         return redirect(route('cities.index'));
     }
 }
