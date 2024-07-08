@@ -19,8 +19,8 @@ class MaterialController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'title' => 'required|string|alpha|between:2,50',
-            'description' => 'required|string|alpha|max:500',
+            'title' => 'required|string|between:2,50',
+            'description' => 'required|string|max:500',
             'file'  => 'required|file|mimes:pdf|max:2048',
             'file_type'  => 'required|string',
             'course_id' => 'required|numeric:gt:0',

@@ -33,7 +33,7 @@ class PermissionController extends Controller
     public function update(Request $request, Permission $permission)
     {
         $request->validate([
-            'name' => ['required', 'string', 'alpha', 'max:100']
+            'name' => ['required', 'string', 'max:100']
         ]);
 
         $permission->name = $request->name;

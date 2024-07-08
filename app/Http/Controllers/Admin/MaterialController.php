@@ -27,7 +27,7 @@ class MaterialController extends Controller
             'course_id' => 'required|numeric:gt:0',
         ]);
 
-        if ($validator->stopOnFirstFailure()->fails()) {
+        if ($validator->fails()) {
             return redirect()->back()->withErrors($validator);
         }
 

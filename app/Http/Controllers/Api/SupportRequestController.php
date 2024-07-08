@@ -18,7 +18,7 @@ class SupportRequestController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'problem_description' => 'required|string|alpha|max:800',
+            'problem_description' => 'required|string|max:800',
             'date' => 'required|date_format:Y-m-d H:i:s',
             'user_id' => 'required|numeric|gt:0',
         ]);

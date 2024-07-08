@@ -42,7 +42,7 @@ class RoleController extends Controller
     public function update(Request $request, Role $role)
     {
         $request->validate([
-            'name' => ['required', 'string', 'alpha', 'max:100']
+            'name' => ['required', 'string', 'max:100']
         ]);
 
         $role->name = $request->name;

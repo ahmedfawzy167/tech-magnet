@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\SuperSkill;
 use App\Models\Course;
+use App\Models\SuperSkill;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Validation\ValidationException;
 
 class SuperSkillController extends Controller
 {
@@ -33,20 +34,24 @@ class SuperSkillController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => ['required', 'string', 'alpha', 'max:100'],
-            'course_id' => 'required|numeric:gt:0'
-        ]);
+        try {
+            $request->validate([
+                'name' => ['required', 'string', 'max:100'],
+                'course_id' => 'required|numeric:gt:0'
+            ]);
 
-        $super_skill = new SuperSkill();
-        $super_skill->name = $request->name;
-        $super_skill->course_id = $request->course_id;
-        $super_skill->save();
+            $super_skill = new SuperSkill();
+            $super_skill->name = $request->name;
+            $super_skill->course_id = $request->course_id;
+            $super_skill->save();
 
-        Session::flash('message', 'Super Skill is Created Successfully');
-        return redirect(route('superskills.index'));
+            Session::flash('message', 'Super Skill is Created Successfully');
+            return redirect(route('super-skills.index'));
+        } catch (ValidationException $e) {
+            // Handle the validation exception
+            return redirect()->back()->withErrors($e->errors())->withInput();
+        }
     }
-
 
     /**
      * Show the form for editing the specified resource.
@@ -63,16 +68,16 @@ class SuperSkillController extends Controller
     public function update(Request $request, SuperSkill $super_skill)
     {
         $request->validate([
-            'name' => ['required', 'string', 'alpha', 'max:100'],
+            'name' => ['required', 'string', 'max:100'],
             'course_id' => 'required|numeric:gt:0'
         ]);
 
         $super_skill->name = $request->name;
         $super_skill->course_id = $request->course_id;
-        $super_skill->uodate();
+        $super_skill->update();
 
         Session::flash('message', 'Super Skill is Updated Successfully');
-        return redirect(route('superskills.index'));
+        return redirect(route('super-skills.index'));
     }
 
     /**
@@ -82,6 +87,6 @@ class SuperSkillController extends Controller
     {
         $super_skill->delete();
         Session::flash('message', 'Super Skill is Deleted Successfully');
-        return redirect(route('superskills.index'));
+        return redirect(route('super-skills.index'));
     }
 }

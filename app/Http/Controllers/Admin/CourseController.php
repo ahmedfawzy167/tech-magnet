@@ -38,8 +38,8 @@ class CourseController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required|string|alpha|between:2,100',
-            'description' => 'required|string|alpha|max:1000',
+            'name' => 'required|string|between:2,100',
+            'description' => 'required|string|max:1000',
             'price' => ['required', 'regex:/^\d+(\.\d{1,2})?$/', 'gt:0'],
             'hours' => 'required|numeric:gt:0',
             'category_id' => 'required|numeric:gt:0',
@@ -47,7 +47,7 @@ class CourseController extends Controller
             'image'       => 'required|image|mimes:jpeg,png,jpg|max:3000'
         ]);
 
-        if ($validator->stopOnFirstFailure()->fails()) {
+        if ($validator->fails()) {
             return redirect()->back()->withErrors($validator);
         }
 
@@ -87,15 +87,16 @@ class CourseController extends Controller
     public function update(Request $request, Course $course)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required|string|alpha|between:2,100',
-            'description' => 'required|string|alpha|max:1000',
-            'price' => 'required',
+            'name' => 'required|string|between:2,100',
+            'description' => 'required|string|max:1000',
+            'price' => ['required', 'regex:/^\d+(\.\d{1,2})?$/', 'gt:0'],
             'hours' => 'required|numeric:gt:0',
             'category_id' => 'required|numeric:gt:0',
             'objective_id' => 'required|numeric:gt:0',
-            'image'       => 'nullable|image|mimes:jpeg,png,jpg|max:3000'
+            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:3000'
         ]);
-        if ($validator->stopOnFirstFailure()->fails()) {
+
+        if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
@@ -105,7 +106,7 @@ class CourseController extends Controller
         $course->hours = $request->hours;
         $course->category_id = $request->category_id;
         $course->objective_id = $request->objective_id;
-        $course->save();
+        $course->update();
 
         if ($request->hasFile('image')) {
             $img = $request->file('image');
@@ -114,16 +115,25 @@ class CourseController extends Controller
             $location = "public/";
             $img->storeAs($location, $fileName);
 
-            $image = new Image();
-            $image->path = $fileName;
-            $image->imageable_id = $course->id;
-            $image->imageable_type = 'App\Models\Course';
-            $image->save();
+            $image = $course->image;
+            if ($image) {
+                $image->path = $fileName;
+                $image->save();
+            } else {
+                $image = new Image();
+                $image->path = $fileName;
+                $image->imageable_id = $course->id;
+                $image->imageable_type = 'App\Models\Course';
+                $image->save();
+            }
         }
 
         Session::flash('message', 'Course is Updated Successfully');
         return redirect(route('courses.index'));
     }
+
+
+
 
     public function destroy(Course $course)
     {

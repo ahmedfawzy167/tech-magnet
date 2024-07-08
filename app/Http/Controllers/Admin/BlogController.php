@@ -38,12 +38,12 @@ class BlogController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'title' => 'required|string|alpha|between:2,100',
-            'description' => 'required|string|alpha|max:1000',
+            'title' => 'required|string|between:2,100',
+            'description' => 'required|string|max:1000',
             'image' => 'required|image|mimes:png,jpg,jpeg|max:2048',
         ]);
 
-        if ($validator->stopOnFirstFailure()->fails()) {
+        if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
@@ -90,20 +90,18 @@ class BlogController extends Controller
     public function update(Request $request, Blog $blog)
     {
         $validator = Validator::make($request->all(), [
-            'title' => 'required|string|alpha|between:2,100',
-            'description' => 'required|string|alpha|max:1000',
+            'title' => 'required|string|between:2,100',
+            'description' => 'required|string|max:1000',
             'image' => 'nullable|image|mimes:png,jpg,jpeg|max:2048',
         ]);
 
-        if ($validator->stopOnFirstFailure()->fails()) {
+        if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
-
         $blog->title = $request->title;
         $blog->description = $request->description;
-        $blog->save();
-
+        $blog->update();
 
         $img = $request->file('image');
         $ext = $img->getClientOriginalExtension();

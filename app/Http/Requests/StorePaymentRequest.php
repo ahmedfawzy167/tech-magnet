@@ -22,7 +22,7 @@ class StorePaymentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'course_name' => 'required|string|alpha|max:50',
+            'course_name' => 'required|string|max:50',
             'price' => ['required', 'regex:/^\d+(\.\d{1,2})?$/', 'gt:0'],
         ];
     }

@@ -21,8 +21,8 @@ class SessionController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'topic' => 'required|string|alpha|between:2,50',
-            'description' => 'required|alpha|max:500',
+            'topic' => 'required|string|between:2,50',
+            'description' => 'required|max:500',
             'start_date' => 'required|date_format:Y-m-d H:i:s',
             'course_id' => 'required|numeric|gt:0',
         ]);

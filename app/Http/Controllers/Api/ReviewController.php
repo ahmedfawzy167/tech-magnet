@@ -19,7 +19,7 @@ class ReviewController extends Controller
         $validator = Validator::make($request->all(), [
             'course_id' => 'required|numeric|gt:0',
             'user_id' => 'required|numeric|gt:0',
-            'content' =>  'required|string|alpha|max:500',
+            'content' =>  'required|string|max:500',
             'rating' => 'required|numeric|gt:0',
         ]);
 

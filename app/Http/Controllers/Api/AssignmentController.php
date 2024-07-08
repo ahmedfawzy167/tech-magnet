@@ -19,8 +19,8 @@ class AssignmentController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'title' => 'required|string|alpha|between:2,50',
-            'description' => 'required|string|alpha|max:500',
+            'title' => 'required|string|between:2,50',
+            'description' => 'required|string|max:500',
             'deadline' => 'required|date_format:Y-m-d H:i:s',
             'course_id' => 'required|numeric|gt:0',
         ]);
@@ -44,8 +44,8 @@ class AssignmentController extends Controller
     public function update(Request $request, Assignment $assignment)
     {
         $validator = Validator::make($request->all(), [
-            'title' => 'required|string|alpha|between:2,50',
-            'description' => 'required|string|alpha|max:500',
+            'title' => 'required|string|between:2,50',
+            'description' => 'required|string|max:500',
             'deadline' => 'required|date_format:Y-m-d H:i:s',
             'course_id' => 'required|numeric|gt:0',
         ]);

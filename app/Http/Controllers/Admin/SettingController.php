@@ -87,13 +87,12 @@ class SettingController extends Controller
             $location = "/public";
             $fileName = Date("Y-m-d-h-i-s") . '.' . $ext;
             $logo->storeAs($location, $fileName);
+            $setting->logo = $fileName;
+            $setting->email = $request->email;
+            $setting->phone = $request->phone;
+            $setting->location = $request->location;
+            $setting->update();
         }
-
-        $setting->logo = $fileName;
-        $setting->email = $request->email;
-        $setting->phone = $request->phone;
-        $setting->location = $request->location;
-        $setting->save();
 
         Session::flash('message', 'Setting is Updated Successfully');
         return redirect(route('settings.index'))->withInput();
