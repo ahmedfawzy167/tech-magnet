@@ -92,7 +92,7 @@
                                      </div>
                                 </div>
                                 <div class="col-auto">
-                                    <i class="ion-ios-arrow-thin-right fa-2x text-gray-300"></i>
+                                    <i class="fa-solid fa-user-plus fa-2x text-gray-300"></i>
                                 </div>
                             </div>
                         </div>
