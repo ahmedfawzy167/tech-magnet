@@ -27,7 +27,7 @@ class HomeController extends Controller
     //Fetch The Number Of Enrollments//
     $enrollments = CourseUser::where('status', 'pending')->count();
 
-    $coursesThisMonth = Course::with(['category', 'objective', 'image'])->whereMonth('created_at', 6)->limit(3)->get();
+    $coursesThisMonth = Course::with(['category', 'objective', 'image'])->whereMonth('created_at', 6)->get();
 
     return view('home', compact('courses', 'reviews', 'categories', 'enrollments', 'coursesThisMonth'));
   }
