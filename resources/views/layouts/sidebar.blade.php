@@ -31,7 +31,7 @@
             </a>
             <div id="hotelsCollapse" class="collapse" aria-labelledby="headingHotels" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item @if(request()->is('courses')) active @endif" href="{{route('courses.index')}}"><i class="fa-solid fa-list"></i> {{__('admin.All Courses')}}</a>
+                    <a class="collapse-item" href="{{route('courses.index')}}"><i class="fa-solid fa-list"></i> {{__('admin.All Courses')}}</a>
                     <a class="collapse-item" href="{{route('courses.create')}}"><i class="ion-plus-circled"></i> {{__('admin.Add New Course')}}</a>
                 </div>
             </div>
