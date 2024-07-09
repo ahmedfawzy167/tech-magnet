@@ -19,7 +19,7 @@
         <hr class="sidebar-divider my-0">
 
         <!-- Nav Item - Dashboard -->
-        <li class="nav-item @if(request()->is('admin/home')) active @endif">
+        <li class="nav-item @if(Route::currentRouteName() == 'home') active @endif">
             <a class="nav-link" href="{{route('home')}}">
                 <span>{{__('admin.Dashboard')}}</span></a>
         </li>
