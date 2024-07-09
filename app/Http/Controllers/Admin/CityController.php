@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\City;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
 use App\Http\Requests\UpdateCityRequest;
@@ -13,6 +14,7 @@ class CityController extends Controller
     public function index()
     {
         $cities = DB::table('cities')->get();
+        Log::info("Cities Logged Successfully!");
         return view('cities.index', compact('cities'));
     }
 
