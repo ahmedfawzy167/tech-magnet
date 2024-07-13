@@ -33,6 +33,7 @@
                 <div class="bg-white py-2 collapse-inner rounded">
                     <a class="collapse-item" href="{{route('courses.index')}}"><i class="fa-solid fa-list"></i> {{__('admin.All Courses')}}</a>
                     <a class="collapse-item" href="{{route('courses.create')}}"><i class="ion-plus-circled"></i> {{__('admin.Add New Course')}}</a>
+                    <a class="collapse-item" href="{{route('courses.trashed')}}"><i class="ion-alert"></i> All Trashed Courses</a>
                 </div>
             </div>
         </li>
@@ -60,6 +61,7 @@
                 <div class="bg-white py-2 collapse-inner rounded">
                     <a class="collapse-item" href="{{route('categories.index')}}"><i class="fa-solid fa-list"></i> {{__('admin.All Categories')}}</a>
                     <a class="collapse-item" href="{{route('categories.create')}}"><i class="ion-plus-circled"></i> {{__('admin.Add New Category')}}</a>
+                    <a class="collapse-item" href="{{route('categories.trashed')}}"><i class="ion-alert"></i> All Trashed Categories</a>
                 </div>
             </div>
         </li>
@@ -86,6 +88,7 @@
                 data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <a class="collapse-item" href="{{ route('cities.index') }}"><i class="fa-solid fa-list"></i> {{__('admin.All Cities')}}</a>
+                    <a class="collapse-item" href="{{route('cities.trashed')}}"><i class="ion-alert"></i> All Trashed Cities</a>
                 </div>
             </div>
         </li>
@@ -101,6 +104,7 @@
         <div class="bg-white py-2 collapse-inner rounded">
             <a class="collapse-item" href="{{route('blogs.index')}}"><i class="fa-solid fa-list"></i> {{__('admin.All Blogs')}}</a>
             <a class="collapse-item" href="{{ route('blogs.create') }}"><i class="ion-plus-circled"></i> {{__('admin.Add New Blog')}}</a>
+            <a class="collapse-item" href="{{route('blogs.trashed')}}"><i class="ion-alert"></i> All Trashed Blogs</a>
     </div>
     </div>
 </li>
