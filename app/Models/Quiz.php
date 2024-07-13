@@ -7,7 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Quiz extends Model
 {
-    protected $fillable = ['name','description','course_id'];
+    use HasFactory;
+
+    protected $fillable = ['name', 'description', 'course_id'];
 
     public function course()
     {
@@ -21,8 +23,6 @@ class Quiz extends Model
 
     public function users()
     {
-        return $this->belongsToMany(User::class,'quiz_user')->withPivot('score','date');
+        return $this->belongsToMany(User::class, 'quiz_user')->withPivot('score', 'date');
     }
-
-    use HasFactory;
 }

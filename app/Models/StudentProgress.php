@@ -7,7 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class StudentProgress extends Model
 {
-    protected $fillable = ['rank','total_points','points_earned','date','user_id','course_id','skill_id'];
+    use HasFactory;
+
+    protected $fillable = ['rank', 'total_points', 'points_earned', 'date', 'user_id', 'course_id', 'skill_id'];
 
     public function course()
     {
@@ -24,6 +26,4 @@ class StudentProgress extends Model
     {
         return $this->belongsTo(Skill::class);
     }
-
-    use HasFactory;
 }

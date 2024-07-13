@@ -7,12 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Schedule extends Model
 {
-    protected $fillable = ['start_date','end_date','course_id'];
+    use HasFactory;
+
+    protected $fillable = ['start_date', 'end_date', 'course_id'];
 
     public function course()
     {
         return $this->belongsTo(Course::class);
     }
-
-    use HasFactory;
 }

@@ -7,7 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Session extends Model
 {
-    protected $fillable = ['topic','description','start_date','user_id','course_id','meeting_id','start_url','join_url'];
+    use HasFactory;
+
+    protected $fillable = ['topic', 'description', 'start_date', 'user_id', 'course_id', 'meeting_id', 'start_url', 'join_url'];
 
     public function course()
     {
@@ -18,5 +20,4 @@ class Session extends Model
     {
         return $this->belongsTo(User::class);
     }
-    use HasFactory;
 }

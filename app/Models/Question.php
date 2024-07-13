@@ -7,12 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Question extends Model
 {
-    protected $fillable = ['question_text','answers','quiz_id'];
+    use HasFactory;
+
+    protected $fillable = ['question_text', 'answers', 'quiz_id'];
 
     public function quiz()
     {
         return $this->belongsTo(Quiz::class);
     }
-
-    use HasFactory;
 }

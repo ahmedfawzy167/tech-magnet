@@ -7,7 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Portfolio extends Model
 {
-    protected $fillable = ['file','issue_date','user_id','course_id'];
+    use HasFactory;
+
+    protected $fillable = ['file', 'issue_date', 'user_id', 'course_id'];
 
     public function user()
     {

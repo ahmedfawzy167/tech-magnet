@@ -7,12 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Project extends Model
 {
-    protected $fillable = ['file','status','user_id'];
+    use HasFactory;
+
+    protected $fillable = ['file', 'status', 'user_id'];
 
     public function user()
     {
         return $this->belongsTo(User::class);
     }
-
-    use HasFactory;
 }

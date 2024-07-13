@@ -7,7 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Attendance extends Model
 {
-    protected $fillable = ['user_id','course_id','date','attendance_status'];
+    use HasFactory;
+
+    protected $fillable = ['user_id', 'course_id', 'date', 'attendance_status'];
 
     public function course()
     {
@@ -18,7 +20,4 @@ class Attendance extends Model
     {
         return $this->belongsTo(User::class);
     }
-
-
-    use HasFactory;
 }

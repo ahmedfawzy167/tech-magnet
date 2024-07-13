@@ -7,7 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Assignment extends Model
 {
-    protected $fillable = ['title','description','deadline','course_id'];
+    use HasFactory;
+
+    protected $fillable = ['title', 'description', 'deadline', 'course_id'];
 
     public function course()
     {
@@ -16,9 +18,6 @@ class Assignment extends Model
 
     public function users()
     {
-        return $this->belongsToMany(User::class,'assignment_user','assignment_id','user_id')->withPivot('file','date');
+        return $this->belongsToMany(User::class, 'assignment_user', 'assignment_id', 'user_id')->withPivot('file', 'date');
     }
-
-
-    use HasFactory;
 }

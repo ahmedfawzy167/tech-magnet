@@ -7,7 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Recording extends Model
 {
-    protected $fillable = ['title','description','video_src','user_id','course_id'];
+    use HasFactory;
+
+    protected $fillable = ['title', 'description', 'video_src', 'user_id', 'course_id'];
 
     public function user()
     {
@@ -18,6 +20,4 @@ class Recording extends Model
     {
         return $this->belongsTo(Course::class);
     }
-
-    use HasFactory;
 }

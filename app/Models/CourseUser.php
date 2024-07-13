@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class CourseUser extends Model
 {
+    use HasFactory;
+
     protected $table = 'course_user';
 
     protected $fillable = ['user_id', 'course_id', 'date', 'status'];
@@ -20,6 +22,4 @@ class CourseUser extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
-
-    use HasFactory;
 }

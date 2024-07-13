@@ -7,9 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class SuperSkill extends Model
 {
+    use HasFactory;
+
     protected $table = "super_skills";
 
-    protected $fillable = ['name','course_id'];
+    protected $fillable = ['name', 'course_id'];
 
     public function course()
     {
@@ -20,6 +22,4 @@ class SuperSkill extends Model
     {
         return $this->hasMany(Skill::class);
     }
-
-    use HasFactory;
 }
