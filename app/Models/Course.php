@@ -6,9 +6,11 @@ use Spatie\Searchable\Searchable;
 use Spatie\Searchable\SearchResult;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Course extends Model implements Searchable
 {
+    use HasFactory, SoftDeletes;
     protected $fillable = ['name', 'description', 'price', 'hours', 'category_id', 'objective_id'];
 
     public function category()
@@ -107,7 +109,4 @@ class Course extends Model implements Searchable
             $url
         );
     }
-
-
-    use HasFactory;
 }

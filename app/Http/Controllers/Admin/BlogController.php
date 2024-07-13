@@ -23,7 +23,6 @@ class BlogController extends Controller
         return view('blogs.index', compact('blogs'));
     }
 
-
     /**
      * Show the form for creating a new resource.
      */
@@ -64,7 +63,7 @@ class BlogController extends Controller
         $image->imageable_type = 'App\Models\Blog';
         $image->save();
 
-        Session::flash('message', 'Blog is Created Successfully');
+        Session::flash('message', 'Blog Created Successfully');
         return redirect(route('blogs.index'));
     }
 
@@ -115,14 +114,34 @@ class BlogController extends Controller
         $image->imageable_type = 'App\Models\Blog';
         $image->save();
 
-        Session::flash('message', 'Blog is Updated Successfully');
+        Session::flash('message', 'Blog Updated Successfully');
         return redirect(route('blogs.index'));
     }
 
     public function destroy(Blog $blog)
     {
         $blog->delete();
-        Session::flash('message', 'Blog is Deletd Successfully');
+        Session::flash('message', 'Blog Trashed Successfully');
         return redirect(route('blogs.index'));
+    }
+
+    public function trash()
+    {
+        $trashedBlogs = Blog::onlyTrashed()->get();
+        return view('blogs.trashed', compact('trashedBlogs'));
+    }
+
+    public function restore($id)
+    {
+        $blog = Blog::onlyTrashed()->findOrFail($id);
+        $blog->restore();
+        return redirect()->route('blogs.index')->with('message', 'Blog Restored Successfully');
+    }
+
+    public function forceDelete($id)
+    {
+        $blog = Blog::onlyTrashed()->findOrFail($id);
+        $blog->forceDelete();
+        return redirect()->route('blogs.index')->with('message', 'Blog Permenantly Deleted Successfully');
     }
 }

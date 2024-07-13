@@ -15,7 +15,7 @@ class CategoryController extends Controller
 {
     public function index()
     {
-        $categories = DB::table('categories')->get();
+        $categories = Category::all();
         return view('categories.index', compact('categories'));
     }
 
@@ -31,7 +31,7 @@ class CategoryController extends Controller
         $category->name = $request->name;
         $category->save();
 
-        Session::flash('message', 'Category is Created Successfully!');
+        Session::flash('message', 'Category Created Successfully!');
         return redirect(route('categories.index'));
     }
 
@@ -52,14 +52,34 @@ class CategoryController extends Controller
         $category->name = $request->name;
         $category->update();
 
-        Session::flash('message', 'Category is Updated Successfully!');
+        Session::flash('message', 'Category Updated Successfully!');
         return redirect(route('categories.index'));
     }
 
     public function destroy(Category $category)
     {
         $category->delete();
-        Session::flash('message', 'Category is Deleted Successfully');
+        Session::flash('message', 'Category Trashed Successfully');
         return redirect(route('categories.index'));
+    }
+
+    public function trash()
+    {
+        $trashedCategories = Category::onlyTrashed()->get();
+        return view('categories.trashed', compact('trashedCategories'));
+    }
+
+    public function restore($id)
+    {
+        $category = Category::onlyTrashed()->findOrFail($id);
+        $category->restore();
+        return redirect()->route('categories.index')->with('message', 'Category Restored Successfully');
+    }
+
+    public function forceDelete($id)
+    {
+        $category = Category::onlyTrashed()->findOrFail($id);
+        $category->forceDelete();
+        return redirect()->route('categories.index')->with('message', 'Category Permenantly Deleted Successfully');
     }
 }

@@ -72,7 +72,7 @@ class CourseController extends Controller
         $image->imageable_type = 'App\Models\Course';
         $image->save();
 
-        Session::flash('message', 'Course is Created Successfully');
+        Session::flash('message', 'Course Created Successfully');
         return redirect(route('courses.index'));
     }
 
@@ -128,17 +128,34 @@ class CourseController extends Controller
             }
         }
 
-        Session::flash('message', 'Course is Updated Successfully');
+        Session::flash('message', 'Course Updated Successfully');
         return redirect(route('courses.index'));
     }
-
-
-
 
     public function destroy(Course $course)
     {
         $course->delete();
-        Session::flash('message', 'course is Deleted Successfully');
+        Session::flash('message', 'Course Trashed Successfully');
         return redirect(route('courses.index'));
+    }
+
+    public function trash()
+    {
+        $trashedCourses = Course::onlyTrashed()->with(['category', 'image', 'objective'])->get();
+        return view('courses.trashed', compact('trashedCourses'));
+    }
+
+    public function restore($id)
+    {
+        $course = Course::onlyTrashed()->findOrFail($id);
+        $course->restore();
+        return redirect()->route('courses.index')->with('message', 'Course Restored Successfully');
+    }
+
+    public function forceDelete($id)
+    {
+        $course = Course::onlyTrashed()->findOrFail($id);
+        $course->forceDelete();
+        return redirect()->route('courses.index')->with('message', 'Course Permenantly Deleted Successfully');
     }
 }
