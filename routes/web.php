@@ -33,6 +33,9 @@ Route::middleware(['auth:admin', 'Language'])
         //////////////////// End of Users Routes /////////
 
         ////////////////////// Start of Courses Routes ////
+        Route::get('courses/trash', 'CourseController@trash')->name('courses.trashed');
+        Route::put('courses/restore/{id}', 'CourseController@restore')->name('courses.restore');
+        Route::delete('courses/force_delete/{id}', 'CourseController@forceDelete')->name('courses.force-delete');
         Route::resource('courses', 'CourseController');
         //////////////////// End of Courses Routes///////
 
@@ -41,10 +44,16 @@ Route::middleware(['auth:admin', 'Language'])
         ////////////// End of Settings Routes ///////////////
 
         ////////////// Start of Categories Routes ///////////////
+        Route::get('categories/trash', 'CategoryController@trash')->name('categories.trashed');
+        Route::put('categories/restore/{id}', 'CategoryController@restore')->name('categories.restore');
+        Route::delete('categories/force_delete/{id}', 'CategoryController@forceDelete')->name('categories.force-delete');
         Route::resource('categories', 'CategoryController');
         ////////////// End of Categories Routes ///////////////
 
         ////////////// Start of Blogs Routes ///////////////
+        Route::get('blogs/trash', 'BlogController@trash')->name('blogs.trashed');
+        Route::put('blogs/restore/{id}', 'BlogController@restore')->name('blogs.restore');
+        Route::delete('blogs/force_delete/{id}', 'BlogController@forceDelete')->name('blogs.force-delete');
         Route::resource('blogs', 'BlogController');
         ////////////// End of Blogs Routes ///////////////
 
@@ -53,6 +62,9 @@ Route::middleware(['auth:admin', 'Language'])
         ////////////// End of Objectives Routes ///////////////
 
         ////////////// Start of Cities Routes ///////////////
+        Route::get('cities/trash', 'CityController@trash')->name('cities.trashed');
+        Route::put('cities/restore/{id}', 'CityController@restore')->name('cities.restore');
+        Route::delete('cities/force_delete/{id}', 'CityController@forceDelete')->name('cities.force-delete');
         Route::resource('cities', 'CityController');
         ////////////// End of Cities Routes ///////////////
 
