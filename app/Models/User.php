@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
+
 class User extends Authenticatable implements JWTSubject
 {
     use HasApiTokens, HasFactory, Notifiable;
@@ -87,7 +88,7 @@ class User extends Authenticatable implements JWTSubject
 
     public function projects()
     {
-        return $this->hasMany(Role::class);
+        return $this->hasMany(Project::class);
     }
 
     public function portfolios()

@@ -22,7 +22,7 @@ class AuthController extends Controller
 
     public function register(Request $request)
     {
-        $validator = Validator::make($request->all(), [
+        $request->validate([
             'name' => 'required|string|between:2,100',
             'email' => 'required|string|email|unique:users|max:100',
             'password' => ['required', Password::defaults(), 'confirmed'],
@@ -31,9 +31,6 @@ class AuthController extends Controller
             'role_id' => 'required|numeric|gt:0',
         ]);
 
-        if ($validator->fails()) {
-            return response()->json($validator->errors(), 422);
-        }
 
         $user = User::create([
             'name' => $request->name,
@@ -43,23 +40,27 @@ class AuthController extends Controller
             'city_id' =>  $request->city_id,
             'role_id' =>  $request->role_id,
         ]);
+
+        activity()
+            ->performedOn($user)
+            ->causedBy($user)
+            ->event('Registered')
+            ->withProperties(['name' => $user->name])
+            ->log('New User Registration');
+
         return response()->json([
-            'status' => 200,
+            'status' => "Success",
             'message' => "Registeration is Done",
             'user' => $user,
-        ]);
+        ], 200);
     }
 
     public function login(Request $request)
     {
-        $validator = Validator::make($request->all(), [
+        $request->validate([
             'email' => 'required|string|email|max:100',
             'password' => 'required|string|min:8',
         ]);
-
-        if ($validator->fails()) {
-            return response()->json($validator->errors(), 400);
-        }
 
         $credentials = $request->only('email', 'password');
         if (!$token = JwtAuth::attempt($credentials)) {
@@ -67,15 +68,14 @@ class AuthController extends Controller
         }
 
         $user = Auth::user();
-
         return response()->json([
-            "status" => 200,
+            "status" => "Success",
             "message" => "Login Successfully",
             "user" => $user,
             "token" => $token,
             "token_type" => "bearer",
             "expires_in" => JWTAuth::factory()->getTTL() * 60,
-        ]);
+        ], 200);
     }
 
     public function logout(Request $request)

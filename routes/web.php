@@ -105,6 +105,10 @@ Route::middleware(['auth:admin', 'Language'])
         Route::resource('payments', 'PaymentController');
         ////////////// End of Payments Routes ///////////////
 
+        ////////////// Start of Activity Logs Routes ///////////////
+        Route::resource('activity-logs', 'ActivityLogController');
+        ////////////// End of Activity Logs Routes ///////////////
+
     });
 
 Auth::routes();

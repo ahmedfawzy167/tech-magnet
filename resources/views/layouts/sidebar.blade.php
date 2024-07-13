@@ -458,6 +458,11 @@
                                 {{__('admin.Settings')}}
                             </a>
 
+                            <a class="dropdown-item" href="{{route('activity-logs.index')}}">
+                                <i class="fa-solid fa-bars fa-sm fa-fw mr-2 text-gray-400"></i>
+                                Activity Log
+                            </a>
+
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                                 <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
