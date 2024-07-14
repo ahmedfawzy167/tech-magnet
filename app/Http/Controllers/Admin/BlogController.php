@@ -36,15 +36,11 @@ class BlogController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'title' => 'required|string|between:2,100',
+        $request->validate([
+            'title' => 'required|string|between:2,50',
             'description' => 'required|string|max:1000',
             'image' => 'required|image|mimes:png,jpg,jpeg|max:2048',
         ]);
-
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput();
-        }
 
         $blog = new Blog();
         $blog->title = $request->title;
@@ -88,15 +84,12 @@ class BlogController extends Controller
 
     public function update(Request $request, Blog $blog)
     {
-        $validator = Validator::make($request->all(), [
-            'title' => 'required|string|between:2,100',
+        $request->validate([
+            'title' => 'required|string|between:2,50',
             'description' => 'required|string|max:1000',
             'image' => 'nullable|image|mimes:png,jpg,jpeg|max:2048',
         ]);
 
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput();
-        }
 
         $blog->title = $request->title;
         $blog->description = $request->description;

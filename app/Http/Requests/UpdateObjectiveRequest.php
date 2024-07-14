@@ -22,7 +22,7 @@ class UpdateObjectiveRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|between:2,100',
+            'name' => 'required|string|between:2,50',
         ];
     }
 }

@@ -38,7 +38,7 @@ class CourseController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required|string|between:2,100',
+            'name' => 'required|string|between:5,50',
             'description' => 'required|string|max:1000',
             'price' => ['required', 'regex:/^\d+(\.\d{1,2})?$/', 'gt:0'],
             'hours' => 'required|numeric:gt:0',
@@ -87,7 +87,7 @@ class CourseController extends Controller
     public function update(Request $request, Course $course)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required|string|between:2,100',
+            'name' => 'required|string|between:5,50',
             'description' => 'required|string|max:1000',
             'price' => ['required', 'regex:/^\d+(\.\d{1,2})?$/', 'gt:0'],
             'hours' => 'required|numeric:gt:0',
