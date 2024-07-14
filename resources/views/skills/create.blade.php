@@ -10,17 +10,17 @@
             <h1 class="text-center bg-primary text-white"><i class="ion-plus-circled"></i> {{ __('admin.Add New Skill') }}</h1>
             <form action="{{ route('skills.store') }}" method="POST" class="row">
                 @csrf
-                <div class="form-group col-md-12">
+                <div class="form-group col-12">
                     <label for="title"> {{ __('admin.Name') }}<span class="text-danger ms-2">*</span></label>
                     <input type="text" name="title" id="title"
                         class="form-control @error('title') is-invalid @enderror">
                     
                 </div>
 
-                <div class="form-group col-md-12">
+                <div class="form-group col-12">
                     <label for="content">{{ __('admin.Content') }}<span class="text-danger ms-2">*</span></label>
-                    <textarea type="text" name="content"
-                        class="form-control @error('content') is-invalid @enderror"></textarea>
+                    <textarea name="content"
+                     class="form-control @error('content') is-invalid @enderror"></textarea>
                     
                 </div>
                  
@@ -41,6 +41,7 @@
             </form>
         </div>
     </div>
+    @endsection
     
     @section('page-scripts')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
@@ -72,4 +73,3 @@
     @endif
 
    @endsection
-@endsection

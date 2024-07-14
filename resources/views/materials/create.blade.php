@@ -18,7 +18,7 @@
 
                 <div class="form-group col-md-12">
                     <label for="description"> {{ __('admin.Description') }}<span class="text-danger ms-2">*</span></label>
-                    <textarea type="text" name="description" id="summernote"
+                    <textarea name="description" id="summernote"
                         class="form-control @error('description') is-invalid @enderror"></textarea>
                 </div>
 
@@ -26,6 +26,9 @@
                     <label for="file">File <span class="text-danger ms-2">*</span></label>
                     <input type="file" name="file" id="file"
                         class="form-control @error('file') is-invalid @enderror">
+                        <div class="invalid-feedback">
+                            Please Upload a File
+                        </div>
                 </div>
 
                 <div class="form-group col-md-12">
@@ -50,6 +53,8 @@
             </form>
         </div>
     </div>
+    
+    @endsection
     
     @section('page-scripts')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
@@ -82,8 +87,3 @@
 
    @endsection
 
-
-
-
-
-@endsection

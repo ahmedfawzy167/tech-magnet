@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('page-title')
-{{__('admin.Edit Setting')}}
+  {{__('admin.Edit Setting')}}
 @endsection
 
 @section('page-content')
@@ -28,7 +28,7 @@
       <input type="number" name="phone" value="{{$setting->phone}}" id="phone" class="form-control @error('phone') is-invalid @enderror">
       </div>
 
-      <div class="form-group col-md-12">
+      <div class="form-group col-12">
         <label for="location">{{__('admin.Location')}}</label>
         <input type="text" name="location" value="{{$setting->location}}" id="location" class="form-control @error('location') is-invalid @enderror">
       </div>
@@ -41,6 +41,8 @@
 </form>
 </div>
 </div>
+
+@endsection
 
 @section('page-scripts')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
@@ -73,4 +75,3 @@
 
    @endsection
 
-@endsection

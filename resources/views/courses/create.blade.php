@@ -12,13 +12,13 @@
                 @csrf
                 <div class="form-group col-md-12">
                     <label for="name"> {{ __('admin.Name') }}<span class="text-danger ms-2">*</span></label>
-                    <input type="text" name="name" id="name" value="{{ old('name') }}"
+                    <input type="text" name="name" id="name"
                         class="form-control @error('name') is-invalid @enderror">
                 </div>
 
                 <div class="form-group col-md-12">
                     <label for="description"> {{ __('admin.Description') }}<span class="text-danger ms-2">*</span></label>
-                    <textarea type="text" name="description" id="summernote"
+                    <textarea name="description" id="summernote"
                         class="form-control @error('description') is-invalid @enderror"></textarea>
                 </div>
 
@@ -54,6 +54,7 @@
                     <label for="images"> {{ __('admin.Image') }}<span class="text-danger ms-2">*</span></label>
                     <input type="file" name="image" id="images"
                         class="form-control @error('image') is-invalid @enderror">
+                    <div class="invalid-feedback">Please Upload an Image</div>
                 </div>
 
                 <div class="text-center">
@@ -64,6 +65,8 @@
             </form>
         </div>
     </div>
+    @endsection
+
 
     @section('page-scripts')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
@@ -95,4 +98,3 @@
     @endif
 
    @endsection
-@endsection

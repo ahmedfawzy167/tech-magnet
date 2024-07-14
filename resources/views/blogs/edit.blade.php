@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('page-title')
-{{__('admin.Edit Blog')}}
+  {{__('admin.Edit Blog')}}
 @endsection
 
 @section('page-content')
@@ -18,7 +18,7 @@
 
        <div class="form-group col-md-12">
           <label for="description"><i class="ion-ios-albums"></i> {{ __('admin.Description') }}</label>
-          <textarea type="text" name="description" id="summernote"
+          <textarea name="description" id="summernote"
                         class="form-control @error('description') is-invalid @enderror">{{$blog->description}}</textarea>
       </div>
 
@@ -36,6 +36,8 @@
 </form>
 </div>
 </div>
+
+@endsection
 
 @section('page-scripts')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
@@ -68,4 +70,3 @@
 
    @endsection
 
-@endsection

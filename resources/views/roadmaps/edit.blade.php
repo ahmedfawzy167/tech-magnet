@@ -19,9 +19,8 @@
 
                 <div class="form-group col-md-12">
                     <label for="description"><i class="ion-ios-albums"></i> {{ __('admin.Description') }}<span class="text-danger ms-2">*</span></label>
-                    <textarea type="text" name="description"
+                    <textarea name="description"
                         class="form-control @error('description') is-invalid @enderror">{{$roadmap->description}}</textarea>
-                    
                 </div>
 
                 <div class="text-center">
@@ -32,6 +31,8 @@
             </form>
         </div>
     </div>
+    @endsection
+
     @section('page-scripts')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script>
@@ -62,4 +63,3 @@
     @endif
 
    @endsection
-@endsection

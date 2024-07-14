@@ -5,6 +5,7 @@
 @endsection
 
 @section('page-content')
+
 <div class="card">
 
 <div class="container card-body">
@@ -15,7 +16,6 @@
     <div class="form-group col-md-12">
       <label for="name">{{__('admin.City Name')}}</label>
       <input type="text" name="name" id="name" value="{{$city->name}}" class="form-control @error('name') is-invalid @enderror">
-     
     </div>
 
      <div class="text-center">
@@ -26,6 +26,7 @@
 </form>
 </div>
 </div>
+@endsection
 
 @section('page-scripts')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
@@ -57,5 +58,3 @@
     @endif
 
    @endsection
-
-@endsection

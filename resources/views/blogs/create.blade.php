@@ -7,7 +7,7 @@
 @section('page-content')
 
  <div class="card">
-    <div class="card-body container">
+    <div class="card-body">
      <h1 class="text-center bg-primary text-white mt-3"><i class="ion-plus-circled"></i> {{__('admin.Add New Blog')}}</h1>
      <form action="{{ route('blogs.store') }}" method="post" class="row" enctype="multipart/form-data">
       @csrf
@@ -19,22 +19,27 @@
 
        <div class="form-group col-md-12">
           <label for="description"><i class="ion-ios-albums"></i> {{ __('admin.Description') }}</label>
-          <textarea type="text" name="description" id="summernote"
-                        class="form-control @error('description') is-invalid @enderror"></textarea>
+          <textarea name="description" id="summernote"
+            class="form-control @error('description') is-invalid @enderror"></textarea>
       </div>
       <div class="form-group col-md-12">
         <label for="images"><i class="ion-images"></i> {{ __('admin.Image') }}<span class="text-danger ms-2">*</span></label>
         <input type="file" name="image" id="images"
-            class="form-control @error('image') is-invalid @enderror">
+          class="form-control @error('image') is-invalid @enderror">
+          <div class="invalid-feedback">
+            Please Upload an Image
+          </div>
     </div>
       <div class="text-center mt-3">
         <button type="submit" class="btn btn-primary btn-lg">{{__('admin.Add')}}</button>
         <button type="reset" class="btn btn-secondary btn-lg">{{__('admin.Reset')}}</button>
-       </div>
+      </div>
 
 </form>
 </div>
 </div>
+@endsection
+
 
 @section('page-scripts')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
@@ -67,4 +72,3 @@
 
    @endsection
 
-@endsection
