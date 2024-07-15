@@ -201,8 +201,8 @@
     <div id="collapsematerial" class="collapse" aria-labelledby="headingmaterial"
         data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="{{route('materials.index')}}"><i class="fa-solid fa-list"></i> All Materials</a>
-            <a class="collapse-item" href="{{ route('materials.create') }}"><i class="ion-plus-circled"></i> Add New Material</a>
+            <a class="collapse-item" href="{{route('materials.index')}}"><i class="fa-solid fa-list"></i> {{__('admin.All Materials')}}</a>
+            <a class="collapse-item" href="{{ route('materials.create') }}"><i class="ion-plus-circled"></i> {{__('admin.Add New Material')}}</a>
         </div>
     </div>
 </li>
@@ -460,7 +460,7 @@
 
                             <a class="dropdown-item" href="{{route('activity-logs.index')}}">
                                 <i class="fa-solid fa-bars fa-sm fa-fw mr-2 text-gray-400"></i>
-                                Activity Log
+                                {{__('admin.Activity Log')}}
                             </a>
 
                             <div class="dropdown-divider"></div>

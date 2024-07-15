@@ -115,7 +115,7 @@
                                 {{ __('admin.Courses For June Month') }}</span>
 
                             <span class="card-title float-right fs-5 mt-2">
-                               Explore More Diplomas <a href="{{route('courses.index')}}"><i class="ion-arrow-right-a text-dark"></i></a></span>
+                               {{__('admin.Explore More Diplomas')}} <a href="{{route('courses.index')}}"><i class="ion-arrow-right-a text-dark"></i></a></span>
                         </div>
                         
                         <table class="table table-hover table-bordered">
