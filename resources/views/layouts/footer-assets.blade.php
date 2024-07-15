@@ -24,9 +24,7 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 <script>
 $(document).ready(function() {
- $('#data-table').DataTable({
-  pageLength: 5,
-});
+ $('#data-table').DataTable();
 });
 </script>
 
