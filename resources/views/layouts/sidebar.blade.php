@@ -266,7 +266,7 @@
                         <input type="text" name="query" class="form-control bg-light border-0 small" placeholder="{{__('admin.Search for')}}..."
                             aria-label="Search" value="{{request('query') != "" ? request('query') : ''}}" aria-describedby="basic-addon2">
                         <div class="input-group-append">
-                            <button class="btn btn-primary ms-2" type="submit">
+                            <button class="btn btn-primary" type="submit">
                                 <i class="fas fa-search fa-sm"></i>
                             </button>
 
