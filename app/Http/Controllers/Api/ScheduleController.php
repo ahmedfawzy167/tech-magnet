@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Api;
 
 use App\Models\Schedule;
 use App\Http\Resources\ScheduleResource;
-use App\Http\Resources\ScheduleDetailsResource;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\ScheduleCollection;
 use Illuminate\Http\Request;
 
 class ScheduleController extends Controller
@@ -19,7 +19,7 @@ class ScheduleController extends Controller
     public function index()
     {
         $schedules = Schedule::with('course')->get();
-        return ScheduleResource::collection($schedules);
+        return ScheduleCollection::collection($schedules);
     }
 
     public function store(Request $request)
@@ -48,7 +48,7 @@ class ScheduleController extends Controller
     public function show(Schedule $schedule)
     {
         if ($schedule != null) {
-            return new ScheduleDetailsResource($schedule);
+            return new ScheduleResource($schedule);
         } else {
             return response()->json([
                 "message" => "Schedule Not Found"

@@ -6,7 +6,7 @@ use App\Models\Session;
 use Illuminate\Http\Request;
 use App\Traits\MeetingZoomTrait;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\SessionResource;
+use App\Http\Resources\SessionCollection;
 use Illuminate\Support\Facades\Validator;
 
 class SessionController extends Controller
@@ -58,6 +58,6 @@ class SessionController extends Controller
     public function index()
     {
         $sessions = Session::all();
-        return SessionResource::collection($sessions);
+        return SessionCollection::collection($sessions);
     }
 }

@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class SupportRequestResource extends JsonResource
+class SupportRequestCollection extends JsonResource
 {
     /**
      * Transform the resource into an array.

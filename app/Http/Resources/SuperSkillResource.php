@@ -17,6 +17,6 @@ class SuperSkillResource extends JsonResource
         return [
             'name' => $this->name,
             'course' => $this->course->name
-        ];
+        ];;
     }
 }

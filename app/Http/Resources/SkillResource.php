@@ -14,7 +14,7 @@ class SkillResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return[
+        return [
             'title' => $this->title,
             'content' => $this->content,
             'super_skill' => $this->superSkill->name

@@ -14,10 +14,10 @@ class ScheduleResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return[
+        return [
             'start_date'  => $this->start_date,
             'end_date'  => $this->end_date,
             'course'  => $this->course->name,
-        ];
+        ];;
     }
 }

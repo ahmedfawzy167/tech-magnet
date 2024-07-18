@@ -18,6 +18,6 @@ class QuizResource extends JsonResource
             'name' => $this->name,
             'description' => $this->description,
             'course' => $this->course->name,
-        ];
+        ];;
     }
 }

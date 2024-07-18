@@ -3,24 +3,24 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\Course;
-use App\Http\Resources\CourseResource;
-use App\Http\Resources\CourseDetailsResource;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\CourseResource;
+use App\Http\Resources\CourseCollection;
 
 class CourseController extends Controller
 {
     public function index()
     {
-        $courses = Course::with('image')->paginate(4);
-        return new CourseResource($courses);
+        $courses = Course::with(['image', 'category', 'objective'])->paginate(4);
+        return new CourseCollection($courses);
     }
 
     public function show($id)
     {
         $course = Course::with(['roadmaps', 'image'])->find($id);
         if ($course != null) {
-            return new CourseDetailsResource($course);
+            return new CourseResource($course);
         } else {
             return response()->json([
                 "message" => "Course Not Found"

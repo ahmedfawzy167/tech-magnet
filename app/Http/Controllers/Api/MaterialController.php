@@ -5,9 +5,9 @@ namespace App\Http\Controllers\Api;
 use App\Models\Material;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\MaterialCollection;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Resources\MaterialResource;
-use App\Http\Resources\MaterialDetailsResource;
 
 class MaterialController extends Controller
 {
@@ -52,13 +52,13 @@ class MaterialController extends Controller
     public function index()
     {
         $materials = Material::with('course')->get();
-        return MaterialResource::collection($materials);
+        return MaterialCollection::collection($materials);
     }
 
     public function show(Material $material)
     {
         if ($material != null) {
-            return new MaterialDetailsResource($material);
+            return new MaterialResource($material);
         } else {
             return response()->json([
                 "status"  => "error",

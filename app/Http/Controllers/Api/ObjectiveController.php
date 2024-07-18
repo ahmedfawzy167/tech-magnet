@@ -1,9 +1,10 @@
 <?php
 
 namespace App\Http\Controllers\Api;
+
 use App\Models\Objective;
-use App\Http\Resources\ObjectiveResource;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\ObjectiveCollection;
 use Illuminate\Http\Request;
 
 class ObjectiveController extends Controller
@@ -12,7 +13,6 @@ class ObjectiveController extends Controller
     {
         $objectives = Objective::with(['courses'])->get();
 
-        return ObjectiveResource::collection($objectives);
+        return ObjectiveCollection::collection($objectives);
     }
-    
 }

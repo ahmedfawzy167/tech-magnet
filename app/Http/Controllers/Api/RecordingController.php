@@ -6,7 +6,7 @@ use App\Models\Recording;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
-use App\Http\Resources\RecordingDetailsResource;
+use App\Http\Resources\RecordingResource;
 
 class RecordingController extends Controller
 {
@@ -51,7 +51,7 @@ class RecordingController extends Controller
     public function show(Recording $recording)
     {
         if ($recording != null) {
-            return new RecordingDetailsResource($recording);
+            return new RecordingResource($recording);
         } else {
             return response()->json([
                 "status"  => "error",

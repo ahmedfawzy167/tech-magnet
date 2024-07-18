@@ -12,32 +12,17 @@ class CourseResource extends JsonResource
      *
      * @return array<string, mixed>
      */
-    public function toArray(Request $request)
+    public function toArray(Request $request): array
     {
-        $courses = $this->resource->items();
-
         return [
-            'status' => "Success",
-            'count' => $this->count(),
-            'courses' => array_map(function ($course) {
-                return [
-                    'image' => $course->image ? asset('storage/' . $course->image->path) : null,
-                    'name' => $course->name,
-                    'description' => $course->description,
-                    'price' => $course->price,
-                    'hours' => $course->hours,
-                    'category' => $course->category->name,
-                    'objective' => $course->objective->name,
-                ];
-            }, $courses),
-            'pagination' => [
-                'total' => $this->resource->total(),
-                'per_page' => $this->resource->perPage(),
-                'current_page' => $this->resource->currentPage(),
-                'last_page' => $this->resource->lastPage(),
-                'next_page_url' => $this->resource->nextPageUrl(),
-                'prev_page_url' => $this->resource->previousPageUrl(),
-            ],
+            'image'  =>  $this->image ? asset('storage/' . $this->image->path) : null,
+            'name' => $this->name,
+            'description' => $this->description,
+            'price' => $this->price,
+            'hours' => $this->hours,
+            'category' => $this->category->name,
+            'objective' => $this->objective->name,
+            'roadmaps' => $this->roadmaps
         ];
     }
 }

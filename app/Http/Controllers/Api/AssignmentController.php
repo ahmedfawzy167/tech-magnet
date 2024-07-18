@@ -7,7 +7,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Http\Resources\AssignmentResource;
+use App\Http\Resources\AssignmentCollection;
 
 class AssignmentController extends Controller
 {
@@ -68,7 +68,7 @@ class AssignmentController extends Controller
     public function index()
     {
         $assignments = Assignment::with('course')->get();
-        return AssignmentResource::collection($assignments);
+        return AssignmentCollection::collection($assignments);
     }
 
     public function attach(Request $request)

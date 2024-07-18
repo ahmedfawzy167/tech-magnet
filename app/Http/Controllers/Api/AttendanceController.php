@@ -6,7 +6,7 @@ use App\Models\Attendance;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Http\Resources\AttendanceResource;
+use App\Http\Resources\AttendanceCollection;
 
 class AttendanceController extends Controller
 {
@@ -70,7 +70,6 @@ class AttendanceController extends Controller
     public function index()
     {
         $attendances = Attendance::with(['user', 'course'])->get();
-
-        return AttendanceResource::collection($attendances);
+        return AttendanceCollection::collection($attendances);
     }
 }

@@ -5,9 +5,9 @@ namespace App\Http\Controllers\Api;
 use App\Models\Quiz;
 use App\Models\User;
 use App\Http\Resources\QuizResource;
-use App\Http\Resources\QuizDetailsResource;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\QuizCollection;
 use Illuminate\Http\Request;
 
 class QuizController extends Controller
@@ -20,7 +20,7 @@ class QuizController extends Controller
     public function index()
     {
         $quizzes = Quiz::with('course')->get();
-        return QuizResource::collection($quizzes);
+        return QuizCollection::collection($quizzes);
     }
 
     public function store(Request $request)
@@ -72,7 +72,7 @@ class QuizController extends Controller
     public function show(Quiz $quiz)
     {
         if ($quiz != null) {
-            return new QuizDetailsResource($quiz);
+            return new QuizResource($quiz);
         } else {
             return response()->json([
                 "message" => "Quiz Not Found"

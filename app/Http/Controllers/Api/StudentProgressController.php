@@ -5,9 +5,9 @@ namespace App\Http\Controllers\Api;
 use App\Models\StudentProgress;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\StudentProgressCollection;
 use Illuminate\Http\Request;
 use App\Http\Resources\StudentProgressResource;
-use App\Http\Resources\StudentProgressDetailsResource;
 
 class StudentProgressController extends Controller
 {
@@ -82,13 +82,13 @@ class StudentProgressController extends Controller
     public function index()
     {
         $student_progress = StudentProgress::with(['user', 'course', 'skill'])->get();
-        return StudentProgressResource::collection($student_progress);
+        return StudentProgressCollection::collection($student_progress);
     }
 
     public function show(StudentProgress $student_progress)
     {
         if ($student_progress != null) {
-            return new StudentProgressDetailsResource($student_progress);
+            return new StudentProgressResource($student_progress);
         } else {
             return response()->json([
                 "status"  => "error",

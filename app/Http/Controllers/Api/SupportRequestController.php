@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Api;
 use App\Models\SupportRequest;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\SupportRequestCollection;
 use Illuminate\Http\Request;
-use App\Http\Resources\SupportRequestResource;
 
 class SupportRequestController extends Controller
 {
@@ -42,6 +42,6 @@ class SupportRequestController extends Controller
     public function index()
     {
         $support_requests = SupportRequest::with('user')->get();
-        return SupportRequestResource::collection($support_requests);
+        return SupportRequestCollection::collection($support_requests);
     }
 }
