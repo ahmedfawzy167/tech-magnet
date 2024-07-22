@@ -39,7 +39,7 @@
             <div class="card mb-3">
                 <div class="card-body py-3">
                     <h3 class="text-center mt-2">Admin Panel</h3>
-                    <form method="POST" action="{{ route('login') }}">
+                    <form method="POST" action="{{ route('login') }}" id="loginForm">
                         @csrf
                         <div class="form-group mb-2">
                             <label for="email"><i class="fa-solid fa-envelope"></i> Email Address</label>
@@ -74,6 +74,7 @@
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
 
     @if ($errors->any())
         @foreach ($errors->all() as $error)
@@ -82,6 +83,40 @@
             </script>
         @endforeach
     @endif
+
+    <script>
+        $(document).ready(function() {
+            $("#loginForm").validate({
+                rules: {
+                    email: {
+                        required: true,
+                        email: true
+                    },
+                    password: {
+                        required: true,
+                        minlength: 8,
+                    }
+                },
+                messages: {
+                    email: {
+                        required: "<span style='color:red;font-weight:bold;'>Please Enter your Email Address.</span>",
+                        email: "<span style='color:red;font-weight:bold;'>Please Enter a Valid Email Address.</span>"
+                    },
+                    password: {
+                        required: "<span style='color:red;font-weight:bold;'>Please Enter your Password.</span>",
+                        minlength: "<span style='color:red;font-weight:bold;'>Password must be at Least 8 Characters long.</span>",
+                    }
+                },
+                errorClass: "is-invalid",
+                validClass: "is-valid",
+                submitHandler: function(form) {
+                    form.submit();
+                }
+            });
+        });
+    </script>
+   
+           
 </body>
 
 </html>
