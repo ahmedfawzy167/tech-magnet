@@ -17,6 +17,7 @@ return [
     'All Materials'              =>       'كل الماتيرلز',
     'Add New Material'        =>           'اضافة ماتيريل جديدة',
     'Check in'                  =>            'يوم الحجز',
+    'اسم الهدف'          =>       'اسم الهدف',
     'Check out'                  =>            'يوم المغادرة',
     'Trashed Rooms'         =>                  'الغرف المحذوفة',
     'New Course'                   =>              'كورس جديد',

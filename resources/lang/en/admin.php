@@ -11,6 +11,7 @@ return [
     'Search for'            =>                'Search for',
     'Explore More Diplomas'  =>            'Explore More Diplomas',
     'All Objectives'            =>      'All Objectives',
+    'Objective Name'          =>       'Objective Name',
     'Edit Objective'            =>      'Edit Objective',
     'Show Objective'            =>      'Show Objective',
     'File Type'                  =>         'File Type',
