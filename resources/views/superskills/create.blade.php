@@ -18,7 +18,8 @@
 
               <div class="form-group col-12">
                <label for="course_id">{{__('admin.Course')}}<span class="text-danger ms-2">*</span></label>
-               <select name="course_id" id="course_id" class="form-select">
+               <select name="course_id" id="course_id" class="form-select @error('course_id') is-invalid @enderror">
+                <option value="#" selected>Choose One</option>
                 @foreach($courses as $course)
                   <option value="{{$course->id}}">{{$course->name}}</option>
                 @endforeach

@@ -19,14 +19,14 @@
 
                 <div class="form-group col-12">
                     <label for="content">{{ __('admin.Content') }}<span class="text-danger ms-2">*</span></label>
-                    <textarea name="content"
-                     class="form-control @error('content') is-invalid @enderror"></textarea>
-                    
+                    <textarea name="content" id="content" class="form-control @error('content') is-invalid @enderror"></textarea>
+                    </textarea> 
                 </div>
                  
               <div class="form-group col-12">
                <label for="super_skill_id">{{__('admin.Super Skills')}}<span class="text-danger ms-2">*</span></label>
-               <select name="super_skill_id" id="super_skill_id" class="form-select">
+               <select name="super_skill_id" id="super_skill_id" class="form-select @error('super_skill_id') is-invalid @enderror">
+                <option value="#" selected>Choose One..</option>
                 @foreach($super_skills as $super_skill)
                   <option value="{{$super_skill->id}}">{{$super_skill->name}}</option>
                 @endforeach

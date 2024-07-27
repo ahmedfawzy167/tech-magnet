@@ -32,27 +32,29 @@
                   <input type="text" name="hours" id="hours" class="form-control @error('hours') is-invalid @enderror">
                </div>
 
-              <div class="form-group col-12">
+              <div class="form-group col-12 mt-3">
                <label for="category_id">{{__('admin.Category')}}<span class="text-danger ms-2">*</span></label>
-               <select name="category_id" id="category_id" class="form-select">
+               <select name="category_id" id="category_id" class="form-select @error('category_id') is-invalid @enderror">
                 @foreach($categories as $category)
-                  <option value="{{$category->id}}">{{$category->name}}</option>
+                   <option value="#" selected>Choose One..</option>
+                   <option value="{{$category->id}}">{{$category->name}}</option>
                 @endforeach
                 </select>
               </div>
 
               <div class="form-group col-12">
                 <label for="objective_id">{{__('admin.Objectives')}}<span class="text-danger ms-2">*</span></label>
-                <select name="objective_id" id="objective_id" class="form-select">
-                 @foreach($objectives as $objective)
-                   <option value="{{$objective->id}}">{{$objective->name}}</option>
-                 @endforeach
+                <select name="objective_id" id="objective_id" class="form-select @error('objective_id') is-invalid @enderror">
+                    <option value="#" selected>Choose One..</option>
+                    @foreach($objectives as $objective)
+                      <option value="{{$objective->id}}">{{$objective->name}}</option>
+                    @endforeach
                  </select>
                </div>
 
                 <div class="form-group col-md-12">
-                    <label for="images"> {{ __('admin.Image') }}<span class="text-danger ms-2">*</span></label>
-                    <input type="file" name="image" id="images"
+                    <label for="image"> {{ __('admin.Image') }}<span class="text-danger ms-2">*</span></label>
+                    <input type="file" name="image" id="image"
                         class="form-control @error('image') is-invalid @enderror">
                     <div class="invalid-feedback">Please Upload an Image</div>
                 </div>

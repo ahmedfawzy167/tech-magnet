@@ -37,7 +37,7 @@ class SuperSkillController extends Controller
         try {
             $request->validate([
                 'name' => ['required', 'string', 'max:100'],
-                'course_id' => 'required|numeric:gt:0'
+                'course_id' => 'required|exists:courses,id'
             ]);
 
             $super_skill = new SuperSkill();
@@ -48,7 +48,6 @@ class SuperSkillController extends Controller
             Session::flash('message', 'Super Skill is Created Successfully');
             return redirect(route('super-skills.index'));
         } catch (ValidationException $e) {
-            // Handle the validation exception
             return redirect()->back()->withErrors($e->errors())->withInput();
         }
     }

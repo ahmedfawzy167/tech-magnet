@@ -42,8 +42,8 @@ class CourseController extends Controller
             'description' => 'required|string|max:1000',
             'price' => ['required', 'regex:/^\d+(\.\d{1,2})?$/', 'gt:0'],
             'hours' => 'required|numeric:gt:0',
-            'category_id' => 'required|numeric:gt:0',
-            'objective_id' => 'required|numeric:gt:0',
+            'category_id' => 'required|exists:categories,id',
+            'objective_id' => 'required|exists:objectives,id',
             'image'       => 'required|image|mimes:jpeg,png,jpg|max:3000'
         ]);
 
@@ -91,8 +91,8 @@ class CourseController extends Controller
             'description' => 'required|string|max:1000',
             'price' => ['required', 'regex:/^\d+(\.\d{1,2})?$/', 'gt:0'],
             'hours' => 'required|numeric:gt:0',
-            'category_id' => 'required|numeric:gt:0',
-            'objective_id' => 'required|numeric:gt:0',
+            'category_id' => 'required|exists:categories,id',
+            'objective_id' => 'required|exists:objectives,id',
             'image' => 'nullable|image|mimes:jpeg,png,jpg|max:3000'
         ]);
 

@@ -33,7 +33,7 @@
                   <input type="text" name="hours" id="hours" value="{{ $course->hours }}" class="form-control @error('hours') is-invalid @enderror">
                 </div>
 
-              <div class="form-group col-12">
+              <div class="form-group col-12 mt-3">
                <label for="category_id">{{__('admin.Category')}}<span class="text-danger ms-2">*</span></label>
                <select name="category_id" id="category_id" class="form-select">
                 @foreach($categories as $category)
@@ -52,7 +52,8 @@
                </div>
 
                 <div class="form-group col-md-12">
-                    <label for="image"> {{ __('admin.Image') }}<span class="text-danger ms-2">*</span></label>
+                    <label for="image"> {{ __('admin.Image') }}</label>
+                    <img src="{{asset('storage/'.$course->image->path)}}" class="rounded-circle" width="100px">
                     <input type="file" name="image" id="images"
                         class="form-control @error('image') is-invalid @enderror">
                 </div>

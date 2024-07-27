@@ -24,7 +24,7 @@ class MaterialController extends Controller
             'description' => 'required|string|alpha|max:1000',
             'file'  => 'required|file|mimes:pdf|max:2048',
             'file_type'  => 'required|string',
-            'course_id' => 'required|numeric:gt:0',
+            'course_id' => 'required|exists:courses,id',
         ]);
 
         if ($validator->fails()) {

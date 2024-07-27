@@ -36,8 +36,8 @@ class SkillController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'title' => 'required|string|between:2,100',
-            'description' => 'required|string|max:1000',
-            'super_skill_id' => 'required|numeric:gt:0',
+            'content' => 'required|string|max:1000',
+            'super_skill_id' => 'required|exists:super_skills,id',
         ]);
 
         if ($validator->fails()) {
@@ -71,8 +71,8 @@ class SkillController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'title' => 'required|string|between:2,100',
-            'description' => 'required|string|max:1000',
-            'super_skill_id' => 'required|numeric:gt:0',
+            'content' => 'required|string|max:1000',
+            'super_skill_id' => 'required|exists:super_skills,id',
         ]);
 
         if ($validator->fails()) {
