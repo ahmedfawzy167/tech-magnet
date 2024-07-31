@@ -34,7 +34,6 @@ return [
     'All Roadmaps'                =>     'كل الخرائط',
     'Roadmaps'                        =>  'الخرائط الزمنية',
     'Super Skills'                   =>     'الهارات الرئيسية',
-
     'All Roadmaps'                 =>   'All Roadmaps',
     'Objectives'            =>      'الاهداف',
     'Roles'                 =>           'الادوار',
@@ -255,6 +254,8 @@ return [
     'Category Details'  =>  'تفاصيل القسم',
     'View' => 'اظهار',
     'Show Category' => 'اظهار القسم',
+    'All Super Skills' => 'كل المهارات الاساسية',
+    'Add Super Skill' => 'اضافة مهاره اساسية',
     'Delete' => 'حذف',
     'Subcategories List'  => 'قائمةالاقسام الفرعية',
     'Customers List' => 'قائمةالعملاء',

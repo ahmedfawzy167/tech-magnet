@@ -1,3 +1,7 @@
+@php
+  $lang = app()->getLocale() == 'ar' ? 'rtl' : '';
+@endphp
+
 <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <link rel="icon" href="{{ asset('assets/img/icon.png') }}">
     <link
@@ -18,4 +22,5 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/keytable/2.12.0/css/keyTable.bootstrap5.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/rowreorder/1.5.0/css/rowReorder.bootstrap5.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/searchbuilder/1.7.1/css/searchBuilder.bootstrap5.min.css">
+    <link rel="stylesheet" href="{{ asset('assets/css/' . $lang . '.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/sb-admin-2.min.css') }}" rel="stylesheet">
