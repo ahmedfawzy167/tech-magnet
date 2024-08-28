@@ -1,8 +1,9 @@
 <?php
 
-
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Laravel\Telescope\Http\Controllers\HomeController as ControllersHomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,14 +16,22 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/', function () {
+    return view('welcome');
+});
+
+Route::get('/home', [HomeController::class, 'index'])->middleware(['auth:admin', 'Language'])->name('home');
+Route::get('/search', [HomeController::class, 'search'])->middleware(['auth:admin', 'Language'])->name('search');
+
+
+
 Route::middleware(['auth:admin', 'Language'])
     ->namespace('App\Http\Controllers\Admin')
     ->prefix('admin')
     ->group(function () {
 
         ///////////////////////////// Basic Routes /////////
-        Route::get('/home', 'HomeController@index')->name('home');
-        Route::get('/search', 'HomeController@search')->name('search');
+        // Route::get('/home', 'HomeController@index')->name('home');
         Route::get('/profile', 'ProfileController@show')->name('profile.show');
         Route::get('/profile/edit', 'ProfileController@edit')->name('profile.edit');
         Route::put('/profile/update/{id}', 'ProfileController@update')->name('profile.update');

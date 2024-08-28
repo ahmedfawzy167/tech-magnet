@@ -17,51 +17,40 @@ use Illuminate\Support\Facades\Route;
 Route::namespace('App\Http\Controllers\Api')->group(function () {
     Route::post('/register', 'AuthController@register');
     Route::post('/login', 'AuthController@login')->middleware('throttle:login');
-    Route::post('/logout', 'AuthController@logout');
+    Route::post('/logout', 'AuthController@logout')->middleware('jwt-verify');
     Route::post('/refresh', 'AuthController@refresh');
     Route::get('/profile', 'AuthController@profile');
     Route::put('/profile-update', 'AuthController@profileUpdate');
-});
-
-Route::namespace('App\Http\Controllers\Api')->group(function () {
-
     Route::get('/auth/google', 'SocialiteController@redirect');
     Route::get('/auth/google/callback', 'SocialiteController@callback');
+    Route::get('/courses/search', 'CourseController@search');
+    Route::get('/courses/filters', 'CourseController@filter');
+    Route::apiResource('courses', 'CourseController');
+    Route::apiResource('roadmaps', 'RoadmapController');
+    Route::apiResource('categories', 'CategoryController');
+    Route::apiResource('skills', 'SkillController');
+    Route::apiResource('super-skills', 'SuperSkillController');
+    Route::apiResource('settings', 'SettingController');
+    Route::apiResource('blogs', 'BlogController');
+    Route::apiResource('objectives', 'ObjectiveController');
+
+
+    Route::post('/quiz-user', 'QuizController@attach')->middleware('jwt-verify');
+    Route::apiResource('users', 'UserController')->middleware('jwt-verify');
+    Route::apiResource('schedules', 'ScheduleController')->middleware('jwt-verify');
+    Route::apiResource('attendances', 'AttendanceController')->middleware('jwt-verify');
+    Route::apiResource('sessions', 'SessionController')->middleware('jwt-verify');
+    Route::apiResource('support-requests', 'SupportRequestController')->middleware('jwt-verify');
+    Route::apiResource('questions', 'QuestionController')->middleware('jwt-verify');
+    Route::apiResource('quizzes', 'QuizController')->middleware('jwt-verify');
+    Route::apiResource('recordings', 'RecordingController')->middleware('jwt-verify');
+    Route::apiResource('quizzes', 'QuizController')->middleware('jwt-verify');
+    Route::apiResource('portfolios', 'PortfolioController')->middleware('jwt-verify');
+    Route::apiResource('student-progress', 'StudentProgressController')->middleware('jwt-verify');
+    Route::apiResource('projects', 'ProjectController')->middleware('jwt-verify');
+    Route::apiResource('reviews', 'ReviewController')->middleware('jwt-verify');
+    Route::post('/chats/{user_id}', 'ChatController@sendMessage')->middleware('jwt-verify');
+    Route::post('/enrollments', 'EnrollmentController@enroll')->middleware('jwt-verify');
+    Route::post('/payments', 'PaymentController@pay')->middleware('jwt-verify');
+    Route::post('/payments/store', 'PaymentController@store')->middleware('jwt-verify');
 });
-
-
-Route::middleware('jwt-verify')
-    ->namespace('App\Http\Controllers\Api')
-    ->group(function () {
-
-        Route::get('/courses/search', 'CourseController@search');
-        Route::get('/courses/filters', 'CourseController@filter');
-        Route::post('/quiz-user', 'QuizController@attach');
-        Route::apiResource('users', 'UserController');
-        Route::apiResource('roadmaps', 'RoadmapController');
-        Route::apiResource('categories', 'CategoryController');
-        Route::apiResource('courses', 'CourseController');
-        Route::apiResource('skills', 'SkillController');
-        Route::apiResource('cities', 'CityController');
-        Route::apiResource('super-skills', 'SuperSkillController');
-        Route::apiResource('schedules', 'ScheduleController');
-        Route::apiResource('attendances', 'AttendanceController');
-        Route::apiResource('settings', 'SettingController');
-        Route::apiResource('blogs', 'BlogController');
-        Route::apiResource('sessions', 'SessionController');
-        Route::apiResource('materials', 'MaterialController');
-        Route::apiResource('support-requests', 'SupportRequestController');
-        Route::apiResource('objectives', 'ObjectiveController');
-        Route::apiResource('questions', 'QuestionController');
-        Route::apiResource('quizzes', 'QuizController');
-        Route::apiResource('recordings', 'RecordingController');
-        Route::apiResource('quizzes', 'QuizController');
-        Route::apiResource('portfolios', 'PortfolioController');
-        Route::apiResource('student-progress', 'StudentProgressController');
-        Route::apiResource('projects', 'ProjectController');
-        Route::apiResource('reviews', 'ReviewController');
-        Route::post('/chats/{user_id}', 'ChatController@sendMessage');
-        Route::post('/enrollments', 'EnrollmentController@enroll');
-        Route::post('/payments', 'PaymentController@pay');
-        Route::post('/payments/store', 'PaymentController@store');
-    });
