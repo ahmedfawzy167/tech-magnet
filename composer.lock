@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5e221bb846b67dee166e64cf7975b592",
+    "content-hash": "ae4e7e76c3d16d39bdc12bc67ddf61e9",
     "packages": [
         {
             "name": "brick/math",
@@ -7379,6 +7379,92 @@
                 }
             ],
             "time": "2022-03-08T17:03:00+00:00"
+        },
+        {
+            "name": "watheqalshowaiter/backup-tables",
+            "version": "1.2.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/WatheqAlshowaiter/backup-tables.git",
+                "reference": "85e16cbd083e524231d2eebc870bff67780f84ba"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/WatheqAlshowaiter/backup-tables/zipball/85e16cbd083e524231d2eebc870bff67780f84ba",
+                "reference": "85e16cbd083e524231d2eebc870bff67780f84ba",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/contracts": "^11.0||^10.0||^9.0||^8.0||^7.0||^6.0||^5.0",
+                "php": ">=7.4"
+            },
+            "require-dev": {
+                "nunomaduro/collision": "^8.1.1||^7.10.0||^6.0||^5.0||^4.0||^3.2",
+                "orchestra/testbench": "^9.0.0||^8.22.0||^7.0||^6.0||^5.0||^4.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "WatheqAlshowaiter\\BackupTables\\BackupTablesServiceProvider"
+                    ],
+                    "aliases": {
+                        "BackupTables": "WatheqAlshowaiter\\BackupTables\\BackupTables"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "WatheqAlshowaiter\\BackupTables\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Watheq Alshowaiter",
+                    "email": "watheq.alshowaiter@gmail.com",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Omar Alalwi",
+                    "email": "omaralwi2010@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Backup single or multiple database tables with ease.",
+            "homepage": "https://github.com/watheqalshowaiter/backup-tables",
+            "keywords": [
+                "Watheq Alshowaiter",
+                "WatheqAlshowaiter",
+                "backup tables",
+                "laravel",
+                "mariadb",
+                "model",
+                "mysql",
+                "package",
+                "php",
+                "php-package",
+                "postgresql",
+                "sql",
+                "sqlite",
+                "sqlserver",
+                "yemen_open_source",
+                "yemenopensource"
+            ],
+            "support": {
+                "issues": "https://github.com/WatheqAlshowaiter/backup-tables/issues",
+                "source": "https://github.com/WatheqAlshowaiter/backup-tables/tree/1.2.2"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/WatheqAlshowaiter",
+                    "type": "github"
+                }
+            ],
+            "time": "2024-08-26T19:02:52+00:00"
         },
         {
             "name": "webmozart/assert",
