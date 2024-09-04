@@ -21,6 +21,52 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://cdn.datatables.net/rowreorder/1.5.0/js/rowReorder.bootstrap5.min.js"></script>
 <script src="https://cdn.datatables.net/searchbuilder/1.7.1/js/dataTables.searchBuilder.min.js"></script>
 <script src="https://cdn.datatables.net/searchbuilder/1.7.1/js/searchBuilder.bootstrap5.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+
+@if(session('message'))
+     <script>
+        Swal.fire({
+        title: "Message",
+        text: "{{ session('message') }}",
+        icon: "success",
+        showCancelButton: false,
+        confirmButtonText: "OK",
+        timer: 3000,
+      });
+    </script>
+@endif
+
+
+<script>
+  toastr.options = {
+ "closeButton": false,
+ "debug": false,
+ "preventDuplicates": false,
+ "onclick": null,
+ "showDuration": "500",
+ "hideDuration": "1000",
+ "timeOut": "5000",
+ "extendedTimeOut": "1000",
+ "showEasing": "swing",
+ "hideEasing": "linear",
+ "showMethod": "fadeIn",
+ "hideMethod": "fadeOut",
+ "toastClass": "bg-danger text-white"
+}
+</script>
+
+@if ($errors->any())
+ @foreach ($errors->all() as $error)
+   <script>
+       toastr.error('{{ $error }}');
+   </script>
+ @endforeach
+
+@endif
+
+
 
 <script>
 $(document).ready(function() {

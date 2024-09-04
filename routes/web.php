@@ -31,7 +31,6 @@ Route::middleware(['auth:admin', 'Language'])
     ->group(function () {
 
         ///////////////////////////// Basic Routes /////////
-        // Route::get('/home', 'HomeController@index')->name('home');
         Route::get('/profile', 'ProfileController@show')->name('profile.show');
         Route::get('/profile/edit', 'ProfileController@edit')->name('profile.edit');
         Route::put('/profile/update/{id}', 'ProfileController@update')->name('profile.update');
@@ -117,6 +116,10 @@ Route::middleware(['auth:admin', 'Language'])
         ////////////// Start of Activity Logs Routes ///////////////
         Route::resource('activity-logs', 'ActivityLogController');
         ////////////// End of Activity Logs Routes ///////////////
+
+        ////////////// Start of Recordings Routes ///////////////
+        Route::resource('recordings', 'RecordingController');
+        ////////////// End of Recordings Routes ///////////////
 
     });
 

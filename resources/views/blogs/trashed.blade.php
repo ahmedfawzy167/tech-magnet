@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('page-title')
-    All Trashed Categories
+    {{ __('admin.All Trashed Blogs') }}
 @endsection
 
 @section('page-content')
@@ -51,8 +51,6 @@
                 </table>
         </div>
     </div>
-
-        @include('layouts.messages')
 
 
     @endsection

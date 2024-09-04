@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('page-title')
-    All Trashed Cities
+    {{__('admin.All Trashed Cities') }}
 @endsection
 
 @section('page-content')
@@ -49,8 +49,6 @@
                 </table>
         </div>
     </div>
-
-    @include('layouts.messages')
 
 
     @endsection

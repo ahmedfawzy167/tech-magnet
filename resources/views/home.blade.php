@@ -6,8 +6,6 @@
 
 @section('page-content')
 
-@include('layouts.messages')
-
     <body id="page-top">
 
         <!-- Begin Page Content -->

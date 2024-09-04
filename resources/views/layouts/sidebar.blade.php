@@ -5,7 +5,7 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
         <!-- Sidebar - Brand -->
-        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{url('/admin/home')}}">
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{url('/home')}}">
             <div class="sidebar-brand-icon rotate-n-15">
                 <i class="fas fa-laugh-wink"></i>
             </div>
@@ -229,6 +229,22 @@
         data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
             <a class="collapse-item" href="{{route('payments.index')}}"><i class="fa-solid fa-list"></i> {{__('admin.All Payments')}}</a>
+        </div>
+    </div>
+</li>
+
+
+<li class="nav-item">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapserecording"
+        aria-expanded="true" aria-controls="collapserecording">
+        <span>{{__('admin.Recordings')}}</span>
+    </a>
+    <div id="collapserecording" class="collapse" aria-labelledby="headingrecording"
+        data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">
+            <a class="collapse-item" href="{{route('recordings.index')}}"><i class="fa-solid fa-list"></i> {{__('admin.All Recordings')}}</a>
+            <a class="collapse-item" href="{{ route('recordings.create') }}"><i class="ion-plus-circled"></i> {{__('admin.Add New Recording')}}</a>
+
         </div>
     </div>
 </li>

@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('page-title')
- Enrollments
+  {{ __('admin.All Enrollments') }}
 @endsection
 
 @include('layouts.messages')
@@ -46,6 +46,5 @@
     </div>
     </div>
 
-@include('layouts.messages')
 
 @endsection

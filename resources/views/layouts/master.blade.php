@@ -8,6 +8,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('page-title') - {{ __('admin.Dashboard') }}</title>
     @include('layouts.head-assets')
+    @yield('page-head')
 </head>
 
 <body id="page-top">

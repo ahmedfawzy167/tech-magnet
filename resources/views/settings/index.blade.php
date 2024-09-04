@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('page-title')
-  {{__('admin.Settings')}}
+  {{__('admin.All Settings')}}
 @endsection
 
 @section('page-content')
@@ -43,6 +43,5 @@
     </div>
     </div>
 
-@include('layouts.messages')
 
 @endsection

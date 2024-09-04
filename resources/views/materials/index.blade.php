@@ -48,7 +48,5 @@
                 </table>
         </div>
 
-        @include('layouts.messages')
-
 
     @endsection

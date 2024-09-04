@@ -5,7 +5,6 @@ namespace App\Providers;
 use App\Services\UserService;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Validation\Rules\Password;
-use WatheqAlshowaiter\BackupTables\BackupTables;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -32,7 +31,5 @@ class AppServiceProvider extends ServiceProvider
                 ->letters()
                 ->uncompromised();
         });
-
-        BackupTables::generateBackup(['courses', 'categories', 'users', 'blogs']);
     }
 }

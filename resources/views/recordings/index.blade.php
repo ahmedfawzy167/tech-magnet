@@ -1,34 +1,40 @@
 @extends('layouts.master')
 
 @section('page-title')
-    {{ __('admin.All Objectives') }}
+    {{ __('admin.All Recordings') }}
 @endsection
 
 @section('page-content')
     <div class="row">
         <div class="card">
          <div class="card-body">
-                <h1 class="text-center bg-dark text-light"><i class="fa-solid fa-list"></i> {{ __('admin.All Objectives') }}
-                </h1>
+                <h1 class="text-center bg-dark text-light"><i class="fa-solid fa-list"></i> {{ __('admin.All Recordings') }} </h1>
                 <table class="table table-hover table-bordered" id="data-table">
                     <thead class="table-dark">
                         <tr>
                             <th>{{ __('admin.ID') }}</th>
-                            <th>{{ __('admin.Name') }}</th>
+                            <th>{{ __('admin.Title') }}</th>
+                            <th>{{ __('admin.Description') }}</th>
+                            <th>{{ __('admin.Courses') }}</th>
+                            <th>{{ __('admin.Users') }}</th>
                             <th>{{ __('admin.Actions') }}</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse($objectives as $objective)
+                        @forelse($recordings as $recording)
                             <tr>
                                 <td>{{ $loop->index + 1 }}</td>
-                                <td>{{ $objective->name }}</td>
+                                <td>{{ $recording->title }}</td>
+                                <td>{{ \Str::limit($recording->description,10) }}</td>
+                                <td>{{ $recording->course->name }}</td>
+                                <td>{{ $recording->user->name }}</td>
                                 <td>
-                                    <a href="{{ route('objectives.show', $objective->id) }}"
+                                    <a href="{{ route('recordings.show', $recording->id) }}"
                                         class="btn btn-info">{{ __('admin.Show') }}</a>
-                                    <a href="{{ route('objectives.edit', $objective->id) }}"
+
+                                    <a href="{{ route('recordings.edit', $recording->id) }}"
                                         class="btn btn-success">{{ __('admin.Edit') }}</a>
-                                    <form action="{{ route('objectives.destroy', $objective->id) }}" method="post"
+                                    <form action="{{ route('recordings.destroy', $recording->id) }}" method="post"
                                         style="display: inline-block">
                                         @csrf
                                         @method('delete')
@@ -38,12 +44,12 @@
                                 </td>
                             </tr>
                         @empty
-                            <h1 class="text-center">No Objectives Found!</h1>
+                            <h1 class="text-center">No Recordings Found!</h1>
                         @endforelse
                     </tbody>
                 </table>
         </div>
-        </div>
-
+     </div>
+   
 
     @endsection

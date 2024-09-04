@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('page-title')
-    All Trashed Courses
+    {{ __('admin.All Trashed Courses') }}
 @endsection
 
 @section('page-content')
@@ -63,8 +63,5 @@
                 </table>
         </div>
     </div>
-
-        @include('layouts.messages')
-
 
     @endsection

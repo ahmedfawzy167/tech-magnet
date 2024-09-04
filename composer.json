@@ -2,7 +2,10 @@
     "name": "laravel/laravel",
     "type": "project",
     "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
+    "keywords": [
+        "framework",
+        "laravel"
+    ],
     "license": "MIT",
     "require": {
         "php": "^8.1",
@@ -20,8 +23,7 @@
         "spatie/laravel-backup": "^9.0",
         "spatie/laravel-searchable": "^1.12",
         "stripe/stripe-php": "^15.0",
-        "tymon/jwt-auth": "^2.1",
-        "watheqalshowaiter/backup-tables": "^1.2"
+        "tymon/jwt-auth": "^2.1"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.13",
