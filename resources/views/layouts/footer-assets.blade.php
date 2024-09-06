@@ -24,7 +24,6 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
-
 @if(session('message'))
      <script>
         Swal.fire({
@@ -56,6 +55,7 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
  "toastClass": "bg-danger text-white"
 }
 </script>
+
 
 @if ($errors->any())
  @foreach ($errors->all() as $error)

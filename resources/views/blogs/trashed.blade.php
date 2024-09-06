@@ -8,7 +8,7 @@
     <div class="row">
         <div class="card">
         <div class="card-body">
-             <h1 class="text-center bg-warning text-light"><i class="ion-alert"></i> All Trashed Categories</h1>
+             <h1 class="text-center bg-warning text-light"><i class="ion-alert"></i> {{ __('admin.All Trashed Blogs') }}</h1>
              <table class="table table-hover table-bordered mt-3">
                 <thead class="table-dark">
                     <tr>
@@ -42,7 +42,7 @@
                         <tr>
                             <div>
                              <td colspan="4">
-                               <h1 class="text-center alert alert-warning">No Trashed Blogs Found!</h1>
+                               <h1 class="text-center alert alert-warning">{{ __('admin.No Trashed Blogs Found!') }}</h1>
                             </td>
                            </div>
                         </tr>

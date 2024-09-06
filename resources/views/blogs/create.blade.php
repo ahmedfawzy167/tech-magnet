@@ -4,6 +4,12 @@
    {{__('admin.New Blog')}}
 @endsection
 
+@section('page-head')
+  {{-- <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">
+  <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css" rel="stylesheet"> --}}
+@endsection
+
+
 @section('page-content')
 
  <div class="card">
@@ -23,13 +29,10 @@
             class="form-control @error('description') is-invalid @enderror"></textarea>
       </div>
       <div class="form-group col-md-12">
-        <label for="images"><i class="ion-images"></i> {{ __('admin.Image') }}<span class="text-danger ms-2">*</span></label>
-        <input type="file" name="image" id="images"
-          class="form-control @error('image') is-invalid @enderror">
-          <div class="invalid-feedback">
-            Please Upload an Image
-          </div>
-    </div>
+        <label for="image"><i class="ion-images"></i> {{ __('admin.Image') }}<span class="text-danger ms-2">*</span></label>
+        <input type="file" name="image" id="image" class="form-control @error('image') is-invalid @enderror">      
+      </div>
+      
       <div class="text-center mt-3">
         <button type="submit" class="btn btn-primary btn-lg">{{__('admin.Add')}}</button>
         <button type="reset" class="btn btn-secondary btn-lg">{{__('admin.Reset')}}</button>
@@ -38,6 +41,32 @@
 </form>
 </div>
 </div>
+@endsection
+
+@section('page-scripts')
+{{-- <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
+<script src="https://unpkg.com/filepond/dist/filepond.js"></script>
+
+<script>
+
+    FilePond.registerPlugin(FilePondPluginImagePreview);
+
+    FilePond.create(document.querySelector('#image'));
+
+    FilePond.setOptions({
+    server: {
+        process: {
+            url: '{{ route('blogs.store') }}',
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+            }
+        }
+    }
+});
+
+</script> --}}
+
 @endsection
 
 

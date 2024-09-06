@@ -4,6 +4,7 @@
   {{__('admin.Edit Blog')}}
 @endsection
 
+
 @section('page-content')
 
  <div class="card">
@@ -11,6 +12,8 @@
       <h1 class="text-center text-light bg-success"><i class="fa-solid fa-pen-to-square"></i> {{trans('admin.Edit Blog')}}</h1>
       <form action="{{ route('blogs.update',$blog->id) }}" method="post" class="row" enctype="multipart/form-data">
       @csrf
+      @method('PUT')
+      
       <div class="form-group col-12 mt-3">
        <label for="title"><i class="fa-solid fa-file-signature"></i> {{__('admin.Title')}}</label>
        <input type="text" name="title" id="title" value="{{$blog->title}}" class="form-control mt-2 @error('title') is-invalid @enderror">
@@ -23,10 +26,10 @@
       </div>
 
       <div class="form-group col-md-12">
-        <label for="images"><i class="ion-images"></i> {{ __('admin.Image') }}<span class="text-danger ms-2">*</span></label>
-        <input type="file" name="image" id="images"
-            class="form-control @error('image') is-invalid @enderror">
-    </div>
+        <label for="image"><i class="ion-images"></i> {{ __('admin.Image') }}<span class="text-danger ms-2">*</span></label>
+        <input type="file" name="image" id="image" class="form-control @error('image') is-invalid @enderror">
+        <img src="{{ asset('storage/'.$blog->image->path) }}" class="rounded-circle mt-3">
+      </div>
 
       <div class="text-center mt-3">
         <button type="submit" class="btn btn-primary btn-lg">{{__('admin.Update')}}</button>
@@ -38,5 +41,6 @@
 </div>
 
 @endsection
+
 
 

@@ -2,15 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Image;
 use App\Models\Course;
 use App\Models\Category;
 use App\Models\Objective;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\Validator;
 
 class CourseController extends Controller
 {
@@ -37,7 +34,7 @@ class CourseController extends Controller
 
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
+        $request->validate([
             'name' => 'required|string|between:5,50',
             'description' => 'required|string|max:1000',
             'price' => ['required', 'regex:/^\d+(\.\d{1,2})?$/', 'gt:0'],
@@ -46,10 +43,6 @@ class CourseController extends Controller
             'objective_id' => 'required|exists:objectives,id',
             'image'       => 'required|image|mimes:jpeg,png,jpg|max:3000'
         ]);
-
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator);
-        }
 
         $course = new Course();
         $course->name = $request->name;
@@ -66,14 +59,13 @@ class CourseController extends Controller
         $location = "public/";
         $img->storeAs($location, $fileName);
 
-        $image = new Image();
-        $image->path = $fileName;
-        $image->imageable_id = $course->id;
-        $image->imageable_type = 'App\Models\Course';
-        $image->save();
+        $course->image()->create([
+            'path' => $fileName,
+            'imageable_id' => $course->id,
+            'imageable_type' => 'App\Models\Course',
+        ]);
 
-        Session::flash('message', 'Course Created Successfully');
-        return redirect(route('courses.index'));
+        return redirect(route('courses.index'))->with('message', 'Course Created Successfully');
     }
 
 
@@ -86,7 +78,7 @@ class CourseController extends Controller
 
     public function update(Request $request, Course $course)
     {
-        $validator = Validator::make($request->all(), [
+        $request->validate([
             'name' => 'required|string|between:5,50',
             'description' => 'required|string|max:1000',
             'price' => ['required', 'regex:/^\d+(\.\d{1,2})?$/', 'gt:0'],
@@ -96,17 +88,13 @@ class CourseController extends Controller
             'image' => 'nullable|image|mimes:jpeg,png,jpg|max:3000'
         ]);
 
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput();
-        }
-
         $course->name = $request->name;
         $course->description = $request->description;
         $course->price = $request->price;
         $course->hours = $request->hours;
         $course->category_id = $request->category_id;
         $course->objective_id = $request->objective_id;
-        $course->update();
+        $course->save();
 
         if ($request->hasFile('image')) {
             $img = $request->file('image');
@@ -115,28 +103,20 @@ class CourseController extends Controller
             $location = "public/";
             $img->storeAs($location, $fileName);
 
-            $image = $course->image;
-            if ($image) {
-                $image->path = $fileName;
-                $image->save();
-            } else {
-                $image = new Image();
-                $image->path = $fileName;
-                $image->imageable_id = $course->id;
-                $image->imageable_type = 'App\Models\Course';
-                $image->save();
-            }
+            $course->image()->update([
+                'path' => $fileName,
+                'imageable_id' => $course->id,
+                'imageable_type' => 'App\Models\Course',
+            ]);
         }
 
-        Session::flash('message', 'Course Updated Successfully');
-        return redirect(route('courses.index'));
+        return redirect(route('courses.index'))->with('message', 'Course Updated Sucessfully');
     }
 
     public function destroy(Course $course)
     {
         $course->delete();
-        Session::flash('message', 'Course Trashed Successfully');
-        return redirect(route('courses.index'));
+        return redirect(route('courses.index'))->with('message', 'Course Trashed Sucessfully');
     }
 
     public function trash()
@@ -156,6 +136,7 @@ class CourseController extends Controller
     {
         $course = Course::onlyTrashed()->findOrFail($id);
         $course->forceDelete();
+        $course->image()->delete();
         return redirect()->route('courses.index')->with('message', 'Course Permenantly Deleted Successfully');
     }
 }

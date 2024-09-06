@@ -52,6 +52,6 @@
 </div>
 </div>
 
-@include('layouts.messages')
+
 
 @endsection

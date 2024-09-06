@@ -40,7 +40,7 @@
                         <tr>
                             <div>
                              <td colspan="3">
-                               <h1 class="text-center alert alert-warning">No Trashed Categories Found!</h1>
+                               <h1 class="text-center alert alert-warning">{{ __('admin.No Trashed Categories Found!')}}</h1>
                             </td>
                            </div>
                         </tr>

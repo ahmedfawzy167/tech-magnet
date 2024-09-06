@@ -54,7 +54,7 @@
                         <tr>
                             <div>
                              <td colspan="8">
-                               <h1 class="text-center alert alert-warning">No Trashed Courses Found!</h1>
+                               <h1 class="text-center alert alert-warning">{{__('admin.No Trashed Courses Found!')}}</h1>
                             </td>
                            </div>
                         </tr>

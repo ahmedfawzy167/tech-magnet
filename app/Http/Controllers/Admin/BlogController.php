@@ -3,12 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Blog;
-use App\Models\Image;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\Validator;
 
 class BlogController extends Controller
 {
@@ -17,9 +13,7 @@ class BlogController extends Controller
      */
     public function index()
     {
-        $blogs = Cache::rememberForever('blogs', function () {
-            return Blog::with('image')->get();
-        });
+        $blogs = Blog::with('image')->get();
         return view('blogs.index', compact('blogs'));
     }
 
@@ -36,16 +30,12 @@ class BlogController extends Controller
      */
     public function store(Request $request)
     {
+
         $request->validate([
-            'title' => 'required|string|between:2,50',
+            'title' => 'required|string|between:2,100',
             'description' => 'required|string|max:1000',
             'image' => 'required|image|mimes:png,jpg,jpeg|max:2048',
         ]);
-
-        $blog = new Blog();
-        $blog->title = $request->title;
-        $blog->description = $request->description;
-        $blog->save();
 
         $img = $request->file('image');
         $ext = $img->getClientOriginalExtension();
@@ -53,14 +43,18 @@ class BlogController extends Controller
         $location = "public/";
         $img->storeAs($location, $fileName);
 
-        $image = new Image();
-        $image->path = $fileName;
-        $image->imageable_id = $blog->id;
-        $image->imageable_type = 'App\Models\Blog';
-        $image->save();
+        $blog = new Blog();
+        $blog->title = $request->title;
+        $blog->description = $request->description;
+        $blog->save();
 
-        Session::flash('message', 'Blog Created Successfully');
-        return redirect(route('blogs.index'));
+        $blog->image()->create([
+            'path' => $fileName,
+            'imageable_id' => $blog->id,
+            'imageable_type' => 'App\Models\Blog',
+        ]);
+
+        return redirect(route('blogs.index'))->with('message', 'Blog Created Successfully');
     }
 
     /**
@@ -73,9 +67,10 @@ class BlogController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
+
     public function edit(Blog $blog)
     {
-        return view('blogs.edit', get_defined_vars());
+        return view('blogs.edit', compact('blog'));
     }
 
     /**
@@ -85,37 +80,36 @@ class BlogController extends Controller
     public function update(Request $request, Blog $blog)
     {
         $request->validate([
-            'title' => 'required|string|between:2,50',
+            'title' => 'required|string|between:2,100',
             'description' => 'required|string|max:1000',
             'image' => 'nullable|image|mimes:png,jpg,jpeg|max:2048',
         ]);
 
-
         $blog->title = $request->title;
         $blog->description = $request->description;
-        $blog->update();
+        $blog->save();
 
-        $img = $request->file('image');
-        $ext = $img->getClientOriginalExtension();
-        $fileName = Date("Y-m-d-h-i-s") . '.' . $ext;
-        $location = "public/";
-        $img->storeAs($location, $fileName);
+        if ($request->hasFile('image')) {
+            $img = $request->file('image');
+            $ext = $img->getClientOriginalExtension();
+            $fileName = Date("Y-m-d-h-i-s") . '.' . $ext;
+            $location = "public/";
+            $img->storeAs($location, $fileName);
 
-        $image = new Image();
-        $image->path = $fileName;
-        $image->imageable_id = $blog->id;
-        $image->imageable_type = 'App\Models\Blog';
-        $image->save();
+            $blog->image()->update([
+                'path' => $fileName,
+                'imageable_id' => $blog->id,
+                'imageable_type' => 'App\Models\Blog',
+            ]);
+        }
 
-        Session::flash('message', 'Blog Updated Successfully');
-        return redirect(route('blogs.index'));
+        return redirect(route('blogs.index'))->with('message', 'Blog Updated Successfully');
     }
 
     public function destroy(Blog $blog)
     {
         $blog->delete();
-        Session::flash('message', 'Blog Trashed Successfully');
-        return redirect(route('blogs.index'));
+        return redirect(route('blogs.index'))->with('message', 'Blog Trashed Successfully');
     }
 
     public function trash()
@@ -126,15 +120,16 @@ class BlogController extends Controller
 
     public function restore($id)
     {
-        $blog = Blog::onlyTrashed()->findOrFail($id);
+        $blog = Blog::withTrashed()->findOrFail($id);
         $blog->restore();
         return redirect()->route('blogs.index')->with('message', 'Blog Restored Successfully');
     }
 
     public function forceDelete($id)
     {
-        $blog = Blog::onlyTrashed()->findOrFail($id);
+        $blog = Blog::withTrashed()->findOrFail($id);
         $blog->forceDelete();
+        $blog->image()->delete();
         return redirect()->route('blogs.index')->with('message', 'Blog Permenantly Deleted Successfully');
     }
 }
