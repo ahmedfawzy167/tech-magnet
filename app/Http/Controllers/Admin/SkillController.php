@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Skill;
-use App\Models\SuperSkill;
+use App\Models\{Skill, SuperSkill};
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\Validator;
+
 
 class SkillController extends Controller
 {
@@ -34,15 +32,12 @@ class SkillController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
+        $request->validate([
             'title' => 'required|string|between:2,100',
             'content' => 'required|string|max:1000',
             'super_skill_id' => 'required|exists:super_skills,id',
         ]);
 
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput();
-        }
 
         $skill = new Skill();
         $skill->title = $request->title;
@@ -50,10 +45,8 @@ class SkillController extends Controller
         $skill->super_skill_id = $request->super_skill_id;
         $skill->save();
 
-        Session::flash('message', 'Skill is Created Successfully');
-        return redirect(route('skills.index'));
+        return redirect(route('skills.index'))->with('message', 'Skill Created Successfully');
     }
-
 
     /**
      * Show the form for editing the specified resource.
@@ -69,23 +62,19 @@ class SkillController extends Controller
      */
     public function update(Request $request, Skill $skill)
     {
-        $validator = Validator::make($request->all(), [
+        $request->validate([
             'title' => 'required|string|between:2,100',
             'content' => 'required|string|max:1000',
             'super_skill_id' => 'required|exists:super_skills,id',
         ]);
 
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator);
-        }
 
         $skill->title = $request->title;
         $skill->content = $request->content;
         $skill->super_skill_id = $request->super_skill_id;
         $skill->update();
 
-        Session::flash('message', 'Skill is Updated Successfully');
-        return redirect(route('skills.index'));
+        return redirect(route('skills.index'))->with('message', 'Skill Updated Successfully');
     }
 
     /**
@@ -94,7 +83,6 @@ class SkillController extends Controller
     public function destroy(Skill $skill)
     {
         $skill->delete();
-        Session::flash('message', 'Skill is Deleted Successfully');
-        return redirect(route('skills.index'));
+        return redirect(route('skills.index'))->with('message', 'Skill Deleted Successfully');
     }
 }

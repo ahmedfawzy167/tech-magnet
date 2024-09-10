@@ -2,15 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\City;
-use App\Models\Role;
-use App\Models\User;
+use App\Models\{User, City, Role};
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Cache;
 use App\Http\Requests\StoreUserRequest;
-use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
@@ -43,13 +39,12 @@ class UserController extends Controller
         $user->city_id = $request->city_id;
         $user->save();
 
-        Session::flash('message', 'User is Created Successfully');
-        return redirect(route('users.index'));
+        return redirect(route('users.index'))->with('message', 'User Created Successfully');
     }
 
     public function show(User $user)
     {
-        $user->load('city');
+        $user->load(['city', 'role']);
         return view('users.show', compact('user'));
     }
 
@@ -62,7 +57,7 @@ class UserController extends Controller
 
     public function update(Request $request, User $user)
     {
-        $validator = Validator::make($request->all(), [
+        $request->validate([
             'name' => 'required|string|between:2,100',
             'email' => 'required|string|max:50',
             'password' => 'required|string|min:8',
@@ -70,25 +65,19 @@ class UserController extends Controller
             'role_id' => 'required|numeric|gt:0',
         ]);
 
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput();
-        }
-
         $user->name = $request->name;
         $user->email = ($request->email);
         $user->password = bcrypt($request->password);
         $user->city_id = $request->city_id;
         $user->role_id = $request->role_id;
-        $user->update();
+        $user->save();
 
-        Session::flash('message', 'User is Updated Successfully');
-        return redirect(route('users.index'));
+        return redirect(route('users.index'))->with('message', 'User Updated Successfully');
     }
 
     public function destroy(User $user)
     {
         $user->delete();
-        Session::flash('message', 'User is Deleted Successfully');
-        return redirect(route('users.index'));
+        return redirect(route('users.index'))->with('message', 'User Deleted Successfully');
     }
 }

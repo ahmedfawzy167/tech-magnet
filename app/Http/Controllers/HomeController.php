@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Review;
+use App\Models\Blog;
 use App\Models\Course;
+use App\Models\Review;
 use App\Models\Category;
+use App\Models\CourseUser;
 use Illuminate\Http\Request;
 use Spatie\Searchable\Search;
-// use App\Http\Controllers\Controller;
-use App\Models\CourseUser;
 
 class HomeController extends Controller
 {
@@ -38,6 +38,8 @@ class HomeController extends Controller
 
     $searchResults = (new Search())
       ->registerModel(Course::class, 'name')
+      ->registerModel(Category::class, 'name')
+      ->registerModel(Blog::class, 'title')
       ->search($query);
     return view('search', compact('searchResults'));
   }

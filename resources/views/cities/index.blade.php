@@ -20,19 +20,17 @@
                     <tbody>
                         @foreach ($cities as $city)
                             <tr>
-                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $loop->index+1 }}</td>
                                 <td>{{ $city->name }}</td>
                                 <td>
-                                    <a href="{{ route('cities.show', $city->id) }}"
-                                        class="btn btn-outline-secondary">{{ __('admin.Show') }}</a>
-                                    <a href="{{ route('cities.edit', $city->id) }}"
-                                        class="btn btn-outline-success">{{ __('admin.Edit') }}</a>
-                                    <form action="{{ route('cities.destroy', $city->id) }}" method="post"
-                                        style="display: inline-block">
+                                    <a href="{{ route('cities.show', $city->id) }}"><i class="fa-solid fa-eye text-info"></i></a>
+                                    <a href="{{ route('cities.edit', $city->id) }}"><i class="fa-solid fa-file-signature text-success"></i></a>
+                                    <a href="#" onclick="event.preventDefault(); document.getElementById('delete-form-{{ $city->id }}').submit();">
+                                        <i class="fa-solid fa-trash text-danger"></i>
+                                    </a>
+                                    <form id="delete-form-{{ $city->id }}" action="{{ route('cities.destroy', $city->id) }}" method="post" style="display: none;">
                                         @csrf
                                         @method('delete')
-                                        <button type="submit" class="btn btn-outline-danger"
-                                            style="display: inline-block">{{ __('admin.Delete') }}</button>
                                     </form>
                                 </td>
                             </tr>

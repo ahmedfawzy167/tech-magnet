@@ -2,47 +2,31 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Course;
-use App\Models\Category;
-use App\Models\Objective;
+use App\Models\{Course, Category, Objective, Roadmap};
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Cache;
+use App\Http\Requests\StoreCourseRequest;
+use App\Http\Requests\UpdateCourseRequest;
 
 class CourseController extends Controller
 {
     public function index()
     {
-        $courses = Cache::rememberForever('courses', function () {
-            return Course::with(['category', 'objective', 'image'])->get();
-        });
+        $courses = Course::with(['category', 'image', 'objective'])->get();
         return view('courses.index', compact('courses'));
-    }
-
-    public function show(Course $course)
-    {
-        $course->load(['category', 'objective', 'image']);
-        return view('courses.show', compact('course'));
     }
 
     public function create()
     {
         $categories = Category::all();
         $objectives = Objective::all();
+        $roadmaps = Roadmap::all();
         return view('courses.create', get_defined_vars());
     }
 
-    public function store(Request $request)
+    public function store(StoreCourseRequest $request)
     {
-        $request->validate([
-            'name' => 'required|string|between:5,50',
-            'description' => 'required|string|max:1000',
-            'price' => ['required', 'regex:/^\d+(\.\d{1,2})?$/', 'gt:0'],
-            'hours' => 'required|numeric:gt:0',
-            'category_id' => 'required|exists:categories,id',
-            'objective_id' => 'required|exists:objectives,id',
-            'image'       => 'required|image|mimes:jpeg,png,jpg|max:3000'
-        ]);
+        $request->validated();
 
         $course = new Course();
         $course->name = $request->name;
@@ -65,7 +49,15 @@ class CourseController extends Controller
             'imageable_type' => 'App\Models\Course',
         ]);
 
+        $course->roadmaps()->attach($request->input('roadmaps', []));
+
         return redirect(route('courses.index'))->with('message', 'Course Created Successfully');
+    }
+
+    public function show(Course $course)
+    {
+        $course->load(['category', 'objective', 'image', 'roadmaps']);
+        return view('courses.show', compact('course'));
     }
 
 
@@ -73,20 +65,13 @@ class CourseController extends Controller
     {
         $categories = Category::all();
         $objectives = Objective::all();
+        $roadmaps = Roadmap::all();
         return view('courses.edit', get_defined_vars());
     }
 
-    public function update(Request $request, Course $course)
+    public function update(UpdateCourseRequest $request, Course $course)
     {
-        $request->validate([
-            'name' => 'required|string|between:5,50',
-            'description' => 'required|string|max:1000',
-            'price' => ['required', 'regex:/^\d+(\.\d{1,2})?$/', 'gt:0'],
-            'hours' => 'required|numeric:gt:0',
-            'category_id' => 'required|exists:categories,id',
-            'objective_id' => 'required|exists:objectives,id',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:3000'
-        ]);
+        $request->validated();
 
         $course->name = $request->name;
         $course->description = $request->description;
@@ -110,6 +95,8 @@ class CourseController extends Controller
             ]);
         }
 
+        $course->roadmaps()->sync($request->input('roadmaps', []));
+
         return redirect(route('courses.index'))->with('message', 'Course Updated Sucessfully');
     }
 
@@ -121,20 +108,20 @@ class CourseController extends Controller
 
     public function trash()
     {
-        $trashedCourses = Course::onlyTrashed()->with(['category', 'image', 'objective'])->get();
+        $trashedCourses = Course::onlyTrashed()->get();
         return view('courses.trashed', compact('trashedCourses'));
     }
 
     public function restore($id)
     {
-        $course = Course::onlyTrashed()->findOrFail($id);
+        $course = Course::withTrashed()->findOrFail($id);
         $course->restore();
         return redirect()->route('courses.index')->with('message', 'Course Restored Successfully');
     }
 
     public function forceDelete($id)
     {
-        $course = Course::onlyTrashed()->findOrFail($id);
+        $course = Course::withTrashed()->findOrFail($id);
         $course->forceDelete();
         $course->image()->delete();
         return redirect()->route('courses.index')->with('message', 'Course Permenantly Deleted Successfully');

@@ -30,12 +30,14 @@
                     @endif
                 </td>
                   <td>
-                    <a href="{{ route('blogs.show',$blog->id) }}" class="btn btn-info"><i class="fa-solid fa-eye"></i></a>
-                    <a href="{{ route('blogs.edit',$blog->id) }}" class="btn btn-success"><i class="fa-solid fa-pen-to-square"></i></a>
-                    <form action="{{route('blogs.destroy' ,$blog->id)}}" method="post" style="display: inline-block">
-                      @csrf
-                      @method('delete')
-                      <button type="submit" class="btn btn-danger" style="display: inline-block"><i class="fa-solid fa-trash"></i></button>
+                    <a href="{{ route('blogs.show', $blog->id) }}"><i class="fa-solid fa-eye text-info"></i></a>
+                    <a href="{{ route('blogs.edit', $blog->id) }}"><i class="fa-solid fa-file-signature text-success"></i></a>
+                    <a href="#" onclick="event.preventDefault(); document.getElementById('delete-form-{{ $blog->id }}').submit();">
+                        <i class="fa-solid fa-trash text-danger"></i>
+                    </a>
+                    <form id="delete-form-{{ $blog->id }}" action="{{ route('blogs.destroy', $blog->id) }}" method="post" style="display: none;">
+                        @csrf
+                        @method('delete')
                     </form>
                     </td>
                     </tr>

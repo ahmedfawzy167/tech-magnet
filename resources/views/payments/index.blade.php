@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('page-title')
-   {{__('admin.All Payments')}}
+   {{__('admin.Payments')}}
 @endsection
 
 @section('page-content')
@@ -17,7 +17,7 @@
                             <th>{{ __('admin.Course') }}</th>
                             <th>{{ __('admin.Amount') }}</th>
                             <th>{{ __('admin.Currency') }}</th>
-                            <th>{{ __('admin.Created at') }}</th>
+                            <th>{{ __('admin.Created') }}</th>
                             <th>{{ __('admin.Actions') }}</th>
                         </tr>
                     </thead>
@@ -26,7 +26,7 @@
                             <tr>
                                 <td>{{ $payment->user->name }}</td>
                                 <td>{{ $payment->course->name }}</td>
-                                <td>{{ $payment->amount }}</td>
+                                <td>${{ $payment->amount }}</td>
                                 <td>{{ $payment->currency }}</td>
                                 <td>{{\Carbon\Carbon::parse($payment->created_at)->diffForHumans() }}</td>
                                 <td>
@@ -38,7 +38,7 @@
                                 </td>
                             </tr>
                         @empty
-                            <h1 class="text-center">No Payments Found!</h1>
+                            <h1 class="text-center">{{ __('admin.No Payments Found') }}!</h1>
                         @endforelse
                     </tbody>
                 </table>

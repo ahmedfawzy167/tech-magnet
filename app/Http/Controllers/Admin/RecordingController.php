@@ -2,17 +2,21 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\User;
-use App\Models\Course;
-use App\Models\Recording;
+use App\Models\{Recording, Course, User};
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreRecordingRequest;
 use App\Http\Requests\UpdateRecordingRequest;
-use Illuminate\Support\Facades\Session;
 
 class RecordingController extends Controller
 {
+
+    public function index()
+    {
+        $recordings = Recording::with(['course', 'user'])->get();
+        return view('recordings.index', compact('recordings'));
+    }
+
     public function create()
     {
         $courses = Course::all();
@@ -38,8 +42,7 @@ class RecordingController extends Controller
         $recording->user_id = $request->user_id;
         $recording->save();
 
-        Session::flash('message', 'Recording Created Successfully');
-        return redirect(route('recordings.index'));
+        return redirect(route('recordings.index'))->with('message', 'Recording Created Successfully');
     }
 
     public function edit(Recording $recording)
@@ -68,16 +71,9 @@ class RecordingController extends Controller
         $recording->user_id = $request->user_id;
         $recording->save();
 
-        Session::flash('message', 'Recording Updated Successfully');
-        return redirect(route('recordings.index'));
+        return redirect(route('recordings.index'))->with('message', 'Recording Updated Successfully');
     }
 
-
-    public function index()
-    {
-        $recordings = Recording::with(['course', 'user'])->get();
-        return view('recordings.index', compact('recordings'));
-    }
 
     public function show(Recording $recording)
     {
@@ -88,7 +84,6 @@ class RecordingController extends Controller
     public function destroy(Recording $recording)
     {
         $recording->delete();
-        Session::flash('message', 'Recording Deleted Successfully');
-        return redirect()->route('recordings.index');
+        return redirect()->route('recordings.index')->with('message', 'Recording Deleted Successfully');
     }
 }

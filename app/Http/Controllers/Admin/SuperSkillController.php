@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Course;
-use App\Models\SuperSkill;
+use App\Models\{SuperSkill, Course};
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Session;
 use Illuminate\Validation\ValidationException;
 
 class SuperSkillController extends Controller
@@ -45,8 +43,7 @@ class SuperSkillController extends Controller
             $super_skill->course_id = $request->course_id;
             $super_skill->save();
 
-            Session::flash('message', 'Super Skill is Created Successfully');
-            return redirect(route('super-skills.index'));
+            return redirect(route('super-skills.index'))->with('message', 'Super Skill Created Successfully');
         } catch (ValidationException $e) {
             return redirect()->back()->withErrors($e->errors())->withInput();
         }
@@ -75,8 +72,7 @@ class SuperSkillController extends Controller
         $super_skill->course_id = $request->course_id;
         $super_skill->update();
 
-        Session::flash('message', 'Super Skill is Updated Successfully');
-        return redirect(route('super-skills.index'));
+        return redirect(route('super-skills.index'))->with('message', 'Super Skill Updated Successfully');
     }
 
     /**
@@ -85,7 +81,6 @@ class SuperSkillController extends Controller
     public function destroy(SuperSkill $super_skill)
     {
         $super_skill->delete();
-        Session::flash('message', 'Super Skill is Deleted Successfully');
-        return redirect(route('super-skills.index'));
+        return redirect(route('super-skills.index'))->with('message', 'Super Skill Deleted Successfully');
     }
 }

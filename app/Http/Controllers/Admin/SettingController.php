@@ -5,8 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Setting;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Session;
 
 class SettingController extends Controller
 {
@@ -29,16 +27,13 @@ class SettingController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
+        $request->validate([
             'logo' => 'required|image|mimes:png,jpg,jpeg|max:2048',
             'email' => 'required|email|unique:settings',
             'phone' => 'required|string',
             'location' => 'required|string|max:50',
         ]);
 
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput();
-        }
 
         $logo = $request->file('logo');
         $ext = $logo->getClientOriginalExtension();
@@ -53,8 +48,7 @@ class SettingController extends Controller
         $setting->location = $request->location;
         $setting->save();
 
-        Session::flash('message', 'Setting is Created Successfully');
-        return redirect(route('settings.index'));
+        return redirect(route('settings.index'))->with('message', 'Setting Created Successfully');
     }
 
     /**
@@ -70,16 +64,13 @@ class SettingController extends Controller
      */
     public function update(Request $request, Setting $setting)
     {
-        $validator = Validator::make($request->all(), [
+        $request->validate([
             'logo' => 'nullable|image|mimes:png,jpg,jpeg|max:2048',
             'email' => 'required|email',
             'phone' => 'required|string',
             'location' => 'required|string|max:50',
         ]);
 
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput();
-        }
 
         if ($request->hasFile('logo')) {
             $logo = $request->file('logo');
@@ -94,8 +85,7 @@ class SettingController extends Controller
             $setting->update();
         }
 
-        Session::flash('message', 'Setting is Updated Successfully');
-        return redirect(route('settings.index'))->withInput();
+        return redirect(route('settings.index'))->with('message', 'Setting Updated Successfully');
     }
 
     /**
@@ -104,7 +94,6 @@ class SettingController extends Controller
     public function destroy(Setting $setting)
     {
         $setting->delete();
-        Session::flash('message', 'Setting is Deleted Now!');
-        return redirect(route('settings.index'));
+        return redirect(route('settings.index'))->with('message', 'Setting Deleted Successfully');
     }
 }

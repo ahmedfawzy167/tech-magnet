@@ -1,10 +1,9 @@
 @extends('layouts.master')
 
 @section('page-title')
-  {{ __('admin.All Enrollments') }}
+  {{ __('admin.Enrollments') }}
 @endsection
 
-@include('layouts.messages')
 
 @section('page-content')
     <div class="row">
@@ -17,7 +16,6 @@
                             <th>{{__('admin.ID')}}</th>
                             <th>{{__('admin.User')}}</th>
                             <th>{{__('admin.Course')}}</th>
-                            <th>{{__('admin.Status')}}</th>
                             <th>{{__('admin.Date')}}</th>
                             <th>{{__('admin.Actions')}}</th>
                         </tr>
@@ -25,11 +23,9 @@
                     <tbody>
                         @foreach($enrollments as $enrollment)
                         <tr>
-                            <td>{{$loop->iteration}}</td>
-                            <td>{{$enrollment->user->name}}</td>
-                            <td>{{$enrollment->course->name}}</td>
-
-                            <td>{{$enrollment->status}}</td>
+                            <td>{{$loop->index+1}}</td>
+                            <td>{{$enrollment?->user?->name}}</td>
+                            <td>{{$enrollment?->course?->name}}</td>
                             <td>{{\Carbon\Carbon::parse($enrollment->date)->diffForHumans()}}</td>
                             <td>
                                 <form action="{{route('enrollments.update',$enrollment->id)}}" method="post" style="display: inline-block">

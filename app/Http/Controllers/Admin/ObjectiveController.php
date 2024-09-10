@@ -6,7 +6,7 @@ use App\Models\Objective;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Session;
+use App\Http\Requests\StoreObjectiveRequest;
 use App\Http\Requests\UpdateObjectiveRequest;
 
 class ObjectiveController extends Controller
@@ -15,6 +15,22 @@ class ObjectiveController extends Controller
     {
         $objectives = DB::table('objectives')->get();
         return view('objectives.index', compact('objectives'));
+    }
+
+    public function create()
+    {
+        return view('objectives.create');
+    }
+
+    public function store(StoreObjectiveRequest $request)
+    {
+        $request->validated();
+
+        $objective = new Objective();
+        $objective->name = $request->name;
+        $objective->save();
+
+        return redirect(route('objectives.index'))->with('message', 'Objective Created Successfully');
     }
 
     public function show(Objective $objective)
@@ -34,14 +50,12 @@ class ObjectiveController extends Controller
         $objective->name = $request->name;
         $objective->save();
 
-        Session::flash('message', 'Objective is Updated Successfully!');
-        return redirect(route('objectives.index'));
+        return redirect(route('objectives.index'))->with('message', 'Objective Updated Successfully');
     }
 
     public function destroy(Objective $objective)
     {
         $objective->delete();
-        Session::flash('message', 'Objective is Deleted Successfully');
-        return redirect(route('objectives.index'));
+        return redirect(route('objectives.index'))->with('message', 'Objective Deleted Successfully');
     }
 }

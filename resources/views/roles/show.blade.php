@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('page-title')
-{{__('admin.Show Role')}}
+  {{__('admin.Show Role')}}
 @endsection
 
 @section('page-content')
@@ -13,19 +13,22 @@
       </div>
       <ul class="list-group list-group-flush">
         <h6 class="list-group-item">{{__('admin.Name')}}: {{$role->name}}</h6>
+        <h6 class="list-group-item">{{__('admin.Permissions')}}:
+          @foreach ($permissions as $permission)
+              <li class="ms-4">{{$permission->name}}</li>
+          @endforeach
+      </h6>
         <h6 class="list-group-item">{{__('admin.Users')}}:
             @foreach ($users as $user)
-             <div class="ms-4">
-                <li>{{$user->name}}</li>
+                <li class="ms-4">{{$user->name}}</li>
             @endforeach
-           </div>
         </h6>
 
       </ul>
     </div>
   </div>
   <div class="text-center mt-3">
-    <a href="{{route('categories.index')}}" class="btn btn-success text-white">{{__('admin.Back to List')}}</a>
+    <a href="{{route('roles.index')}}" class="btn btn-success text-white">{{__('admin.Back to List')}}</a>
  </div>
 
 

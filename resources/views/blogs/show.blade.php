@@ -18,6 +18,7 @@
       </ul>
     </div>
   </div>
+  
   <div class="text-center mt-2">
     <a href="{{route('blogs.index')}}" class="btn btn-info text-white">{{__('admin.Back to List')}}</a>
  </div>

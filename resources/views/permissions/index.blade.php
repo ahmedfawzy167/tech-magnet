@@ -23,15 +23,13 @@
                                 <td>{{ $loop->index + 1 }}</td>
                                 <td>{{ $permission->name }}</td>
                                 <td>
-                                    
-                                    <a href="{{ route('permissions.edit', $permission->id) }}"
-                                        class="btn btn-success">{{ __('admin.Edit') }}</a>
-                                    <form action="{{ route('permissions.destroy', $permission->id) }}" method="post"
-                                        style="display: inline-block">
+                                    <a href="{{ route('permissions.edit', $permission->id) }}"><i class="fa-solid fa-file-signature text-success"></i></a>
+                                    <a href="#" onclick="event.preventDefault(); document.getElementById('delete-form-{{ $permission->id }}').submit();">
+                                        <i class="fa-solid fa-trash text-danger"></i>
+                                    </a>
+                                    <form id="delete-form-{{ $permission->id }}" action="{{ route('permissions.destroy', $permission->id) }}" method="post" style="display: none;">
                                         @csrf
                                         @method('delete')
-                                        <button type="submit" class="btn btn-danger"
-                                            style="display: inline-block">{{ __('admin.Delete') }}</button>
                                     </form>
                                 </td>
                             </tr>

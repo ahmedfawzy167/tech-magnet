@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('page-title')
-    {{__('admin.All Trashed Cities') }}
+    {{__('admin.Trashed Cities') }}
 @endsection
 
 @section('page-content')
@@ -20,19 +20,23 @@
                     <tbody>
                         @forelse($trashedCities as $city)
                             <tr>
-                                <td>{{$loop->index+1}}</td>
+                                <td>{{ $loop->index+1}}</td>
                                 <td>{{ $city->name }}</td>
                                 <td>
-                                    <form action="{{ route('cities.restore', $city->id) }}" method="post" style="display: inline-block;">
+                                    <a href="#" onclick="event.preventDefault(); document.getElementById('restore-form-{{ $city->id }}').submit();">
+                                        <i class="fa-solid fa-arrow-rotate-left text-success"></i>                                    
+                                    </a>
+                                    <form id="restore-form-{{ $city->id }}" action="{{ route('cities.restore', $city->id) }}" method="post" style="display: none;">
                                         @csrf
                                         @method('PUT')
-                                        <button type="submit" class="btn btn-success"><i class="ion-loop"></i> Restore</button>
                                     </form>
-                                
-                                    <form action="{{ route('cities.force-delete', $city->id) }}" method="post" style="display: inline-block;">
+
+                                    <a href="#" onclick="event.preventDefault(); document.getElementById('delete-form-{{ $city->id }}').submit();">
+                                        <i class="fa-solid fa-trash-can text-danger ms-2"></i>                                    
+                                    </a>
+                                    <form id="delete-form-{{ $city->id }}" action="{{ route('cities.force-delete', $city->id) }}" method="post" style="display: none;">
                                         @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger"><i class="ion-trash-a"></i> Force Delete</button>
+                                        @method('delete')
                                     </form>
                                 </td>
                             </tr>
@@ -40,7 +44,7 @@
                         <tr>
                             <div>
                              <td colspan="3">
-                               <h1 class="text-center alert alert-warning">{{  __('admin.Trashed Cities Found!')}}</h1>
+                               <h1 class="text-center alert alert-warning">{{  __('admin.No Trashed Cities Found!')}}</h1>
                             </td>
                            </div>
                         </tr>

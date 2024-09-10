@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Payment;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Session;
 
 class PaymentController extends Controller
 {
@@ -20,7 +19,6 @@ class PaymentController extends Controller
         $payment = Payment::findOrFail($id);
         $payment->status = 'active';
         $payment->save();
-        Session::flash('message', 'Payment Status Updated Successfully');
-        return redirect()->route('payments.index');
+        return redirect()->route('payments.index')->with('message', 'Payment Status Updated Successfully');
     }
 }

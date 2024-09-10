@@ -19,6 +19,7 @@
                             <th>{{ __('admin.Category') }}</th>
                             <th>{{ __('admin.Objectives') }}</th>
                             <th>{{ __('admin.Image') }}</th>
+                            <th>{{ __('admin.Created') }}</th>
                             <th>{{ __('admin.Actions') }}</th>
                         </tr>
                     </thead>
@@ -29,15 +30,14 @@
                                 <td>{{\Str::limit($course->description,10) }}</td>
                                 <td>{{ $course->price }}</td>
                                 <td>{{ $course->hours }}</td>
-                                <td>{{ $course->category->name }}</td>
-                                @if(isset($course->objective))
-                                 <td>{{ $course->objective->name }}</td>
-                                @endif
+                                <td>{{ $course?->category?->name ?? 'UnCategorized' }}</td>
+                                <td>{{ $course?->objective?->name ?? 'No Objective Found' }}</td>
                                 <td>
                                     @if($course->image)
                                         <img src="{{ asset('storage/' . $course->image->path) }}" width="70px" class="mr-2">
                                     @endif
                                 </td>
+                                <td>{{\Carbon\Carbon::parse($course->created_at)->diffForHumans()}}</td>
                                 <td>
                                     <a href="{{ route('courses.show', $course->id) }}"><i class="fa-solid fa-eye text-info"></i></a>
                                     <a href="{{ route('courses.edit', $course->id) }}"><i class="fa-solid fa-file-signature text-success"></i></a>
@@ -58,4 +58,4 @@
         </div>
     </div>
 
-    @endsection
+@endsection

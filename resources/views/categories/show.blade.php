@@ -15,10 +15,8 @@
         <h6 class="list-group-item">{{__('admin.Name')}}: {{$category->name}}</h6>
         <h6 class="list-group-item">{{__('admin.Related Courses')}}:
             @foreach ($category->courses as $course)
-             <div class="ms-4">
-                <li>{{$course->name}}</li>
+                <li class="ms-4">{{$course->name}}</li>
             @endforeach
-           </div>
         </h6>
 
       </ul>

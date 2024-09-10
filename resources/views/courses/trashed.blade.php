@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('page-title')
-    {{ __('admin.All Trashed Courses') }}
+    {{ __('admin.Trashed Courses') }}
 @endsection
 
 @section('page-content')
@@ -18,6 +18,7 @@
                             <th>{{ __('admin.Category') }}</th>
                             <th>{{ __('admin.Objectives') }}</th>
                             <th>{{ __('admin.Image') }}</th>
+                            <th>{{ __('admin.Created') }}</th>
                             <th>{{ __('admin.Actions') }}</th>
                         </tr>
                     </thead>
@@ -27,26 +28,29 @@
                                 <td>{{ $course->name }}</td>
                                 <td>{{ $course->price }}</td>
                                 <td>{{ $course->hours }}</td>
-                                <td>{{ $course->category->name }}</td>
-                                @if(isset($course->objective))
-                                 <td>{{ $course->objective->name }}</td>
-                                @endif
+                                <td>{{ $course?->category?->name ?? 'UnCategorized' }}</td>
+                                <td>{{ $course?->objective?->name ?? 'No Objective Found' }}</td>
                                 <td>
                                     @if($course->image)
                                         <img src="{{ asset('storage/' . $course->image->path) }}" width="70px" class="mr-2">
                                     @endif
                                 </td>
+                                <td>{{ \Carbon\Carbon::parse($course->created_at)->diffForHumans() }}</td>
                                 <td>
-                                    <form action="{{ route('courses.restore', $course->id) }}" method="post" style="display: inline-block;">
+                                    <a href="#" onclick="event.preventDefault(); document.getElementById('restore-form-{{ $course->id }}').submit();">
+                                        <i class="fa-solid fa-arrow-rotate-left text-success"></i>                                    
+                                    </a>
+                                    <form id="restore-form-{{ $course->id }}" action="{{ route('courses.restore', $course->id) }}" method="post" style="display: none;">
                                         @csrf
                                         @method('PUT')
-                                        <button type="submit" class="btn btn-success"><i class="ion-loop"></i> Restore</button>
                                     </form>
-                                
-                                    <form action="{{ route('courses.force-delete', $course->id) }}" method="post" style="display: inline-block;">
+
+                                    <a href="#" onclick="event.preventDefault(); document.getElementById('delete-form-{{ $course->id }}').submit();">
+                                        <i class="fa-solid fa-trash-can text-danger ms-2"></i>                                    
+                                    </a>
+                                    <form id="delete-form-{{ $course->id }}" action="{{ route('courses.force-delete', $course->id) }}" method="post" style="display: none;">
                                         @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger"><i class="ion-trash-a"></i> Force Delete</button>
+                                        @method('delete')
                                     </form>
                                 </td>
                             </tr>

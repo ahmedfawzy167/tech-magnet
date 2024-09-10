@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\Models\CourseUser;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Session;
 
 class CourseUserController extends Controller
 {
@@ -21,7 +20,6 @@ class CourseUserController extends Controller
         $enrollment = CourseUser::findOrFail($id);
         $enrollment->status = 'approved';
         $enrollment->save();
-        Session::flash('message', 'Enrolllment Status Updated Successfully');
-        return redirect()->route('enrollments.index');
+        return redirect()->route('enrollments.index')->with('message', 'Enrolllment Status Updated Successfully');
     }
 }

@@ -24,16 +24,14 @@
                                 <td>{{ $loop->index + 1 }}</td>
                                 <td>{{ $objective->name }}</td>
                                 <td>
-                                    <a href="{{ route('objectives.show', $objective->id) }}"
-                                        class="btn btn-info">{{ __('admin.Show') }}</a>
-                                    <a href="{{ route('objectives.edit', $objective->id) }}"
-                                        class="btn btn-success">{{ __('admin.Edit') }}</a>
-                                    <form action="{{ route('objectives.destroy', $objective->id) }}" method="post"
-                                        style="display: inline-block">
+                                    <a href="{{ route('objectives.show', $objective->id) }}"><i class="fa-solid fa-eye text-info"></i></a>
+                                    <a href="{{ route('objectives.edit', $objective->id) }}"><i class="fa-solid fa-file-signature text-success"></i></a>
+                                    <a href="#" onclick="event.preventDefault(); document.getElementById('delete-form-{{ $objective->id }}').submit();">
+                                        <i class="fa-solid fa-trash text-danger"></i>
+                                    </a>
+                                    <form id="delete-form-{{ $objective->id }}" action="{{ route('objectives.destroy', $objective->id) }}" method="post" style="display: none;">
                                         @csrf
                                         @method('delete')
-                                        <button type="submit" class="btn btn-danger"
-                                            style="display: inline-block">{{ __('admin.Delete') }}</button>
                                     </form>
                                 </td>
                             </tr>

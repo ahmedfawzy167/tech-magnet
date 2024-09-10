@@ -2,15 +2,18 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Course;
-use App\Models\Material;
+use App\Models\{Course, Material};
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\Validator;
 
 class MaterialController extends Controller
 {
+    public function index()
+    {
+        $materials = Material::with('course')->get();
+        return view('materials.index', compact('materials'));
+    }
+
     public function create()
     {
         $courses = Course::all();
@@ -19,7 +22,7 @@ class MaterialController extends Controller
 
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
+        $request->validate([
             'title' => 'required|string|alpha|between:2,100',
             'description' => 'required|string|alpha|max:1000',
             'file'  => 'required|file|mimes:pdf|max:2048',
@@ -27,9 +30,6 @@ class MaterialController extends Controller
             'course_id' => 'required|exists:courses,id',
         ]);
 
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator);
-        }
 
         $file = $request->file('file');
         $fileName = $file->getClientOriginalName();
@@ -44,14 +44,7 @@ class MaterialController extends Controller
         $material->course_id = $request->course_id;
         $material->save();
 
-        Session::flash('message', 'Material Uploaded Successfully');
-        return redirect(route('materials.index'));
-    }
-
-    public function index()
-    {
-        $materials = Material::with('course')->get();
-        return view('materials.index', compact('materials'));
+        return redirect(route('materials.index'))->with('message', 'Material Uploaded Successfully');
     }
 
     public function show(Material $material)
@@ -62,7 +55,6 @@ class MaterialController extends Controller
     public function destroy(Material $material)
     {
         $material->delete();
-        Session::flash('message', 'Material Deleted Successfully');
-        return redirect()->route('materials.index');
+        return redirect()->route('materials.index')->with('message', 'Material Deleted Successfully');
     }
 }

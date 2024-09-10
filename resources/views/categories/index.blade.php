@@ -23,16 +23,14 @@
                                 <td>{{ $loop->index + 1 }}</td>
                                 <td>{{ $category->name }}</td>
                                 <td>
-                                  <a href="{{ route('categories.show', $category->id) }}"
-                                        class="btn btn-info">{{ __('admin.Show') }}</a>
-                                  <a href="{{ route('categories.edit', $category->id) }}"
-                                        class="btn btn-success">{{ __('admin.Edit') }}</a>
-                                  <form action="{{ route('categories.destroy', $category->id) }}" method="post"
-                                        style="display: inline-block">
+                                    <a href="{{ route('categories.show', $category->id) }}"><i class="fa-solid fa-eye text-info"></i></a>
+                                    <a href="{{ route('categories.edit', $category->id) }}"><i class="fa-solid fa-file-signature text-success"></i></a>
+                                    <a href="#" onclick="event.preventDefault(); document.getElementById('delete-form-{{ $category->id }}').submit();">
+                                        <i class="fa-solid fa-trash text-danger"></i>
+                                    </a>
+                                    <form id="delete-form-{{ $category->id }}" action="{{ route('categories.destroy', $category->id) }}" method="post" style="display: none;">
                                         @csrf
                                         @method('delete')
-                                        <button type="submit" class="btn btn-danger"
-                                            style="display: inline-block">{{ __('admin.Delete') }}</button>
                                     </form>
                                 </td>
                             </tr>

@@ -5,8 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Roadmap;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\Validator;
 
 class RoadmapController extends Controller
 {
@@ -14,6 +12,26 @@ class RoadmapController extends Controller
     {
         $roadmaps = Roadmap::all();
         return view('roadmaps.index', compact('roadmaps'));
+    }
+
+    public function create()
+    {
+        return view('roadmaps.create');
+    }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'title' => 'required|string|between:2,100',
+            'description' => 'required|string|max:1000',
+        ]);
+
+        $roadmap = new Roadmap();
+        $roadmap->title = $request->title;
+        $roadmap->description = $request->description;
+        $roadmap->save();
+
+        return redirect(route('roadmaps.index'))->with('message', 'Roadmap Created Successfully');
     }
 
     public function edit(Roadmap $roadmap)
@@ -26,21 +44,16 @@ class RoadmapController extends Controller
      */
     public function update(Request $request, Roadmap $roadmap)
     {
-        $validator = Validator::make($request->all(), [
+        $request->validate([
             'title' => 'required|string|between:2,100',
             'description' => 'required|string|max:1000',
         ]);
 
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput();
-        }
-
         $roadmap->title = $request->title;
         $roadmap->description = $request->description;
-        $roadmap->update();
+        $roadmap->save();
 
-        Session::flash('message', 'Roadmap is Updated Successfully');
-        return redirect(route('roadmaps.index'));
+        return redirect(route('roadmaps.index'))->with('message', 'Roadmap Updated Successfully');
     }
 
     /**
@@ -49,7 +62,6 @@ class RoadmapController extends Controller
     public function destroy(Roadmap $roadmap)
     {
         $roadmap->delete();
-        Session::flash('message', 'Roadmap is Deleted Successfully');
-        return redirect(route('roadmaps.index'));
+        return redirect(route('roadmaps.index'))->with('message', 'Roadmap Deleted Successfully');
     }
 }

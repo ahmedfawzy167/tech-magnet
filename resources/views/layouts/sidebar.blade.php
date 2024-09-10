@@ -74,10 +74,10 @@
             <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <a class="collapse-item" href="{{route('objectives.index')}}"><i class="fa-solid fa-list"></i> {{__('admin.All Objectives')}}</a>
+                    <a class="collapse-item" href="{{ route('objectives.create') }}"><i class="ion-plus-circled"></i> {{__('admin.Add New Objective')}}</a>
                 </div>
             </div>
         </li>
-
 
         <li class="nav-item">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsecities"
@@ -88,6 +88,7 @@
                 data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <a class="collapse-item" href="{{ route('cities.index') }}"><i class="fa-solid fa-list"></i> {{__('admin.All Cities')}}</a>
+                    <a class="collapse-item" href="{{ route('cities.create') }}"><i class="ion-plus-circled"></i> {{__('admin.Add New City')}}</a>
                     <a class="collapse-item" href="{{route('cities.trashed')}}"><i class="ion-alert"></i> All Trashed Cities</a>
                 </div>
             </div>
@@ -119,6 +120,7 @@
         data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
             <a class="collapse-item" href="{{route('roles.index')}}"><i class="fa-solid fa-list"></i> {{__('admin.All Roles')}}</a>
+            <a class="collapse-item" href="{{route('roles.create')}}"><i class="ion-plus-circled"></i> {{__('admin.Add New Role')}}</a>
         </div>
     </div>
 </li>
@@ -132,6 +134,7 @@
         data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
             <a class="collapse-item" href="{{route('permissions.index')}}"><i class="fa-solid fa-list"></i> {{__('admin.All Permissions')}}</a>
+            <a class="collapse-item" href="{{route('permissions.create')}}"><i class="ion-plus-circled"></i> {{__('admin.Add New Permission')}}</a>
         </div>
     </div>
 </li>
@@ -162,7 +165,6 @@
         <div class="bg-white py-2 collapse-inner rounded">
             <a class="collapse-item" href="{{route('skills.index')}}"><i class="fa-solid fa-list"></i> {{__('admin.All Skills')}}</a>
             <a class="collapse-item" href="{{ route('skills.create') }}"><i class="ion-plus-circled"></i> {{__('admin.Add New Skill')}}</a>
-
         </div>
     </div>
 </li>
@@ -176,6 +178,7 @@
         data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
             <a class="collapse-item" href="{{route('roadmaps.index')}}"><i class="fa-solid fa-list"></i> {{__('admin.All Roadmaps')}}</a>
+            <a class="collapse-item" href="{{route('roadmaps.create')}}"><i class="ion-plus-circled"></i> {{__('admin.Add New Roadmap')}}</a>
         </div>
     </div>
 </li>

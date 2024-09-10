@@ -15,9 +15,6 @@
                     <label for="name">{{ __('admin.Name') }}<span class="text-danger ms-2">*</span></label>
                     <input type="text" name="name" id="name" value="{{$category->name}}"
                         class="form-control @error('name') is-invalid @enderror">
-                    @error('name')
-                        <strong class="invalid-feedback" role="alert">{{ $message }}</strong>
-                    @enderror
                 </div>
 
                 <div class="text-center">

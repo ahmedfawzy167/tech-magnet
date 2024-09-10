@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Permission;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Session;
 
 class PermissionController extends Controller
 {
@@ -17,6 +16,26 @@ class PermissionController extends Controller
         $permissions = Permission::all();
         return view('permissions.index', compact('permissions'));
     }
+
+
+    public function create()
+    {
+        return view('permissions.create');
+    }
+
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'name' => ['required', 'string', 'max:100']
+        ]);
+
+        $permission = new Permission();
+        $permission->name = $request->name;
+        $permission->save();
+        return redirect(route('permissions.index'))->with('message', 'Permission Created Successfully');
+    }
+
 
 
     /**
@@ -37,9 +56,9 @@ class PermissionController extends Controller
         ]);
 
         $permission->name = $request->name;
-        $permission->update();
-        Session::flash('message', 'Permission is Update Successfully');
-        return redirect(route('permissions.index'));
+        $permission->save();
+
+        return redirect(route('permissions.index'))->with('message', 'Permission Updated Successfully');
     }
 
     /**
@@ -48,7 +67,7 @@ class PermissionController extends Controller
     public function destroy(Permission $permission)
     {
         $permission->delete();
-        Session::flash('message', 'Permission is Deleted Successfully');
-        return redirect(route('permissions.index'));
+
+        return redirect(route('permissions.index'))->with('message', 'Permission Deleted Successfully');
     }
 }

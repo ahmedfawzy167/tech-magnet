@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('page-title')
-   {{__('admin.All Reviews')}}
+   {{__('admin.Reviews')}}
 @endsection
 
 @section('page-content')
@@ -40,7 +40,7 @@
                                 </td>
                             </tr>
                         @empty
-                            <h1 class="text-center">No Reviews Found!</h1>
+                            <h1 class="text-center">{{ __('admin.No Reviews Found!')}}</h1>
                         @endforelse
                     </tbody>
                 </table>

@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('page-title')
-    {{__('admin.All Trashed Categories') }}
+    {{__('admin.Trashed Categories') }}
 @endsection
 
 @section('page-content')
@@ -23,16 +23,20 @@
                                 <td>{{ $loop->index+1 }}</td>
                                 <td>{{ $category->name }}</td>
                                 <td>
-                                    <form action="{{ route('categories.restore', $category->id) }}" method="post" style="display: inline-block;">
+                                    <a href="#" onclick="event.preventDefault(); document.getElementById('restore-form-{{ $category->id }}').submit();">
+                                        <i class="fa-solid fa-arrow-rotate-left text-success"></i>                                    
+                                    </a>
+                                    <form id="restore-form-{{ $category->id }}" action="{{ route('categories.restore', $category->id) }}" method="post" style="display: none;">
                                         @csrf
                                         @method('PUT')
-                                        <button type="submit" class="btn btn-success"><i class="ion-loop"></i> Restore</button>
                                     </form>
-                                
-                                    <form action="{{ route('categories.force-delete', $category->id) }}" method="post" style="display: inline-block;">
+
+                                    <a href="#" onclick="event.preventDefault(); document.getElementById('delete-form-{{ $category->id }}').submit();">
+                                        <i class="fa-solid fa-trash-can text-danger ms-2"></i>                                    
+                                    </a>
+                                    <form id="delete-form-{{ $category->id }}" action="{{ route('categories.force-delete', $category->id) }}" method="post" style="display: none;">
                                         @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger"><i class="ion-trash-a"></i> Force Delete</button>
+                                        @method('delete')
                                     </form>
                                 </td>
                             </tr>

@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('page-title')
-    {{ __('admin.All Trashed Blogs') }}
+    {{ __('admin.Trashed Blogs') }}
 @endsection
 
 @section('page-content')
@@ -15,6 +15,7 @@
                         <th>{{ __('admin.ID') }}</th>
                         <th>{{ __('admin.Name') }}</th>
                         <th>{{ __('admin.Description') }}</th>
+                        <th>{{ __('admin.Image') }}</th>
                         <th>{{ __('admin.Actions') }}</th>
                     </tr>
                     </thead>
@@ -23,18 +24,27 @@
                             <tr>
                                 <td>{{ $loop->index+1 }}</td>
                                 <td>{{ $blog->title }}</td>
-                                <td>{{\Str::limit($blog->description,10)}}</td>
+                                <td>{{\Str::limit($blog->description,20)}}</td>
                                 <td>
-                                    <form action="{{ route('blogs.restore', $blog->id) }}" method="post" style="display: inline-block;">
+                                    @if($blog->image)
+                                      <img src="{{ asset('storage/' . $blog->image->path) }}" width="70px" class="mr-2">
+                                    @endif
+                                </td>
+                                <td>
+                                    <a href="#" onclick="event.preventDefault(); document.getElementById('restore-form-{{ $blog->id }}').submit();">
+                                        <i class="fa-solid fa-arrow-rotate-left text-success"></i>                                    
+                                    </a>
+                                    <form id="restore-form-{{ $blog->id }}" action="{{ route('blogs.restore', $blog->id) }}" method="post" style="display: none;">
                                         @csrf
                                         @method('PUT')
-                                        <button type="submit" class="btn btn-success"><i class="ion-loop"></i> Restore</button>
                                     </form>
-                                
-                                    <form action="{{ route('blogs.force-delete', $blog->id) }}" method="post" style="display: inline-block;">
+
+                                    <a href="#" onclick="event.preventDefault(); document.getElementById('delete-form-{{ $blog->id }}').submit();">
+                                        <i class="fa-solid fa-trash-can text-danger ms-2"></i>                                    
+                                    </a>
+                                    <form id="delete-form-{{ $blog->id }}" action="{{ route('blogs.force-delete', $blog->id) }}" method="post" style="display: none;">
                                         @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger"><i class="ion-trash-a"></i> Force Delete</button>
+                                        @method('delete')
                                     </form>
                                 </td>
                             </tr>

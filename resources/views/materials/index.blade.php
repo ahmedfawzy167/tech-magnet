@@ -42,7 +42,7 @@
                                 </td>
                             </tr>
                         @empty
-                            <h1 class="text-center">No Materials Found!</h1>
+                            <h1 class="text-center">{{__('admin.No Materials Found!') }}</h1>
                         @endforelse
                     </tbody>
                 </table>

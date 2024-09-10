@@ -22,32 +22,41 @@
                         class="form-control @error('description') is-invalid @enderror"></textarea>
                 </div>
 
-                 <div class="col-6">
+                 <div class="form-group col-6">
                    <label for="price">{{__('admin.Price')}}<span class="text-danger ms-2">*</span></label>
-                  <input type="text" name="price" id="price" class="form-control @error('price') is-invalid @enderror">
-               </div>
+                   <input type="text" name="price" id="price" class="form-control @error('price') is-invalid @enderror">
+                 </div>
 
-                 <div class="col-6">
+                 <div class="form-group col-6">
                    <label for="hours">{{__('admin.Hours')}}<span class="text-danger ms-2">*</span></label>
                   <input type="text" name="hours" id="hours" class="form-control @error('hours') is-invalid @enderror">
-               </div>
+                 </div>
 
-              <div class="form-group col-12 mt-3">
+              <div class="form-group col-6 mt-3">
                <label for="category_id">{{__('admin.Category')}}<span class="text-danger ms-2">*</span></label>
                <select name="category_id" id="category_id" class="form-select @error('category_id') is-invalid @enderror">
-                @foreach($categories as $category)
                    <option value="#" selected>Choose One..</option>
+                @foreach($categories as $category)
                    <option value="{{$category->id}}">{{$category->name}}</option>
                 @endforeach
                 </select>
               </div>
 
-              <div class="form-group col-12">
-                <label for="objective_id">{{__('admin.Objectives')}}<span class="text-danger ms-2">*</span></label>
+              <div class="form-group col-6 mt-3">
+                <label for="objective_id">{{__('admin.Objective')}}<span class="text-danger ms-2">*</span></label>
                 <select name="objective_id" id="objective_id" class="form-select @error('objective_id') is-invalid @enderror">
                     <option value="#" selected>Choose One..</option>
                     @foreach($objectives as $objective)
                       <option value="{{$objective->id}}">{{$objective->name}}</option>
+                    @endforeach
+                 </select>
+               </div>
+
+               <div class="form-group col-12 mt-3">
+                <label for="roadmaps">{{__('admin.Roadmaps')}}<span class="text-danger ms-2">*</span></label>
+                <select name="roadmaps[]" id="roadmaps" multiple class="form-select @error('roadmap_id') is-invalid @enderror">
+                    @foreach($roadmaps as $roadmap)
+                      <option value="{{$roadmap->id}}">{{$roadmap->title}}</option>
                     @endforeach
                  </select>
                </div>
