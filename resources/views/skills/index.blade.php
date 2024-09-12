@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('page-title')
-    {{ __('admin.All Skills') }}
+    {{ __('admin.Skills') }}
 @endsection
 
 @section('page-content')
@@ -25,14 +25,13 @@
                                  <td>{{ $skill->superSkill->name }}</td>
                                 @endif
                                 <td>
-                                    <a href="{{ route('skills.edit',$skill->id) }}"
-                                        class="btn btn-success"><i class="fa-solid fa-file-signature"></i></a>
-                                    <form action="{{ route('skills.destroy',$skill->id) }}" method="post"
-                                        style="display: inline-block">
+                                    <a href="{{ route('skills.edit', $skill->id) }}"><i class="fa-solid fa-file-signature text-success"></i></a>
+                                    <a href="#" class="btn-delete" data-url="{{ route('skills.destroy', $skill->id) }}">
+                                        <i class="fa-solid fa-trash text-danger"></i>
+                                    </a>
+                                    <form action="{{ route('skills.destroy', $skill->id) }}" method="post" style="display: none;">
                                         @csrf
                                         @method('delete')
-                                        <button type="submit" class="btn btn-danger"
-                                            style="display: inline-block"><i class="fa-solid fa-trash"></i></button>
                                     </form>
                                 </td>
                             </tr>

@@ -31,8 +31,8 @@
                                         @method('PUT')
                                     </form>
 
-                                    <a href="#" onclick="event.preventDefault(); document.getElementById('delete-form-{{ $city->id }}').submit();">
-                                        <i class="fa-solid fa-trash-can text-danger ms-2"></i>                                    
+                                    <a href="#" class="btn-delete-forever" data-url="{{ route('cities.force-delete', $city->id) }}">
+                                        <i class="fa-solid fa-trash-can text-danger ms-2"></i>
                                     </a>
                                     <form id="delete-form-{{ $city->id }}" action="{{ route('cities.force-delete', $city->id) }}" method="post" style="display: none;">
                                         @csrf

@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('page-title')
-    {{ __('admin.All Categories') }}
+    {{ __('admin.Categories') }}
 @endsection
 
 @section('page-content')
@@ -25,10 +25,10 @@
                                 <td>
                                     <a href="{{ route('categories.show', $category->id) }}"><i class="fa-solid fa-eye text-info"></i></a>
                                     <a href="{{ route('categories.edit', $category->id) }}"><i class="fa-solid fa-file-signature text-success"></i></a>
-                                    <a href="#" onclick="event.preventDefault(); document.getElementById('delete-form-{{ $category->id }}').submit();">
+                                    <a href="#" class="btn-delete" data-url="{{ route('categories.destroy', $category->id) }}">
                                         <i class="fa-solid fa-trash text-danger"></i>
                                     </a>
-                                    <form id="delete-form-{{ $category->id }}" action="{{ route('categories.destroy', $category->id) }}" method="post" style="display: none;">
+                                    <form  action="{{ route('categories.destroy', $category->id) }}" method="post" style="display: none;">
                                         @csrf
                                         @method('delete')
                                     </form>

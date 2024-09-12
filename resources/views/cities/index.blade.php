@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('page-title')
-    {{ __('admin.All Cities') }}
+    {{ __('admin.Cities') }}
 @endsection
 
 @section('page-content')
@@ -25,10 +25,10 @@
                                 <td>
                                     <a href="{{ route('cities.show', $city->id) }}"><i class="fa-solid fa-eye text-info"></i></a>
                                     <a href="{{ route('cities.edit', $city->id) }}"><i class="fa-solid fa-file-signature text-success"></i></a>
-                                    <a href="#" onclick="event.preventDefault(); document.getElementById('delete-form-{{ $city->id }}').submit();">
+                                    <a href="#" class="btn-delete" data-url="{{ route('cities.destroy', $city->id) }}">
                                         <i class="fa-solid fa-trash text-danger"></i>
                                     </a>
-                                    <form id="delete-form-{{ $city->id }}" action="{{ route('cities.destroy', $city->id) }}" method="post" style="display: none;">
+                                    <form action="{{ route('cities.destroy', $city->id) }}" method="post" style="display: none;">
                                         @csrf
                                         @method('delete')
                                     </form>

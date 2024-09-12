@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('page-title')
-    {{ __('admin.All Courses') }}
+    {{ __('admin.Courses') }}
 @endsection
 
 @section('page-content')
@@ -41,10 +41,10 @@
                                 <td>
                                     <a href="{{ route('courses.show', $course->id) }}"><i class="fa-solid fa-eye text-info"></i></a>
                                     <a href="{{ route('courses.edit', $course->id) }}"><i class="fa-solid fa-file-signature text-success"></i></a>
-                                    <a href="#" onclick="event.preventDefault(); document.getElementById('delete-form-{{ $course->id }}').submit();">
+                                    <a href="#" class="btn-delete" data-url="{{ route('courses.destroy', $course->id) }}">
                                         <i class="fa-solid fa-trash text-danger"></i>
                                     </a>
-                                    <form id="delete-form-{{ $course->id }}" action="{{ route('courses.destroy', $course->id) }}" method="post" style="display: none;">
+                                    <form action="{{ route('courses.destroy', $course->id) }}" method="post" style="display: none;">
                                         @csrf
                                         @method('delete')
                                     </form>

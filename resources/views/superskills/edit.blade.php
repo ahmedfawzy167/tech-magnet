@@ -21,7 +21,7 @@
                <label for="course_id">{{__('admin.Course')}}<span class="text-danger ms-2">*</span></label>
                <select name="course_id" id="course_id" class="form-select">
                 @foreach($courses as $course)
-                  <option value="{{$course->id}}">{{$course->name}}</option>
+                  <option value="{{$course->id}}" {{ $course->id == $superSkill->course_id ? 'selected' : ''}}>{{$course->name}}</option>
                 @endforeach
                 </select>
               </div>

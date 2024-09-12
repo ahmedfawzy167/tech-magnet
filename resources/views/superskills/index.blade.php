@@ -26,14 +26,13 @@
                                 <td>{{ $super_skill->course->name }}</td>
                 
                                 <td>
-                                    <a href="{{ route('super-skills.edit',$super_skill->id) }}"
-                                        class="btn btn-success"><i class="fa-solid fa-file-signature"></i></a>
-                                    <form action="{{ route('super-skills.destroy',$super_skill->id) }}" method="post"
-                                        style="display: inline-block">
+                                    <a href="{{ route('super-skills.edit', $super_skill->id) }}"><i class="fa-solid fa-file-signature text-success"></i></a>
+                                    <a href="#" class="btn-delete" data-url="{{ route('super-skills.destroy', $super_skill->id) }}">
+                                        <i class="fa-solid fa-trash text-danger"></i>
+                                    </a>
+                                    <form id="delete-form-{{ $super_skill->id }}" action="{{ route('super-skills.destroy', $super_skill->id) }}" method="post" style="display: none;">
                                         @csrf
                                         @method('delete')
-                                        <button type="submit" class="btn btn-danger"
-                                            style="display: inline-block"><i class="fa-solid fa-trash"></i></button>
                                     </form>
                                 </td>
                             </tr>
@@ -44,8 +43,6 @@
                 </table>
         </div>
         </div>
-
-        @include('layouts.messages')
 
 
     @endsection

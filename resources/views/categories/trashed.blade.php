@@ -31,8 +31,8 @@
                                         @method('PUT')
                                     </form>
 
-                                    <a href="#" onclick="event.preventDefault(); document.getElementById('delete-form-{{ $category->id }}').submit();">
-                                        <i class="fa-solid fa-trash-can text-danger ms-2"></i>                                    
+                                    <a href="#" class="btn-delete-forever" data-url="{{ route('categories.force-delete', $category->id) }}">
+                                        <i class="fa-solid fa-trash-can text-danger ms-2"></i>
                                     </a>
                                     <form id="delete-form-{{ $category->id }}" action="{{ route('categories.force-delete', $category->id) }}" method="post" style="display: none;">
                                         @csrf

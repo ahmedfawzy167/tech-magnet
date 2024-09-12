@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('page-title')
-  {{__('admin.All Materials')}}
+  {{__('admin.Materials')}}
 @endsection
 
 @section('page-content')
@@ -29,13 +29,11 @@
                                 <td>{{ $material->file_type }}</td>
                                 <td>{{ $material->course->name }}</td>
                                 <td>
-                                    <a href="{{route('materials.show',$material->id)}}">
-                                        <i class="fa-solid fa-eye text-info"></i>
-                                    </a>
-                                    <a href="#" onclick="event.preventDefault(); document.getElementById('delete-form-{{ $material->id }}').submit();">
+                                    <a href="{{ route('materials.show', $material->id) }}"><i class="fa-solid fa-eye text-info"></i></a>
+                                    <a href="#" class="btn-delete" data-url="{{ route('materials.destroy', $material->id) }}">
                                         <i class="fa-solid fa-trash text-danger"></i>
                                     </a>
-                                    <form id="delete-form-{{ $material->id }}" action="{{ route('materials.destroy', $material->id) }}" method="post" style="display: none;">
+                                    <form action="{{ route('materials.destroy', $material->id) }}" method="post" style="display: none;">
                                         @csrf
                                         @method('delete')
                                     </form>

@@ -25,22 +25,23 @@
                                 <td>{{ $roadmap->title }}</td>
                                 <td>{{ \Str::limit($roadmap->description,30) }}</td>
                                 <td>
-                                    <a href="{{ route('roadmaps.edit',$roadmap->id) }}"
-                                        class="btn btn-success"><i class="fa-solid fa-file-signature"></i></a>
-                                    <form action="{{ route('roadmaps.destroy',$roadmap->id) }}" method="post"
-                                        style="display: inline-block">
+                                    <a href="{{ route('roadmaps.edit', $roadmap->id) }}"><i class="fa-solid fa-file-signature text-success"></i></a>
+                                    <a href="#" class="btn-delete" data-url="{{ route('roadmaps.destroy', $roadmap->id) }}">
+                                        <i class="fa-solid fa-trash text-danger"></i>
+                                    </a>
+                                    <form action="{{ route('roadmaps.destroy', $roadmap->id) }}" method="post" style="display: none;">
                                         @csrf
                                         @method('delete')
-                                        <button type="submit" class="btn btn-danger"
-                                            style="display: inline-block"><i class="fa-solid fa-trash"></i></button>
                                     </form>
                                 </td>
                             </tr>
                         @empty
-                            <h1 class="text-center">No Skills Found!</h1>
+                            <h1 class="text-center">{{ __('admin.No Roadmaps Found!') }}</h1>
                         @endforelse
                     </tbody>
                 </table>
+
+
         </div>
         </div>
 

@@ -28,7 +28,7 @@
                <label for="super_skill_id">{{__('admin.Super Skills')}}<span class="text-danger ms-2">*</span></label>
                <select name="super_skill_id" id="super_skill_id" class="form-select">
                 @foreach($super_skills as $super_skill)
-                  <option value="{{$super_skill->id}}">{{$super_skill->name}}</option>
+                  <option value="{{$super_skill->id}}" {{ $super_skill->id == $skill->super_skill_id ? 'selected' : ''}}>{{$super_skill->name}}</option>
                 @endforeach
                 </select>
               </div>

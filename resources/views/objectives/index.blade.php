@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('page-title')
-    {{ __('admin.All Objectives') }}
+    {{ __('admin.Objectives') }}
 @endsection
 
 @section('page-content')
@@ -26,7 +26,7 @@
                                 <td>
                                     <a href="{{ route('objectives.show', $objective->id) }}"><i class="fa-solid fa-eye text-info"></i></a>
                                     <a href="{{ route('objectives.edit', $objective->id) }}"><i class="fa-solid fa-file-signature text-success"></i></a>
-                                    <a href="#" onclick="event.preventDefault(); document.getElementById('delete-form-{{ $objective->id }}').submit();">
+                                    <a href="#" class="btn-delete" data-url="{{ route('objectives.destroy', $objective->id) }}">
                                         <i class="fa-solid fa-trash text-danger"></i>
                                     </a>
                                     <form id="delete-form-{{ $objective->id }}" action="{{ route('objectives.destroy', $objective->id) }}" method="post" style="display: none;">

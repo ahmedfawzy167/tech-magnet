@@ -30,10 +30,10 @@
                                 <td>{{ $review->content }}</td>
                                 <td>{{ $review->rating }}</td>
                                 <td>
-                                    <a href="#" onclick="event.preventDefault(); document.getElementById('delete-form-{{ $review->id }}').submit();">
+                                    <a href="#" class="btn-delete" data-url="{{ route('reviews.destroy', $review->id) }}">
                                         <i class="fa-solid fa-trash text-danger"></i>
                                     </a>
-                                    <form id="delete-form-{{ $review->id }}" action="{{ route('reviews.destroy', $review->id) }}" method="post" style="display: none;">
+                                    <form action="{{ route('reviews.destroy', $review->id) }}" method="post" style="display: none;">
                                         @csrf
                                         @method('delete')
                                     </form>

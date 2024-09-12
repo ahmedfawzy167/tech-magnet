@@ -23,6 +23,8 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://cdn.datatables.net/searchbuilder/1.7.1/js/searchBuilder.bootstrap5.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
+<!-- Toastr Notification JS -->
+
 <script>
   toastr.options = {
  "closeButton": false,
@@ -90,6 +92,101 @@ $(document).ready(function() {
 </script>
 
 
+ <!-- SweetAlert2 JS -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+      // Capture the Delete Button click event
+
+      document.querySelectorAll('.btn-delete').forEach(button => {
+            button.addEventListener('click', function() {
+                var url = this.dataset.url;
+
+                // Trigger SweetAlert confirmation
+                Swal.fire({
+                    title: 'Are you Sure?',
+                    text: "You Will be Able to Restore it Later! 😎",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, Trash it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Create and submit the form
+                        var form = document.createElement('form');
+                        form.method = 'POST';
+                        form.action = url;
+
+                        var tokenInput = document.createElement('input');
+                        tokenInput.type = 'hidden';
+                        tokenInput.name = '_token';
+                        tokenInput.value = '{{ csrf_token() }}';
+                        form.appendChild(tokenInput);
+
+                        var methodInput = document.createElement('input');
+                        methodInput.type = 'hidden';
+                        methodInput.name = '_method';
+                        methodInput.value = 'DELETE';
+                        form.appendChild(methodInput);
+
+                        document.body.appendChild(form);
+                        form.submit();
+                    }
+                });
+            });
+        });
+    });
+
+
+
+
+     // Capture the Delete Forever button click event
+
+      document.querySelectorAll('.btn-delete-forever').forEach(button => {
+          button.addEventListener('click', function(event) {
+              event.preventDefault(); // Prevent default anchor behavior
+              var url = this.dataset.url;
+
+              // Trigger SweetAlert confirmation
+              Swal.fire({
+                  title: 'Are you sure?',
+                  text: "You Won't be Able to Restore it! 🤷‍♂️",
+                  icon: 'warning',
+                  showCancelButton: true,
+                  confirmButtonColor: '#3085d6',
+                  cancelButtonColor: '#d33',
+                  confirmButtonText: 'Yes, Delete it!'
+              }).then((result) => {
+                  if (result.isConfirmed) {
+                      // Create and submit the form
+                      var form = document.createElement('form');
+                      form.method = 'POST';
+                      form.action = url;
+
+                      var tokenInput = document.createElement('input');
+                      tokenInput.type = 'hidden';
+                      tokenInput.name = '_token';
+                      tokenInput.value = '{{ csrf_token() }}';
+                      form.appendChild(tokenInput);
+
+                      var methodInput = document.createElement('input');
+                      methodInput.type = 'hidden';
+                      methodInput.name = '_method';
+                      methodInput.value = 'DELETE';
+                      form.appendChild(methodInput);
+
+                      document.body.appendChild(form);
+                      form.submit(); // Submit the form only after confirmation
+                  }
+              });
+          });
+      });
+</script>
+
+
+
+        
 <!-- Bootstrap core JavaScript-->
 <script src="{{ asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 

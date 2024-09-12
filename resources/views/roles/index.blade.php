@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('page-title')
-    {{ __('admin.All Roles') }}
+    {{ __('admin.Roles') }}
 @endsection
 
 @section('page-content')
@@ -26,10 +26,10 @@
                                 <td>
                                     <a href="{{ route('roles.show', $role->id) }}"><i class="fa-solid fa-eye text-info"></i></a>
                                     <a href="{{ route('roles.edit', $role->id) }}"><i class="fa-solid fa-file-signature text-success"></i></a>
-                                    <a href="#" onclick="event.preventDefault(); document.getElementById('delete-form-{{ $role->id }}').submit();">
+                                    <a href="#" class="btn-delete" data-url="{{ route('roles.destroy',$role->id) }}">
                                         <i class="fa-solid fa-trash text-danger"></i>
                                     </a>
-                                    <form id="delete-form-{{ $role->id }}" action="{{ route('roles.destroy', $role->id) }}" method="post" style="display: none;">
+                                    <form action="{{ route('roles.destroy', $role->id) }}" method="post" style="display: none;">
                                         @csrf
                                         @method('delete')
                                     </form>

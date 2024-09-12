@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('page-title')
-    {{ __('admin.All Recordings') }}
+    {{ __('admin.Recordings') }}
 @endsection
 
 @section('page-content')
@@ -29,22 +29,19 @@
                                 <td>{{ $recording->course->name }}</td>
                                 <td>{{ $recording->user->name }}</td>
                                 <td>
-                                    <a href="{{ route('recordings.show', $recording->id) }}"
-                                        class="btn btn-info">{{ __('admin.Show') }}</a>
-
-                                    <a href="{{ route('recordings.edit', $recording->id) }}"
-                                        class="btn btn-success">{{ __('admin.Edit') }}</a>
-                                    <form action="{{ route('recordings.destroy', $recording->id) }}" method="post"
-                                        style="display: inline-block">
+                                    <a href="{{ route('recordings.show', $recording->id) }}"><i class="fa-solid fa-eye text-info"></i></a>
+                                    <a href="{{ route('recordings.edit', $recording->id) }}"><i class="fa-solid fa-file-signature text-success"></i></a>
+                                    <a href="#" class="btn-delete" data-url="{{ route('recordings.destroy', $recording->id) }}">
+                                        <i class="fa-solid fa-trash text-danger"></i>
+                                    </a>
+                                    <form action="{{ route('recordings.destroy', $recording->id) }}" method="post" style="display: none;">
                                         @csrf
                                         @method('delete')
-                                        <button type="submit" class="btn btn-danger"
-                                            style="display: inline-block">{{ __('admin.Delete') }}</button>
                                     </form>
                                 </td>
                             </tr>
                         @empty
-                            <h1 class="text-center">No Recordings Found!</h1>
+                            <h1 class="text-center">{{ __('admin.No Recordings Found!') }}</h1>
                         @endforelse
                     </tbody>
                 </table>

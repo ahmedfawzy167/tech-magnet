@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('page-title')
-{{__('admin.All Blogs')}}
+{{__('admin.Blogs')}}
 @endsection
 
 @section('page-content')
@@ -32,10 +32,10 @@
                   <td>
                     <a href="{{ route('blogs.show', $blog->id) }}"><i class="fa-solid fa-eye text-info"></i></a>
                     <a href="{{ route('blogs.edit', $blog->id) }}"><i class="fa-solid fa-file-signature text-success"></i></a>
-                    <a href="#" onclick="event.preventDefault(); document.getElementById('delete-form-{{ $blog->id }}').submit();">
+                    <a href="#" class="btn-delete" data-url="{{ route('blog.destroy', $blog->id) }}">
                         <i class="fa-solid fa-trash text-danger"></i>
                     </a>
-                    <form id="delete-form-{{ $blog->id }}" action="{{ route('blogs.destroy', $blog->id) }}" method="post" style="display: none;">
+                    <form action="{{ route('blogs.destroy', $blog->id) }}" method="post" style="display: none;">
                         @csrf
                         @method('delete')
                     </form>

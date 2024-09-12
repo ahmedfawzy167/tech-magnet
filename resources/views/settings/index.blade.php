@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('page-title')
-  {{__('admin.All Settings')}}
+  {{__('admin.Settings')}}
 @endsection
 
 @section('page-content')
@@ -28,11 +28,13 @@
                             <td>{{$setting->phone}}</td>
                             <td>{{$setting->location}}</td>
                             <td>
-                                <a href="{{ route('settings.edit',$setting->id) }}" class="btn btn-success">{{__('admin.Edit')}}</a>
-                                <form action="{{route('settings.destroy' ,$setting->id)}}" method="post" style="display: inline-block">
+                                <a href="{{ route('settings.edit', $setting->id) }}"><i class="fa-solid fa-file-signature text-success"></i></a>
+                                <a href="#" class="btn-delete" data-url="{{ route('settings.destroy', $setting->id) }}">
+                                    <i class="fa-solid fa-trash text-danger"></i>
+                                </a>
+                                <form action="{{ route('settings.destroy', $setting->id) }}" method="post" style="display: none;">
                                     @csrf
                                     @method('delete')
-                                     <button type="submit" class="btn btn-danger" style="display: inline-block">{{__('admin.Delete')}}</button>
                                 </form>
                             </td>
                         </tr>

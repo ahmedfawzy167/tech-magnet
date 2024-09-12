@@ -24,7 +24,7 @@
                                 <td>{{ $permission->name }}</td>
                                 <td>
                                     <a href="{{ route('permissions.edit', $permission->id) }}"><i class="fa-solid fa-file-signature text-success"></i></a>
-                                    <a href="#" onclick="event.preventDefault(); document.getElementById('delete-form-{{ $permission->id }}').submit();">
+                                    <a href="#" class="btn-delete" data-url="{{ route('permissions.destroy', $permission->id) }}">
                                         <i class="fa-solid fa-trash text-danger"></i>
                                     </a>
                                     <form id="delete-form-{{ $permission->id }}" action="{{ route('permissions.destroy', $permission->id) }}" method="post" style="display: none;">

@@ -36,10 +36,10 @@
                                     ><i class="fa-solid fa-eye text-info"></i></a>
                                     <a href="{{ route('users.edit', $user->id) }}"
                                     ><i class="fa-solid fa-file-signature text-success"></i></a>
-                                    <a href="#" onclick="event.preventDefault(); document.getElementById('delete-form-{{ $user->id }}').submit();">
+                                    <a href="#" class="btn-delete" data-url="{{ route('users.destroy',$user->id) }}">
                                         <i class="fa-solid fa-trash text-danger"></i>
                                     </a>
-                                    <form id="delete-form-{{ $user->id }}" action="{{ route('users.destroy', $user->id) }}" method="post" style="display: none;">
+                                    <form action="{{ route('users.destroy', $user->id) }}" method="post" style="display: none;">
                                         @csrf
                                         @method('delete')
                                     </form>
