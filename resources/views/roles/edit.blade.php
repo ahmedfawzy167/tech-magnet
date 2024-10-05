@@ -19,14 +19,16 @@
 
             <div class="form-group col-md-12">
                 <label>{{ __('admin.Permissions') }}</label>
-                <div>
+                <div class="row">
                     @foreach($permissions as $permission)
+                    <div class="col-4">
                         <div class="form-check">
                             <input type="checkbox" name="permissions[]" value="{{ $permission->id }}" 
                                 class="form-check-input" 
                                 {{ $role->permissions->contains($permission->id) ? 'checked' : '' }}>
                             <label class="form-check-label">{{ $permission->name }}</label>
                         </div>
+                    </div>
                     @endforeach
                 </div>
             </div>

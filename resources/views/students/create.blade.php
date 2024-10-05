@@ -1,18 +1,18 @@
 @extends('layouts.master')
 
 @section('page-title')
-  {{__('admin.New User')}}
+  {{__('admin.New Student')}}
 @endsection
 
 @section('page-content')
 
 <div class="card">
  <div class="card-body">
-   <h1 class="text-center bg-primary text-white"><i class="ion-plus-circled"></i> {{__('admin.Add New User')}}</h1>
-   <form action="{{ route('users.store') }}" method="POST" class="row">
+   <h1 class="text-center bg-primary text-white"><i class="ion-plus-circled"></i> {{__('admin.Add New Student')}}</h1>
+   <form action="{{ route('students.store') }}" method="POST" class="row">
     @csrf
     <div class="form-group col-12">
-      <label for="name"> {{__('admin.User Name')}}<span class="text-danger ms-2">*</span></label>
+      <label for="name"> {{__('admin.Name')}}<span class="text-danger ms-2">*</span></label>
       <input type="text" name="name" id="name" value="{{old('name')}}" class="form-control @error('name') is-invalid @enderror">
       @error('name')
         <div class="invalid-feedback">{{ $message }}</div>

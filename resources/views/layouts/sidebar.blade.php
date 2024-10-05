@@ -5,7 +5,7 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
         <!-- Sidebar - Brand -->
-        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{url('/home')}}">
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('home') }}">
             <div class="sidebar-brand-icon rotate-n-15">
                 <i class="fas fa-laugh-wink"></i>
             </div>
@@ -41,15 +41,44 @@
         <li class="nav-item">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#usersCollapse"
                 aria-expanded="true" aria-controls="usersCollapse">
-                <span>{{__('admin.Users')}}</span>
+                <span>{{__('admin.Students')}}</span>
             </a>
             <div id="usersCollapse" class="collapse" aria-labelledby="headingUsers" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="{{route('users.index') }}"><i class="fa-solid fa-list"></i> {{__('admin.All Users')}}</a>
-                    <a class="collapse-item" href="{{route('users.create')}}"><i class="ion-plus-circled"></i> {{__('admin.Add New User')}}</a>
+                    <a class="collapse-item" href="{{route('students.index') }}"><i class="fa-solid fa-list"></i> {{__('admin.All Students')}}</a>
+                    <a class="collapse-item" href="{{route('students.create')}}"><i class="ion-plus-circled"></i> {{__('admin.Add New Student')}}</a>
                 </div>
             </div>
         </li>
+
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#instructorsCollapse"
+                aria-expanded="true" aria-controls="instructorsCollapse">
+                <span>{{__('admin.Instructors')}}</span>
+            </a>
+            <div id="instructorsCollapse" class="collapse" aria-labelledby="headinginstructors" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item" href="{{route('instructors.index') }}"><i class="fa-solid fa-list"></i> {{__('admin.All Instructors')}}</a>
+                    <a class="collapse-item" href="{{route('instructors.create')}}"><i class="ion-plus-circled"></i> {{__('admin.Add New Instructor')}}</a>
+                </div>
+            </div>
+        </li>
+
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#operationsCollapse"
+                aria-expanded="true" aria-controls="operationsCollapse">
+                <span>{{__('admin.Operations')}}</span>
+            </a>
+            <div id="operationsCollapse" class="collapse" aria-labelledby="headingoperations" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item" href="{{route('operations.index') }}"><i class="fa-solid fa-list"></i> {{__('admin.All Operations')}}</a>
+                    <a class="collapse-item" href="{{route('operations.create')}}"><i class="ion-plus-circled"></i> {{__('admin.Add New Operation')}}</a>
+                </div>
+            </div>
+        </li>
+
 
         <!-- Nav Item - Pages Collapse Menu -->
         <li class="nav-item">

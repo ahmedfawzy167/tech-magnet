@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Models\Blog;
 use App\Models\Course;
@@ -9,6 +9,7 @@ use App\Models\Category;
 use App\Models\CourseUser;
 use Illuminate\Http\Request;
 use Spatie\Searchable\Search;
+use App\Http\Controllers\Controller;
 
 class HomeController extends Controller
 {

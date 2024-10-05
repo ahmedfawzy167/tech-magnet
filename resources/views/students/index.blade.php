@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('page-title')
-    {{ __('admin.Users') }}
+    {{ __('admin.Students') }}
 @endsection
 
 @section('page-content')
@@ -9,7 +9,7 @@
         <div class="card">
          <div class="card-body">
                 <h1 class="text-center bg-dark text-light"><i class="fa-solid fa-list"></i>
-                    {{ __('admin.All Users') }}</h1>
+                    {{ __('admin.All Students') }}</h1>
                 <table class="table table-hover table-bordered" id="data-table">
                     <thead class="table-dark">
                         <tr>
@@ -18,28 +18,26 @@
                             <th>{{ __('admin.Email') }}</th>
                             <th>{{ __('admin.Phone') }}</th>
                             <th>{{ __('admin.City') }}</th>
-                            <th>{{ __('admin.Role') }}</th>
                             <th>{{ __('admin.Actions') }}</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($users as $user)
+                        @foreach ($students as $student)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $user->name }}</td>
-                                <td>{{ $user->email }}</td>
-                                <td>{{ $user->phone }}</td>
-                                <td>{{ $user->city->name }}</td>
-                                <td>{{ $user->role->name }}</td>
+                                <td>{{ $student->name }}</td>
+                                <td>{{ $student->email }}</td>
+                                <td>{{ $student->phone }}</td>
+                                <td>{{ $student->city->name }}</td>
                                 <td>
-                                    <a href="{{ route('users.show', $user->id) }}"
+                                    <a href="{{ route('students.show', $student->id) }}"
                                     ><i class="fa-solid fa-eye text-info"></i></a>
-                                    <a href="{{ route('users.edit', $user->id) }}"
+                                    <a href="{{ route('students.edit', $student->id) }}"
                                     ><i class="fa-solid fa-file-signature text-success"></i></a>
-                                    <a href="#" class="btn-delete" data-url="{{ route('users.destroy',$user->id) }}">
+                                    <a href="#" class="btn-delete" data-url="{{ route('students.destroy',$student->id) }}">
                                         <i class="fa-solid fa-trash text-danger"></i>
                                     </a>
-                                    <form action="{{ route('users.destroy', $user->id) }}" method="post" style="display: none;">
+                                    <form action="{{ route('students.destroy', $student->id) }}" method="post" style="display: none;">
                                         @csrf
                                         @method('delete')
                                     </form>

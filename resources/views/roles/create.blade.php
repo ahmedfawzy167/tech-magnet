@@ -18,22 +18,24 @@
 
                 <div class="form-group col-md-12">
                     <label>{{ __('admin.Permissions') }}</label>
-                    <div>
+                    <div class="row">
                         @foreach($permissions as $permission)
+                        <div class="col-4">
                             <div class="form-check">
                                 <input type="checkbox" name="permissions[]" value="{{ $permission->id }}" 
                                     class="form-check-input">
                                 <label class="form-check-label">{{ $permission->name }}</label>
                             </div>
+                        </div>
                         @endforeach
                         </div>
                     </div>
-
+                </div>
+                    
                 <div class="text-center">
                     <button type="submit" class="btn btn-primary btn-lg">{{ __('admin.Add') }}</button>
                     <button type="reset" class="btn btn-secondary btn-lg">{{ __('admin.Reset') }}</button>
                 </div>
-
             </form>
         </div>
     </div>
