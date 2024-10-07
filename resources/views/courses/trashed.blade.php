@@ -12,6 +12,7 @@
              <table class="table table-hover table-bordered mt-3">
                 <thead class="table-dark">
                     <tr>
+                            <th>{{ __('admin.ID') }}</th>
                             <th>{{ __('admin.Name') }}</th>
                             <th>{{ __('admin.Price') }}</th>
                             <th>{{ __('admin.Hours') }}</th>
@@ -25,6 +26,7 @@
                     <tbody>
                         @forelse($trashedCourses as $course)
                             <tr>
+                                <td>{{ $loop->index+1 }}</td>
                                 <td>{{ $course->name }}</td>
                                 <td>{{ $course->price }}</td>
                                 <td>{{ $course->hours }}</td>

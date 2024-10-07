@@ -6,8 +6,8 @@
 
         <!-- Sidebar - Brand -->
         <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('home') }}">
-            <div class="sidebar-brand-icon rotate-n-15">
-                <i class="fas fa-laugh-wink"></i>
+            <div class="sidebar-brand-icon">
+                <img src="{{ asset('storage/'.settings()->logo) }}" width="30px">
             </div>
 
               <div class="sidebar-brand-text mx-3">
@@ -33,7 +33,7 @@
                 <div class="bg-white py-2 collapse-inner rounded">
                     <a class="collapse-item" href="{{route('courses.index')}}"><i class="fa-solid fa-list"></i> {{__('admin.All Courses')}}</a>
                     <a class="collapse-item" href="{{route('courses.create')}}"><i class="ion-plus-circled"></i> {{__('admin.Add New Course')}}</a>
-                    <a class="collapse-item" href="{{route('courses.trashed')}}"><i class="ion-alert"></i> All Trashed Courses</a>
+                    <a class="collapse-item" href="{{route('courses.trashed')}}"><i class="ion-alert"></i> {{ __('admin.All Trashed Courses') }}</a>
                 </div>
             </div>
         </li>
@@ -90,7 +90,7 @@
                 <div class="bg-white py-2 collapse-inner rounded">
                     <a class="collapse-item" href="{{route('categories.index')}}"><i class="fa-solid fa-list"></i> {{__('admin.All Categories')}}</a>
                     <a class="collapse-item" href="{{route('categories.create')}}"><i class="ion-plus-circled"></i> {{__('admin.Add New Category')}}</a>
-                    <a class="collapse-item" href="{{route('categories.trashed')}}"><i class="ion-alert"></i> All Trashed Categories</a>
+                    <a class="collapse-item" href="{{route('categories.trashed')}}"><i class="ion-alert"></i> {{ __('admin.All Trashed Categories') }}</a>
                 </div>
             </div>
         </li>
@@ -118,7 +118,7 @@
                 <div class="bg-white py-2 collapse-inner rounded">
                     <a class="collapse-item" href="{{ route('cities.index') }}"><i class="fa-solid fa-list"></i> {{__('admin.All Cities')}}</a>
                     <a class="collapse-item" href="{{ route('cities.create') }}"><i class="ion-plus-circled"></i> {{__('admin.Add New City')}}</a>
-                    <a class="collapse-item" href="{{route('cities.trashed')}}"><i class="ion-alert"></i> All Trashed Cities</a>
+                    <a class="collapse-item" href="{{route('cities.trashed')}}"><i class="ion-alert"></i> {{ __('admin.All Trashed Cities') }}</a>
                 </div>
             </div>
         </li>
@@ -134,7 +134,7 @@
         <div class="bg-white py-2 collapse-inner rounded">
             <a class="collapse-item" href="{{route('blogs.index')}}"><i class="fa-solid fa-list"></i> {{__('admin.All Blogs')}}</a>
             <a class="collapse-item" href="{{ route('blogs.create') }}"><i class="ion-plus-circled"></i> {{__('admin.Add New Blog')}}</a>
-            <a class="collapse-item" href="{{route('blogs.trashed')}}"><i class="ion-alert"></i> All Trashed Blogs</a>
+            <a class="collapse-item" href="{{route('blogs.trashed')}}"><i class="ion-alert"></i> {{__('admin.All Trashed Cities')}}</a>
     </div>
     </div>
 </li>

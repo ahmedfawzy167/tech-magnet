@@ -11,9 +11,9 @@
              <h1 class="text-center bg-dark text-light"><i class="fa-solid fa-list"></i> {{ __('admin.All Courses') }}</h1>
              <table class="table table-hover table-bordered" id="data-table">
                 <thead class="table-dark">
-                    <tr>
+                       <tr>
+                            <th>{{ __('admin.ID') }}</th>
                             <th>{{ __('admin.Name') }}</th>
-                            <th>{{ __('admin.Description') }}</th>
                             <th>{{ __('admin.Price') }}</th>
                             <th>{{ __('admin.Hours') }}</th>
                             <th>{{ __('admin.Category') }}</th>
@@ -26,8 +26,8 @@
                     <tbody>
                         @forelse($courses as $course)
                             <tr>
+                                <td>{{ $loop->index+1 }}</td>
                                 <td>{{ $course->name }}</td>
-                                <td>{{\Str::limit($course->description,10) }}</td>
                                 <td>{{ $course->price }}</td>
                                 <td>{{ $course->hours }}</td>
                                 <td>{{ $course?->category?->name ?? 'UnCategorized' }}</td>
