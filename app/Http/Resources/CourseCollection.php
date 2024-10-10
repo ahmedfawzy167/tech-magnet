@@ -22,6 +22,7 @@ class CourseCollection extends JsonResource
             'courses' => array_map(function ($course) {
                 return [
                     'image' => $course->image ? asset('storage/' . $course->image->path) : null,
+                    'id' => $course->id,
                     'name' => $course->name,
                     'description' => $course->description,
                     'price' => $course->price,

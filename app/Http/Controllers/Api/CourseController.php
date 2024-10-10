@@ -10,9 +10,15 @@ use App\Http\Resources\CourseCollection;
 
 class CourseController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $courses = Course::with(['image', 'category', 'objective'])->paginate(4);
+        $sortBy = $request->get('sort_by', 'created_at');
+        $sortOrder = $request->get('sort_order', 'desc');
+
+        $courses = Course::with(['image', 'category', 'objective'])
+            ->orderBy($sortBy, $sortOrder)
+            ->paginate(4);
+
         return new CourseCollection($courses);
     }
 

@@ -16,13 +16,14 @@ class CourseResource extends JsonResource
     {
         return [
             'image'  =>  $this->image ? asset('storage/' . $this->image->path) : null,
+            'id' => $this->id,
             'name' => $this->name,
             'description' => $this->description,
             'price' => $this->price,
             'hours' => $this->hours,
             'category' => $this->category->name,
             'objective' => $this->objective->name,
-            'roadmaps' => $this->roadmaps
+            'roadmaps' => RoadmapResource::collection($this->whenLoaded('roadmaps')),
         ];
     }
 }
