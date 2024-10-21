@@ -23,10 +23,6 @@ class Course extends Model implements Searchable
         return $this->morphOne(Image::class, 'imageable');
     }
 
-    public function objective()
-    {
-        return $this->belongsTo(Objective::class);
-    }
 
     public function quizzes()
     {
@@ -97,6 +93,16 @@ class Course extends Model implements Searchable
     public function reviews()
     {
         return $this->hasMany(Review::class);
+    }
+
+    public function carts()
+    {
+        return $this->hasMany(Cart::class);
+    }
+
+    public function wishlists()
+    {
+        return $this->hasMany(Wishlist::class);
     }
 
     public function getSearchResult(): SearchResult

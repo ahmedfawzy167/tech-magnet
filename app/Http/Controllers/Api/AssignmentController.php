@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Models\Assignment;
 use App\Models\User;
-use Illuminate\Support\Facades\Validator;
-use App\Http\Controllers\Controller;
+use App\Models\Assignment;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 use App\Http\Resources\AssignmentCollection;
 
 class AssignmentController extends Controller
@@ -67,7 +68,9 @@ class AssignmentController extends Controller
 
     public function index()
     {
-        $assignments = Assignment::with('course')->get();
+        $assignments = Assignment::whereHas('users', function ($query) {
+            $query->where('user_id', Auth::id());
+        })->get();
         return AssignmentCollection::collection($assignments);
     }
 

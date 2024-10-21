@@ -15,9 +15,11 @@ class QuizResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
+            'id' => $this->id,
             'name' => $this->name,
-            'description' => $this->description,
             'course' => $this->course->name,
-        ];;
+            'score' => $this->pivot->score,
+            'date' => $this->pivot->date,
+        ];
     }
 }

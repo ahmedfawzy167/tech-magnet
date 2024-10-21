@@ -22,7 +22,6 @@ class CourseResource extends JsonResource
             'price' => $this->price,
             'hours' => $this->hours,
             'category' => $this->category->name,
-            'objective' => $this->objective->name,
             'roadmaps' => RoadmapResource::collection($this->whenLoaded('roadmaps')),
         ];
     }

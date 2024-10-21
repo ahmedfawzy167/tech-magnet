@@ -8,6 +8,8 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Resources\LoginResource;
+use App\Http\Resources\ProfileResource;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rules\Password;
 use Tymon\JWTAuth\Exceptions\JWTException;
@@ -31,7 +33,6 @@ class AuthController extends Controller
             'role_id' => 'required|numeric|gt:0',
         ]);
 
-
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
@@ -52,7 +53,7 @@ class AuthController extends Controller
             'status' => "Success",
             'message' => "Registeration is Done",
             'user' => $user,
-        ], 200);
+        ], 201);
     }
 
     public function login(Request $request)
@@ -69,13 +70,10 @@ class AuthController extends Controller
 
         $user = Auth::user();
         return response()->json([
-            "status" => "Success",
-            "message" => "Login Successfully",
-            "user" => $user,
-            "token" => $token,
-            "token_type" => "bearer",
-            "expires_in" => JWTAuth::factory()->getTTL() * 60,
-        ], 200);
+            'user' => new LoginResource($user),
+            'message' => 'Login Successfully',
+            'token' => $token
+        ]);
     }
 
     public function logout(Request $request)
@@ -125,7 +123,8 @@ class AuthController extends Controller
 
     public function profile(Request $request)
     {
-        return $request->user();
+        $user = $request->user();
+        return new ProfileResource($user);
     }
 
     public function profileUpdate(Request $request)

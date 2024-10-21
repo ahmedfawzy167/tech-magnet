@@ -17,7 +17,6 @@
                             <th>{{ __('admin.Price') }}</th>
                             <th>{{ __('admin.Hours') }}</th>
                             <th>{{ __('admin.Category') }}</th>
-                            <th>{{ __('admin.Objectives') }}</th>
                             <th>{{ __('admin.Image') }}</th>
                             <th>{{ __('admin.Created') }}</th>
                             <th>{{ __('admin.Actions') }}</th>
@@ -31,7 +30,6 @@
                                 <td>{{ $course->price }}</td>
                                 <td>{{ $course->hours }}</td>
                                 <td>{{ $course?->category?->name ?? 'UnCategorized' }}</td>
-                                <td>{{ $course?->objective?->name ?? 'No Objective Found' }}</td>
                                 <td>
                                     @if($course->image)
                                         <img src="{{ asset('storage/' . $course->image->path) }}" width="70px" class="mr-2">

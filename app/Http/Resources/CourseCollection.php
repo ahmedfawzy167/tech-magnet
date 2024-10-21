@@ -28,7 +28,6 @@ class CourseCollection extends JsonResource
                     'price' => $course->price,
                     'hours' => $course->hours,
                     'category' => $course->category->name,
-                    'objective' => $course->objective->name,
                 ];
             }, $courses),
             'pagination' => [

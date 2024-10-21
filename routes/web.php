@@ -73,9 +73,6 @@ Route::middleware(['auth:admin', 'Language'])
         Route::resource('blogs', 'BlogController');
         /* End of Blogs Routes*/
 
-        /* Start of Objectives Routes */
-        Route::resource('objectives', 'ObjectiveController');
-        /* End of Objectives Routes */
 
         /* Start of Cities Routes */
         Route::get('cities/trash', 'CityController@trash')->name('cities.trashed');

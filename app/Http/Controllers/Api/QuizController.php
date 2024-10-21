@@ -4,11 +4,12 @@ namespace App\Http\Controllers\Api;
 
 use App\Models\Quiz;
 use App\Models\User;
-use App\Http\Resources\QuizResource;
-use Illuminate\Support\Facades\Validator;
-use App\Http\Controllers\Controller;
-use App\Http\Resources\QuizCollection;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\QuizResource;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Resources\QuizCollection;
+use Illuminate\Support\Facades\Validator;
 
 class QuizController extends Controller
 {
@@ -19,7 +20,9 @@ class QuizController extends Controller
 
     public function index()
     {
-        $quizzes = Quiz::with('course')->get();
+        $quizzes = Quiz::whereHas('users', function ($query) {
+            $query->where('user_id', Auth::id());
+        })->get();
         return QuizCollection::collection($quizzes);
     }
 

@@ -33,7 +33,7 @@
                   <input type="text" name="hours" id="hours" value="{{ $course->hours }}" class="form-control @error('hours') is-invalid @enderror">
                 </div>
 
-              <div class="form-group col-6 mt-3">
+              <div class="form-group col-12 mt-3">
                <label for="category_id">{{__('admin.Category')}}<span class="text-danger ms-2">*</span></label>
                <select name="category_id" id="category_id" class="form-select">
                 @foreach($categories as $category)
@@ -42,16 +42,8 @@
                 </select>
               </div>
 
-              <div class="form-group col-6 mt-3">
-                <label for="objective_id">{{__('admin.Objective')}}<span class="text-danger ms-2">*</span></label>
-                <select name="objective_id" id="objective_id" class="form-select">
-                 @foreach($objectives as $objective)
-                   <option value="{{$objective->id}}" {{ $objective->id == $course->objective_id ? 'selected' : ''}} >{{$objective->name}}</option>
-                 @endforeach
-                 </select>
-               </div>
 
-               <div class="form-group col-6 mt-3">
+               <div class="form-group col-12 mt-3">
                 <label for="roadmaps">{{__('admin.Roadmaps')}}<span class="text-danger ms-2">*</span></label>
                 <select name="roadmaps[]" id="roadmaps" multiple class="form-select @error('roadmap_id') is-invalid @enderror">
                     @foreach($roadmaps as $roadmap)

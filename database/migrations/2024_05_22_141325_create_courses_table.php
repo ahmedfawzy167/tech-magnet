@@ -13,13 +13,16 @@ return new class extends Migration
     {
         Schema::create('courses', function (Blueprint $table) {
             $table->id();
-            $table->string('name',50);
+            $table->string('name', 50);
             $table->text('description');
             $table->float('price');
             $table->integer('hours');
             $table->unsignedBigInteger('category_id')->index();
+            $table->unsignedBigInteger('objective_id')->index();
             $table->timestamps();
+            $table->softDeletes();
             $table->foreign('category_id')->references('id')->on('categories')->cascadeOnDelete();
+            $table->foreign('objective_id')->references('id')->on('objectives')->cascadeOnDelete();
         });
     }
 

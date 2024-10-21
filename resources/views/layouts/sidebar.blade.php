@@ -94,20 +94,7 @@
                 </div>
             </div>
         </li>
-
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree"
-                aria-expanded="true" aria-controls="collapseTwo">
-                <span>{{__('admin.Objectives')}}</span>
-            </a>
-            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="{{route('objectives.index')}}"><i class="fa-solid fa-list"></i> {{__('admin.All Objectives')}}</a>
-                    <a class="collapse-item" href="{{ route('objectives.create') }}"><i class="ion-plus-circled"></i> {{__('admin.Add New Objective')}}</a>
-                </div>
-            </div>
-        </li>
-
+        
         <li class="nav-item">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsecities"
                 aria-expanded="true" aria-controls="collapsecities">
