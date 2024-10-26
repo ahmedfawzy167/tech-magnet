@@ -7,9 +7,12 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Resources\RecordingResource;
+use App\Traits\ApiResponder;
 
 class RecordingController extends Controller
 {
+    use ApiResponder;
+
     public function __construct()
     {
         $this->authorizeResource(Recording::class);
@@ -17,7 +20,7 @@ class RecordingController extends Controller
 
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
+        $request->validate([
             'title' => 'required|string|between:2,50',
             'description' => 'required|max:500',
             'video_src'  => 'required|video/mp4,video/avi|max:14250',
@@ -25,9 +28,6 @@ class RecordingController extends Controller
             'course_id' => 'required|numeric:gt:0',
         ]);
 
-        if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()], 422);
-        }
 
         $video = $request->file('video_src');
         $videoName = $video->getClientOriginalName();
@@ -42,21 +42,15 @@ class RecordingController extends Controller
         $recording->course_id = $request->course_id;
         $recording->save();
 
-        return response()->json([
-            "status" => "Success",
-            "message" => "Recording Uploaded Successfully",
-        ], 201);
+        return $this->created($recording, "Recording Uploaded Successfully");
     }
 
     public function show(Recording $recording)
     {
         if ($recording != null) {
-            return new RecordingResource($recording);
+            return $this->success(new RecordingResource($recording));
         } else {
-            return response()->json([
-                "status"  => "error",
-                "message"  => "Recording not found"
-            ], 404);
+            return $this->notFound("Recording not found");
         }
     }
 }

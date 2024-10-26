@@ -6,10 +6,12 @@ use App\Models\Portfolio;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\PortfolioResource;
+use App\Traits\ApiResponder;
 use Illuminate\Support\Facades\Validator;
 
 class PortfolioController extends Controller
 {
+    use ApiResponder;
 
     public function __construct()
     {
@@ -20,21 +22,17 @@ class PortfolioController extends Controller
     {
         $portfolios = Portfolio::with(['user', 'course'])->get();
 
-        return PortfolioResource::collection($portfolios);
+        return $this->success(PortfolioResource::collection($portfolios));
     }
 
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
+        $request->validate([
             'file'  => 'required|file|mimes:pdf|max:2048',
             'issue_date' => 'required|date_format:Y-m-d',
             'user_id' => 'required|numeric:gt:0',
             'course_id' => 'required|numeric:gt:0',
         ]);
-
-        if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()], 422);
-        }
 
         $file = $request->file('file');
         $fileName = $file->getClientOriginalName();
@@ -48,9 +46,6 @@ class PortfolioController extends Controller
         $portfolio->course_id = $request->course_id;
         $portfolio->save();
 
-        return response()->json([
-            "Status" => "Success",
-            "message" => "Portfolio Created Successfully",
-        ], 201);
+        return $this->created($portfolio, "Portfolio Created Successfully!");
     }
 }

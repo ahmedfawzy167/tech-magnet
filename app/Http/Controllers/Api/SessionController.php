@@ -7,11 +7,12 @@ use Illuminate\Http\Request;
 use App\Traits\MeetingZoomTrait;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\SessionCollection;
+use App\Traits\ApiResponder;
 use Illuminate\Support\Facades\Validator;
 
 class SessionController extends Controller
 {
-    use MeetingZoomTrait;
+    use MeetingZoomTrait, ApiResponder;
 
     public function __construct()
     {
@@ -20,16 +21,12 @@ class SessionController extends Controller
 
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
+        $request->validate([
             'topic' => 'required|string|between:2,50',
             'description' => 'required|max:500',
             'start_date' => 'required|date_format:Y-m-d H:i:s',
             'course_id' => 'required|numeric|gt:0',
         ]);
-
-        if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()], 422);
-        }
 
         $meeting = $this->createZoomMeeting($request);
 
@@ -48,16 +45,12 @@ class SessionController extends Controller
         $session->join_url = $meetingJoinUrl;
         $session->save();
 
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Meeting Created Successfully',
-            'session' => $session
-        ], 201);
+        return $this->created($session, "Meeting Created Successfully");
     }
 
     public function index()
     {
         $sessions = Session::all();
-        return SessionCollection::collection($sessions);
+        return $this->success(SessionCollection::collection($sessions));
     }
 }

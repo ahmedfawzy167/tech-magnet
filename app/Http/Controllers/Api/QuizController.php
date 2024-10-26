@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Models\Quiz;
 use App\Models\User;
+use App\Traits\ApiResponder;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\QuizResource;
@@ -13,6 +14,8 @@ use Illuminate\Support\Facades\Validator;
 
 class QuizController extends Controller
 {
+    use ApiResponder;
+
     public function __construct()
     {
         $this->authorizeResource(Quiz::class);
@@ -23,63 +26,49 @@ class QuizController extends Controller
         $quizzes = Quiz::whereHas('users', function ($query) {
             $query->where('user_id', Auth::id());
         })->get();
-        return QuizCollection::collection($quizzes);
+        return $this->success(QuizCollection::collection($quizzes));
     }
 
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
+        $request->validate([
             'name' => 'required|string|between:2,50',
             'description' => 'required|max:500',
             'course_id' => 'required|numeric|gt:0',
         ]);
 
-        if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()], 422);
-        }
         $quiz = new Quiz();
         $quiz->name = $request->name;
         $quiz->description = $request->description;
         $quiz->course_id = $request->course_id;
         $quiz->save();
 
-        return response()->json([
-            "status" => 'Success',
-            "message" => "Quiz Created Successfully!",
-        ], 201);
+        return $this->created($quiz, "Quiz Created Successfully!");
     }
 
     public function update(Request $request, Quiz $quiz)
     {
-        $validator = Validator::make($request->all(), [
+        $request->validate([
             'name' => 'required|string|between:2,50',
             'description' => 'required|max:500',
             'course_id' => 'required|numeric|gt:0',
         ]);
 
-        if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()], 422);
-        }
 
         $quiz->name = $request->name;
         $quiz->description = $request->description;
         $quiz->course_id = $request->course_id;
         $quiz->update();
 
-        return response()->json([
-            "status" => 'Success',
-            "message" => "Quiz Updated Successfully!",
-        ], 200);
+        return $this->success($quiz, "Quiz Updated Successfully!");
     }
 
     public function show(Quiz $quiz)
     {
         if ($quiz != null) {
-            return new QuizResource($quiz);
+            return $this->success(new QuizResource($quiz));
         } else {
-            return response()->json([
-                "message" => "Quiz Not Found"
-            ], 404);
+            return $this->notFound("Quiz Not Found");
         }
     }
 
@@ -94,8 +83,6 @@ class QuizController extends Controller
             'date' => $request->date,
         ]);
 
-        return response()->json([
-            "message" => "Quizzes Submitted Successfully"
-        ]);
+        return $this->created("Quiz Submitted Successfully!");
     }
 }

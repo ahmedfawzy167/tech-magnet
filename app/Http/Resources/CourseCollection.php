@@ -17,7 +17,6 @@ class CourseCollection extends JsonResource
         $courses = $this->resource->items();
 
         return [
-            'status' => "Success",
             'count' => $this->count(),
             'courses' => array_map(function ($course) {
                 return [

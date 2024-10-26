@@ -18,7 +18,7 @@
                             <th>{{ __('admin.Hours') }}</th>
                             <th>{{ __('admin.Category') }}</th>
                             <th>{{ __('admin.Image') }}</th>
-                            <th>{{ __('admin.Created') }}</th>
+                            <th>{{ __('admin.Date') }}</th>
                             <th>{{ __('admin.Actions') }}</th>
                         </tr>
                     </thead>

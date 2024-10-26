@@ -12,14 +12,13 @@ class CourseController extends Controller
 {
     public function index()
     {
-        $courses = Course::with(['category', 'image', 'objective'])->get();
+        $courses = Course::with(['category', 'image'])->get();
         return view('courses.index', compact('courses'));
     }
 
     public function create()
     {
         $categories = Category::all();
-        $objectives = Objective::all();
         $roadmaps = Roadmap::all();
         return view('courses.create', get_defined_vars());
     }
@@ -34,7 +33,6 @@ class CourseController extends Controller
         $course->price = $request->price;
         $course->hours = $request->hours;
         $course->category_id = $request->category_id;
-        $course->objective_id = $request->objective_id;
         $course->save();
 
         $img = $request->file('image');
@@ -64,7 +62,6 @@ class CourseController extends Controller
     public function edit(Course $course)
     {
         $categories = Category::all();
-        $objectives = Objective::all();
         $roadmaps = Roadmap::all();
         return view('courses.edit', get_defined_vars());
     }
@@ -78,7 +75,6 @@ class CourseController extends Controller
         $course->price = $request->price;
         $course->hours = $request->hours;
         $course->category_id = $request->category_id;
-        $course->objective_id = $request->objective_id;
         $course->save();
 
         if ($request->hasFile('image')) {

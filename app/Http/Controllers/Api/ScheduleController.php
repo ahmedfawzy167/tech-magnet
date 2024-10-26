@@ -7,10 +7,13 @@ use App\Http\Resources\ScheduleResource;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ScheduleCollection;
+use App\Traits\ApiResponder;
 use Illuminate\Http\Request;
 
 class ScheduleController extends Controller
 {
+    use ApiResponder;
+
     public function __construct()
     {
         $this->authorizeResource(Schedule::class);
@@ -19,63 +22,48 @@ class ScheduleController extends Controller
     public function index()
     {
         $schedules = Schedule::with('course')->get();
-        return ScheduleCollection::collection($schedules);
+        return $this->success(ScheduleCollection::collection($schedules));
     }
 
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
+        $request->validate([
             'start_date' => 'required|date_format:Y-m-d',
             'end_date' => 'required|date_format:Y-m-d',
             'course_id' => 'required|numeric|gt:0',
         ]);
 
-        if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()], 422);
-        }
         $schedule = new Schedule();
         $schedule->start_date = $request->start_date;
         $schedule->end_date = $request->end_date;
         $schedule->course_id = $request->course_id;
         $schedule->save();
 
-        return response()->json([
-            "status" => 'Success',
-            "message" => "Schedule Created Successfully!",
-        ], 201);
+        return $this->created($schedule, "Schedule Created Successfully");
     }
 
     public function show(Schedule $schedule)
     {
         if ($schedule != null) {
-            return new ScheduleResource($schedule);
+            return $this->success(new ScheduleResource($schedule));
         } else {
-            return response()->json([
-                "message" => "Schedule Not Found"
-            ], 404);
+            return $this->notFound("Schedule Not Found");
         }
     }
 
     public function update(Request $request, Schedule $schedule)
     {
-        $validator = Validator::make($request->all(), [
+        $request->validate([
             'start_date' => 'required|date_format:Y-m-d',
             'end_date' => 'required|date_format:Y-m-d',
             'course_id' => 'required|numeric|gt:0',
         ]);
-
-        if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()], 422);
-        }
 
         $schedule->start_date = $request->start_date;
         $schedule->end_date = $request->end_date;
         $schedule->course_id = $request->course_id;
         $schedule->save();
 
-        return response()->json([
-            "status" => 'Success',
-            "message" => "Schedule Updated Successfully!",
-        ], 200);
+        return $this->success($schedule, "Schedule Updated Successfully!");
     }
 }

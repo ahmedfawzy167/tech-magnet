@@ -7,9 +7,12 @@ use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Resources\AttendanceCollection;
+use App\Traits\ApiResponder;
 
 class AttendanceController extends Controller
 {
+    use ApiResponder;
+
     public function __construct()
     {
         $this->authorizeResource(Attendance::class);
@@ -17,16 +20,12 @@ class AttendanceController extends Controller
 
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
+        $request->validate([
             'user_id' => 'required|numeric|gt:0',
             'course_id' => 'required|numeric|gt:0',
             'date' => 'required|date_format:Y-m-d H:i:s',
             'attendance_status' => 'nullable|numeric'
         ]);
-
-        if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()], 422);
-        }
 
         $attendance = new Attendance();
         $attendance->user_id = $request->user_id;
@@ -35,25 +34,18 @@ class AttendanceController extends Controller
         $attendance->attendance_status = $request->attendance_status;
         $attendance->save();
 
-        return response()->json([
-            "status" => 'Success',
-            "message" => "Attendance Created Successfully!",
-        ], 201);
+        return $this->created($attendance, "Attendance Created Successfully!");
     }
 
 
     public function update(Request $request, Attendance $attendance)
     {
-        $validator = Validator::make($request->all(), [
+        $request->validate([
             'user_id' => 'required|numeric|gt:0',
             'course_id' => 'required|numeric|gt:0',
             'date' => 'required|date_format:Y-m-d H:i:s',
             'attendance_status' => 'nullable|numeric'
         ]);
-
-        if ($validator->fails()) {
-            return response()->json($validator->errors(), 400);
-        }
 
         $attendance->user_id = $request->user_id;
         $attendance->course_id = $request->course_id;
@@ -61,15 +53,12 @@ class AttendanceController extends Controller
         $attendance->attendance_status = $request->attendance_status;
         $attendance->update();
 
-        return response()->json([
-            "status" => 'Success',
-            "message" => "Attendance Updated Successfully!",
-        ], 200);
+        return $this->success($attendance, "Attendance Updated Successfully!");
     }
 
     public function index()
     {
         $attendances = Attendance::with(['user', 'course'])->get();
-        return AttendanceCollection::collection($attendances);
+        return $this->success(AttendanceCollection::collection($attendances));
     }
 }

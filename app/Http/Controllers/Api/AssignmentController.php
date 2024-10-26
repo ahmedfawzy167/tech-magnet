@@ -9,9 +9,12 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Resources\AssignmentCollection;
+use App\Traits\ApiResponder;
 
 class AssignmentController extends Controller
 {
+    use ApiResponder;
+
     public function __construct()
     {
         $this->authorizeResource(Assignment::class);
@@ -19,16 +22,14 @@ class AssignmentController extends Controller
 
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
+        $request->validate([
             'title' => 'required|string|between:2,50',
             'description' => 'required|string|max:500',
             'deadline' => 'required|date_format:Y-m-d H:i:s',
             'course_id' => 'required|numeric|gt:0',
         ]);
 
-        if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()], 422);
-        }
+
         $assignment = new Assignment();
         $assignment->title = $request->title;
         $assignment->description = $request->description;
@@ -36,34 +37,25 @@ class AssignmentController extends Controller
         $assignment->course_id = $request->course_id;
         $assignment->save();
 
-        return response()->json([
-            "status" => 'Success',
-            "message" => "Assignment Created Successfully!",
-        ], 201);
+        return $this->created($assignment, "Assignment Created Successfully!");
     }
 
     public function update(Request $request, Assignment $assignment)
     {
-        $validator = Validator::make($request->all(), [
+        $request->validate([
             'title' => 'required|string|between:2,50',
             'description' => 'required|string|max:500',
             'deadline' => 'required|date_format:Y-m-d H:i:s',
             'course_id' => 'required|numeric|gt:0',
         ]);
 
-        if ($validator->fails()) {
-            return response()->json($validator->errors(), 400);
-        }
         $assignment->title = $request->title;
         $assignment->description = $request->description;
         $assignment->deadline = $request->deadline;
         $assignment->course_id = $request->course_id;
         $assignment->save();
 
-        return response()->json([
-            "status" => 'Success',
-            "message" => "Assignment Updated Successfully!",
-        ], 200);
+        return $this->success($assignment, "Assignment Updated Successfully!");
     }
 
     public function index()
@@ -71,7 +63,7 @@ class AssignmentController extends Controller
         $assignments = Assignment::whereHas('users', function ($query) {
             $query->where('user_id', Auth::id());
         })->get();
-        return AssignmentCollection::collection($assignments);
+        return $this->success(AssignmentCollection::collection($assignments));
     }
 
     public function attach(Request $request)
@@ -84,8 +76,6 @@ class AssignmentController extends Controller
             'date' => $request->date,
         ]);
 
-        return response()->json([
-            "message" => "Assignments Submitted Successfully"
-        ]);
+        return $this->created($assignment, "Assignment Submitted Successfully!");
     }
 }

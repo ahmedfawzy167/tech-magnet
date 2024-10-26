@@ -6,10 +6,13 @@ use App\Models\Project;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ProjectResource;
+use App\Traits\ApiResponder;
 use Illuminate\Support\Facades\Validator;
 
 class ProjectController extends Controller
 {
+    use ApiResponder;
+
     public function __construct()
     {
         $this->authorizeResource(Project::class);
@@ -17,14 +20,11 @@ class ProjectController extends Controller
 
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
+        $request->validate([
             'file'  => 'required|file|mimes:pdf|max:2048',
             'user_id' => 'required|numeric:gt:0',
         ]);
 
-        if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()], 422);
-        }
 
         $file = $request->file('file');
         $fileName = $file->getClientOriginalName();
@@ -36,35 +36,25 @@ class ProjectController extends Controller
         $project->user_id = $request->user_id;
         $project->save();
 
-        return response()->json([
-            "status" => "Success",
-            "message" => "Project Created Successfully",
-        ], 201);
+        return $this->created($project, "Project Created Successfully");
     }
 
     public function update(Request $request, Project $project)
     {
-        $validator = Validator::make($request->all(), [
+        $request->validate([
             'status'  => 'required|string',
         ]);
-
-        if ($validator->fails()) {
-            return response()->json($validator->errors(), 400);
-        }
 
         $project->status = $request->status;
         $project->update();
 
-        return response()->json([
-            "status"  => "Success",
-            "message" => "Project Approved Successfully",
-        ], 200);
+        return $this->success($project, "Project Approved Successfully");
     }
 
 
     public function index()
     {
         $projects = Project::all();
-        return ProjectResource::collection($projects);
+        return $this->success(ProjectResource::collection($projects));
     }
 }

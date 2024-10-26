@@ -32,7 +32,7 @@
                   <td>
                     <a href="{{ route('blogs.show', $blog->id) }}"><i class="fa-solid fa-eye text-info"></i></a>
                     <a href="{{ route('blogs.edit', $blog->id) }}"><i class="fa-solid fa-file-signature text-success"></i></a>
-                    <a href="#" class="btn-delete" data-url="{{ route('blog.destroy', $blog->id) }}">
+                    <a href="#" class="btn-delete" data-url="{{ route('blogs.destroy', $blog->id) }}">
                         <i class="fa-solid fa-trash text-danger"></i>
                     </a>
                     <form action="{{ route('blogs.destroy', $blog->id) }}" method="post" style="display: none;">

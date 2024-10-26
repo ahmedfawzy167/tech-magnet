@@ -6,10 +6,13 @@ use Stripe\StripeClient;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePaymentRequest;
 use App\Models\Payment;
+use App\Traits\ApiResponder;
 use Illuminate\Http\Request;
 
 class PaymentController extends Controller
 {
+    use ApiResponder;
+
     public $stripe;
 
     public function __construct()
@@ -94,9 +97,6 @@ class PaymentController extends Controller
         $payment->amount = $request->amount;
         $payment->currency = $request->currency;
         $payment->save();
-        return response()->json([
-            'status' => 'Success',
-            'message' => 'Payment Done Successfully'
-        ], 201);
+        return $this->created($payment, 'Payment Done Successfully');
     }
 }

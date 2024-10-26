@@ -121,8 +121,8 @@
                                 <tr>
                                     <th>{{ __('admin.Name') }}</th>
                                     <th>{{ __('admin.Category') }}</th>
-                                    <th>{{ __('admin.Objectives') }}</th>
                                     <th>{{ __('admin.Price') }}</th>
+                                    <th>{{ __('admin.Date') }}</th>
                                     <th>{{ __('admin.Image') }}</th>
                                 </tr>
                             </thead>
@@ -131,8 +131,8 @@
                                     <tr>
                                        <td>{{ $course->name }}</td>
                                         <td>{{ $course->category->name }}</td>
-                                        <td>{{ $course->objective->name }}</td>
                                         <td>EGP {{ $course->price }}</td>
+                                        <td>{{ \Carbon\Carbon::parse($course->created_at)->diffForHumans() }}</td>
                                         <td>
                                              @if($course->image)
                                               <img src="{{ asset('storage/' . $course->image->path) }}" width="70px" class="mr-2">

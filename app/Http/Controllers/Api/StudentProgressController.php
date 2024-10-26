@@ -8,9 +8,12 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\StudentProgressCollection;
 use Illuminate\Http\Request;
 use App\Http\Resources\StudentProgressResource;
+use App\Traits\ApiResponder;
 
 class StudentProgressController extends Controller
 {
+    use ApiResponder;
+
     public function __construct()
     {
         $this->authorizeResource(StudentProgress::class);
@@ -18,7 +21,7 @@ class StudentProgressController extends Controller
 
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
+        $request->validate([
             'rank' => 'required|numeric',
             'total_points' => 'required|numeric',
             'points_earned' => 'required|numeric',
@@ -27,10 +30,6 @@ class StudentProgressController extends Controller
             'course_id' => 'required|numeric|gt:0',
             'skill_id' => 'required|numeric|gt:0',
         ]);
-
-        if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()], 422);
-        }
 
         $student_progress = new StudentProgress();
         $student_progress->rank = $request->rank;
@@ -42,15 +41,12 @@ class StudentProgressController extends Controller
         $student_progress->skill_id = $request->skill_id;
         $student_progress->save();
 
-        return response()->json([
-            "status" => 'Success',
-            "message" => "Progress Created Successfully!",
-        ], 201);
+        return $this->created($student_progress, "Progress Created Successfully!");
     }
 
     public function update(Request $request, StudentProgress $student_progress)
     {
-        $validator = Validator::make($request->all(), [
+        $request->validate([
             'rank' => 'required|numeric',
             'total_points' => 'required|numeric',
             'points_earned' => 'required|numeric',
@@ -59,10 +55,6 @@ class StudentProgressController extends Controller
             'course_id' => 'required|numeric|gt:0',
             'skill_id' => 'required|numeric|gt:0',
         ]);
-
-        if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()], 422);
-        }
 
         $student_progress->rank = $request->rank;
         $student_progress->total_points = $request->total_points;
@@ -73,27 +65,21 @@ class StudentProgressController extends Controller
         $student_progress->skill_id = $request->skill_id;
         $student_progress->update();
 
-        return response()->json([
-            "status" => 'Success',
-            "message" => "Progress Updated Successfully!",
-        ], 200);
+        return $this->success($student_progress, "Progress Updated Successfully");
     }
 
     public function index()
     {
         $student_progress = StudentProgress::with(['user', 'course', 'skill'])->get();
-        return StudentProgressCollection::collection($student_progress);
+        return $this->success(StudentProgressCollection::collection($student_progress));
     }
 
     public function show(StudentProgress $student_progress)
     {
         if ($student_progress != null) {
-            return new StudentProgressResource($student_progress);
+            return $this->success(new StudentProgressResource($student_progress));
         } else {
-            return response()->json([
-                "status"  => "error",
-                "message"  => "Progress not found"
-            ], 404);
+            return $this->notFound("Progress Not Found");
         }
     }
 }

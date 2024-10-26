@@ -6,12 +6,15 @@ use App\Models\Setting;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\SettingResource;
+use App\Traits\ApiResponder;
 
 class SettingController extends Controller
 {
+    use ApiResponder;
+
     public function index()
     {
         $settings = Setting::all();
-        return SettingResource::collection($settings);
+        return $this->success(SettingResource::collection($settings));
     }
 }

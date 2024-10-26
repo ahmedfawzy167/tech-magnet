@@ -24,8 +24,10 @@ class CategoryController extends Controller
 
     public function store(StoreCategoryRequest $request, Category $category)
     {
-        $category::create($request->validated());
-        return redirect(route('categories.index'))->with('message', 'Category Created Successfully');
+        if ($request->ajax()) {
+            $category::create($request->validated());
+            return redirect(route('categories.index'))->with('message', 'Category Created Successfully');
+        }
     }
 
     public function show(Category $category)
@@ -41,8 +43,10 @@ class CategoryController extends Controller
 
     public function update(UpdateCategoryRequest $request, Category $category)
     {
-        $category->update($request->validated());
-        return redirect(route('categories.index'))->with('message', 'Category Updated Successfully');
+        if ($request->ajax()) {
+            $category->update($request->validated());
+            return redirect(route('categories.index'))->with('message', 'Category Updated Successfully');
+        }
     }
 
     public function destroy(Category $category)

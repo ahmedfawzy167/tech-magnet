@@ -7,38 +7,47 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\CourseResource;
 use App\Http\Resources\CourseCollection;
+use App\Traits\ApiResponder;
 
 class CourseController extends Controller
 {
+    use ApiResponder;
+
     public function index(Request $request)
     {
         $sortBy = $request->get('sort_by', 'created_at');
         $sortOrder = $request->get('sort_order', 'desc');
 
-        $courses = Course::with(['image', 'category', 'objective'])
+        $courses = Course::with(['image', 'category'])
             ->orderBy($sortBy, $sortOrder)
             ->paginate(4);
 
-        return new CourseCollection($courses);
+        return $this->success(new CourseCollection($courses));
     }
 
     public function show($id)
     {
-        $course = Course::with(['roadmaps', 'image'])->find($id);
-        if ($course != null) {
-            return new CourseResource($course);
-        } else {
-            return response()->json([
-                "message" => "Course Not Found"
-            ], 404);
+        $course = Course::find($id);
+
+        if (!$course) {
+            return $this->notFound("Course Not Found");
         }
+
+        $relatedCourses = Course::where('category_id', $course->category_id)
+            ->where('id', '!=', $course->id)
+            ->get();
+
+        return $this->success([
+            'course' => new CourseResource($course),
+            'relatedCourses' => CourseResource::collection($relatedCourses)
+        ]);
     }
 
     public function search(Request $request)
     {
         $query = $request->input('query');
 
-        $course = Course::with(['image', 'category', 'objective'])->where('name', 'like', '%' . $query  . '%')->get();
+        $course = Course::with(['image', 'category'])->where('name', 'like', '%' . $query  . '%')->get();
 
         return response()->json($course);
     }
@@ -64,7 +73,7 @@ class CourseController extends Controller
             ], 404);
         }
 
-        $courses = $courses->with(['image', 'category', 'objective'])
+        $courses = $courses->with(['image', 'category'])
             ->get();
 
         return response()->json($courses);

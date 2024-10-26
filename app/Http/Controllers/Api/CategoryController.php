@@ -6,24 +6,24 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\CategoryResource;
+use App\Traits\ApiResponder;
 
 class CategoryController extends Controller
 {
+    use ApiResponder;
+
     public function index()
     {
         $categories = Category::all();
-        return response()->json($categories);
+        return $this->success(CategoryResource::collection($categories));
     }
 
     public function show(Category $category)
     {
         if ($category != null) {
-            return new CategoryResource($category);
+            return $this->success(new CategoryResource($category));
         } else {
-            return response()->json([
-                "status"  => "Error",
-                "message"  => "Category Not Found"
-            ], 404);
+            return $this->notFound("Category Not Found");
         }
     }
 }

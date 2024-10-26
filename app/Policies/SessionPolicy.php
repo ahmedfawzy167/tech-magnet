@@ -13,7 +13,7 @@ class SessionPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->role_id == 2;
+        return $user->role_id == 1 || $user->role_id == 2;
     }
 
     /**
@@ -29,8 +29,6 @@ class SessionPolicy
      */
     public function create(User $user): bool
     {
-       return $user->role_id == 2;
+        return $user->role_id == 2;
     }
-
-
 }

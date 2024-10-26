@@ -7,21 +7,22 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\WishlistResource;
+use App\Traits\ApiResponder;
 
 class WishlistController extends Controller
 {
+    use ApiResponder;
+
     public function index()
     {
         $wishlists = Wishlist::where('user_id', auth()->user()->id)->with('course')->get();
-        return WishlistResource::collection($wishlists);
+        return $this->success(WishlistResource::collection($wishlists));
     }
 
     public function totalWishlistItems()
     {
         $wishlistItems = Wishlist::where('user_id', auth()->user()->id)->with('course')->count();
-        return response()->json([
-            'totalwishlistItems' => $wishlistItems
-        ]);
+        return $this->success($wishlistItems);
     }
 
 
@@ -39,7 +40,7 @@ class WishlistController extends Controller
             ->first();
 
         if ($wishlist) {
-            return response()->json(['message' => 'Course Already in Your Wishlist!'], 409);
+            return $this->conflict("Course Already in Your Wishlist!");
         }
 
         $wishlist = Wishlist::create([
@@ -47,9 +48,11 @@ class WishlistController extends Controller
             'course_id' => $request->course_id,
         ]);
 
-        return response()->json([
-            'message' => 'Course Added to Wishlist Successfully',
-        ], 201);
+        $wishlistItems = Wishlist::where('user_id', $userId)
+            ->where('course_id', $request->course_id)
+            ->get();
+
+        return $this->created(WishlistResource::collection($wishlistItems), "Course Added to Wishlist Successfully");
     }
 
 
@@ -57,16 +60,18 @@ class WishlistController extends Controller
     {
         $userId = Auth::id();
 
-        $wishlistItem = Wishlist::where('user_id', $userId)
+        $wishlist = Wishlist::where('user_id', $userId)
             ->where('course_id', $courseId)
             ->first();
 
-        if (!$wishlistItem) {
-            return response()->json(['message' => 'Course Not Found in Wishlist!'], 404);
+        if (!$wishlist) {
+            return $this->notFound('Course Not Found');
         }
 
-        $wishlistItem->delete();
+        $wishlist->delete();
 
-        return response()->json(['message' => 'Course Removed From Wishlist Successfully'], 200);
+        $wishlistItems = Wishlist::where('user_id', $userId)->get();
+
+        return $this->success(WishlistResource::collection($wishlistItems), 'Course Removed From Wishlist Successfully');
     }
 }

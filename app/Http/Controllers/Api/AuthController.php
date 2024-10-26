@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Resources\LoginResource;
 use App\Http\Resources\ProfileResource;
+use App\Traits\ApiResponder;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rules\Password;
 use Tymon\JWTAuth\Exceptions\JWTException;
@@ -17,6 +18,8 @@ use Tymon\JWTAuth\Exceptions\JWTException;
 
 class AuthController extends Controller
 {
+    use ApiResponder;
+
     public function __construct()
     {
         $this->middleware('auth:api', ['only' => ['profile', 'logout', 'profileUpdate']]);
@@ -49,11 +52,7 @@ class AuthController extends Controller
             ->withProperties(['name' => $user->name])
             ->log('New User Registration');
 
-        return response()->json([
-            'status' => "Success",
-            'message' => "Registeration is Done",
-            'user' => $user,
-        ], 201);
+        return $this->created($user, "Registeration is Done");
     }
 
     public function login(Request $request)
@@ -85,10 +84,7 @@ class AuthController extends Controller
                 'message' => $e->getMessage(),
             ]);
         }
-        return response()->json([
-            'status' => 200,
-            'message' => "Logout Successfully",
-        ]);
+        return $this->success("Logout Successfully");
     }
 
     public function refresh(Request $request)
@@ -124,7 +120,7 @@ class AuthController extends Controller
     public function profile(Request $request)
     {
         $user = $request->user();
-        return new ProfileResource($user);
+        return $this->success(new ProfileResource($user));
     }
 
     public function profileUpdate(Request $request)
@@ -140,8 +136,6 @@ class AuthController extends Controller
         $user->password = bcrypt($request->new_password);
         $user->save();
 
-        return response()->json([
-            "message" => "Profile Updated Successfully"
-        ], 200);
+        return $this->success("Profile Updated Successfully");
     }
 }

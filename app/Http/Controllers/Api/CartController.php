@@ -6,22 +6,23 @@ use App\Models\Cart;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\CartResource;
+use App\Traits\ApiResponder;
 use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller
 {
+    use ApiResponder;
+
     public function index()
     {
         $carts = Cart::where('user_id', auth()->user()->id)->with('course')->get();
-        return CartResource::collection($carts);
+        return $this->success(CartResource::collection($carts));
     }
 
     public function totalCartItems()
     {
         $cartItems = Cart::where('user_id', auth()->user()->id)->with('course')->count();
-        return response()->json([
-            'totalCartItems' => $cartItems
-        ]);
+        return $this->success($cartItems);
     }
 
     public function store(Request $request)
@@ -38,7 +39,7 @@ class CartController extends Controller
             ->first();
 
         if ($cart) {
-            return response()->json(['message' => 'Course Already in Your Cart!'], 409);
+            return $this->conflict("Course Already in Your Cart!");
         }
 
         $cart = Cart::create([
@@ -46,26 +47,30 @@ class CartController extends Controller
             'course_id' => $request->course_id,
         ]);
 
-        return response()->json([
-            'message' => 'Course Added to Cart Successfully',
-        ], 201);
+        $cartItems = Cart::where('user_id', $userId)
+            ->where('course_id', $request->course_id)
+            ->get();
+
+        return $this->created(CartResource::collection($cartItems), "Course Added to Cart Successfully");
     }
 
 
-    public function destroy($courseId)
+    public function destroy($courseId, Request $request)
     {
         $userId = Auth::id();
 
-        $cartItem = Cart::where('user_id', $userId)
+        $cart = Cart::where('user_id', $userId)
             ->where('course_id', $courseId)
             ->first();
 
-        if (!$cartItem) {
-            return response()->json(['message' => 'Course Not Found in Cart!'], 404);
+        if (!$cart) {
+            return $this->notFound("Course Not Found");
         }
 
-        $cartItem->delete();
+        $cart->delete();
 
-        return response()->json(['message' => 'Course Removed From Cart Successfully'], 200);
+        $cartItems = Cart::where('user_id', $userId)->get();
+
+        return $this->success(CartResource::collection($cartItems), 'Course Removed From Your Cart Successfully');
     }
 }

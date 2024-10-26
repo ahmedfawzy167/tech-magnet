@@ -16,16 +16,12 @@ class ReviewController extends Controller
 
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
+        $request->validate([
             'course_id' => 'required|numeric|gt:0',
             'user_id' => 'required|numeric|gt:0',
             'content' =>  'required|string|max:500',
             'rating' => 'required|numeric|gt:0',
         ]);
-
-        if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()], 422);
-        }
 
         $review = new Review();
         $review->course_id = $request->course_id;
@@ -34,18 +30,12 @@ class ReviewController extends Controller
         $review->rating = $request->rating;
         $review->save();
 
-        return response()->json([
-            'status' => 'Success',
-            'message' => 'Review Added Successfully',
-        ], 201);
+        return $this->created($review, "Review Created Successfully");
     }
 
     public function destroy(Review $review)
     {
         $review->delete();
-        return response()->json([
-            'status' => 'Success',
-            'message' => 'Review Deleted Successfully'
-        ], 204);
+        return $this->success($review, "Review Deleted Successfully");
     }
 }

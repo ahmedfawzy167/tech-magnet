@@ -6,9 +6,12 @@ use App\Models\User;
 use App\Models\Course;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Traits\ApiResponder;
 
 class EnrollmentController extends Controller
 {
+   use ApiResponder;
+
    public function enroll(Request $request)
    {
       $request->validate([
@@ -23,9 +26,6 @@ class EnrollmentController extends Controller
          'date' => $request->date,
       ]);
 
-      return response()->json([
-         "status" => "Success",
-         "message" => "Enrollment Done Successfully"
-      ], 201);
+      return $this->created("Enrollment Done Successfully");
    }
 }

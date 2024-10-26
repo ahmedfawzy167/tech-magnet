@@ -15,10 +15,9 @@ class CategoryResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'categories' => [
-                'name' => $this->name,
-                'courses' => $this->courses,
-            ]
+            'id' => $this->id,
+            'name' => $this->name,
+            'courses' => CourseResource::collection($this->courses),
         ];
     }
 }

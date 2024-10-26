@@ -3,32 +3,29 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\Roadmap;
+use App\Traits\ApiResponder;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\RoadmapResource;
 
 class RoadmapController extends Controller
 {
+    use ApiResponder;
+
     public function index()
     {
         $roadmaps = Roadmap::all();
-        return response()->json($roadmaps);
+        return $this->success(RoadmapResource::collection($roadmaps));
     }
 
     public function show($id)
     {
         $roadmap = Roadmap::find($id);
-        
-        if($roadmap != null){
-           return response()->json([
-             "status" => "success",
-             "roadmap" => $roadmap
-           ],200);
-        }
-        else{
-            return response()->json([
-                "status"  => "Error",
-                "message"  => "Roadmap Not Found"
-            ],404); 
+
+        if ($roadmap != null) {
+            return $this->success(new RoadmapResource($roadmap));
+        } else {
+            return $this->notFound("Roadmap Not Found");
         }
     }
 }
