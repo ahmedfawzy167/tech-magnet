@@ -55,9 +55,8 @@
                 <div class="form-group col-md-12">
                     <label for="image"> {{ __('admin.Image') }}</label>
                     <input type="file" name="image" id="images"
-                        class="form-control @error('image') is-invalid @enderror">
-                        <img src="{{asset('storage/'.$course->image->path)}}" class="rounded-circle mt-2" width="200px">
-
+                        class="form-control @error('image') is-invalid @enderror" onchange="previewImage(event)">
+                        <img src="{{asset('storage/'.$course->image->path)}}" id="imagePreview" class="mt-3" style="max-width: 300px; height: auto;">
                 </div>
 
                 <div class="text-center">
@@ -69,3 +68,9 @@
         </div>
     </div>
     @endsection
+
+@section('page-scripts')
+  <script src="{{ asset('assets/js/imagePreview.js') }}"></script>
+@endsection
+    
+

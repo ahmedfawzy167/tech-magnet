@@ -27,8 +27,8 @@
 
       <div class="form-group col-md-12">
         <label for="image"><i class="ion-images"></i> {{ __('admin.Image') }}<span class="text-danger ms-2">*</span></label>
-        <input type="file" name="image" id="image" class="form-control @error('image') is-invalid @enderror">
-        <img src="{{ asset('storage/'.$blog->image->path) }}" class="rounded-circle mt-3">
+        <input type="file" name="image" id="image" class="form-control @error('image') is-invalid @enderror" onchange="previewImage(event)">
+        <img src="{{asset('storage/'.$blog->image->path)}}" id="imagePreview" class="mt-3" style="max-width: 300px; height: auto;">
       </div>
 
       <div class="text-center mt-3">
@@ -40,6 +40,10 @@
 </div>
 </div>
 
+@endsection
+
+@section('page-scripts')
+  <script src="{{ asset('assets/js/imagePreview.js') }}"></script>
 @endsection
 
 

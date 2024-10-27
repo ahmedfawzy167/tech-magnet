@@ -30,7 +30,9 @@
       </div>
       <div class="form-group col-md-12">
         <label for="image"><i class="ion-images"></i> {{ __('admin.Image') }}<span class="text-danger ms-2">*</span></label>
-        <input type="file" name="image" id="image" class="form-control @error('image') is-invalid @enderror">      
+        <input type="file" name="image" id="image" class="form-control @error('image') is-invalid @enderror" onchange="previewImage(event)">
+        <img id="imagePreview" class="mt-3" src="#" alt="Image Preview" style="display:none; max-width: 300px; height: auto;">
+      
       </div>
       
       <div class="text-center mt-3">
@@ -44,30 +46,7 @@
 @endsection
 
 @section('page-scripts')
-{{-- <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
-<script src="https://unpkg.com/filepond/dist/filepond.js"></script>
-
-<script>
-
-    FilePond.registerPlugin(FilePondPluginImagePreview);
-
-    FilePond.create(document.querySelector('#image'));
-
-    FilePond.setOptions({
-    server: {
-        process: {
-            url: '{{ route('blogs.store') }}',
-            method: 'POST',
-            headers: {
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-            }
-        }
-    }
-});
-
-</script> --}}
-
+  <script src="{{ asset('assets/js/imagePreview.js') }}"></script>
 @endsection
-
 
 
