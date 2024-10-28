@@ -13,6 +13,11 @@ class WishlistController extends Controller
 {
     use ApiResponder;
 
+    public function __construct()
+    {
+        $this->authorizeResource(Wishlist::class);
+    }
+
     public function index()
     {
         $wishlists = Wishlist::where('user_id', auth()->user()->id)->with('course')->get();

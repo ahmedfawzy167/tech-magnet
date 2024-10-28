@@ -13,6 +13,11 @@ class CartController extends Controller
 {
     use ApiResponder;
 
+    public function __construct()
+    {
+        $this->authorizeResource(Cart::class);
+    }
+
     public function index()
     {
         $carts = Cart::where('user_id', auth()->user()->id)->with('course')->get();

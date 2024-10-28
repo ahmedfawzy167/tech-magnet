@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\Hash;
 use App\Http\Resources\LoginResource;
 use App\Http\Resources\ProfileResource;
 use App\Traits\ApiResponder;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rules\Password;
 use Tymon\JWTAuth\Exceptions\JWTException;
 
@@ -20,20 +19,16 @@ class AuthController extends Controller
 {
     use ApiResponder;
 
-    public function __construct()
-    {
-        $this->middleware('auth:api', ['only' => ['profile', 'logout', 'profileUpdate']]);
-    }
 
     public function register(Request $request)
     {
         $request->validate([
-            'name' => 'required|string|between:2,100',
-            'email' => 'required|string|email|unique:users|max:100',
+            'name' => ['required', 'string', 'between:2,50'],
+            'email' => ['required', 'string', 'email', 'unique:users', 'max:50'],
             'password' => ['required', Password::defaults(), 'confirmed'],
             'phone' => 'required|string|max:11',
-            'city_id' => 'required|numeric|gt:0',
-            'role_id' => 'required|numeric|gt:0',
+            'city' => 'required|exists:cities,id',
+            'role' => 'required|exists:roles,id',
         ]);
 
         $user = User::create([
@@ -41,8 +36,8 @@ class AuthController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'phone' =>  $request->phone,
-            'city_id' =>  $request->city_id,
-            'role_id' =>  $request->role_id,
+            'city_id' =>  $request->city,
+            'role_id' =>  $request->role,
         ]);
 
         activity()
@@ -58,7 +53,7 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $request->validate([
-            'email' => 'required|string|email|max:100',
+            'email' => 'required|string|email|max:50',
             'password' => 'required|string|min:8',
         ]);
 
@@ -108,7 +103,7 @@ class AuthController extends Controller
         if ($new_token) {
             return response()->json([
                 'Status' => "Success",
-                'New Access_token' => $new_token
+                'NewAccessToken' => $new_token
             ], 200);
         } else {
             return response()->json([
