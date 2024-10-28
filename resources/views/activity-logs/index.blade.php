@@ -15,7 +15,6 @@
         <h6 class="list-group-item">Name: {{$lastActivity->getExtraProperty('name')}}</h6>
         <h6 class="list-group-item">Description: {{$lastActivity->description}}</h6>
         <h6 class="list-group-item">Event: {{$lastActivity->event}} </h6>
-        <h6 class="list-group-item">Causer: {{$lastActivity->causer}}</h6>
       </ul>
     </div>
   </div>

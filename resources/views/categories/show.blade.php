@@ -14,11 +14,12 @@
       <ul class="list-group list-group-flush">
         <h6 class="list-group-item">{{__('admin.Name')}}: {{$category->name}}</h6>
         <h6 class="list-group-item">{{__('admin.Related Courses')}}:
-            @foreach ($category->courses as $course)
+            @forelse ($category->courses as $course)
                 <li class="ms-4">{{$course->name}}</li>
-            @endforeach
+              @empty
+                  <span class="badge" style="background-color: red">No Courses Found!</span>
+            @endforelse
         </h6>
-
       </ul>
     </div>
   </div>

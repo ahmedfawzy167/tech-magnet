@@ -13,12 +13,7 @@
       </div>
       <ul class="list-group list-group-flush">
         <h4 class="list-group-item">  {{__('admin.Name')}}: {{$city->name}}</h4>
-        <h4 class="list-group-item">{{__('admin.Users')}}:
-        <ul>
-         @foreach($users as $user)
-           <li class="ms-3">{{$user->name}}</li>
-         @endforeach
-        </ul>
+        <h4 class="list-group-item">{{__('admin.Total Users')}}: {{ $users->count() }}
         </h4>
       </ul>
     </div>

@@ -335,6 +335,7 @@ return [
     'Edit Country' => 'تعديل الدوله',
     'Create Country' => 'اضافة دوله',
     'All Courses' => 'كل الدورات',
+    'Total Users'       =>   'عدد المستخدمين',
 
     'Cities' => 'المدن',
     'All Cities' => 'كل المدن',

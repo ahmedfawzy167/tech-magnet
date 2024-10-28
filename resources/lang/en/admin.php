@@ -12,6 +12,7 @@ return [
     'Explore More Diplomas'  =>            'Explore More Diplomas',
     'All Objectives'            =>      'All Objectives',
     'Objective'               =>      'Objective',
+    'Total Users'                     =>           'Total Users',
     'Objective Name'          =>       'Objective Name',
     'Edit Objective'            =>      'Edit Objective',
     'Show Objective'            =>      'Show Objective',
