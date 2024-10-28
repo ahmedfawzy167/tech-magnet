@@ -54,7 +54,7 @@ class CourseController extends Controller
 
     public function show(Course $course)
     {
-        $course->load(['category', 'objective', 'image', 'roadmaps']);
+        $course->load(['category', 'image', 'roadmaps']);
         return view('courses.show', compact('course'));
     }
 
@@ -104,7 +104,7 @@ class CourseController extends Controller
 
     public function trash()
     {
-        $trashedCourses = Course::onlyTrashed()->get();
+        $trashedCourses = Course::with(['image', 'category'])->onlyTrashed()->get();
         return view('courses.trashed', compact('trashedCourses'));
     }
 
@@ -118,6 +118,14 @@ class CourseController extends Controller
     public function forceDelete($id)
     {
         $course = Course::withTrashed()->findOrFail($id);
+
+        // Check if the course has any associated roadmaps
+        if ($course->roadmaps()->exists()) {
+            return redirect()->back()->withErrors([
+                'error' => 'Cannot Delete Course while it has Associated Roadmaps.'
+            ]);
+        }
+        $course->roadmaps()->detach();
         $course->forceDelete();
         $course->image()->delete();
         return redirect()->route('courses.index')->with('message', 'Course Permenantly Deleted Successfully');

@@ -24,10 +24,8 @@ class CategoryController extends Controller
 
     public function store(StoreCategoryRequest $request, Category $category)
     {
-        if ($request->ajax()) {
-            $category::create($request->validated());
-            return redirect(route('categories.index'))->with('message', 'Category Created Successfully');
-        }
+        $category::create($request->validated());
+        return redirect(route('categories.index'))->with('message', 'Category Created Successfully');
     }
 
     public function show(Category $category)
@@ -71,6 +69,12 @@ class CategoryController extends Controller
     public function forceDelete($id)
     {
         $category = Category::withTrashed()->findOrFail($id);
+
+        if ($category->courses()->count() > 0) {
+            return redirect()->back()->withErrors([
+                'error' => 'Category has Associated Courses!'
+            ]);
+        }
         $category->forceDelete();
         return redirect()->route('categories.index')->with('message', 'Category Permenantly Deleted Successfully');
     }

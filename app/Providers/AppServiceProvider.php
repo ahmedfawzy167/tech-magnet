@@ -2,7 +2,10 @@
 
 namespace App\Providers;
 
+use App\Models\Category;
 use App\Services\UserService;
+use App\Observers\CategoryObserver;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Validation\Rules\Password;
 
@@ -31,5 +34,9 @@ class AppServiceProvider extends ServiceProvider
                 ->letters()
                 ->uncompromised();
         });
+
+        Category::observe(CategoryObserver::class);
+
+        Model::preventLazyLoading($this->app->environment('production'));
     }
 }

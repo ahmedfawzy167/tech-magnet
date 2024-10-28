@@ -13,23 +13,23 @@
                 <table class="table table-hover table-bordered" id="data-table">
                     <thead class="table-dark">
                         <tr>
-                            <th>{{ __('admin.ID') }}</th>
-                            <th>{{ __('admin.Name') }}</th>
-                            <th>{{ __('admin.Email') }}</th>
-                            <th>{{ __('admin.Phone') }}</th>
-                            <th>{{ __('admin.City') }}</th>
-                            <th>{{ __('admin.Actions') }}</th>
+                            <th class="text-center">{{ __('admin.ID') }}</th>
+                            <th class="text-center">{{ __('admin.Name') }}</th>
+                            <th class="text-center">{{ __('admin.Email') }}</th>
+                            <th class="text-center">{{ __('admin.Phone') }}</th>
+                            <th class="text-center">{{ __('admin.City') }}</th>
+                            <th class="text-center">{{ __('admin.Actions') }}</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($students as $student)
                             <tr>
-                                <td>{{ $loop->iteration }}</td>
-                                <td>{{ $student->name }}</td>
-                                <td>{{ $student->email }}</td>
-                                <td>{{ $student->phone }}</td>
-                                <td>{{ $student->city->name }}</td>
-                                <td>
+                                <td class="text-center">{{ $loop->iteration }}</td>
+                                <td class="text-center">{{ $student->name }}</td>
+                                <td class="text-center">{{ $student->email }}</td>
+                                <td class="text-center">{{ $student->phone }}</td>
+                                <td class="text-center">{{ $student->city->name }}</td>
+                                <td class="text-center">
                                     <a href="{{ route('students.show', $student->id) }}"
                                     ><i class="fa-solid fa-eye text-info"></i></a>
                                     <a href="{{ route('students.edit', $student->id) }}"

@@ -15,8 +15,7 @@
         <h4 class="list-group-item">{{__('admin.Name')}}: {{$course->name}}</h4>
         <h4 class="list-group-item">{{__('admin.Price')}}: {{$course->price}}</h4>
         <h4 class="list-group-item">{{__('admin.Hours')}}: {{$course->hours}}</h4>
-        <h4 class="list-group-item">{{__('admin.Category Name')}}: {{$course?->category?->name}}</h4>
-        <h4 class="list-group-item">{{__('admin.Objective Name')}}: {{$course?->objective?->name}}</h4>
+        <h4 class="list-group-item">{{__('admin.Category')}}: {{$course?->category?->name}}</h4>
         <h4 class="list-group-item">{{__('admin.Image')}}: <img src="{{asset('storage/'.$course->image->path)}}" width="100px" class="rounded-circle ms-3"></h4>
         <h6 class="list-group-item">{{__('admin.Roadmaps')}}:
           @foreach ($course->roadmaps as $roadmap)
