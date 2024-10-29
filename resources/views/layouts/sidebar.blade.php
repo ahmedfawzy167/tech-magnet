@@ -220,7 +220,6 @@
     <div id="collapsematerial" class="collapse" aria-labelledby="headingmaterial"
         data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="{{route('materials.index')}}"><i class="fa-solid fa-list"></i> {{__('admin.All Materials')}}</a>
             <a class="collapse-item" href="{{ route('materials.create') }}"><i class="ion-plus-circled"></i> {{__('admin.Add New Material')}}</a>
         </div>
     </div>
@@ -261,9 +260,7 @@
     <div id="collapserecording" class="collapse" aria-labelledby="headingrecording"
         data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="{{route('recordings.index')}}"><i class="fa-solid fa-list"></i> {{__('admin.All Recordings')}}</a>
             <a class="collapse-item" href="{{ route('recordings.create') }}"><i class="ion-plus-circled"></i> {{__('admin.Add New Recording')}}</a>
-
         </div>
     </div>
 </li>

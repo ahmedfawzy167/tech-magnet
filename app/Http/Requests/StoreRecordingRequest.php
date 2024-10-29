@@ -22,11 +22,7 @@ class StoreRecordingRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'required|string|max:100',
-            'description' => 'required|string|max:1000',
             'video_src' => 'required|file|mimes:mp4,mov,avi,mkv|max:409600', // 10MB max
-            'user_id' => 'required|exists:users,id',
-            'course_id' => 'required|exists:courses,id',
         ];
     }
 }

@@ -14,6 +14,7 @@ return [
     'Objective'               =>      'Objective',
     'Total Users'                     =>           'Total Users',
     'Objective Name'          =>       'Objective Name',
+    'Save'                    =>          'Save',
     'Edit Objective'            =>      'Edit Objective',
     'Show Objective'            =>      'Show Objective',
     'Add New Role'              =>    'Add New Role',

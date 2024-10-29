@@ -17,10 +17,6 @@ class CategoryController extends Controller
         return view('categories.index', compact('categories'));
     }
 
-    public function create()
-    {
-        return view('categories.create');
-    }
 
     public function store(StoreCategoryRequest $request, Category $category)
     {
@@ -34,17 +30,11 @@ class CategoryController extends Controller
         return view('categories.show', get_defined_vars());
     }
 
-    public function edit(Category $category)
-    {
-        return view('categories.edit', compact('category'));
-    }
 
     public function update(UpdateCategoryRequest $request, Category $category)
     {
-        if ($request->ajax()) {
-            $category->update($request->validated());
-            return redirect(route('categories.index'))->with('message', 'Category Updated Successfully');
-        }
+        $category->update($request->validated());
+        return redirect(route('categories.index'))->with('message', 'Category Updated Successfully');
     }
 
     public function destroy(Category $category)

@@ -39,10 +39,6 @@ class Course extends Model implements Searchable
         return $this->hasMany(Portfolio::class);
     }
 
-    public function recordings()
-    {
-        return $this->hasMany(Recording::class);
-    }
 
     public function superskills()
     {
@@ -69,11 +65,6 @@ class Course extends Model implements Searchable
         return $this->hasMany(Session::class);
     }
 
-
-    public function materials()
-    {
-        return $this->hasMany(Material::class);
-    }
 
     public function users()
     {
