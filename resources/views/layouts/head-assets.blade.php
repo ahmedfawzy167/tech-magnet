@@ -22,4 +22,5 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/rowreorder/1.5.0/css/rowReorder.bootstrap5.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/searchbuilder/1.7.1/css/searchBuilder.bootstrap5.min.css">
     <link rel="stylesheet" href="{{ asset('assets/css/' . $lang . '.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/chat.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/sb-admin-2.min.css') }}" rel="stylesheet">

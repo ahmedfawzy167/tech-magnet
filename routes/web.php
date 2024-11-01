@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Laravel\Telescope\Http\Controllers\HomeController as ControllersHomeController;
+use OpenAI\Laravel\Facades\OpenAI;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,6 +19,7 @@ use Laravel\Telescope\Http\Controllers\HomeController as ControllersHomeControll
 Route::get('/', function () {
     return view('welcome');
 });
+
 
 
 Route::middleware(['auth:admin', 'Language'])
@@ -125,6 +127,8 @@ Route::middleware(['auth:admin', 'Language'])
         /* Start of Recordings Routes */
         Route::resource('recordings', 'RecordingController');
         /* End of Recordings Routes */
+
+        Route::post('/chat', 'ChatbotController@chat');
     });
 
 Auth::routes();

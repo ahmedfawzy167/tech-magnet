@@ -38,16 +38,16 @@
         <div class="row justify-content-center mt-4">
             <div class="card mb-3">
                 <div class="card-body py-3">
-                    <h3 class="text-center mt-2">Admin Panel</h3>
+                    <h3 class="text-center mt-2">Login to Your Account</h3>
                     <form method="POST" action="{{ route('login') }}" id="loginForm">
                         @csrf
-                        <div class="form-group mb-2">
-                            <label for="email"><i class="fa-solid fa-envelope"></i> Email Address</label>
+                        <div class="form-group mb-2 mt-3">
+                            <label for="email"><i class="fa-solid fa-envelope mb-2"></i> Email Address</label>
                             <input type="email" id="email" name="email" value="{{ old('email') }}"
                                 class="form-control form-control-lg @error('email') is-invalid @enderror" />
                         </div>
                         <div class="form-group">
-                            <label for="password"><i class="fa-solid fa-lock"></i> Password</label>
+                            <label for="password"><i class="fa-solid fa-lock mb-2"></i> Password</label>
                             <input type="password" id="password" name="password" value="{{ old('password') }}"
                                 class="form-control form-control-lg  @error('password') is-invalid @enderror" />
                         </div>
@@ -64,7 +64,7 @@
                             </div>
                             <button type="submit" class="btn btn-primary w-100 mt-2">Login</button>
                             <hr class="mt-4">
-                            <p class="text-center">Don't have an account?<a href="{{route('register')}}" class="ms-1 text-decoration-none">register</a></p>
+                            <p class="text-center">Don't have an account?<a href="{{route('register')}}" class="ms-1 text-decoration-none">Register</a></p>
 
                     </form>
 
@@ -104,7 +104,7 @@
                     },
                     password: {
                         required: "<span style='color:red;font-weight:bold;'>Please Enter your Password.</span>",
-                        minlength: "<span style='color:red;font-weight:bold;'>Password must be at Least 8 Characters long.</span>",
+                        minlength: "<span style='color:red;font-weight:bold;'>Password must be at Least 8 Characters Long.</span>",
                     }
                 },
                 errorClass: "is-invalid",
