@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Course extends Model implements Searchable
 {
     use HasFactory, SoftDeletes;
+
     protected $fillable = ['name', 'description', 'price', 'hours', 'category_id', 'objective_id'];
 
     public function category()
@@ -79,6 +80,16 @@ class Course extends Model implements Searchable
     public function payments()
     {
         return $this->hasMany(Payment::class);
+    }
+
+    public function bundles()
+    {
+        return $this->belongsToMany(Bundle::class, 'bundle_course', 'bundle_id', 'course_id');
+    }
+
+    public function discounts()
+    {
+        return $this->belongsToMany(Discount::class, 'course_discount', 'course_id', 'discount_id');
     }
 
     public function reviews()

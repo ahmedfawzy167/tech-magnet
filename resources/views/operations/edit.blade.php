@@ -24,7 +24,7 @@
       </div>
 
       <div class="form-group col-6">
-        <label for="password">{{__('admin.Password')}}<span class="text-danger ms-2">*</span></label>
+        <label for="password">{{__('admin.Password')}}<span class="text-secondary ms-2">(Nullable)</span></label>
         <input type="password" name="password" id="password" class="form-control @error('password') is-invalid @enderror">
       </div>
 

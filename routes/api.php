@@ -56,6 +56,10 @@ Route::namespace('App\Http\Controllers\Api')->group(function () {
     Route::apiResource('blogs', 'BlogController');
     /* End of Blogs Routes */
 
+    /* Start of Bundles Routes */
+    Route::apiResource('/bundles', 'BundleController');
+    /* End of Bundles Routes */
+
     /* Start of Quizzes Routes */
     Route::post('/quiz-user', 'QuizController@attach')->middleware('jwt-verify');
     Route::apiResource('quizzes', 'QuizController')->middleware('jwt-verify');
@@ -127,4 +131,8 @@ Route::namespace('App\Http\Controllers\Api')->group(function () {
     Route::post('/wishlists/store', 'WishlistController@store')->middleware('jwt-verify');
     Route::delete('/wishlists/destroy/{courseId}', 'WishlistController@destroy')->middleware('jwt-verify');
     /* End of Wishlists Routes */
+
+    /* Start of Addresses Routes */
+    Route::apiResource('/addresses', 'AddressController')->middleware('jwt-verify');
+    /* End of Addresses Routes */
 });

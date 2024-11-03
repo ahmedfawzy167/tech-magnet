@@ -94,7 +94,40 @@
                 </div>
             </div>
         </li>
-        
+
+
+         <!-- Nav Item - Pages Collapse Menu -->
+         <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseDiscount"
+                aria-expanded="true" aria-controls="collapseDiscount">
+                <span>{{__('admin.Discounts')}}</span>
+            </a>
+            <div id="collapseDiscount" class="collapse" aria-labelledby="headingDiscount" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item" href="{{route('discounts.index')}}"><i class="fa-solid fa-list"></i> {{__('admin.All Discounts')}}</a>
+                    <a class="collapse-item" href="{{route('discounts.create')}}"><i class="ion-plus-circled"></i> {{__('admin.Add New Discount')}}</a>
+                </div>
+            </div>
+        </li>
+
+
+         <!-- Nav Item - Pages Collapse Menu -->
+         <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseBundle"
+                aria-expanded="true" aria-controls="collapseBundle">
+                <span>{{__('admin.Bundles')}}</span>
+            </a>
+            <div id="collapseBundle" class="collapse" aria-labelledby="headingBundle" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item" href="{{route('bundles.index')}}"><i class="fa-solid fa-list"></i> {{__('admin.All Bundles')}}</a>
+                    <a class="collapse-item" href="{{route('bundles.create')}}"><i class="ion-plus-circled"></i> {{__('admin.Add New Bundle')}}</a>
+                    <a class="collapse-item" href="{{route('bundles.trashed')}}"><i class="ion-alert"></i> {{ __('admin.All Trashed Bundles') }}</a>
+                </div>
+            </div>
+        </li>
+
+
+
         <li class="nav-item">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsecities"
                 aria-expanded="true" aria-controls="collapsecities">

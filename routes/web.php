@@ -3,7 +3,6 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Laravel\Telescope\Http\Controllers\HomeController as ControllersHomeController;
-use OpenAI\Laravel\Facades\OpenAI;
 
 /*
 |--------------------------------------------------------------------------
@@ -104,8 +103,9 @@ Route::middleware(['auth:admin', 'Language'])
         /* End of Roadmaps Routes */
 
         /* Start of Enrollments Routes */
-        Route::get('enrollments', 'CourseUserController@index')->name('enrollments.index');
-        Route::put('enrollments/update/{id}', 'CourseUserController@update')->name('enrollments.update');
+        Route::get('enrollments', 'EnrollmentController@index')->name('enrollments.index');
+        Route::put('enrollments/update/{id}', 'EnrollmentController@update')->name('enrollments.update');
+        Route::delete('enrollments/destroy/{id}', 'EnrollmentController@destroy')->name('enrollments.destroy');
         /* End of Enrollments Routes */
 
         /* Start of Reviews Routes*/
@@ -128,7 +128,20 @@ Route::middleware(['auth:admin', 'Language'])
         Route::resource('recordings', 'RecordingController');
         /* End of Recordings Routes */
 
+        /* Start of Ai Chat Routes */
         Route::post('/chat', 'ChatbotController@chat');
+        /* End of Ai Chat Routes */
+
+        /* Start of Bundles Routes */
+        Route::get('bundles/trash', 'BundleController@trash')->name('bundles.trashed');
+        Route::put('bundles/restore/{id}', 'BundleController@restore')->name('bundles.restore');
+        Route::delete('bundles/force_delete/{id}', 'BundleController@forceDelete')->name('bundles.force-delete');
+        Route::resource('bundles', 'BundleController');
+        /* End of Bundles Routes */
+
+        /* Start of Discounts Routes */
+        Route::resource('discounts', 'DiscountController');
+        /* End of Discounts Routes */
     });
 
 Auth::routes();

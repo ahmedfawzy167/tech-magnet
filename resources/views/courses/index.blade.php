@@ -23,7 +23,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse($courses as $course)
+                        @foreach($courses as $course)
                             <tr>
                                 <td>{{ $loop->index+1 }}</td>
                                 <td>{{ $course->name }}</td>
@@ -48,9 +48,7 @@
                                     </form>
                                 </td>
                             </tr>
-                        @empty
-                            <h1 class="text-center">No Courses Found!</h1>
-                        @endforelse
+                        @endforeach
                     </tbody>
                 </table>
         </div>

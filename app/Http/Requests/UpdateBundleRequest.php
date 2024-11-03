@@ -2,10 +2,9 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Validation\Rules\Password;
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateUserRequest extends FormRequest
+class UpdateBundleRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,13 +21,12 @@ class UpdateUserRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            'name' => 'required|string|between:2,50',
-            'email' => 'required|email|string|max:50',
-            'password' => ['nullable', Password::defaults()],
-            'phone' => 'required|string|max:11',
-            'city_id' => 'required|numeric|gt:0',
-            'role_id' => 'required|numeric|gt:0',
-        ];
+        return
+            [
+                'name' => 'required|string|max:100',
+                'description' => 'required|string',
+                'price' => 'required|numeric|min:0',
+                'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            ];
     }
 }

@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\{Course, Category, Roadmap};
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\StoreCourseRequest;
 use App\Http\Requests\UpdateCourseRequest;
+use App\Models\{Course, Category, Roadmap};
 
 class CourseController extends Controller
 {
@@ -25,37 +27,56 @@ class CourseController extends Controller
 
     public function store(StoreCourseRequest $request)
     {
-        $request->validated();
+        DB::beginTransaction();
 
-        $course = new Course();
-        $course->name = $request->name;
-        $course->description = $request->description;
-        $course->price = $request->price;
-        $course->hours = $request->hours;
-        $course->category_id = $request->category_id;
-        $course->save();
+        try {
+            $course = new Course();
+            $course->name = $request->name;
+            $course->description = $request->description;
+            $course->price = $request->price;
+            $course->hours = $request->hours;
+            $course->category_id = $request->category_id;
+            $course->save();
+            $course->roadmaps()->attach($request->roadmaps);
 
-        $img = $request->file('image');
-        $ext = $img->getClientOriginalExtension();
-        $fileName = Date("Y-m-d-h-i-s") . '.' . $ext;
-        $location = "public/";
-        $img->storeAs($location, $fileName);
+            $img = $request->file('image');
+            $ext = $img->getClientOriginalExtension();
+            $fileName = Date("Y-m-d-h-i-s") . '.' . $ext;
+            $location = "public/";
+            $img->storeAs($location, $fileName);
 
-        $course->image()->create([
-            'path' => $fileName,
-            'imageable_id' => $course->id,
-            'imageable_type' => 'App\Models\Course',
-        ]);
+            $course->image()->create([
+                'path' => $fileName,
+                'imageable_id' => $course->id,
+                'imageable_type' => 'App\Models\Course',
+            ]);
 
-        $course->roadmaps()->attach($request->input('roadmaps', []));
-
-        return redirect(route('courses.index'))->with('message', 'Course Created Successfully');
+            DB::commit();
+            return redirect(route('courses.index'))->with('message', 'Course Created Successfully');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->back()->withErrors('error', $e->getMessage());
+        }
     }
 
     public function show(Course $course)
     {
-        $course->load(['category', 'image', 'roadmaps']);
-        return view('courses.show', compact('course'));
+        $course->load(['category', 'image', 'roadmaps', 'discounts']);
+        $price = $course->price;
+        $discountAmount = 0;
+
+        foreach ($course->discounts as $discount) {
+            if ($discount->is_active && $discount->expiry_date > now()) {
+                if ($discount->percentage) {
+                    $discountAmount += $price * ($discount->percentage / 100);
+                } elseif ($discount->amount) {
+                    $discountAmount += $discount->amount;
+                }
+            }
+        }
+
+        $finalPrice = max($price - $discountAmount, 0);
+        return view('courses.show', compact('course', 'finalPrice'));
     }
 
 
@@ -68,32 +89,36 @@ class CourseController extends Controller
 
     public function update(UpdateCourseRequest $request, Course $course)
     {
-        $request->validated();
+        DB::beginTransaction();
+        try {
+            $course->name = $request->name;
+            $course->description = $request->description;
+            $course->price = $request->price;
+            $course->hours = $request->hours;
+            $course->category_id = $request->category_id;
+            $course->save();
+            $course->roadmaps()->sync($request->roadmaps);
 
-        $course->name = $request->name;
-        $course->description = $request->description;
-        $course->price = $request->price;
-        $course->hours = $request->hours;
-        $course->category_id = $request->category_id;
-        $course->save();
+            if ($request->hasFile('image')) {
+                $img = $request->file('image');
+                $ext = $img->getClientOriginalExtension();
+                $fileName = Date("Y-m-d-h-i-s") . '.' . $ext;
+                $location = "public/";
+                $img->storeAs($location, $fileName);
 
-        if ($request->hasFile('image')) {
-            $img = $request->file('image');
-            $ext = $img->getClientOriginalExtension();
-            $fileName = Date("Y-m-d-h-i-s") . '.' . $ext;
-            $location = "public/";
-            $img->storeAs($location, $fileName);
+                $course->image()->update([
+                    'path' => $fileName,
+                    'imageable_id' => $course->id,
+                    'imageable_type' => 'App\Models\Course',
+                ]);
+            }
 
-            $course->image()->update([
-                'path' => $fileName,
-                'imageable_id' => $course->id,
-                'imageable_type' => 'App\Models\Course',
-            ]);
+            DB::commit();
+            return redirect(route('courses.index'))->with('message', 'Course Updated Sucessfully');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->back()->withErrors('error', $e->getMessage());
         }
-
-        $course->roadmaps()->sync($request->input('roadmaps', []));
-
-        return redirect(route('courses.index'))->with('message', 'Course Updated Sucessfully');
     }
 
     public function destroy(Course $course)
@@ -119,15 +144,21 @@ class CourseController extends Controller
     {
         $course = Course::withTrashed()->findOrFail($id);
 
-        // Check if the course has any associated roadmaps
+        // Check if the Course has any Associated Roadmaps
         if ($course->roadmaps()->exists()) {
             return redirect()->back()->withErrors([
                 'error' => 'Cannot Delete Course while it has Associated Roadmaps.'
             ]);
         }
+
+        // Check if Course has image
+        if ($course->image()->exists()) {
+            Storage::disk('public')->delete($course->image->path);
+        }
+
         $course->roadmaps()->detach();
-        $course->forceDelete();
         $course->image()->delete();
+        $course->forceDelete();
         return redirect()->route('courses.index')->with('message', 'Course Permenantly Deleted Successfully');
     }
 }

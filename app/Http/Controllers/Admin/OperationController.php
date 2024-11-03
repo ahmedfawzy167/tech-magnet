@@ -27,8 +27,6 @@ class OperationController extends Controller
 
     public function store(StoreUserRequest $request)
     {
-        $request->validated();
-
         $operation = new User();
         $operation->name = $request->name;
         $operation->email = $request->email;
@@ -38,12 +36,12 @@ class OperationController extends Controller
         $operation->city_id = $request->city_id;
         $operation->save();
 
-        return redirect(route('operations.index'))->with('message', 'Operation Created Successfully');
+        return redirect()->route('operations.index')->with('message', 'Operation Created Successfully');
     }
 
     public function show(User $operation)
     {
-        $operation->load(['city', 'role']);
+        $operation->load(['city', 'role', 'addresses']);
         return view('operations.show', compact('operation'));
     }
 
@@ -64,12 +62,12 @@ class OperationController extends Controller
         $operation->role_id = $request->role_id;
         $operation->save();
 
-        return redirect(route('operations.index'))->with('message', 'Operation Updated Successfully');
+        return redirect()->route('operations.index')->with('message', 'Operation Updated Successfully');
     }
 
     public function destroy(User $operation)
     {
         $operation->delete();
-        return redirect(route('operations.index'))->with('message', 'Operation Deleted Successfully');
+        return redirect()->route('operations.index')->with('message', 'Operation Deleted Successfully');
     }
 }

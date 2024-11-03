@@ -27,7 +27,6 @@ class InstructorController extends Controller
 
     public function store(StoreUserRequest $request)
     {
-        $request->validated();
 
         $instructor = new User();
         $instructor->name = $request->name;
@@ -38,12 +37,12 @@ class InstructorController extends Controller
         $instructor->city_id = $request->city_id;
         $instructor->save();
 
-        return redirect(route('instructors.index'))->with('message', 'Instructor Created Successfully');
+        return redirect()->route('instructors.index')->with('message', 'Instructor Created Successfully');
     }
 
     public function show(User $instructor)
     {
-        $instructor->load(['city', 'role']);
+        $instructor->load(['city', 'role', 'addresses']);
         return view('instructors.show', compact('instructor'));
     }
 
@@ -56,7 +55,6 @@ class InstructorController extends Controller
 
     public function update(UpdateUserRequest $request, User $instructor)
     {
-        $request->validated();
 
         $instructor->name = $request->name;
         $instructor->email = ($request->email);
@@ -65,12 +63,12 @@ class InstructorController extends Controller
         $instructor->role_id = $request->role_id;
         $instructor->save();
 
-        return redirect(route('instructors.index'))->with('message', 'Instructor Updated Successfully');
+        return redirect()->route('instructors.index')->with('message', 'Instructor Updated Successfully');
     }
 
     public function destroy(User $instructor)
     {
         $instructor->delete();
-        return redirect(route('instructors.index'))->with('message', 'Instructor Deleted Successfully');
+        return redirect()->route('instructors.index')->with('message', 'Instructor Deleted Successfully');
     }
 }

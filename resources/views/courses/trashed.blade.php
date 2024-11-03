@@ -8,7 +8,7 @@
     <div class="row">
         <div class="card">
         <div class="card-body">
-             <h1 class="text-center bg-warning text-light"><i class="ion-alert"></i> All Trashed Courses</h1>
+             <h1 class="text-center bg-warning text-light"><i class="ion-alert"></i> {{ __('admin.All Trashed Courses')}} </h1>
              <table class="table table-hover table-bordered mt-3">
                 <thead class="table-dark">
                     <tr>

@@ -17,6 +17,15 @@
         <h4 class="list-group-item">{{__('admin.Phone')}}: {{$instructor->phone}}</h4>
         <h4 class="list-group-item">{{__('admin.Role')}}: {{$instructor->role->name}}</h4>
         <h4 class="list-group-item">{{__('admin.City')}}: {{$instructor->city->name}}</h4>
+        <h4 class="list-group-item">{{ __('admin.Addresses') }}:
+          @if ($instructor->addresses->isEmpty())
+            <li class="badge bg-danger">{{ __('admin.No Address Defined!') }}</li>
+          @else
+              @foreach ($instructor->addresses as $address)
+                  <li class="ms-4">{{ $address?->address }}</li>
+              @endforeach
+          @endif
+      </h4>
      </ul>
     </div>
   </div>

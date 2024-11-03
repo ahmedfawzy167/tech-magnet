@@ -27,8 +27,6 @@ class StudentController extends Controller
 
     public function store(StoreUserRequest $request)
     {
-        $request->validated();
-
         $student = new User();
         $student->name = $request->name;
         $student->email = $request->email;
@@ -43,7 +41,7 @@ class StudentController extends Controller
 
     public function show(User $student)
     {
-        $student->load(['city', 'role']);
+        $student->load(['city', 'role', 'addresses']);
         return view('students.show', compact('student'));
     }
 
@@ -56,7 +54,6 @@ class StudentController extends Controller
 
     public function update(UpdateUserRequest $request, User $student)
     {
-
         $student->name = $request->name;
         $student->email = ($request->email);
         $student->password = bcrypt($request->password);
