@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Models\Admin;
 use App\Models\Course;
 use App\Traits\ApiResponder;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreEnrollmentRequest;
 use App\Notifications\NewEnrollmentNotification;
+use App\Notifications\StudentEnrollmentAdminNotification;
 
 class EnrollmentController extends Controller
 {
@@ -28,7 +30,14 @@ class EnrollmentController extends Controller
             'date' => $request->date ?? now(),
          ]);
 
+         // Notify the student
          $user->notify(new NewEnrollmentNotification($course));
+
+         // Notify all admins
+         $admins = Admin::all();
+         foreach ($admins as $admin) {
+            $admin->notify(new StudentEnrollmentAdminNotification($user, $course));
+         }
 
          return $this->created("Enrollment Done Successfully");
       } catch (\Exception $e) {

@@ -29,6 +29,11 @@ return [
     'Edit Operation' => 'تعديل الاوبريشن',
     'New Student' =>  'طالب جديد',
     'No Address Defined!'  =>   'لا يوجد عناوين!',
+    'Notification Date'    =>      'تاريخ الاشعار',
+    'Course ID'            =>            'تسلسل الدورة',
+    'Course Name'          =>            'اسم الدورة',
+    'Show Notification'    =>        'اظهار الاشعار',
+
     'New Instructor' =>  'محاضر جديد',
     'New Operation' =>  'اوبريشن جديد',
     'Add New Bundle'                 =>     'اضافه حزمه جديده',

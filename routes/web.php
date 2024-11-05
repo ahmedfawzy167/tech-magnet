@@ -142,6 +142,10 @@ Route::middleware(['auth:admin', 'Language'])
         /* Start of Discounts Routes */
         Route::resource('discounts', 'DiscountController');
         /* End of Discounts Routes */
+
+        /* Start of Notifications Routes */
+        Route::get('/notifications/{id}', 'NotificationController@show')->name('notifications.show');
+        /* End of Notifications Routes */
     });
 
 Auth::routes();
