@@ -7,7 +7,6 @@ use App\Models\Assignment;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Validator;
 use App\Http\Resources\AssignmentCollection;
 use App\Traits\ApiResponder;
 

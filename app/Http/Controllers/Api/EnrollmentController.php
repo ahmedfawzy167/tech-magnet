@@ -2,30 +2,37 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Models\User;
 use App\Models\Course;
+use App\Traits\ApiResponder;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Traits\ApiResponder;
+use App\Http\Requests\StoreEnrollmentRequest;
+use App\Notifications\NewEnrollmentNotification;
 
 class EnrollmentController extends Controller
 {
    use ApiResponder;
 
-   public function enroll(Request $request)
+   public function enroll(StoreEnrollmentRequest $request)
    {
-      $request->validate([
-         'course_id' => 'required|numeric|gt:0',
-         'user_id' => 'required|numeric|gt:0',
-      ]);
+      try {
+         $user = auth()->user();
 
-      $course = Course::find($request->course_id);
-      $user = User::find($request->user_id);
+         $course = Course::findOrFail($request->course);
+         if ($user->courses()->where('course_id', $course->id)->exists()) {
+            // Student is already Enrolled //
+            return $this->conflict("You Are Already Enrolled in This Course");
+         }
 
-      $user->courses()->attach($course, [
-         'date' => $request->date,
-      ]);
+         $user->courses()->attach($course, [
+            'date' => $request->date ?? now(),
+         ]);
 
-      return $this->created("Enrollment Done Successfully");
+         $user->notify(new NewEnrollmentNotification($course));
+
+         return $this->created("Enrollment Done Successfully");
+      } catch (\Exception $e) {
+         return $this->serverError('An error Occurred During Enrollment.');
+      }
    }
 }

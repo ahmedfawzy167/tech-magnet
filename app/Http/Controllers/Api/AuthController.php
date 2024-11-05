@@ -3,15 +3,16 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\User;
+use App\Traits\ApiResponder;
 use Illuminate\Http\Request;
+use App\Events\StudentRegistered;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\RegisterRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Resources\LoginResource;
 use App\Http\Resources\ProfileResource;
-use App\Traits\ApiResponder;
-use Illuminate\Validation\Rules\Password;
 use Tymon\JWTAuth\Exceptions\JWTException;
 
 
@@ -19,18 +20,8 @@ class AuthController extends Controller
 {
     use ApiResponder;
 
-
-    public function register(Request $request)
+    public function register(RegisterRequest $request)
     {
-        $request->validate([
-            'name' => ['required', 'string', 'between:2,50'],
-            'email' => ['required', 'string', 'email', 'unique:users', 'max:50'],
-            'password' => ['required', Password::defaults(), 'confirmed'],
-            'phone' => 'required|string|max:11',
-            'city' => 'required|exists:cities,id',
-            'role' => 'required|exists:roles,id',
-        ]);
-
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
@@ -47,7 +38,9 @@ class AuthController extends Controller
             ->withProperties(['name' => $user->name])
             ->log('New User Registration');
 
-        return $this->created($user, "Registeration is Done");
+        // Dispatch the event
+        event(new StudentRegistered($user));
+        return $this->created("Registeration is Done");
     }
 
     public function login(Request $request)
@@ -59,15 +52,14 @@ class AuthController extends Controller
 
         $credentials = $request->only('email', 'password');
         if (!$token = JwtAuth::attempt($credentials)) {
-            return response()->json(['error' => 'Invalid Credentials'], 401);
+            return $this->unauthorized("Invalid Credentials");
         }
-
         $user = Auth::user();
-        return response()->json([
-            'user' => new LoginResource($user),
-            'message' => 'Login Successfully',
+
+        return $this->success([
+            new LoginResource($user),
             'token' => $token
-        ]);
+        ], 'Login Successfully');
     }
 
     public function logout(Request $request)
@@ -75,9 +67,7 @@ class AuthController extends Controller
         try {
             JWTAuth::parseToken()->invalidate($request->token);
         } catch (JWTException $e) {
-            return response()->json([
-                'message' => $e->getMessage(),
-            ]);
+            return $this->error($e->getMessage());
         }
         return $this->success("Logout Successfully");
     }
@@ -87,28 +77,19 @@ class AuthController extends Controller
         $token = $request->bearerToken();
 
         if (!$token) {
-            return response()->json([
-                'message' => 'Token Not Found'
-            ], 404);
+            return $this->error('Token Not Found');
         }
 
         try {
             $new_token = JWTAuth::parseToken()->refresh($token);
         } catch (\Tymon\JWTAuth\Exceptions\TokenInvalidException $e) {
-            return response()->json([
-                'message' => 'Invalid Token'
-            ], 401);
+            return $this->unauthorized('Token Invalid');
         }
 
         if ($new_token) {
-            return response()->json([
-                'Status' => "Success",
-                'NewAccessToken' => $new_token
-            ], 200);
+            return $this->success(['NewAccessToken' => $new_token]);
         } else {
-            return response()->json([
-                'message' => 'Error'
-            ], 404);
+            return $this->error("Error Occured While Issuing The New Access Token");
         }
     }
 

@@ -135,4 +135,8 @@ Route::namespace('App\Http\Controllers\Api')->group(function () {
     /* Start of Addresses Routes */
     Route::apiResource('/addresses', 'AddressController')->middleware('jwt-verify');
     /* End of Addresses Routes */
+
+    /* Start of Checkouts Routes */
+    Route::get('/checkout', 'CheckoutController@checkout')->middleware('jwt-verify');
+    /* End of Checkouts Routes */
 });

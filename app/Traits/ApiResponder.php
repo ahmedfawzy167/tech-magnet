@@ -15,9 +15,12 @@ trait ApiResponder
         ], $statusCode);
     }
 
-    protected function created($data = null, $message = 'Created successfully'): JsonResponse
+    protected function created($message = 'Created successfully', $statusCode = 201): JsonResponse
     {
-        return $this->success($data, $message, 201);
+        return response()->json([
+            'status' => true,
+            'message' => $message,
+        ], $statusCode);
     }
 
     protected function error($message = 'Error', $statusCode = 400): JsonResponse
@@ -48,6 +51,10 @@ trait ApiResponder
         return $this->error($message, 403);
     }
 
+    protected function validationError($message = 'Unprocessable Content'): JsonResponse
+    {
+        return $this->error($message, 422);
+    }
 
     protected function serverError($message = 'Internal Server Error'): JsonResponse
     {

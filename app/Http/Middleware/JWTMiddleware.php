@@ -1,14 +1,17 @@
 <?php
 
 namespace App\Http\Middleware;
-use Symfony\Component\HttpFoundation\Response;
+
 use Closure;
+use Exception;
+use App\Traits\ApiResponder;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Facades\JWTAuth;
-use Exception;
+use Symfony\Component\HttpFoundation\Response;
 
 class JWTMiddleware
 {
+    use ApiResponder;
     /**
      * Handle an incoming request.
      *
@@ -18,26 +21,16 @@ class JWTMiddleware
     {
         try {
             $user = JWTAuth::parseToken()->authenticate();
-        }
-        catch(Exception $e) {
+        } catch (Exception $e) {
             if ($e instanceof \Tymon\JWTAuth\Exceptions\TokenInvalidException) {
-                return response()->json([
-                    'status' => 'error',
-                    'message' => 'Invalid token',
-                ], Response::HTTP_UNAUTHORIZED);
+                return $this->unauthorized('Token Invalid');
             } else if ($e instanceof \Tymon\JWTAuth\Exceptions\TokenExpiredException) {
-                return response()->json([
-                    'status' => 'error',
-                    'message' => 'Token expired',
-                ], Response::HTTP_UNAUTHORIZED);
+                return $this->unauthorized('Token Expired');
             } else {
-                return response()->json([
-                    'status' => 'error',
-                    'message' => 'Token not found',
-                ], Response::HTTP_UNAUTHORIZED);
+                return $this->unauthorized('Token Not Found');
             }
         }
-        
+
         return $next($request);
     }
 }
