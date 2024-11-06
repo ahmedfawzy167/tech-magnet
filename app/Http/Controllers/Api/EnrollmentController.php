@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Events\StudentEnrollment;
 use App\Models\Admin;
 use App\Models\Course;
 use App\Traits\ApiResponder;
@@ -30,10 +31,13 @@ class EnrollmentController extends Controller
             'date' => $request->date ?? now(),
          ]);
 
+         // Broadcast the Event
+         StudentEnrollment::dispatch($course);
+
          // Notify the student
          $user->notify(new NewEnrollmentNotification($course));
 
-         // Notify all admins
+         // Notify all Admins
          $admins = Admin::all();
          foreach ($admins as $admin) {
             $admin->notify(new StudentEnrollmentAdminNotification($user, $course));
@@ -41,7 +45,7 @@ class EnrollmentController extends Controller
 
          return $this->created("Enrollment Done Successfully");
       } catch (\Exception $e) {
-         return $this->serverError('An error Occurred During Enrollment.');
+         return $this->serverError($e->getMessage());
       }
    }
 }

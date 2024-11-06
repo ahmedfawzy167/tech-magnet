@@ -1,3 +1,4 @@
+@vite('resources/css/app.css')
 @php
   $lang = app()->getLocale() == 'ar' ? 'rtl' : '';
 @endphp
