@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use Stripe\StripeClient;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePaymentRequest;
+use App\Http\Resources\PaymentResource;
 use App\Models\Payment;
 use App\Traits\ApiResponder;
 use Illuminate\Http\Request;
@@ -88,6 +89,6 @@ class PaymentController extends Controller
         $payment->amount = $request->amount;
         $payment->currency = $request->currency;
         $payment->save();
-        return $this->created($payment, 'Payment Created Successfully');
+        return $this->created(new PaymentResource($payment), 'Payment Created Successfully');
     }
 }

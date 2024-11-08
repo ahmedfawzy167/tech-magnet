@@ -7,14 +7,15 @@ use App\Traits\ApiResponder;
 use Illuminate\Http\Request;
 use App\Events\StudentRegistered;
 use Tymon\JWTAuth\Facades\JWTAuth;
+use App\Http\Requests\LoginRequest;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\RegisterRequest;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Resources\LoginResource;
+use App\Http\Requests\RegisterRequest;
+use App\Http\Requests\UpdateProfileRequest;
 use App\Http\Resources\ProfileResource;
+use App\Http\Resources\RegisterResource;
 use Tymon\JWTAuth\Exceptions\JWTException;
-
 
 class AuthController extends Controller
 {
@@ -40,25 +41,21 @@ class AuthController extends Controller
 
         // Fire the Event
         event(new StudentRegistered($user));
-        return $this->created("Registeration is Done");
+        return $this->created(new RegisterResource($user), "Registeration is Done");
     }
 
-    public function login(Request $request)
+    public function login(LoginRequest $request)
     {
-        $request->validate([
-            'email' => 'required|string|email|max:50',
-            'password' => 'required|string|min:8',
-        ]);
-
         $credentials = $request->only('email', 'password');
         if (!$token = JwtAuth::attempt($credentials)) {
             return $this->unauthorized("Invalid Credentials");
         }
-        $user = Auth::user();
+
+        $user = JwtAuth::user();
 
         return $this->success([
-            new LoginResource($user),
-            'token' => $token
+            'user' => new LoginResource($user),
+            'token' => $token,
         ], 'Login Successfully');
     }
 
@@ -67,9 +64,10 @@ class AuthController extends Controller
         try {
             JWTAuth::parseToken()->invalidate($request->token);
         } catch (JWTException $e) {
-            return $this->error($e->getMessage());
+            return $this->serverError($e->getMessage());
         }
-        return $this->success("Logout Successfully");
+        $user = request()->user();
+        return $this->success(new LoginResource($user), "Logout Successfully");
     }
 
     public function refresh(Request $request)
@@ -77,7 +75,7 @@ class AuthController extends Controller
         $token = $request->bearerToken();
 
         if (!$token) {
-            return $this->error('Token Not Found');
+            return $this->notFound('Token Not Found');
         }
 
         try {
@@ -99,19 +97,13 @@ class AuthController extends Controller
         return $this->success(new ProfileResource($user));
     }
 
-    public function profileUpdate(Request $request)
+    public function profileUpdate(UpdateProfileRequest $request)
     {
-        $request->validate([
-            'email' => 'required|string|email|unique:users|max:50',
-            'current_password' => 'required|current_password',
-            'new_password' => 'required|string|min:12',
-        ]);
-
-        $user = Auth::user();
+        $user = request()->user();
         $user->email = $request->email;
         $user->password = bcrypt($request->new_password);
         $user->save();
 
-        return $this->success("Profile Updated Successfully");
+        return $this->success(new ProfileResource($user), "Profile Updated Successfully");
     }
 }
