@@ -4,30 +4,23 @@ namespace App\Http\Controllers\Api;
 
 use App\Models\Session;
 use Illuminate\Http\Request;
-use App\Traits\MeetingZoomTrait;
+use App\Traits\MeetingZoom;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreSessionRequest;
 use App\Http\Resources\SessionCollection;
 use App\Traits\ApiResponder;
-use Illuminate\Support\Facades\Validator;
 
 class SessionController extends Controller
 {
-    use MeetingZoomTrait, ApiResponder;
+    use MeetingZoom, ApiResponder;
 
     public function __construct()
     {
         $this->authorizeResource(Session::class);
     }
 
-    public function store(Request $request)
+    public function store(StoreSessionRequest $request)
     {
-        $request->validate([
-            'topic' => 'required|string|between:2,50',
-            'description' => 'required|max:500',
-            'start_date' => 'required|date_format:Y-m-d H:i:s',
-            'course_id' => 'required|numeric|gt:0',
-        ]);
-
         $meeting = $this->createZoomMeeting($request);
 
         $meetingId = $meeting['id'];

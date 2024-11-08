@@ -38,7 +38,7 @@ class AuthController extends Controller
             ->withProperties(['name' => $user->name])
             ->log('New User Registration');
 
-        // Dispatch the event
+        // Fire the Event
         event(new StudentRegistered($user));
         return $this->created("Registeration is Done");
     }

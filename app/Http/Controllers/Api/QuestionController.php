@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\Question;
-use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreQuestionRequest;
 use App\Http\Resources\QuestionCollection;
 use App\Traits\ApiResponder;
 use Illuminate\Http\Request;
@@ -24,13 +24,8 @@ class QuestionController extends Controller
         return $this->success(QuestionCollection::collection($questions));
     }
 
-    public function store(Request $request)
+    public function store(StoreQuestionRequest $request)
     {
-        $request->validate([
-            'question_text' => 'required|string|max:500',
-            'answers' => 'required|string|max:500',
-            'quiz_id' => 'required|numeric|gt:0',
-        ]);
 
         $quesion = new Question();
         $quesion->question_text = $request->question_text;
@@ -38,6 +33,6 @@ class QuestionController extends Controller
         $quesion->quiz_id = $request->quiz_id;
         $quesion->save();
 
-        return $this->created("Question Created Successfully!");
+        return $this->created("Question Created Successfully");
     }
 }

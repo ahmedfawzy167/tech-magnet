@@ -21,7 +21,6 @@ class SessionCollection extends JsonResource
             'user' => $this->resource['user']['name'],
             'course' => $this->resource['course']['name'],
             'meeting_id' => $this->resource['meeting_id'],
-            'start_url' => $this->resource['start_url'],
             'join_url' => $this->resource['join_url'],
         ];
     }

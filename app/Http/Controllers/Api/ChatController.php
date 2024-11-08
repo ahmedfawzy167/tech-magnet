@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Services\UserService;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\ProfileResource;
 use App\Traits\ApiResponder;
 use Illuminate\Http\Request;
 
@@ -15,6 +16,7 @@ class ChatController extends Controller
     {
         $message = $request->input('message');
         $userService->sendMessage($user_id, $message);
-        return $this->created('Message Sent');
+        $user = auth()->user();
+        return $this->created(new ProfileResource($user), 'Message Sent');
     }
 }

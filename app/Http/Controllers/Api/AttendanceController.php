@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\Attendance;
-use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreAttendanceRequest;
+use App\Http\Requests\UpdateAttendanceRequest;
 use Illuminate\Http\Request;
 use App\Http\Resources\AttendanceCollection;
 use App\Traits\ApiResponder;
@@ -18,17 +19,10 @@ class AttendanceController extends Controller
         $this->authorizeResource(Attendance::class);
     }
 
-    public function store(Request $request)
+    public function store(StoreAttendanceRequest $request)
     {
-        $request->validate([
-            'user_id' => 'required|numeric|gt:0',
-            'course_id' => 'required|numeric|gt:0',
-            'date' => 'required|date_format:Y-m-d H:i:s',
-            'attendance_status' => 'nullable|numeric'
-        ]);
-
         $attendance = new Attendance();
-        $attendance->user_id = $request->user_id;
+        $attendance->user_id = auth()->user()->id;
         $attendance->course_id = $request->course_id;
         $attendance->date = $request->date;
         $attendance->attendance_status = $request->attendance_status;
@@ -38,16 +32,9 @@ class AttendanceController extends Controller
     }
 
 
-    public function update(Request $request, Attendance $attendance)
+    public function update(UpdateAttendanceRequest $request, Attendance $attendance)
     {
-        $request->validate([
-            'user_id' => 'required|numeric|gt:0',
-            'course_id' => 'required|numeric|gt:0',
-            'date' => 'required|date_format:Y-m-d H:i:s',
-            'attendance_status' => 'nullable|numeric'
-        ]);
-
-        $attendance->user_id = $request->user_id;
+        $attendance->user_id = auth()->user()->id;
         $attendance->course_id = $request->course_id;
         $attendance->date = $request->date;
         $attendance->attendance_status = $request->attendance_status;

@@ -59,7 +59,7 @@ class AddressController extends Controller
                 return $this->success(AddressResource::collection($addresses), 'Address Updated Successfully');
             }
         } catch (\Exception $e) {
-            return $this->notFound($e->getMessage());
+            return $this->serverError($e->getMessage());
         }
     }
 

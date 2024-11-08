@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ProjectResource;
 use App\Traits\ApiResponder;
-use Illuminate\Support\Facades\Validator;
 
 class ProjectController extends Controller
 {
@@ -22,9 +21,7 @@ class ProjectController extends Controller
     {
         $request->validate([
             'file'  => 'required|file|mimes:pdf|max:2048',
-            'user_id' => 'required|numeric:gt:0',
         ]);
-
 
         $file = $request->file('file');
         $fileName = $file->getClientOriginalName();
@@ -33,7 +30,7 @@ class ProjectController extends Controller
 
         $project = new Project();
         $project->file = $fileName;
-        $project->user_id = $request->user_id;
+        $project->user_id = auth()->user()->id;
         $project->save();
 
         return $this->created($project, "Project Created Successfully");

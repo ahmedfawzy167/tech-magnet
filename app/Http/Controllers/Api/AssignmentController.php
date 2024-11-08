@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Models\User;
 use App\Models\Assignment;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\StoreAssignmentRequest;
+use App\Http\Requests\UpdateAssignmentRequest;
 use App\Http\Resources\AssignmentCollection;
 use App\Traits\ApiResponder;
 
@@ -19,16 +19,8 @@ class AssignmentController extends Controller
         $this->authorizeResource(Assignment::class);
     }
 
-    public function store(Request $request)
+    public function store(StoreAssignmentRequest $request)
     {
-        $request->validate([
-            'title' => 'required|string|between:2,50',
-            'description' => 'required|string|max:500',
-            'deadline' => 'required|date_format:Y-m-d H:i:s',
-            'course_id' => 'required|numeric|gt:0',
-        ]);
-
-
         $assignment = new Assignment();
         $assignment->title = $request->title;
         $assignment->description = $request->description;
@@ -39,15 +31,8 @@ class AssignmentController extends Controller
         return $this->created($assignment, "Assignment Created Successfully!");
     }
 
-    public function update(Request $request, Assignment $assignment)
+    public function update(UpdateAssignmentRequest $request, Assignment $assignment)
     {
-        $request->validate([
-            'title' => 'required|string|between:2,50',
-            'description' => 'required|string|max:500',
-            'deadline' => 'required|date_format:Y-m-d H:i:s',
-            'course_id' => 'required|numeric|gt:0',
-        ]);
-
         $assignment->title = $request->title;
         $assignment->description = $request->description;
         $assignment->deadline = $request->deadline;
@@ -60,14 +45,14 @@ class AssignmentController extends Controller
     public function index()
     {
         $assignments = Assignment::whereHas('users', function ($query) {
-            $query->where('user_id', Auth::id());
+            $query->where('user_id', auth()->id());
         })->get();
         return $this->success(AssignmentCollection::collection($assignments));
     }
 
     public function attach(Request $request)
     {
-        $user = User::find($request->user_id);
+        $user = auth()->user();
         $assignment = Assignment::find($request->assignment_id);
 
         $assignment->users()->attach($user, [

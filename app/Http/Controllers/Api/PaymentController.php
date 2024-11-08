@@ -22,10 +22,8 @@ class PaymentController extends Controller
         );
     }
 
-    public function pay(StorePaymentRequest $request)
+    public function pay(Request $request)
     {
-        $request->validated();
-
         $coupon = $this->stripe->coupons->create([
             'duration' => 'repeating',
             'duration_in_months' => 3,
@@ -82,21 +80,14 @@ class PaymentController extends Controller
         ], 302);
     }
 
-    public function store(Request $request)
+    public function store(StorePaymentRequest $request)
     {
-        $request->validate([
-            'user_id' => 'required|numeric:gt:0',
-            'course_id' => 'required|numeric:gt:0',
-            'amount' => 'required|numeric|between:0,9999.99',
-            'currency' => 'required|string|max:3',
-        ]);
-
         $payment =  new Payment();
-        $payment->user_id = $request->user_id;
+        $payment->user_id = auth()->user()->id;
         $payment->course_id = $request->course_id;
         $payment->amount = $request->amount;
         $payment->currency = $request->currency;
         $payment->save();
-        return $this->created($payment, 'Payment Done Successfully');
+        return $this->created($payment, 'Payment Created Successfully');
     }
 }

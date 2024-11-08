@@ -15,12 +15,9 @@ trait ApiResponder
         ], $statusCode);
     }
 
-    protected function created($message = 'Created successfully', $statusCode = 201): JsonResponse
+    protected function created($data = null, $message = 'Created successfully', $statusCode = 201): JsonResponse
     {
-        return response()->json([
-            'status' => true,
-            'message' => $message,
-        ], $statusCode);
+        return $this->success($data, $message, $statusCode);
     }
 
     protected function error($message = 'Error', $statusCode = 400): JsonResponse

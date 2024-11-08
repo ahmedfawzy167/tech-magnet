@@ -4,8 +4,9 @@ namespace App\Http\Controllers\Api;
 
 use App\Models\Schedule;
 use App\Http\Resources\ScheduleResource;
-use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreScheduleRequest;
+use App\Http\Requests\UpdateScheduleRequest;
 use App\Http\Resources\ScheduleCollection;
 use App\Traits\ApiResponder;
 use Illuminate\Http\Request;
@@ -25,14 +26,8 @@ class ScheduleController extends Controller
         return $this->success(ScheduleCollection::collection($schedules));
     }
 
-    public function store(Request $request)
+    public function store(StoreScheduleRequest $request)
     {
-        $request->validate([
-            'start_date' => 'required|date_format:Y-m-d',
-            'end_date' => 'required|date_format:Y-m-d',
-            'course_id' => 'required|numeric|gt:0',
-        ]);
-
         $schedule = new Schedule();
         $schedule->start_date = $request->start_date;
         $schedule->end_date = $request->end_date;
@@ -51,14 +46,8 @@ class ScheduleController extends Controller
         }
     }
 
-    public function update(Request $request, Schedule $schedule)
+    public function update(UpdateScheduleRequest $request, Schedule $schedule)
     {
-        $request->validate([
-            'start_date' => 'required|date_format:Y-m-d',
-            'end_date' => 'required|date_format:Y-m-d',
-            'course_id' => 'required|numeric|gt:0',
-        ]);
-
         $schedule->start_date = $request->start_date;
         $schedule->end_date = $request->end_date;
         $schedule->course_id = $request->course_id;

@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StorePaymentRequest extends FormRequest
+class StoreScheduleRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,9 +22,9 @@ class StorePaymentRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'start_date' => 'required|date_format:Y-m-d H:i:s|after_or_equal:now',
+            'end_date' => 'required|date_format:Y-m-d H:i:s|after:now',
             'course_id' => 'required|exists:courses,id',
-            'amount' => 'required|numeric|between:0,9999.99',
-            'currency' => 'required|string|max:3',
         ];
     }
 }
