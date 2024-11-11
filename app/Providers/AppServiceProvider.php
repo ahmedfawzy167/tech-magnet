@@ -8,6 +8,7 @@ use App\Observers\CategoryObserver;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Validation\Rules\Password;
+use Illuminate\Support\Collection;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -26,6 +27,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        /* Create Password Rule*/
+
         Password::defaults(function () {
             return Password::min(10)
                 ->mixedCase()
@@ -35,8 +38,17 @@ class AppServiceProvider extends ServiceProvider
                 ->uncompromised();
         });
 
+        /* Register the Observer*/
+
         Category::observe(CategoryObserver::class);
 
-        Model::preventLazyLoading($this->app->environment('production'));
+        /* Prevent Lazy Loading During Development*/
+        Model::preventLazyLoading(!$this->app->environment('production'));
+
+
+        /* Macro that Helps in Calculate Average for Attribute */
+        Collection::macro('averageOf', function ($attribute) {
+            return $this->avg($attribute);
+        });
     }
 }

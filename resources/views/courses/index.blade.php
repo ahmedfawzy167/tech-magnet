@@ -54,4 +54,30 @@
         </div>
     </div>
 
+    <!-- Modal -->
+<div class="modal fade" id="averagePriceModal" tabindex="-1" role="dialog" aria-labelledby="averagePriceModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header bg-primary text-light">
+          <h5 class="modal-title" id="averagePriceModalLabel">Average Price</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          The Average Price for Courses is <strong>${{ round($averagePrice) }}</strong>.
+        </div>
+      </div>
+    </div>
+</div>
+
+@endsection
+
+@section('page-scripts')
+<script>
+    $(document).ready(function() {
+        $('#averagePriceModal').modal('show');
+    });
+</script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
 @endsection

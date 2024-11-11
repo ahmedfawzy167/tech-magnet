@@ -15,7 +15,8 @@ class CourseController extends Controller
     public function index()
     {
         $courses = Course::with(['category', 'image'])->get();
-        return view('courses.index', compact('courses'));
+        $averagePrice = $courses->averageOf('price');
+        return view('courses.index', compact('courses', 'averagePrice'));
     }
 
     public function create()
