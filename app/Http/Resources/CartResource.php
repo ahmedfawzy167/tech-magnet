@@ -15,12 +15,13 @@ class CartResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id' => $this->id,
+            'id' => $this->course->id,
             'courseName' => $this->course->name,
             'courseDescription' => $this->course->description,
             'coursePrice' => $this->course->price,
             'courseHours' => $this->course->hours,
             'CourseImage' => $this->course->image ? asset('storage/' . $this->course->image->path) : null,
+            'quantity' => $this->quantity,
             'user' => $this->user->name,
         ];
     }

@@ -123,6 +123,8 @@ Route::namespace('App\Http\Controllers\Api')->group(function () {
     Route::get('/carts-total', 'CartController@totalCartItems')->middleware('jwt-verify');
     Route::post('/carts/store', 'CartController@store')->middleware('jwt-verify');
     Route::delete('/carts/destroy/{courseId}', 'CartController@destroy')->middleware('jwt-verify');
+    Route::patch('/carts/increase-quantity', 'CartController@increaseQuantity')->middleware('jwt-verify');
+    Route::patch('/carts/decrease-quantity', 'CartController@decreaseQuantity')->middleware('jwt-verify');
     /* End of Carts Routes */
 
     /* Start of Wishlists Routes */

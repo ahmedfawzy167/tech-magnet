@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             PermissionSeeder::class,
             RoadmapSeeder::class,
             AddressSeeder::class,
+            CartSeeder::class,
         ]);
     }
 }

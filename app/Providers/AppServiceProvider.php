@@ -42,8 +42,8 @@ class AppServiceProvider extends ServiceProvider
 
         Category::observe(CategoryObserver::class);
 
-        /* Prevent Lazy Loading During Development*/
-        Model::preventLazyLoading(!$this->app->environment('production'));
+        /* Prevent Lazy Loading During Production*/
+        Model::preventLazyLoading($this->app->environment('production'));
 
 
         /* Macro that Helps in Calculate Average for Attribute */

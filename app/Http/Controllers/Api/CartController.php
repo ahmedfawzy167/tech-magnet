@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Api;
 use App\Models\Cart;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\DecreaseQuantityRequest;
+use App\Http\Requests\IncreaseQuantityRequest;
+use App\Http\Requests\StoreCartRequest;
 use App\Http\Resources\CartResource;
 use App\Traits\ApiResponder;
 use Illuminate\Support\Facades\Auth;
@@ -13,13 +16,14 @@ class CartController extends Controller
 {
     use ApiResponder;
 
-    public function __construct()
-    {
-        $this->authorizeResource(Cart::class);
-    }
+    // public function __construct()
+    // {
+    //     $this->authorizeResource(Cart::class);
+    // }
 
     public function index()
     {
+        $this->authorize('viewAny', Cart::class);
         $carts = Cart::where('user_id', auth()->user()->id)->with('course')->get();
         return $this->success(CartResource::collection($carts));
     }
@@ -30,12 +34,9 @@ class CartController extends Controller
         return $this->success($cartItems);
     }
 
-    public function store(Request $request)
+    public function store(StoreCartRequest $request)
     {
-        $request->validate([
-            'course_id' => 'required|exists:courses,id',
-        ]);
-
+        $this->authorize('create', Cart::class);
         $userId = Auth::id();
 
         // Check if the course is already in the cart
@@ -50,6 +51,7 @@ class CartController extends Controller
         $cart = Cart::create([
             'user_id' => $userId,
             'course_id' => $request->course_id,
+            'quantity' => $request->quantity,
         ]);
 
         $cartItems = Cart::where('user_id', $userId)
@@ -60,8 +62,10 @@ class CartController extends Controller
     }
 
 
-    public function destroy($courseId, Request $request)
+    public function destroy($courseId)
     {
+
+
         $userId = Auth::id();
 
         $cart = Cart::where('user_id', $userId)
@@ -72,10 +76,57 @@ class CartController extends Controller
             return $this->notFound("Course Not Found");
         }
 
+        $this->authorize('delete', $cart);
+
         $cart->delete();
 
         $cartItems = Cart::where('user_id', $userId)->get();
 
         return $this->success(CartResource::collection($cartItems), 'Course Removed From Your Cart Successfully');
+    }
+
+
+    public function increaseQuantity(IncreaseQuantityRequest $request)
+    {
+        $userId = Auth::id();
+
+        $cart = Cart::where('user_id', $userId)
+            ->where('course_id', $request->course)
+            ->first();
+
+        if (!$cart) {
+            return $this->notFound("Course Not Found in Cart");
+        }
+
+        // Increase the Quantity
+        $cart->quantity += $request->quantity;
+        $cart->save();
+
+        return $this->success(new CartResource($cart), 'Quantity Increased Successfully');
+    }
+
+
+    public function decreaseQuantity(DecreaseQuantityRequest $request)
+    {
+        $userId = Auth::id();
+
+        $cart = Cart::where('user_id', $userId)
+            ->where('course_id', $request->course)
+            ->first();
+
+        if (!$cart) {
+            return $this->notFound("Course Not Found in Cart");
+        }
+
+        // Decrease the quantity
+        if ($cart->quantity <= $request->quantity) {
+            $cart->delete();
+            return $this->success($cart, 'Course Removed from Cart Successfully');
+        } else {
+            $cart->quantity -= $request->quantity;
+            $cart->save();
+        }
+
+        return $this->success(new CartResource($cart), 'Quantity Decreased Successfully');
     }
 }
