@@ -11,6 +11,8 @@ return [
     'Search for'            =>                'Search for',
     'Explore More Diplomas'  =>            'Explore More Diplomas',
     'All Objectives'            =>      'All Objectives',
+    'Courses Chart'           =>             'Courses Chart',
+    'Users By City'           =>             'Users By City',
     'Objective'               =>      'Objective',
     'Total Users'                     =>           'Total Users',
     'Objective Name'          =>       'Objective Name',

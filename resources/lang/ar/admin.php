@@ -13,6 +13,8 @@ return [
     'Sessions'              =>                    "المحاضرات",
     'Courses This Month'    =>                    "كورسات هذا الشهر",
     'Hours'                 =>            'عدد الساعات',
+    'Courses Chart'           =>             'مخطط الدورات',
+    'Users By City'           =>             'المستخدمون حسب المدينة',
     'Explore More Diplomas'  =>            'استكشف المزيد من الدورات',
     'No Discounts Found!' => 'لا توجد خصومات حاليا',
     'All Discounts' => 'كل الخصومات',

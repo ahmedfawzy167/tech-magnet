@@ -17,6 +17,7 @@
         "laravel/telescope": "^5.0",
         "laravel/tinker": "^2.8",
         "laravel/ui": "^4.5",
+        "laraveldaily/laravel-charts": "^0.2.3",
         "opcodesio/log-viewer": "^3.10",
         "pusher/pusher-php-server": "^7.2",
         "spatie/laravel-activitylog": "^4.8",

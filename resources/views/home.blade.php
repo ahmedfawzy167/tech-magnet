@@ -105,6 +105,29 @@
 
             <!-- Content Row -->
             <div class="row">
+                <div class="col-xl-12 mb-4">
+                    <div class="card">
+                        <div class="card-header">
+                          <h4><i class="fa-solid fa-chart-simple"></i> {{ __('admin.Courses Chart') }}</h4>
+                        </div>
+                        
+                        <div class="card-body" style="width: 800px; height: 800px; margin: auto;">
+                            {!! $chart1->renderHtml() !!}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-12 mb-4">
+                    <div class="card">
+                        <div class="card-header">
+                          <h4><i class="ion-ios-pie"></i> Users By City</h4>
+                        </div>
+                        
+                        <div class="card-body" style="width: 500px; height: 500px; margin: auto;">
+                            {!! $chart2->renderHtml() !!}
+                        </div>
+                    </div>
+                </div>
 
                 <div class="col-xl-12 mb-4">
                     <div class="card">
@@ -152,4 +175,11 @@
 
         </div>
         <!-- End of Main Content -->
-    @endsection
+@endsection
+
+@section('page-scripts')
+{!! $chart1->renderChartJsLibrary() !!}
+{!! $chart1->renderJs() !!}
+{!! $chart2->renderJs() !!}
+@endsection
+
