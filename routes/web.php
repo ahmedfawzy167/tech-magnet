@@ -20,7 +20,6 @@ Route::get('/', function () {
 });
 
 
-
 Route::middleware(['auth:admin', 'Language'])
     ->namespace('App\Http\Controllers\Admin')
     ->prefix('admin')
@@ -33,18 +32,20 @@ Route::middleware(['auth:admin', 'Language'])
         Route::get('/profile/edit', 'ProfileController@edit')->name('profile.edit');
         Route::put('/profile/update/{id}', 'ProfileController@update')->name('profile.update');
         Route::get('/language/{locale}', 'LanguageController@changeLanguage')->name('change.language');
-
         /* End of Basic Routes */
 
         /* Start of Instructor Routes */
+        Route::put('instructors/update-status/{id}', 'InstructorController@updateStatus')->name('instructors.update-status');
         Route::resource('instructors', 'InstructorController');
         /* End of Instructor Routes */
 
         /* Start of Students Routes */
+        Route::put('students/update-status/{id}', 'StudentController@updateStatus')->name('students.update-status');
         Route::resource('students', 'StudentController');
         /* End of Students Routes */
 
         /* Start of Operations Routes */
+        Route::put('operations/update-status/{id}', 'OperationController@updateStatus')->name('operations.update-status');
         Route::resource('operations', 'OperationController');
         /* End of Operations Routes */
 
@@ -59,7 +60,6 @@ Route::middleware(['auth:admin', 'Language'])
         Route::resource('settings', 'SettingController');
         /* End of Settings Routes */
 
-
         /* Start of Categories Routes */
         Route::get('categories/trash', 'CategoryController@trash')->name('categories.trashed');
         Route::put('categories/restore/{id}', 'CategoryController@restore')->name('categories.restore');
@@ -73,7 +73,6 @@ Route::middleware(['auth:admin', 'Language'])
         Route::delete('blogs/force_delete/{id}', 'BlogController@forceDelete')->name('blogs.force-delete');
         Route::resource('blogs', 'BlogController');
         /* End of Blogs Routes*/
-
 
         /* Start of Cities Routes */
         Route::get('cities/trash', 'CityController@trash')->name('cities.trashed');

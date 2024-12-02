@@ -69,4 +69,13 @@ class StudentController extends Controller
         $student->delete();
         return redirect(route('students.index'))->with('message', 'Student Deleted Successfully');
     }
+
+    public function updateStatus(Request $request, $id)
+    {
+        $student = User::findOrFail($id);
+        $student->status = $request->input('status');
+        $student->save();
+
+        return redirect()->route('students.index')->with('message', 'Student Status Updated Successfully');
+    }
 }

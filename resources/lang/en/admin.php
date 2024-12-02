@@ -13,6 +13,7 @@ return [
     'All Objectives'            =>      'All Objectives',
     'Courses Chart'           =>             'Courses Chart',
     'Users By City'           =>             'Users By City',
+    'No City Found'           =>             'No City Found',
     'Objective'               =>      'Objective',
     'Total Users'                     =>           'Total Users',
     'Objective Name'          =>       'Objective Name',

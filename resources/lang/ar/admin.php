@@ -13,6 +13,7 @@ return [
     'Sessions'              =>                    "المحاضرات",
     'Courses This Month'    =>                    "كورسات هذا الشهر",
     'Hours'                 =>            'عدد الساعات',
+    'No City Found'           =>             'لا يوجد مدينة',
     'Courses Chart'           =>             'مخطط الدورات',
     'Users By City'           =>             'المستخدمون حسب المدينة',
     'Explore More Diplomas'  =>            'استكشف المزيد من الدورات',

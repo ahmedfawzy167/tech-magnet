@@ -44,7 +44,7 @@
 }
 
 input:checked + .slider {
-    background-color: #66bb6a; /* Light green for approved */
+    background-color: #66bb6a;
 }
 
 input:checked + .slider:before {

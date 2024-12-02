@@ -70,4 +70,13 @@ class OperationController extends Controller
         $operation->delete();
         return redirect()->route('operations.index')->with('message', 'Operation Deleted Successfully');
     }
+
+    public function updateStatus(Request $request, $id)
+    {
+        $operation = User::findOrFail($id);
+        $operation->status = $request->input('status');
+        $operation->save();
+
+        return redirect()->route('operations.index')->with('message', 'Operation Specialist Status Updated Successfully');
+    }
 }

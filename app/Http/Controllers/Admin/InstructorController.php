@@ -71,4 +71,13 @@ class InstructorController extends Controller
         $instructor->delete();
         return redirect()->route('instructors.index')->with('message', 'Instructor Deleted Successfully');
     }
+
+    public function updateStatus(Request $request, $id)
+    {
+        $instructor = User::findOrFail($id);
+        $instructor->status = $request->input('status');
+        $instructor->save();
+
+        return redirect()->route('instructors.index')->with('message', 'Instructor Status Updated Successfully');
+    }
 }
