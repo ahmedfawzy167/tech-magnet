@@ -22,8 +22,10 @@ Route::namespace('App\Http\Controllers\Api')->group(function () {
     Route::post('/refresh', 'AuthController@refresh')->middleware('jwt-verify');
     Route::get('/profile', 'AuthController@profile')->middleware('jwt-verify');
     Route::put('/profile-update', 'AuthController@profileUpdate')->middleware('jwt-verify');
-    Route::get('/auth/google', 'SocialiteController@redirect');
-    Route::get('/auth/google/callback', 'SocialiteController@callback');
+    Route::get('/auth/google', 'GoogleController@redirect');
+    Route::get('/auth/google/callback', 'GoogleController@callback');
+    Route::get('/auth/linkedin', 'LinkedinController@redirect');
+    Route::get('/auth/linkedin/callback', 'LinkedinController@callback');
     /* End of Auth Routes */
 
     /* Start of Courses Routes */
