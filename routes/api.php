@@ -26,6 +26,8 @@ Route::namespace('App\Http\Controllers\Api')->group(function () {
     Route::get('/auth/google/callback', 'GoogleController@callback');
     Route::get('/auth/linkedin', 'LinkedinController@redirect');
     Route::get('/auth/linkedin/callback', 'LinkedinController@callback');
+    Route::get('/auth/github', 'GithubController@redirect');
+    Route::get('/auth/github/callback', 'GithubController@callback');
     /* End of Auth Routes */
 
     /* Start of Courses Routes */
