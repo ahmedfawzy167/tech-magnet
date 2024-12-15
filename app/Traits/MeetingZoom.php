@@ -8,6 +8,10 @@ use Illuminate\Support\Facades\Http;
 
 trait MeetingZoom
 {
+    /**
+     * Generate Zoom Access Token.
+     */
+
     public function generateZoomAccessToken()
     {
         $apiKey = env('ZOOM_CLIENT_ID');
@@ -36,7 +40,9 @@ trait MeetingZoom
         }
     }
 
-
+    /**
+     * Create a Zoom Meeting.
+     */
     public function createZoomMeeting($request)
     {
         $accessToken = $this->generateZoomAccessToken();
@@ -76,6 +82,64 @@ trait MeetingZoom
             return $responseData;
         } else {
             Log::error('Zoom Create Meeting Response: ' . json_encode($responseData));
+        }
+    }
+
+    /**
+     * Fetch All Zoom Meetings.
+     */
+    public function getAllMeetings()
+    {
+        $accessToken = $this->generateZoomAccessToken();
+        if (!$accessToken) {
+            return ['success' => false, 'message' => 'Failed to Generate Access Token.'];
+        }
+
+        $url = 'https://api.zoom.us/v2/users/me/meetings';
+
+        $response = Http::withHeaders([
+            'Authorization' => "Bearer $accessToken",
+            'Content-Type'  => 'application/json',
+        ])->get($url);
+
+        $responseData = $response->json();
+
+        if ($response->successful()) {
+            return [
+                'success' => true,
+                'data'    => $responseData['meetings'],
+            ];
+        } else {
+            Log::error('Zoom Get All Meetings Response: ' . json_encode($responseData));
+            return [
+                'success' => false,
+                'message' => 'Failed to Fetch Meetings!',
+            ];
+        }
+    }
+
+    /**
+     * Delete a Zoom Meeting.
+     */
+    public function deleteMeeting($meetingId)
+    {
+        $accessToken = $this->generateZoomAccessToken();
+        if (!$accessToken) {
+            return ['success' => false, 'message' => 'Failed to Generate Access Token.'];
+        }
+        $url = "https://api.zoom.us/v2/meetings/{$meetingId}";
+
+        $response = Http::withHeaders([
+            'Authorization' => "Bearer $accessToken",
+            'Content-Type'  => 'application/json',
+        ])->delete($url);
+
+        if ($response->successful()) {
+            return ['success' => true];
+        } else {
+            $responseData = $response->json();
+            Log::error('Zoom Delete Meeting Response: ' . json_encode($responseData));
+            return ['success' => false, 'message' => $responseData['message'] ?? 'Failed to Delete Zoom Meeting.'];
         }
     }
 }

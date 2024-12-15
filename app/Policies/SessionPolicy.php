@@ -31,4 +31,12 @@ class SessionPolicy
     {
         return $user->role_id == 2;
     }
+
+    /**
+     * Determine whether the user can delete models.
+     */
+    public function delete(User $user, Session $session)
+    {
+        return $user->role_id == 2 && $user->id == $session->user_id;
+    }
 }

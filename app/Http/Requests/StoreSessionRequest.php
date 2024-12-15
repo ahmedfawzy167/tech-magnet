@@ -25,7 +25,7 @@ class StoreSessionRequest extends FormRequest
             'topic' => 'required|string|between:2,50',
             'description' => 'required|max:500',
             'start_date' => 'required|date_format:Y-m-d H:i:s|after_or_equal:now',
-            'course_id' => 'required|exists:courses,id',
+            'course' => 'required|exists:courses,id',
         ];
     }
 }
