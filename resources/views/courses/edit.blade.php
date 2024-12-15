@@ -35,13 +35,12 @@
 
               <div class="form-group col-12 mt-3">
                <label for="category_id">{{__('admin.Category')}}<span class="text-danger ms-2">*</span></label>
-               <select name="category_id" id="category_id" class="form-select">
+               <select name="category_id" id="category_id" class="select2 form-select @error('category_id') is-invalid @enderror">
                 @foreach($categories as $category)
                   <option value="{{$category->id}}" {{ $category->id == $course->category_id ? 'selected' : ''}}>{{$category->name}}</option>
                 @endforeach
                 </select>
               </div>
-
 
                <div class="form-group col-12 mt-3">
                 <label for="roadmaps">{{__('admin.Roadmaps')}}<span class="text-danger ms-2">*</span></label>

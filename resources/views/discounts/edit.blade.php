@@ -36,7 +36,7 @@
 
                  <div class="form-group col-12">
                     <label for="courses">{{__('admin.Courses')}}<span class="text-danger ms-2">*</span></label><br>
-                     <select name="courses[]" id="courses" class="form-select" multiple>
+                     <select name="courses[]" id="courses" class="form-select select2" multiple>
                         @foreach ($courses as $course )  
                          <option value="{{ $course->id }}" 
                             {{ $discount->courses->contains($course->id) ? 'selected' : '' }}>

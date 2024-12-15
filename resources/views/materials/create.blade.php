@@ -15,9 +15,6 @@
                     <label for="file">File <span class="text-danger ms-2">*</span></label>
                     <input type="file" name="file" id="file"
                         class="form-control @error('file') is-invalid @enderror">
-                        <div class="invalid-feedback">
-                            Please Upload a File
-                        </div>
                 </div>
 
                 <div class="text-center">

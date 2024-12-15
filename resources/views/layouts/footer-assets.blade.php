@@ -23,7 +23,7 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://cdn.datatables.net/searchbuilder/1.7.1/js/dataTables.searchBuilder.min.js"></script>
 <script src="https://cdn.datatables.net/searchbuilder/1.7.1/js/searchBuilder.bootstrap5.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 <!-- Toastr Notification JS -->
 
 <script>
@@ -90,6 +90,12 @@ $(document).ready(function() {
 $(document).ready(function() {
     $('#summernote').summernote();
 });
+</script>
+
+<script>
+    $(document).ready(function() {
+        $('.select2').select2();
+    });
 </script>
 
 

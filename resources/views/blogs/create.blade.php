@@ -4,11 +4,6 @@
    {{__('admin.New Blog')}}
 @endsection
 
-@section('page-head')
-  {{-- <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">
-  <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css" rel="stylesheet"> --}}
-@endsection
-
 
 @section('page-content')
 

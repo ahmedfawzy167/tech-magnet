@@ -15,9 +15,6 @@
     <div class="form-group col-12">
       <label for="logo">{{__('admin.Image')}}</label>
       <input type="file" name="logo" id="logo" class="form-control @error('image') is-invalid @enderror">
-      <div class="invalid-feedback">
-        Please Choose a Logo
-      </div>
     </div>
 
     <div class="form-group col-12">

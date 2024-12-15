@@ -14,6 +14,8 @@ return [
     'Courses This Month'    =>                    "كورسات هذا الشهر",
     'Hours'                 =>            'عدد الساعات',
     'No City Found'           =>             'لا يوجد مدينة',
+    'Choose Video'             =>               'اختر فيديو',
+    'Accepted formats: MP4, M4V, and other video files' => 'التنسيقات المقبولة: MP4 وM4V وملفات الفيديو الأخرى',
     'Courses Chart'           =>             'مخطط الدورات',
     'Users By City'           =>             'المستخدمون حسب المدينة',
     'Explore More Diplomas'  =>            'استكشف المزيد من الدورات',
