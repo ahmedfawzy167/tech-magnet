@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::namespace('App\Http\Controllers\Api')->group(function () {
+Route::namespace('App\Http\Controllers\Api\V1')->group(function () {
     /* Start of Auth Routes */
     Route::post('/register', 'AuthController@register');
     Route::post('/login', 'AuthController@login')->middleware('throttle:login');
