@@ -186,7 +186,6 @@ return [
         /*
          * Package Service Providers...
          */
-        Jubaer\Zoom\ZoomServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
 
         /*
@@ -216,8 +215,6 @@ return [
     */
 
     'aliases' => Facade::defaultAliases()->merge([
-        // 'ExampleClass' => App\Example\ExampleClass::class,
-        'Zoom' => Jubaer\Zoom\Facades\Zoom::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
     ])->toArray(),
 
