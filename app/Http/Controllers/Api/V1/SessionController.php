@@ -37,7 +37,7 @@ class SessionController extends Controller
             $session->join_url = $meetingJoinUrl;
             $session->save();
 
-            return $this->created(new SessionResource($session), "Meeting Created Successfully");
+            return $this->created($meeting, "Meeting Created Successfully");
         } catch (\Exception $e) {
             return $this->serverError($e->getMessage());
         }
@@ -45,7 +45,7 @@ class SessionController extends Controller
 
     public function update(UpdateSessionRequest $request, Session $session)
     {
-        $this->authorize('update', Session::class);
+        $this->authorize('update', $session);
 
         try {
             $this->updateMeeting($session->meeting_id, $request);

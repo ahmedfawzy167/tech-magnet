@@ -7,10 +7,14 @@ use Illuminate\Support\Facades\Http;
 
 trait ZoomMeeting
 {
+    const MEETING_TYPE_INSTANT = 1;
+    const MEETING_TYPE_SCHEDULE = 2;
+    const MEETING_TYPE_RECURRING = 3;
+    const MEETING_TYPE_FIXED_RECURRING_FIXED = 8;
+
     /**
      * Generate Zoom Access Token.
      */
-
     public function generateZoomAccessToken()
     {
         $apiKey = env('ZOOM_CLIENT_ID');
@@ -35,12 +39,12 @@ trait ZoomMeeting
             return $responseData['access_token'];
         } else {
             Log::error('Zoom OAuth Token Response: ' . json_encode($responseData));
-            return null;
+            throw new \Exception('Failed to Generate Access Token');
         }
     }
 
     /**
-     * Create a Zoom Meeting.
+     * Create Zoom Meeting.
      */
     public function createMeeting($request)
     {
@@ -49,10 +53,10 @@ trait ZoomMeeting
         $meetingData = [
             "topic" => $request->topic,
             "agenda" => $request->description,
-            "type" => 2,
+            "type" => self::MEETING_TYPE_SCHEDULE,
             "duration" => 60,
             "start_time" => $request->start_date,
-            "timezone" => 'Africa/Cairo',
+            "timezone" => config('app.timezone'),
             "password" => $request->password,
             "settings" => [
                 'join_before_host' => false,
@@ -80,7 +84,7 @@ trait ZoomMeeting
             return $responseData;
         } else {
             Log::error('Zoom Create Meeting Response: ' . json_encode($responseData));
-            throw new \Exception('Failed to create meeting: ' . ($responseData['message'] ?? 'Unknown error'));
+            throw new \Exception('Failed to Create Meeting: ' . ($responseData['message'] ?? 'Unknown Error'));
         }
     }
 
@@ -128,10 +132,10 @@ trait ZoomMeeting
         $meetingData = [
             "topic" => $request->topic,
             "agenda" => $request->description,
-            "type" => 2,
+            "type" => self::MEETING_TYPE_SCHEDULE,
             "duration" => 60,
             "start_time" => $request->start_date,
-            "timezone" => 'Africa/Cairo',
+            "timezone" => config('app.timezone'),
             "password" => $request->password,
             "settings" => [
                 'join_before_host' => false,
@@ -173,6 +177,7 @@ trait ZoomMeeting
         if (!$accessToken) {
             return ['success' => false, 'message' => 'Failed to Generate Access Token.'];
         }
+
         $url = "https://api.zoom.us/v2/meetings/{$meetingId}";
 
         $response = Http::withHeaders([
@@ -190,7 +195,7 @@ trait ZoomMeeting
     }
 
     /**
-     * Get a Meeting.
+     * Get Meeting Details.
      */
     public function getMeetingById($meetingId)
     {
