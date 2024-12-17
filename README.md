@@ -10,7 +10,7 @@ Prerequisites
 
 Ensure the following are installed:
 
-PHP (>=8.1)
+PHP (>=8.2)
 
 Composer: Install Composer
 
