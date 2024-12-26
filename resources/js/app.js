@@ -16,23 +16,28 @@ function timeAgo(date) {
     return seconds < 20 ? 'just now' : seconds + ' seconds ago';
 }
 
+function updateNotificationCounter(event) {
+    let badge = document.querySelector('.badge-counter');
+    badge.textContent = parseInt(badge.textContent) + 1;
+
+    let notificationList = document.querySelector('.dropdown-list');
+    notificationList.insertAdjacentHTML('afterbegin', `
+        <a class="dropdown-item d-flex align-items-center" href="/notifications/${event.course.id}">
+            <div class="mr-3">
+                <div class="icon-circle bg-primary">
+                    <i class="fas fa-user-plus text-white"></i>
+                </div>
+            </div>
+            <div>
+                <div class="small text-gray-500">${event.created_at}</div>
+                <span class="font-weight-bold">${event.message}</span>
+            </div>
+        </a>
+    `);
+}
+
 window.Echo.channel('admin-notifications')
     .listen('StudentEnrollment', (event) => {
-        let badge = document.querySelector('.badge-counter');
-        badge.textContent = parseInt(badge.textContent) + 1;
-
-        let notificationList = document.querySelector('.dropdown-list');
-        notificationList.insertAdjacentHTML('afterbegin', `
-            <a class="dropdown-item d-flex align-items-center" href="/notifications/${event.course.id}">
-                <div class="mr-3">
-                    <div class="icon-circle bg-primary">
-                        <i class="fas fa-user-plus text-white"></i>
-                    </div>
-                </div>
-                <div>
-                    <div class="small text-gray-500">${event.created_at}</div>
-                    <span class="font-weight-bold">${event.message}</span>
-                </div>
-            </a>
-        `);
-    });
+        updateNotificationCounter(event);
+    }
+    );
