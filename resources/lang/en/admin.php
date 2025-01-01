@@ -15,6 +15,8 @@ return [
     'Users By City'           =>             'Users By City',
     'No City Found'           =>             'No City Found',
     'Choose Video'             =>               'Choose Video',
+    'Users'                     =>                  'Users',
+    'All Recordings'            =>                     'All Recordings',
     'Accepted formats: MP4, M4V, and other video files' =>  'Accepted formats: MP4, M4V, and other video files',
     'Total Users'                     =>           'Total Users',
     'Objective Name'          =>       'Objective Name',

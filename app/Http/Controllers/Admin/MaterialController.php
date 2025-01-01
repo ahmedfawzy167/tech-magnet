@@ -4,24 +4,32 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StorePdfRequest;
+use Illuminate\Support\Facades\Storage;
 
 class MaterialController extends Controller
 {
+    public function index()
+    {
+        $materials = Storage::disk('public')->files('materials');
+        return view('materials.index', compact('materials'));
+    }
 
     public function create()
     {
         return view('materials.create');
     }
 
-    public function store(Request $request)
+    public function store(StorePdfRequest $request)
     {
-        $request->validate([
-            'file'  => 'required|file|mimes:pdf|max:2048',
-        ]);
+        $material = $request->file('file');
+        $path = $material->store('Materials', 'google');
 
-        // Store the file in Google Drive
-        $request->file('file')->store('Materials', 'google');
+        $fileName = $material->getClientOriginalName();
 
-        return redirect()->back()->with('message', 'Material Uploaded Successfully');
+        $fileContent = Storage::disk('google')->get($path);
+        Storage::disk('public')->put("materials/{$fileName}", $fileContent);
+
+        return redirect()->route('materials.index')->with('message', 'Material Uploaded Successfully');
     }
 }

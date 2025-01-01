@@ -13,17 +13,17 @@
                 <table class="table table-hover table-bordered" id="data-table">
                     <thead class="table-dark">
                         <tr>
-                            <th>{{ __('admin.ID') }}</th>
-                            <th>{{ __('admin.Name') }}</th>
-                            <th>{{ __('admin.Actions') }}</th>
+                            <th class="text-center">{{ __('admin.ID') }}</th>
+                            <th class="text-center">{{ __('admin.Name') }}</th>
+                            <th class="text-center">{{ __('admin.Actions') }}</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse($roles as $role)
+                        @foreach($roles as $role)
                             <tr>
-                                <td>{{ $loop->index + 1 }}</td>
-                                <td>{{ $role->name }}</td>
-                                <td>
+                                <td class="text-center">{{ $loop->index + 1 }}</td>
+                                <td class="text-center">{{ $role->name }}</td>
+                                <td class="text-center">
                                     <a href="{{ route('roles.show', $role->id) }}"><i class="fa-solid fa-eye text-info"></i></a>
                                     <a href="{{ route('roles.edit', $role->id) }}"><i class="fa-solid fa-file-signature text-success"></i></a>
                                     <a href="#" class="btn-delete" data-url="{{ route('roles.destroy',$role->id) }}">
@@ -35,9 +35,7 @@
                                     </form>
                                 </td>
                             </tr>
-                        @empty
-                            <h1 class="text-center">{{ __('admin.No Roles Found!') }}</h1>
-                        @endforelse
+                        @endforeach
                     </tbody>
                 </table>
         </div>

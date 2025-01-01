@@ -4,6 +4,19 @@
     {{ __('admin.Home Page') }}
 @endsection
 
+@section('page-head')
+<style>
+    .border-left-pink {
+        border-left: 0.25rem solid #ff69b4;
+    }
+    
+    .text-pink {
+        color: #ff69b4;
+    }
+</style>
+@endsection
+
+
 @section('page-content')
 
     <body id="page-top">
@@ -98,8 +111,77 @@
                 </div>
 
 
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card border-left-primary shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                        {{ __('admin.Sessions') }}</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">{{$sessions}}
+                                     </div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fas fa-user-check fa-2x text-gray-300"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card border-left-dark shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-dark text-uppercase mb-1">
+                                        {{ __('admin.Bundles') }}</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">{{$bundles}}
+                                     </div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fas fa-box fa-2x text-gray-300"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card border-left-secondary shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-secondary text-uppercase mb-1">
+                                        {{ __('admin.Users') }}</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">{{$users}}
+                                     </div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fas fa-user fa-2x text-gray-300"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card border-left-pink shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-pink text-uppercase mb-1">
+                                        {{ __('admin.Cities') }}</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">{{$cities}}
+                                     </div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fa-solid fa-city fa-2x text-gray-300"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
             </div>
 
@@ -139,7 +221,7 @@
                                {{__('admin.Explore More Diplomas')}} <a href="{{route('courses.index')}}"><i class="ion-arrow-right-a text-dark"></i></a></span>
                         </div>
                         
-                        <table class="table table-hover table-bordered">
+                        <table class="table table-hover table-bordered" id="data-table">
                             <thead class="table-dark">
                                 <tr>
                                     <th>{{ __('admin.Name') }}</th>

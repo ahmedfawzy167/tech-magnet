@@ -12,17 +12,17 @@
                 <table class="table table-hover table-bordered" id="data-table">
                     <thead class="table-dark">
                         <tr>
-                            <th>{{ __('admin.ID') }}</th>
-                            <th>{{ __('admin.Name') }}</th>
-                            <th>{{ __('admin.Actions') }}</th>
+                            <th class="text-center">{{ __('admin.ID') }}</th>
+                            <th class="text-center">{{ __('admin.Name') }}</th>
+                            <th class="text-center">{{ __('admin.Actions') }}</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse($permissions as $permission)
+                        @foreach($permissions as $permission)
                             <tr>
-                                <td>{{ $loop->index + 1 }}</td>
-                                <td>{{ $permission->name }}</td>
-                                <td>
+                                <td class="text-center">{{ $loop->index + 1 }}</td>
+                                <td class="text-center">{{ $permission->name }}</td>
+                                <td class="text-center">
                                     <a href="{{ route('permissions.edit', $permission->id) }}"><i class="fa-solid fa-file-signature text-success"></i></a>
                                     <a href="#" class="btn-delete" data-url="{{ route('permissions.destroy', $permission->id) }}">
                                         <i class="fa-solid fa-trash text-danger"></i>
@@ -33,9 +33,7 @@
                                     </form>
                                 </td>
                             </tr>
-                        @empty
-                            <h1 class="text-center">No permissions Found!</h1>
-                        @endforelse
+                        @endforeach
                     </tbody>
                 </table>
         </div>

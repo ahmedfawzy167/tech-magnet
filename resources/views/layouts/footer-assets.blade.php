@@ -24,6 +24,7 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://cdn.datatables.net/searchbuilder/1.7.1/js/searchBuilder.bootstrap5.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+
 <!-- Toastr Notification JS -->
 
 <script>
@@ -99,7 +100,8 @@ $(document).ready(function() {
 </script>
 
 
- <!-- SweetAlert2 JS -->
+<!-- SweetAlert2 JS -->
+
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
   document.addEventListener('DOMContentLoaded', function() {
@@ -120,7 +122,6 @@ $(document).ready(function() {
                     confirmButtonText: 'Yes, Trash it!'
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        // Create and submit the form
                         var form = document.createElement('form');
                         form.method = 'POST';
                         form.action = url;
@@ -147,9 +148,6 @@ $(document).ready(function() {
 
 
 
-
-     // Capture the Delete Forever button click event
-
       document.querySelectorAll('.btn-delete-forever').forEach(button => {
           button.addEventListener('click', function(event) {
               event.preventDefault(); // Prevent default anchor behavior
@@ -166,7 +164,6 @@ $(document).ready(function() {
                   confirmButtonText: 'Yes, Delete it!'
               }).then((result) => {
                   if (result.isConfirmed) {
-                      // Create and submit the form
                       var form = document.createElement('form');
                       form.method = 'POST';
                       form.action = url;
@@ -184,7 +181,7 @@ $(document).ready(function() {
                       form.appendChild(methodInput);
 
                       document.body.appendChild(form);
-                      form.submit(); // Submit the form only after confirmation
+                      form.submit();
                   }
               });
           });

@@ -19,8 +19,11 @@ return [
     'Courses Chart'           =>             'مخطط الدورات',
     'Users By City'           =>             'المستخدمون حسب المدينة',
     'Explore More Diplomas'  =>            'استكشف المزيد من الدورات',
+    'Users'                     =>                  'المستخدمين',
     'No Discounts Found!' => 'لا توجد خصومات حاليا',
     'All Discounts' => 'كل الخصومات',
+    'All Recordings'            =>         'كل التسجيلات',
+
     'Role' => 'Role',
     'Addresses' => 'العناوين',
     'Students' => 'الطلاب',
