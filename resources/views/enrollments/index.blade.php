@@ -61,7 +61,7 @@ input:checked + .slider:before {
         <div class="card">
           <div class="card-body">
                 <h1 class="text-center bg-dark text-light"><i class="fa-solid fa-list"></i> {{ __('admin.Enrollments') }}</h1>
-                <table class="table table-bordered table-hover">
+                <table class="table table-bordered table-hover" id="data-table">
                     <thead class="table-dark">
                         <tr>
                             <th class="text-center">{{__('admin.ID')}}</th>

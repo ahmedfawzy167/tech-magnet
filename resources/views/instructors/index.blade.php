@@ -118,16 +118,5 @@ input:checked + .slider:before {
 @endsection
 
 @section('page-scripts')
-<script>
-    function updateStatus(element, instructorId) {
-    const form = document.getElementById(`status-form-${instructorId}`);
-    const checkbox = element.checked;
-    const status = checkbox ? 'active' : 'inactive';
-
-    form.querySelector('input[name="status"]').value = status;
-
-    form.submit();
-}
-
-</script>
+<script src="{{ asset('assets/js/insctructors/instructors.js') }}"></script>
 @endsection

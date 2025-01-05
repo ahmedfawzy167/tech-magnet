@@ -12,7 +12,7 @@
                 @csrf
                                 
                 <div class="form-group">
-                  <label for="video_src">{{ __('admin.Choose Video') }}</label>
+                  <label for="video_src">{{ __('admin.Choose Video') }}<span class="text-danger ms-2">*</span></label>
                   <input type="file" class="form-control" id="video_src" name="video_src" accept="video/*" required>
                   <small class="form-text text-muted">{{ __('admin.Accepted formats: MP4, M4V, and other video files') }}</small>
                 </div>

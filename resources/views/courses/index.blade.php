@@ -9,9 +9,17 @@
         <div class="card">
         <div class="card-body">
              <h1 class="text-center bg-dark text-light"><i class="fa-solid fa-list"></i> {{ __('admin.All Courses') }}</h1>
-             <table class="table table-hover table-bordered" id="data-table">
+               <!-- Bulk Delete Form -->
+               <form action="{{ route('courses.bulk-destroy') }}" method="post" style="margin-bottom: 20px;">
+                 @csrf
+                 @method('delete')
+                  <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete the selected courses?');">
+                    {{ __('admin.Delete Selected') }}
+                  </button>
+                <table class="table table-hover table-bordered" id="data-table">
                 <thead class="table-dark">
                        <tr>
+                            <th><input type="checkbox" id="check-all"></th>
                             <th>{{ __('admin.ID') }}</th>
                             <th>{{ __('admin.Name') }}</th>
                             <th>{{ __('admin.Price') }}</th>
@@ -25,7 +33,8 @@
                     <tbody>
                         @foreach($courses as $course)
                             <tr>
-                                <td>{{ $loop->index+1 }}</td>
+                                <td><input type="checkbox" name="ids[]" value="{{ $course->id }}"></td>
+                                <td>{{ $loop->iteration}}</td>
                                 <td>{{ $course->name }}</td>
                                 <td>{{ $course->price }}</td>
                                 <td>{{ $course->hours }}</td>
@@ -51,21 +60,22 @@
                         @endforeach
                     </tbody>
                 </table>
+               </form>
         </div>
     </div>
 
-    <!-- Modal -->
+<!-- Modal -->
 <div class="modal fade" id="averagePriceModal" tabindex="-1" role="dialog" aria-labelledby="averagePriceModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header bg-primary text-light">
-          <h5 class="modal-title" id="averagePriceModalLabel">Average Price</h5>
+          <h5 class="modal-title" id="averagePriceModalLabel">{{ __('admin.Average Price') }}</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
-          The Average Price for Courses is <strong>${{ round($averagePrice) }}</strong>.
+          {{ __('admin.The Average Price for Courses is') }} <strong>${{ round($averagePrice) }}</strong>.
         </div>
       </div>
     </div>
@@ -74,10 +84,6 @@
 @endsection
 
 @section('page-scripts')
-<script>
-    $(document).ready(function() {
-        $('#averagePriceModal').modal('show');
-    });
-</script>
+<script src="{{ asset('assets/js/courses/course.js') }}"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
 @endsection

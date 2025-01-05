@@ -48,7 +48,7 @@
                         </div>
                         <div class="form-group">
                             <label for="password"><i class="fa-solid fa-lock mb-2"></i> Password</label>
-                            <input type="password" id="password" name="password" value="{{ old('password') }}"
+                            <input type="password" id="password" name="password"
                                 class="form-control form-control-lg  @error('password') is-invalid @enderror" />
                         </div>
 

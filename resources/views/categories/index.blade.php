@@ -18,17 +18,17 @@
               <table class="table table-hover table-bordered" id="data-table">
                 <thead class="table-dark">
                      <tr>
-                        <th>{{ __('admin.ID') }}</th>
-                        <th>{{ __('admin.Name') }}</th>
-                        <th>{{ __('admin.Actions') }}</th>
+                        <th class="text-center">{{ __('admin.ID') }}</th>
+                        <th class="text-center">{{ __('admin.Name') }}</th>
+                        <th class="text-center">{{ __('admin.Actions') }}</th>
                      </tr>
                     </thead>
                     <tbody>
-                        @forelse($categories as $category)
+                        @foreach($categories as $category)
                             <tr>
-                                <td>{{ $loop->index + 1 }}</td>
-                                <td>{{ $category->name }}</td>
-                                <td>
+                                <td class="text-center">{{ $loop->index + 1 }}</td>
+                                <td class="text-center">{{ $category->name }}</td>
+                                <td class="text-center">
                                     <a href="{{ route('categories.show', $category->id) }}"><i class="fa-solid fa-eye text-info"></i></a>
                                     <a href="#" class="btn-edit" data-id="{{ $category->id }}" data-name="{{ $category->name }}" data-toggle="modal" data-target="#updateCategoryModal">
                                         <i class="fa-solid fa-file-signature text-success"></i>
@@ -42,9 +42,7 @@
                                     </form>
                                 </td>
                             </tr>
-                        @empty
-                            <h1 class="text-center">No Categories Found!</h1>
-                        @endforelse
+                        @endforeach
                     </tbody>
                 </table>
         </div>
@@ -112,5 +110,5 @@
 @endsection
 
 @section('page-scripts')
-    <script src="{{ asset('assets/js/Categories/category.js') }}"></script>
+    <script src="{{ asset('assets/js/categories/categories.js') }}"></script>
 @endsection

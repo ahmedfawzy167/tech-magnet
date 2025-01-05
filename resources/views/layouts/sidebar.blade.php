@@ -31,9 +31,15 @@
             </a>
             <div id="hotelsCollapse" class="collapse" aria-labelledby="headingHotels" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="{{route('courses.index')}}"><i class="fa-solid fa-list"></i> {{__('admin.All Courses')}}</a>
-                    <a class="collapse-item" href="{{route('courses.create')}}"><i class="ion-plus-circled"></i> {{__('admin.Add New Course')}}</a>
-                    <a class="collapse-item" href="{{route('courses.trashed')}}"><i class="ion-alert"></i> {{ __('admin.All Trashed Courses') }}</a>
+                    <a class="collapse-item {{ isActiveRoute('courses.index', 'bg-primary text-white') }}" href="{{ route('courses.index') }}">
+                        <i class="fa-solid fa-list"></i> {{ __('admin.All Courses') }}
+                    </a>
+                    <a class="collapse-item {{ isActiveRoute('courses.create', 'bg-primary text-white') }}" href="{{ route('courses.create') }}">
+                        <i class="ion-plus-circled"></i> {{ __('admin.Add New Course') }}
+                    </a>
+                    <a class="collapse-item {{ isActiveRoute('courses.trashed', 'bg-primary text-white') }}" href="{{ route('courses.trashed') }}">
+                        <i class="ion-alert"></i> {{ __('admin.All Trashed Courses') }}
+                    </a>
                 </div>
             </div>
         </li>
@@ -45,8 +51,12 @@
             </a>
             <div id="usersCollapse" class="collapse" aria-labelledby="headingUsers" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="{{route('students.index') }}"><i class="fa-solid fa-list"></i> {{__('admin.All Students')}}</a>
-                    <a class="collapse-item" href="{{route('students.create')}}"><i class="ion-plus-circled"></i> {{__('admin.Add New Student')}}</a>
+                    <a class="collapse-item {{ isActiveRoute('students.index', 'bg-primary text-white') }}" href="{{ route('students.index') }}">
+                        <i class="fa-solid fa-list"></i> {{ __('admin.All Students') }}
+                    </a>
+                    <a class="collapse-item {{ isActiveRoute('students.create', 'bg-primary text-white') }}" href="{{ route('students.create') }}">
+                        <i class="ion-plus-circled"></i> {{ __('admin.Add New Student') }}
+                    </a>
                 </div>
             </div>
         </li>
@@ -59,8 +69,12 @@
             </a>
             <div id="instructorsCollapse" class="collapse" aria-labelledby="headinginstructors" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="{{route('instructors.index') }}"><i class="fa-solid fa-list"></i> {{__('admin.All Instructors')}}</a>
-                    <a class="collapse-item" href="{{route('instructors.create')}}"><i class="ion-plus-circled"></i> {{__('admin.Add New Instructor')}}</a>
+                    <a class="collapse-item {{ isActiveRoute('instructors.index', 'bg-primary text-white') }}" href="{{ route('instructors.index') }}">
+                        <i class="fa-solid fa-list"></i> {{ __('admin.All Instructors') }}
+                    </a>
+                    <a class="collapse-item {{ isActiveRoute('instructors.create', 'bg-primary text-white') }}" href="{{ route('instructors.create') }}">
+                        <i class="ion-plus-circled"></i> {{ __('admin.Add New Instructor') }}
+                    </a>
                 </div>
             </div>
         </li>
@@ -73,8 +87,12 @@
             </a>
             <div id="operationsCollapse" class="collapse" aria-labelledby="headingoperations" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="{{route('operations.index') }}"><i class="fa-solid fa-list"></i> {{__('admin.All Operations')}}</a>
-                    <a class="collapse-item" href="{{route('operations.create')}}"><i class="ion-plus-circled"></i> {{__('admin.Add New Operation')}}</a>
+                    <a class="collapse-item {{ isActiveRoute('operations.index', 'bg-primary text-white') }}" href="{{ route('operations.index') }}">
+                        <i class="fa-solid fa-list"></i> {{ __('admin.All Operations') }}
+                    </a>
+                    <a class="collapse-item {{ isActiveRoute('operations.create', 'bg-primary text-white') }}" href="{{ route('operations.create') }}">
+                        <i class="ion-plus-circled"></i> {{ __('admin.Add New Operation') }}
+                    </a>
                 </div>
             </div>
         </li>
@@ -88,9 +106,12 @@
             </a>
             <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="{{route('categories.index')}}"><i class="fa-solid fa-list"></i> {{__('admin.All Categories')}}</a>
-                    <a class="collapse-item" href="{{route('categories.create')}}"><i class="ion-plus-circled"></i> {{__('admin.Add New Category')}}</a>
-                    <a class="collapse-item" href="{{route('categories.trashed')}}"><i class="ion-alert"></i> {{ __('admin.All Trashed Categories') }}</a>
+                    <a class="collapse-item {{ isActiveRoute('categories.index', 'bg-primary text-white') }}" href="{{ route('categories.index') }}">
+                        <i class="fa-solid fa-list"></i> {{ __('admin.All Categories') }}
+                    </a>
+                    <a class="collapse-item {{ isActiveRoute('categories.trashed', 'bg-primary text-white') }}" href="{{ route('categories.trashed') }}">
+                        <i class="ion-alert"></i> {{ __('admin.All Trashed Categories') }}
+                    </a>
                 </div>
             </div>
         </li>
@@ -104,8 +125,13 @@
             </a>
             <div id="collapseDiscount" class="collapse" aria-labelledby="headingDiscount" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="{{route('discounts.index')}}"><i class="fa-solid fa-list"></i> {{__('admin.All Discounts')}}</a>
-                    <a class="collapse-item" href="{{route('discounts.create')}}"><i class="ion-plus-circled"></i> {{__('admin.Add New Discount')}}</a>
+                    <a class="collapse-item {{ isActiveRoute('discounts.index', 'bg-primary text-white') }}" href="{{ route('discounts.index') }}">
+                        <i class="fa-solid fa-list"></i> {{ __('admin.All Discounts') }}
+                    </a>
+                    <a class="collapse-item {{ isActiveRoute('discounts.create', 'bg-primary text-white') }}" href="{{ route('discounts.create') }}">
+                        <i class="ion-plus-circled"></i> {{ __('admin.Add New Discount') }}
+                    </a>
+                  
                 </div>
             </div>
         </li>
@@ -119,9 +145,15 @@
             </a>
             <div id="collapseBundle" class="collapse" aria-labelledby="headingBundle" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="{{route('bundles.index')}}"><i class="fa-solid fa-list"></i> {{__('admin.All Bundles')}}</a>
-                    <a class="collapse-item" href="{{route('bundles.create')}}"><i class="ion-plus-circled"></i> {{__('admin.Add New Bundle')}}</a>
-                    <a class="collapse-item" href="{{route('bundles.trashed')}}"><i class="ion-alert"></i> {{ __('admin.All Trashed Bundles') }}</a>
+                    <a class="collapse-item {{ isActiveRoute('bundles.index', 'bg-primary text-white') }}" href="{{ route('bundles.index') }}">
+                        <i class="fa-solid fa-list"></i> {{ __('admin.All Bundles') }}
+                    </a>
+                    <a class="collapse-item {{ isActiveRoute('bundles.create', 'bg-primary text-white') }}" href="{{ route('bundles.create') }}">
+                        <i class="ion-plus-circled"></i> {{ __('admin.Add New Bundle') }}
+                    </a>
+                    <a class="collapse-item {{ isActiveRoute('bundles.trashed', 'bg-primary text-white') }}" href="{{ route('bundles.trashed') }}">
+                        <i class="ion-alert"></i> {{ __('admin.All Trashed Bundles') }}
+                    </a>
                 </div>
             </div>
         </li>
@@ -136,9 +168,15 @@
             <div id="collapsecities" class="collapse" aria-labelledby="headingcities"
                 data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="{{ route('cities.index') }}"><i class="fa-solid fa-list"></i> {{__('admin.All Cities')}}</a>
-                    <a class="collapse-item" href="{{ route('cities.create') }}"><i class="ion-plus-circled"></i> {{__('admin.Add New City')}}</a>
-                    <a class="collapse-item" href="{{route('cities.trashed')}}"><i class="ion-alert"></i> {{ __('admin.All Trashed Cities') }}</a>
+                    <a class="collapse-item {{ isActiveRoute('cities.index', 'bg-primary text-white') }}" href="{{ route('cities.index') }}">
+                        <i class="fa-solid fa-list"></i> {{ __('admin.All Cities') }}
+                    </a>
+                    <a class="collapse-item {{ isActiveRoute('cities.create', 'bg-primary text-white') }}" href="{{ route('cities.create') }}">
+                        <i class="ion-plus-circled"></i> {{ __('admin.Add New City') }}
+                    </a>
+                    <a class="collapse-item {{ isActiveRoute('cities.trashed', 'bg-primary text-white') }}" href="{{ route('cities.trashed') }}">
+                        <i class="ion-alert"></i> {{ __('admin.All Trashed Cites') }}
+                    </a>
                 </div>
             </div>
         </li>
@@ -152,9 +190,15 @@
     <div id="collapseMeetings" class="collapse" aria-labelledby="headingMeetings"
         data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="{{route('blogs.index')}}"><i class="fa-solid fa-list"></i> {{__('admin.All Blogs')}}</a>
-            <a class="collapse-item" href="{{ route('blogs.create') }}"><i class="ion-plus-circled"></i> {{__('admin.Add New Blog')}}</a>
-            <a class="collapse-item" href="{{route('blogs.trashed')}}"><i class="ion-alert"></i> {{__('admin.All Trashed Cities')}}</a>
+            <a class="collapse-item {{ isActiveRoute('blogs.index', 'bg-primary text-white') }}" href="{{ route('blogs.index') }}">
+                <i class="fa-solid fa-list"></i> {{ __('admin.All Blogs') }}
+            </a>
+            <a class="collapse-item {{ isActiveRoute('blogs.create', 'bg-primary text-white') }}" href="{{ route('blogs.create') }}">
+                <i class="ion-plus-circled"></i> {{ __('admin.Add New Blog') }}
+            </a>
+            <a class="collapse-item {{ isActiveRoute('blogs.trashed', 'bg-primary text-white') }}" href="{{ route('blogs.trashed') }}">
+                <i class="ion-alert"></i> {{ __('admin.All Trashed Blogs') }}
+            </a>
     </div>
     </div>
 </li>
@@ -168,8 +212,12 @@
     <div id="collapsespecs" class="collapse" aria-labelledby="headingspecs"
         data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="{{route('roles.index')}}"><i class="fa-solid fa-list"></i> {{__('admin.All Roles')}}</a>
-            <a class="collapse-item" href="{{route('roles.create')}}"><i class="ion-plus-circled"></i> {{__('admin.Add New Role')}}</a>
+            <a class="collapse-item {{ isActiveRoute('roles.index', 'bg-primary text-white') }}" href="{{ route('roles.index') }}">
+                <i class="fa-solid fa-list"></i> {{ __('admin.All Roles') }}
+            </a>
+            <a class="collapse-item {{ isActiveRoute('roles.create', 'bg-primary text-white') }}" href="{{ route('roles.create') }}">
+                <i class="ion-plus-circled"></i> {{ __('admin.Add New Role') }}
+            </a>
         </div>
     </div>
 </li>
@@ -182,8 +230,12 @@
     <div id="collapsepermissions" class="collapse" aria-labelledby="headingpermissions"
         data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="{{route('permissions.index')}}"><i class="fa-solid fa-list"></i> {{__('admin.All Permissions')}}</a>
-            <a class="collapse-item" href="{{route('permissions.create')}}"><i class="ion-plus-circled"></i> {{__('admin.Add New Permission')}}</a>
+            <a class="collapse-item {{ isActiveRoute('permissions.index', 'bg-primary text-white') }}" href="{{ route('permissions.index') }}">
+                <i class="fa-solid fa-list"></i> {{ __('admin.All Permissions') }}
+            </a>
+            <a class="collapse-item {{ isActiveRoute('permissions.create', 'bg-primary text-white') }}" href="{{ route('permissions.create') }}">
+                <i class="ion-plus-circled"></i> {{ __('admin.Add New Permission') }}
+            </a>
         </div>
     </div>
 </li>
@@ -197,9 +249,12 @@
     <div id="collapsesuper" class="collapse" aria-labelledby="headingpermissions"
         data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="{{route('super-skills.index')}}"><i class="fa-solid fa-list"></i> {{__('admin.All Super Skills')}}</a>
-            <a class="collapse-item" href="{{ route('super-skills.create') }}"><i class="ion-plus-circled"></i> {{__('admin.Add Super Skill')}}</a>
-
+            <a class="collapse-item {{ isActiveRoute('super-skills.index', 'bg-primary text-white') }}" href="{{ route('super-skills.index') }}">
+                <i class="fa-solid fa-list"></i> {{ __('admin.All Super Skills') }}
+            </a>
+            <a class="collapse-item {{ isActiveRoute('super-skills.create', 'bg-primary text-white') }}" href="{{ route('super-skills.create') }}">
+                <i class="ion-plus-circled"></i> {{ __('admin.Add New Super Skill') }}
+            </a>
         </div>
     </div>
 </li>
@@ -212,8 +267,12 @@
     <div id="collapseskill" class="collapse" aria-labelledby="headingskill"
         data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="{{route('skills.index')}}"><i class="fa-solid fa-list"></i> {{__('admin.All Skills')}}</a>
-            <a class="collapse-item" href="{{ route('skills.create') }}"><i class="ion-plus-circled"></i> {{__('admin.Add New Skill')}}</a>
+            <a class="collapse-item {{ isActiveRoute('skills.index', 'bg-primary text-white') }}" href="{{ route('skills.index') }}">
+                <i class="fa-solid fa-list"></i> {{ __('admin.All Skills') }}
+            </a>
+            <a class="collapse-item {{ isActiveRoute('skills.create', 'bg-primary text-white') }}" href="{{ route('skills.create') }}">
+                <i class="ion-plus-circled"></i> {{ __('admin.Add New Skill') }}
+            </a>
         </div>
     </div>
 </li>
@@ -226,8 +285,12 @@
     <div id="collapseroadmaps" class="collapse" aria-labelledby="headingroadmaps"
         data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="{{route('roadmaps.index')}}"><i class="fa-solid fa-list"></i> {{__('admin.All Roadmaps')}}</a>
-            <a class="collapse-item" href="{{route('roadmaps.create')}}"><i class="ion-plus-circled"></i> {{__('admin.Add New Roadmap')}}</a>
+            <a class="collapse-item {{ isActiveRoute('roadmaps.index', 'bg-primary text-white') }}" href="{{ route('roadmaps.index') }}">
+                <i class="fa-solid fa-list"></i> {{ __('admin.All Roadmaps') }}
+            </a>
+            <a class="collapse-item {{ isActiveRoute('roadmaps.create', 'bg-primary text-white') }}" href="{{ route('roadmaps.create') }}">
+                <i class="ion-plus-circled"></i> {{ __('admin.Add New Roadmap') }}
+            </a>
         </div>
     </div>
 </li>
@@ -240,7 +303,9 @@
     <div id="collapseenroll" class="collapse" aria-labelledby="headingenroll"
         data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="{{route('enrollments.index')}}"><i class="fa-solid fa-list"></i> {{__('admin.All Enrollments')}}</a>
+            <a class="collapse-item {{ isActiveRoute('enrollments.index', 'bg-primary text-white') }}" href="{{ route('enrollments.index') }}">
+                <i class="fa-solid fa-list"></i> {{ __('admin.All Enrollments') }}
+            </a>
         </div>
     </div>
 </li>
@@ -253,8 +318,12 @@
     <div id="collapsematerial" class="collapse" aria-labelledby="headingmaterial"
         data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="{{route('materials.index')}}"><i class="fa-solid fa-list"></i> {{__('admin.All Materials')}}</a>
-            <a class="collapse-item" href="{{ route('materials.create') }}"><i class="ion-plus-circled"></i> {{__('admin.Add New Material')}}</a>
+            <a class="collapse-item {{ isActiveRoute('materials.index', 'bg-primary text-white') }}" href="{{ route('materials.index') }}">
+                <i class="fa-solid fa-list"></i> {{ __('admin.All Materials') }}
+            </a>
+            <a class="collapse-item {{ isActiveRoute('materials.create', 'bg-primary text-white') }}" href="{{ route('materials.create') }}">
+                <i class="ion-plus-circled"></i> {{ __('admin.Add New Material') }}
+            </a>
         </div>
     </div>
 </li>
@@ -267,7 +336,9 @@
     <div id="collapsereview" class="collapse" aria-labelledby="headingreview"
         data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="{{route('reviews.index')}}"><i class="fa-solid fa-list"></i> {{__('admin.All Reviews')}}</a>
+            <a class="collapse-item {{ isActiveRoute('reviews.index', 'bg-primary text-white') }}" href="{{ route('reviews.index') }}">
+                <i class="fa-solid fa-list"></i> {{ __('admin.All Reviews') }}
+            </a>
         </div>
     </div>
 </li>
@@ -280,7 +351,9 @@
     <div id="collapsepayment" class="collapse" aria-labelledby="headingpayment"
         data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="{{route('payments.index')}}"><i class="fa-solid fa-list"></i> {{__('admin.All Payments')}}</a>
+            <a class="collapse-item {{ isActiveRoute('payments.index', 'bg-primary text-white') }}" href="{{ route('payments.index') }}">
+                <i class="fa-solid fa-list"></i> {{ __('admin.All Payments') }}
+            </a>
         </div>
     </div>
 </li>
@@ -294,8 +367,12 @@
     <div id="collapserecording" class="collapse" aria-labelledby="headingrecording"
         data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="{{route('recordings.index')}}"><i class="fa-solid fa-list"></i> {{__('admin.All Recordings')}}</a>
-            <a class="collapse-item" href="{{ route('recordings.create') }}"><i class="ion-plus-circled"></i> {{__('admin.Add New Recording')}}</a>
+            <a class="collapse-item {{ isActiveRoute('recordings.index', 'bg-primary text-white') }}" href="{{ route('recordings.index') }}">
+                <i class="fa-solid fa-list"></i> {{ __('admin.All Recordings') }}
+            </a>
+            <a class="collapse-item {{ isActiveRoute('recordings.create', 'bg-primary text-white') }}" href="{{ route('recordings.create') }}">
+                <i class="ion-plus-circled"></i> {{ __('admin.Add New Recording') }}
+            </a>
         </div>
     </div>
 </li>
@@ -327,7 +404,7 @@
                 </button>
 
                 <!-- Topbar Search -->
-                <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" method="get" action="{{route('search')}}">
+                <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search w-50" method="get" action="{{route('search')}}">
                     @csrf
                     <div class="input-group">
                         <input type="text" name="query" class="form-control bg-light border-0 small" placeholder="{{__('admin.Search for')}}..."
@@ -336,13 +413,14 @@
                             <button class="btn btn-primary" type="submit">
                                 <i class="fas fa-search fa-sm"></i>
                             </button>
-
                         </div>
                     </div>
                 </form>
 
-                <div class="copyright text-center mt-2 ms-3">
-                    <h6>{{ date("d M Y") }}</h6>
+                <div class="copyright text-center mt-2 ms-5">
+                    <h6 class="text-primary">
+                        <i class="far fa-calendar-alt"></i> {{ date("F Y") }}
+                    </h6>
                 </div>
 
      <div class="dropdown ms-5">
@@ -432,20 +510,18 @@
                        
                         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                             aria-labelledby="userDropdown">
-                            <a class="dropdown-item" href="{{route('profile.show')}}">
+                            <a class="dropdown-item {{ isActiveRoute('profile.show', 'bg-primary text-white') }}" href="{{ route('profile.show') }}">
                                 <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                {{__('admin.Profile')}}
+                                {{ __('admin.Profile') }}
                             </a>
-                            <a class="dropdown-item" href="{{ route('settings.index') }}">
+                            <a class="dropdown-item {{ isActiveRoute('settings.index', 'bg-primary text-white') }}" href="{{ route('settings.index') }}">
                                 <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                                {{__('admin.Settings')}}
+                                {{ __('admin.Settings') }}
                             </a>
-
-                            <a class="dropdown-item" href="{{route('activity-logs.index')}}">
+                            <a class="dropdown-item {{ isActiveRoute('activity-logs.index', 'bg-primary text-white') }}" href="{{ route('activity-logs.index') }}">
                                 <i class="fa-solid fa-bars fa-sm fa-fw mr-2 text-gray-400"></i>
-                                {{__('admin.Activity Log')}}
+                                {{ __('admin.Activity Log') }}
                             </a>
-
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                                 <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>

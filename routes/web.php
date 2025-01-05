@@ -53,6 +53,7 @@ Route::middleware(['auth:admin', 'Language'])
         Route::get('courses/trash', 'CourseController@trash')->name('courses.trashed');
         Route::put('courses/restore/{id}', 'CourseController@restore')->name('courses.restore');
         Route::delete('courses/force_delete/{id}', 'CourseController@forceDelete')->name('courses.force-delete');
+        Route::delete('courses/bulk-destroy', 'CourseController@bulkDestroy')->name('courses.bulk-destroy');
         Route::resource('courses', 'CourseController');
         /* End of Courses Routes */
 

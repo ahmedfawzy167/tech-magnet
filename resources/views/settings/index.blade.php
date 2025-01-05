@@ -10,24 +10,24 @@
          <div class="card-body">
             <h1 class="text-center bg-dark text-light"><i class="fa-solid fa-gear"></i> {{__('admin.Configuration Settings')}}</h1>
               <a href="{{route('settings.create')}}" class="btn btn-primary">{{__('admin.Add New Setting')}}</a>
-                <table class="table table-hover table-bordered mt-2">
+                <table class="table table-hover table-bordered mt-2" id="data-table">
                     <thead class="table-dark">
                         <tr>
-                            <th>{{__('admin.Logo')}}</th>
-                            <th>{{__('admin.Email')}}</th>
-                            <th>{{__('admin.Phone')}}</th>
-                            <th>{{__('admin.Location')}}</th>
-                            <th>{{__('admin.Actions')}}</th>
+                            <th class="text-center">{{__('admin.Logo')}}</th>
+                            <th class="text-center">{{__('admin.Email')}}</th>
+                            <th class="text-center">{{__('admin.Phone')}}</th>
+                            <th class="text-center">{{__('admin.Location')}}</th>
+                            <th class="text-center">{{__('admin.Actions')}}</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach($settings as $setting)
                         <tr>
-                            <td><img src="{{asset('storage/'.$setting->logo)}}" width="100px"></td>
-                            <td>{{$setting->email}}</td>
-                            <td>{{$setting->phone}}</td>
-                            <td>{{$setting->location}}</td>
-                            <td>
+                            <td class="text-center"><img src="{{asset('storage/'.$setting->logo)}}" width="100px"></td>
+                            <td class="text-center">{{$setting->email}}</td>
+                            <td class="text-center">{{$setting->phone}}</td>
+                            <td class="text-center">{{$setting->location}}</td>
+                            <td class="text-center">
                                 <a href="{{ route('settings.edit', $setting->id) }}"><i class="fa-solid fa-file-signature text-success"></i></a>
                                 <a href="#" class="btn-delete" data-url="{{ route('settings.destroy', $setting->id) }}">
                                     <i class="fa-solid fa-trash text-danger"></i>

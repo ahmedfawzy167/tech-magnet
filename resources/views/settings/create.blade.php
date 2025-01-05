@@ -13,22 +13,22 @@
      @csrf
 
     <div class="form-group col-12">
-      <label for="logo">{{__('admin.Image')}}</label>
+      <label for="logo">{{__('admin.Image')}}<span class="text-danger ms-2">*</span></label>
       <input type="file" name="logo" id="logo" class="form-control @error('image') is-invalid @enderror">
     </div>
 
     <div class="form-group col-12">
-      <label for="email">{{__('admin.Email')}}</label>
+      <label for="email">{{__('admin.Email')}}<span class="text-danger ms-2">*</span></label>
       <input type="email" name="email" id="email" class="form-control @error('email') is-invalid @enderror">
     </div>
 
     <div class="form-group col-12">
-      <label for="phone">{{__('admin.Phone')}}</label>
+      <label for="phone">{{__('admin.Phone')}}<span class="text-danger ms-2">*</span></label>
       <input type="number" name="phone" id="phone" class="form-control @error('phone') is-invalid @enderror">
       </div>
 
     <div class="form-group col-12">
-        <label for="location">{{__('admin.Location')}}</label>
+        <label for="location">{{__('admin.Location')}}<span class="text-danger ms-2">*</span></label>
         <input type="text" name="location" id="location" class="form-control @error('location') is-invalid @enderror">
     </div>
 

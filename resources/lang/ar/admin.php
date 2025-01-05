@@ -23,8 +23,12 @@ return [
     'No Discounts Found!' => 'لا توجد خصومات حاليا',
     'All Discounts' => 'كل الخصومات',
     'All Recordings'            =>         'كل التسجيلات',
-
+    'Delete Selected'           =>           'احذف الاختيارات',
+    'Average Price'           =>           'متوسط السعر',
+    'The Average Price for Courses is'     => 'متوسط سعر الدورات هو',
     'Role' => 'Role',
+    'All Trashed Cites'          =>          'كل المدن المحذوفة',
+    'Add New Super Skill'        =>      'اضافة مهارة رئيسية',
     'Addresses' => 'العناوين',
     'Students' => 'الطلاب',
     'Instructors' => 'الماحضرين',

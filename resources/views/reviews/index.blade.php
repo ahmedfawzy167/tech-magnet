@@ -13,23 +13,23 @@
                 <table class="table table-hover table-bordered" id="data-table">
                     <thead class="table-dark">
                         <tr>
-                            <th>{{ __('admin.ID') }}</th>
-                            <th>{{ __('admin.User') }}</th>
-                            <th>{{ __('admin.Course') }}</th>
-                            <th>{{ __('admin.Content') }}</th>
-                            <th>{{ __('admin.Rating') }}</th>
-                            <th>{{ __('admin.Actions') }}</th>
+                            <th class="text-center">{{ __('admin.ID') }}</th>
+                            <th class="text-center">{{ __('admin.User') }}</th>
+                            <th class="text-center">{{ __('admin.Course') }}</th>
+                            <th class="text-center">{{ __('admin.Content') }}</th>
+                            <th class="text-center">{{ __('admin.Rating') }}</th>
+                            <th class="text-center">{{ __('admin.Actions') }}</th>
                         </tr>
                     </thead>
                     <tbody>
                         @forelse($reviews as $review)
                             <tr>
-                                <td>{{ $loop->iteration }}</td>
-                                <td>{{ $review->user->name }}</td>
-                                <td>{{ $review->course->name }}</td>
-                                <td>{{ $review->content }}</td>
-                                <td>{{ $review->rating }}</td>
-                                <td>
+                                <td class="text-center">{{ $loop->iteration }}</td>
+                                <td class="text-center">{{ $review->user->name }}</td>
+                                <td class="text-center">{{ $review->course->name }}</td>
+                                <td class="text-center">{{ $review->content }}</td>
+                                <td class="text-center">{{ $review->rating }}</td>
+                                <td class="text-center">
                                     <a href="#" class="btn-delete" data-url="{{ route('reviews.destroy', $review->id) }}">
                                         <i class="fa-solid fa-trash text-danger"></i>
                                     </a>

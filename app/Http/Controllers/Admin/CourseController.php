@@ -138,7 +138,7 @@ class CourseController extends Controller
     {
         $course = Course::withTrashed()->findOrFail($id);
         $course->restore();
-        return redirect()->route('courses.index')->with('message', 'Course Restored Successfully');
+        return redirect()->back()->with('message', 'Course Restored Successfully');
     }
 
     public function forceDelete($id)
@@ -160,6 +160,18 @@ class CourseController extends Controller
         $course->roadmaps()->detach();
         $course->image()->delete();
         $course->forceDelete();
-        return redirect()->route('courses.index')->with('message', 'Course Permenantly Deleted Successfully');
+        return redirect()->back()->with('message', 'Course Permenantly Deleted Successfully');
+    }
+
+    public function bulkDestroy(Request $request)
+    {
+        $ids = $request->input('ids');
+        if (!$ids) {
+            return redirect()->back()->withErrors([
+                'error' => 'No Courses Were Selected!'
+            ]);
+        }
+        Course::whereIn('id', $ids)->delete();
+        return redirect()->back()->with('message', 'Courses Deleted Successfully');
     }
 }
