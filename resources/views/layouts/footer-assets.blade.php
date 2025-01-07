@@ -156,7 +156,6 @@ $(document).ready(function() {
                 // Trigger SweetAlert confirmation
                 Swal.fire({
                     title: 'Are you Sure?',
-                    text: "You Will be Able to Restore it Later! 😎",
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
@@ -192,13 +191,12 @@ $(document).ready(function() {
 
       document.querySelectorAll('.btn-delete-forever').forEach(button => {
           button.addEventListener('click', function(event) {
-              event.preventDefault(); // Prevent default anchor behavior
+              event.preventDefault();
               var url = this.dataset.url;
 
               // Trigger SweetAlert confirmation
               Swal.fire({
                   title: 'Are you sure?',
-                  text: "You Won't be Able to Restore it! 🤷‍♂️",
                   icon: 'warning',
                   showCancelButton: true,
                   confirmButtonColor: '#3085d6',

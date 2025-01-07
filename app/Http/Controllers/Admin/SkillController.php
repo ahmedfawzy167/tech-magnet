@@ -5,7 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Models\{Skill, SuperSkill};
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
+use App\Http\Requests\StoreSkillRequest;
+use App\Http\Requests\UpdateSkillRequest;
 
 class SkillController extends Controller
 {
@@ -30,15 +31,8 @@ class SkillController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreSkillRequest $request)
     {
-        $request->validate([
-            'title' => 'required|string|between:2,100',
-            'content' => 'required|string|max:1000',
-            'super_skill_id' => 'required|exists:super_skills,id',
-        ]);
-
-
         $skill = new Skill();
         $skill->title = $request->title;
         $skill->content = $request->content;
@@ -60,20 +54,9 @@ class SkillController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Skill $skill)
+    public function update(UpdateSkillRequest $request, Skill $skill)
     {
-        $request->validate([
-            'title' => 'required|string|between:2,100',
-            'content' => 'required|string|max:1000',
-            'super_skill_id' => 'required|exists:super_skills,id',
-        ]);
-
-
-        $skill->title = $request->title;
-        $skill->content = $request->content;
-        $skill->super_skill_id = $request->super_skill_id;
-        $skill->update();
-
+        $skill->update($request->validated());
         return redirect(route('skills.index'))->with('message', 'Skill Updated Successfully');
     }
 

@@ -21,6 +21,7 @@ return [
     'Mentor Details'  => 'تفاصيل المرشد',
     'Mentors'     =>     'المرشد',
     'All Mentors'     =>     'كل المرشدين',
+    'New Skill' => 'مهارة جديدة',
     'Courses This Month'    =>                    "كورسات هذا الشهر",
     'Hours'                 =>            'عدد الساعات',
     'Show on Website'          =>                'اظهار في الويبسايت',

@@ -461,6 +461,7 @@ return [
     'no_adv' => 'Ad number',
     'description' => 'Description',
     'phone' => 'phone',
+    'New Skill' => 'New Skill',
 
     'Mediations' => 'Mediations',
     'All Mediations' => 'All Mediations',
