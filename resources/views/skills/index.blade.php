@@ -12,19 +12,19 @@
                 <table class="table table-hover table-bordered" id="data-table">
                     <thead class="table-dark">
                         <tr>
-                            <th>{{ __('admin.Title') }}</th>
-                            <th>{{ __('admin.Super Skills') }}</th>
-                            <th>{{ __('admin.Actions') }}</th>
+                            <th class="text-center">{{ __('admin.ID') }}</th>
+                            <th class="text-center">{{ __('admin.Title') }}</th>
+                            <th class="text-center">{{ __('admin.Super Skills') }}</th>
+                            <th class="text-center">{{ __('admin.Actions') }}</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse($skills as $skill)
+                        @foreach($skills as $skill)
                             <tr>
-                                <td>{{ $skill->title }}</td>
-                                @if (isset($skill->superSkill))
-                                 <td>{{ $skill->superSkill->name }}</td>
-                                @endif
-                                <td>
+                                <td class="text-center">{{ $loop->iteration }}</td>
+                                <td class="text-center">{{ $skill->title }}</td>
+                                <td class="text-center">{{ $skill->superSkill->name }}</td>
+                                <td class="text-center">
                                     <a href="{{ route('skills.edit', $skill->id) }}"><i class="fa-solid fa-file-signature text-success"></i></a>
                                     <a href="#" class="btn-delete" data-url="{{ route('skills.destroy', $skill->id) }}">
                                         <i class="fa-solid fa-trash text-danger"></i>
@@ -35,13 +35,9 @@
                                     </form>
                                 </td>
                             </tr>
-                        @empty
-                            <h1 class="text-center">No Skills Found!</h1>
-                        @endforelse
+                        @endforeach
                     </tbody>
                 </table>
         </div>
         </div>
-
-
-    @endsection
+@endsection

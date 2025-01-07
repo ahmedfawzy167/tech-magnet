@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\City;
-use App\Models\Role;
-use App\Models\User;
+use App\Models\{City, Role, User};
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUserRequest;

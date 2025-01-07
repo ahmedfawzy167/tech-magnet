@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('page-title')
-{{__('admin.Blogs')}}
+  {{__('admin.Blogs')}}
 @endsection
 
 @section('page-content')
@@ -11,25 +11,27 @@
           <table class="table table-hover table-bordered" id="data-table">
             <thead class="table-dark">
               <tr>
-                <th>{{__('admin.ID')}}</th>
-                <th>{{__('admin.Title')}}</th>
-                <th>{{__('admin.Description')}}</th>
-                <th>{{__('admin.Image')}}</th>
-                <th>{{__('admin.Actions')}}</th>
+                <th class="text-center">{{__('admin.ID')}}</th>
+                <th class="text-center">{{__('admin.Title')}}</th>
+                <th class="text-center">{{__('admin.Description')}}</th>
+                <th class="text-center">{{__('admin.Image')}}</th>
+                <th class="text-center">{{__('admin.Actions')}}</th>
               </tr>
             </thead>
              <tbody>
                 @foreach($blogs as $blog)
                  <tr>
-                  <td>{{$loop->iteration}}</td>
-                  <td>{{$blog->title}}</td>
-                  <td>{{\Str::limit($blog->description,20)}}</td>
-                  <td>
-                    @if($blog->image)
-                        <img src="{{ asset('storage/' . $blog->image->path) }}" width="70px" class="mr-2">
+                  <td class="text-center">{{$loop->iteration}}</td>
+                  <td class="text-center">{{$blog->title}}</td>
+                  <td class="text-center">{{\Str::limit($blog->description,20)}}</td>
+                  <td class="text-center">
+                    @if($blog?->image)
+                      <img src="{{ asset('storage/' . $blog->image->path) }}" width="70px" class="mr-2">
+                    @else
+                      <span class="badge bg-danger">{{__('admin.No Image Found!')}}</span>
                     @endif
                 </td>
-                  <td>
+                  <td class="text-center">
                     <a href="{{ route('blogs.show', $blog->id) }}"><i class="fa-solid fa-eye text-info"></i></a>
                     <a href="{{ route('blogs.edit', $blog->id) }}"><i class="fa-solid fa-file-signature text-success"></i></a>
                     <a href="#" class="btn-delete" data-url="{{ route('blogs.destroy', $blog->id) }}">

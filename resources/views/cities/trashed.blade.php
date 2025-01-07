@@ -9,20 +9,20 @@
         <div class="card">
         <div class="card-body">
              <h1 class="text-center bg-warning text-light"><i class="ion-alert"></i> All Trashed Cities</h1>
-             <table class="table table-hover table-bordered mt-3">
+             <table class="table table-hover table-bordered mt-3" id="data-table">
                 <thead class="table-dark">
                     <tr>
-                        <th>{{ __('admin.ID') }}</th>
-                        <th>{{ __('admin.Name') }}</th>
-                        <th>{{ __('admin.Actions') }}</th>
+                        <th class="text-center">{{ __('admin.ID') }}</th>
+                        <th class="text-center">{{ __('admin.Name') }}</th>
+                        <th class="text-center">{{ __('admin.Actions') }}</th>
                     </tr>
                     </thead>
                     <tbody>
-                        @forelse($trashedCities as $city)
+                        @foreach($trashedCities as $city)
                             <tr>
-                                <td>{{ $loop->index+1}}</td>
-                                <td>{{ $city->name }}</td>
-                                <td>
+                                <td class="text-center">{{ $loop->index+1}}</td>
+                                <td class="text-center">{{ $city->name }}</td>
+                                <td class="text-center">
                                     <a href="#" onclick="event.preventDefault(); document.getElementById('restore-form-{{ $city->id }}').submit();">
                                         <i class="fa-solid fa-arrow-rotate-left text-success"></i>                                    
                                     </a>
@@ -40,15 +40,7 @@
                                     </form>
                                 </td>
                             </tr>
-                        @empty
-                        <tr>
-                            <div>
-                             <td colspan="3">
-                               <h1 class="text-center alert alert-warning">{{  __('admin.No Trashed Cities Found!')}}</h1>
-                            </td>
-                           </div>
-                        </tr>
-                        @endforelse
+                        @endforeach
                     </tbody>
                 </table>
         </div>

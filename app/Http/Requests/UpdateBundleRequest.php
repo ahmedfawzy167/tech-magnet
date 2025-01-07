@@ -26,6 +26,8 @@ class UpdateBundleRequest extends FormRequest
                 'name' => 'required|string|max:100',
                 'description' => 'required|string',
                 'price' => 'required|numeric|min:0',
+                'courses' => ['nullable', 'array'],
+                'courses.*' => ['exists:courses,id'],
                 'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             ];
     }

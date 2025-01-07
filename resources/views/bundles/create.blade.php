@@ -32,7 +32,6 @@
                 <div class="form-group col-12">
                      <label for="courses">{{__('admin.Courses')}}<span class="text-danger ms-2">*</span></label><br>
                       <select name="courses[]" id="courses" class="form-select select2" multiple>
-                        <option value="#"selected>Choose..</option>
                         @foreach ($courses as $course)
                         <option value="{{$course->id}}">{{ $course->name }}</option>
                         @endforeach
@@ -41,9 +40,7 @@
 
                  <div class="form-group col-12">
                     <label for="image"> {{ __('admin.Image') }}<span class="text-danger ms-2">*</span></label>
-                    <input type="file" name="image" id="image"
-                        class="form-control @error('image') is-invalid @enderror" onchange="previewImage(event)">
-                    <div class="invalid-feedback">Please Upload an Image</div>
+                    <input type="file" name="image" id="image" class="form-control @error('image') is-invalid @enderror" onchange="previewImage(event)">
                     <img id="imagePreview" class="mt-3" src="#" alt="Image Preview" style="display:none; max-width: 300px; height: auto;">
                  </div>
 

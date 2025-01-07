@@ -14,6 +14,7 @@
                     <tr>
                         <th class="text-center">{{ __('admin.ID') }}</th>
                         <th class="text-center">{{ __('admin.Name') }}</th>
+                        <th class="text-center">{{ __('admin.Date') }}</th>
                         <th class="text-center">{{ __('admin.Actions') }}</th>
                     </tr>
                     </thead>
@@ -22,6 +23,7 @@
                             <tr>
                                 <td class="text-center">{{ $loop->index+1 }}</td>
                                 <td class="text-center">{{ $category->name }}</td>
+                                <td class="text-center">{{\Carbon\Carbon::parse($category->created_at)->diffForHumans()}}</td>
                                 <td class="text-center">
                                     <a href="#" onclick="event.preventDefault(); document.getElementById('restore-form-{{ $category->id }}').submit();">
                                         <i class="fa-solid fa-arrow-rotate-left text-success"></i>                                    

@@ -37,20 +37,23 @@ class CourseController extends Controller
             $course->price = $request->price;
             $course->hours = $request->hours;
             $course->category_id = $request->category_id;
+            $course->status = $request->has('status') ? 1 : 0;
             $course->save();
             $course->roadmaps()->attach($request->roadmaps);
 
-            $img = $request->file('image');
-            $ext = $img->getClientOriginalExtension();
-            $fileName = Date("Y-m-d-h-i-s") . '.' . $ext;
-            $location = "public/";
-            $img->storeAs($location, $fileName);
+            if ($request->hasFile('image')) {
+                $img = $request->file('image');
+                $ext = $img->getClientOriginalExtension();
+                $fileName = Date("Y-m-d-h-i-s") . '.' . $ext;
+                $location = "public/";
+                $img->storeAs($location, $fileName);
 
-            $course->image()->create([
-                'path' => $fileName,
-                'imageable_id' => $course->id,
-                'imageable_type' => 'App\Models\Course',
-            ]);
+                $course->image()->create([
+                    'path' => $fileName,
+                    'imageable_id' => $course->id,
+                    'imageable_type' => 'App\Models\Course',
+                ]);
+            }
 
             DB::commit();
             return redirect(route('courses.index'))->with('message', 'Course Created Successfully');
@@ -97,6 +100,7 @@ class CourseController extends Controller
             $course->price = $request->price;
             $course->hours = $request->hours;
             $course->category_id = $request->category_id;
+            $course->status = $request->has('status') ? 1 : 0;
             $course->save();
             $course->roadmaps()->sync($request->roadmaps);
 
@@ -125,7 +129,7 @@ class CourseController extends Controller
     public function destroy(Course $course)
     {
         $course->delete();
-        return redirect(route('courses.index'))->with('message', 'Course Trashed Sucessfully');
+        return redirect(route('courses.index'))->with('message', 'Course Deleted Sucessfully');
     }
 
     public function trash()
@@ -165,13 +169,42 @@ class CourseController extends Controller
 
     public function bulkDestroy(Request $request)
     {
-        $ids = $request->input('ids');
-        if (!$ids) {
-            return redirect()->back()->withErrors([
-                'error' => 'No Courses Were Selected!'
-            ]);
+        $ids = $request->input('ids')[0];
+
+        if (empty($ids)) {
+            return redirect()->back()->withErrors(['error' => 'No Courses Selected!']);
         }
+
+        $ids = explode(',', $ids);
         Course::whereIn('id', $ids)->delete();
         return redirect()->back()->with('message', 'Courses Deleted Successfully');
+    }
+
+    public function bulkActivate(Request $request)
+    {
+        $ids = $request->input('ids')[0];
+
+        if (empty($ids)) {
+            return redirect()->back()->withErrors(['error' => 'No Courses Selected!']);
+        }
+
+        $ids = explode(',', $ids);
+
+        Course::whereIn('id', $ids)->update(['status' => true]);
+        return redirect()->back()->with('message', 'Courses Activated Successfully');
+    }
+
+    public function bulkDeactivate(Request $request)
+    {
+        $ids = $request->input('ids')[0];
+
+        if (empty($ids)) {
+            return redirect()->back()->withErrors(['error' => 'No Courses Selected!']);
+        }
+
+        $ids = explode(',', $ids);
+
+        Course::whereIn('id', $ids)->update(['status' => false]);
+        return redirect()->back()->with('message', 'Courses Deactivated Successfully');
     }
 }

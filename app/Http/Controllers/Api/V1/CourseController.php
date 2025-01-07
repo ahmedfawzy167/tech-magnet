@@ -19,6 +19,7 @@ class CourseController extends Controller
         $sortOrder = $request->get('sort_order', 'desc');
 
         $courses = Course::with(['image', 'category'])
+            ->where('status', 1)
             ->orderBy($sortBy, $sortOrder)
             ->paginate(4);
 

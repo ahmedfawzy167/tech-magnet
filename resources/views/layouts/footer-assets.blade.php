@@ -79,13 +79,55 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 @endif
 
-
-
 <script>
-$(document).ready(function() {
- $('#data-table').DataTable();
+    // $(document).ready(function() {
+    //     $('#data-table').DataTable({
+    //         dom: 'Bfrtip',
+    //         buttons: [
+    //             {
+    //                 extend: 'excelHtml5',
+    //                 text: 'Export to Excel',
+    //                 className: 'btn btn-success me-2' 
+    //             },
+    //             {
+    //                 extend: 'pdfHtml5',
+    //                 text: 'Export to PDF',
+    //                 className: 'btn btn-danger'
+    //             }
+    //         ]
+    //     });
+    // });
+
+    $(document).ready(function() {
+    let table = new DataTable('#data-table', {
+        dom: 'Bfrtip',
+        buttons: [
+            {
+                extend: 'excelHtml5', // Excel export
+                text: 'Export to Excel',
+                className: 'btn btn-success mt-2', 
+                title: 'ExportedData' 
+            },
+            {
+                extend: 'pdfHtml5',  // PDF export
+                text: 'Export to PDF',
+                className: 'btn btn-danger mt-2 ms-3',
+                title: 'ExportedData'
+            },
+            {
+                extend: 'csvHtml5',  // CSV export
+                text: 'Export to CSV',
+                className: 'btn btn-primary mt-2 ms-3',
+                title: 'ExportedData'
+            }
+        ]
+    });
 });
+
+
 </script>
+
+
 
 <script>
 $(document).ready(function() {
@@ -119,7 +161,7 @@ $(document).ready(function() {
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
                     cancelButtonColor: '#d33',
-                    confirmButtonText: 'Yes, Trash it!'
+                    confirmButtonText: 'Yes, Delete it!'
                 }).then((result) => {
                     if (result.isConfirmed) {
                         var form = document.createElement('form');

@@ -52,12 +52,17 @@
                </div>
 
                 <div class="form-group col-md-12">
-                    <label for="image"> {{ __('admin.Image') }}</label>
+                  <label for="image"> {{ __('admin.Image') }} <span class="text-muted">{{ (__('admin.(Optional)'))}}</span></label>
                     <input type="file" name="image" id="images"
                         class="form-control @error('image') is-invalid @enderror" onchange="previewImage(event)">
                         <img src="{{asset('storage/'.$course->image->path)}}" id="imagePreview" class="mt-3" style="max-width: 300px; height: auto;">
                 </div>
 
+                <div class="form-check">
+                  <input type="checkbox" name="status" id="status" class="form-check-input" @checked($course->status->value === 1)>
+                  <label for="status" class="form-check-label">{{ __('admin.Show on Website') }}</label>
+                </div>
+    
                 <div class="text-center">
                     <button type="submit" class="btn btn-primary btn-lg">{{ __('admin.Update') }}</button>
                     <button type="reset" class="btn btn-secondary btn-lg">{{ __('admin.Reset') }}</button>

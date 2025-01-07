@@ -8,12 +8,11 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
 
-
 class CategoryController extends Controller
 {
     public function index()
     {
-        $categories = Category::select('id', 'name')->get();
+        $categories = Category::all();
         return view('categories.index', compact('categories'));
     }
 
@@ -40,7 +39,7 @@ class CategoryController extends Controller
     public function destroy(Category $category)
     {
         $category->delete();
-        return redirect(route('categories.index'))->with('message', 'Category Trashed Successfully');
+        return redirect(route('categories.index'))->with('message', 'Category Deleted Successfully');
     }
 
     public function trash()

@@ -44,6 +44,11 @@ Route::middleware(['auth:admin', 'Language'])
         Route::resource('students', 'StudentController');
         /* End of Students Routes */
 
+        /* Start of Mentors Routes */
+        Route::put('mentors/update-status/{id}', 'MentorController@updateStatus')->name('mentors.update-status');
+        Route::resource('mentors', 'MentorController');
+        /* End of Mentors Routes */
+
         /* Start of Operations Routes */
         Route::put('operations/update-status/{id}', 'OperationController@updateStatus')->name('operations.update-status');
         Route::resource('operations', 'OperationController');
@@ -54,6 +59,8 @@ Route::middleware(['auth:admin', 'Language'])
         Route::put('courses/restore/{id}', 'CourseController@restore')->name('courses.restore');
         Route::delete('courses/force_delete/{id}', 'CourseController@forceDelete')->name('courses.force-delete');
         Route::delete('courses/bulk-destroy', 'CourseController@bulkDestroy')->name('courses.bulk-destroy');
+        Route::patch('/courses/bulk-activate', 'CourseController@bulkActivate')->name('courses.bulk-activate');
+        Route::patch('/courses/bulk-deactivate', 'CourseController@bulkDeactivate')->name('courses.bulk-deactivate');
         Route::resource('courses', 'CourseController');
         /* End of Courses Routes */
 

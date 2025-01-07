@@ -14,20 +14,19 @@
       @csrf
 
       <div class="form-group col-12 mt-3">
-       <label for="title"><i class="fa-solid fa-file-signature"></i> {{__('admin.Title')}}</label>
+       <label for="title">{{__('admin.Title')}}<span class="text-danger ms-2">*</span></label>
        <input type="text" name="title" id="title" class="form-control mt-2 @error('title') is-invalid @enderror">
       </div>
 
        <div class="form-group col-md-12">
-          <label for="description"><i class="ion-ios-albums"></i> {{ __('admin.Description') }}</label>
+          <label for="description"> {{ __('admin.Description') }}<span class="text-danger ms-2">*</span></label>
           <textarea name="description" id="summernote"
             class="form-control @error('description') is-invalid @enderror"></textarea>
       </div>
       <div class="form-group col-md-12">
-        <label for="image"><i class="ion-images"></i> {{ __('admin.Image') }}<span class="text-danger ms-2">*</span></label>
+        <label for="image"> {{ __('admin.Image') }} <span class="text-muted">{{ (__('admin.(Optional)'))}}</span></label>
         <input type="file" name="image" id="image" class="form-control @error('image') is-invalid @enderror" onchange="previewImage(event)">
         <img id="imagePreview" class="mt-3" src="#" alt="Image Preview" style="display:none; max-width: 300px; height: auto;">
-      
       </div>
       
       <div class="text-center mt-3">

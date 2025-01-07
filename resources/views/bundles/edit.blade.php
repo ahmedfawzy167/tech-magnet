@@ -25,15 +25,12 @@
 
                 <div class="form-group col-12">
                     <label for="price"> {{ __('admin.Price') }}<span class="text-danger ms-2">*</span></label>
-                    <input type="number" name="price" id="price" value="{{ $bundle->price }}" value="{{ $bundle->price }}"
-                    class="form-control @error('price') is-invalid @enderror">
+                    <input type="number" name="price" id="price" value="{{ $bundle->price }}" class="form-control @error('price') is-invalid @enderror">
                 </div>
-
 
                  <div class="form-group col-12">
                      <label for="courses">{{__('admin.Courses')}}<span class="text-danger ms-2">*</span></label><br>
                       <select name="courses[]" id="courses" class="form-select select2" multiple>
-                        <option value="#"selected>Choose..</option>
                         @foreach ($courses as $course)
                         <option value="{{ $course->id }}" {{ $bundle->courses->contains($course->id) ? 'selected' : '' }}>
                             {{ $course->name }}
@@ -46,7 +43,6 @@
                     <label for="image"> {{ __('admin.Image') }}<span class="text-danger ms-2">*</span></label>
                     <input type="file" name="image" id="image" 
                         class="form-control @error('image') is-invalid @enderror" onchange="previewImage(event)">
-                    <div class="invalid-feedback">Please Upload an Image</div>
                     <img src="{{asset('storage/'.$bundle->image->path)}}" id="imagePreview" class="mt-3" style="max-width: 300px; height: auto;">
                 </div>
 

@@ -9,28 +9,30 @@
         <div class="card">
         <div class="card-body">
              <h1 class="text-center bg-warning text-light"><i class="ion-alert"></i> {{ __('admin.All Trashed Blogs') }}</h1>
-             <table class="table table-hover table-bordered mt-3">
+             <table class="table table-hover table-bordered mt-3" id="data-table">
                 <thead class="table-dark">
                     <tr>
-                        <th>{{ __('admin.ID') }}</th>
-                        <th>{{ __('admin.Name') }}</th>
-                        <th>{{ __('admin.Description') }}</th>
-                        <th>{{ __('admin.Image') }}</th>
-                        <th>{{ __('admin.Actions') }}</th>
+                        <th class="text-center">{{ __('admin.ID') }}</th>
+                        <th class="text-center">{{ __('admin.Name') }}</th>
+                        <th class="text-center">{{ __('admin.Description') }}</th>
+                        <th class="text-center">{{ __('admin.Image') }}</th>
+                        <th class="text-center">{{ __('admin.Actions') }}</th>
                     </tr>
                     </thead>
                     <tbody>
-                        @forelse($trashedBlogs as $blog)
+                        @foreach($trashedBlogs as $blog)
                             <tr>
-                                <td>{{ $loop->index+1 }}</td>
-                                <td>{{ $blog->title }}</td>
-                                <td>{{\Str::limit($blog->description,20)}}</td>
-                                <td>
-                                    @if($blog->image)
-                                      <img src="{{ asset('storage/' . $blog->image->path) }}" width="70px" class="mr-2">
-                                    @endif
+                                <td class="text-center">{{ $loop->index+1 }}</td>
+                                <td class="text-center">{{ $blog->title }}</td>
+                                <td class="text-center">{{\Str::limit($blog->description,20)}}</td>
+                                <td class="text-center">
+                                    @if($blog?->image)
+                                    <img src="{{ asset('storage/' . $blog->image->path) }}" width="70px" class="mr-2">
+                                  @else
+                                    <span class="badge bg-danger">{{__('admin.No Image Found!')}}</span>
+                                  @endif
                                 </td>
-                                <td>
+                                <td class="text-center">
                                     <a href="#" onclick="event.preventDefault(); document.getElementById('restore-form-{{ $blog->id }}').submit();">
                                         <i class="fa-solid fa-arrow-rotate-left text-success"></i>                                    
                                     </a>
@@ -48,19 +50,11 @@
                                     </form>
                                 </td>
                             </tr>
-                        @empty
-                        <tr>
-                            <div>
-                             <td colspan="4">
-                               <h1 class="text-center alert alert-warning">{{ __('admin.No Trashed Blogs Found!') }}</h1>
-                            </td>
-                           </div>
-                        </tr>
-                        @endforelse
+                        @endforeach
                     </tbody>
                 </table>
         </div>
     </div>
 
 
-    @endsection
+@endsection

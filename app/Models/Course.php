@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\CourseStatus;
 use Spatie\Searchable\Searchable;
 use Spatie\Searchable\SearchResult;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -12,7 +13,7 @@ class Course extends Model implements Searchable
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['name', 'description', 'price', 'hours', 'category_id', 'objective_id'];
+    protected $fillable = ['name', 'description', 'price', 'hours', 'category_id', 'status'];
 
     public function category()
     {
@@ -117,4 +118,8 @@ class Course extends Model implements Searchable
             $url
         );
     }
+
+    protected $casts = [
+        'status' => CourseStatus::class,
+    ];
 }

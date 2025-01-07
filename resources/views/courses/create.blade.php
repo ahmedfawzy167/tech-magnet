@@ -52,11 +52,14 @@
                </div>
 
                 <div class="form-group col-md-12">
-                    <label for="image"> {{ __('admin.Image') }}<span class="text-danger ms-2">*</span></label>
+                    <label for="image"> {{ __('admin.Image') }} <span class="text-muted">{{ (__('admin.(Optional)'))}}</span></label>
                     <input type="file" name="image" id="image"
                         class="form-control @error('image') is-invalid @enderror" onchange="previewImage(event)">
-                    <div class="invalid-feedback">Please Upload an Image</div>
                     <img id="imagePreview" class="mt-3" src="#" alt="Image Preview" style="display:none; max-width: 300px; height: auto;">
+                </div>
+                <div class="form-check ms-3">
+                    <input type="checkbox" name="status" id="status" class="form-check-input" checked>
+                    <label for="status" class="form-check-label">{{ __('admin.Show on Website') }}</label>
                 </div>
 
                 <div class="text-center">
@@ -67,7 +70,7 @@
             </form>
         </div>
     </div>
-    @endsection
+@endsection
 
 @section('page-scripts')
   <script src="{{ asset('assets/js/imagePreview.js') }}"></script>

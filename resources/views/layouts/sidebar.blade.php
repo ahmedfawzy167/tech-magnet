@@ -4,7 +4,6 @@
     <!-- Sidebar -->
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
-        <!-- Sidebar - Brand -->
         <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('home') }}">
             <div class="sidebar-brand-icon">
                 <img src="{{ asset('storage/'.settings()->logo) }}" width="30px">
@@ -74,6 +73,24 @@
                     </a>
                     <a class="collapse-item {{ isActiveRoute('instructors.create', 'bg-primary text-white') }}" href="{{ route('instructors.create') }}">
                         <i class="ion-plus-circled"></i> {{ __('admin.Add New Instructor') }}
+                    </a>
+                </div>
+            </div>
+        </li>
+
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#mentorsCollapse"
+                aria-expanded="true" aria-controls="mentorsCollapse">
+                <span>{{__('admin.Mentors')}}</span>
+            </a>
+            <div id="mentorsCollapse" class="collapse" aria-labelledby="headingMentors" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item {{ isActiveRoute('mentors.index', 'bg-primary text-white') }}" href="{{ route('mentors.index') }}">
+                        <i class="fa-solid fa-list"></i> {{ __('admin.All Mentors') }}
+                    </a>
+                    <a class="collapse-item {{ isActiveRoute('mentors.create', 'bg-primary text-white') }}" href="{{ route('mentors.create') }}">
+                        <i class="ion-plus-circled"></i> {{ __('admin.Add New Mentor') }}
                     </a>
                 </div>
             </div>
@@ -170,9 +187,6 @@
                 <div class="bg-white py-2 collapse-inner rounded">
                     <a class="collapse-item {{ isActiveRoute('cities.index', 'bg-primary text-white') }}" href="{{ route('cities.index') }}">
                         <i class="fa-solid fa-list"></i> {{ __('admin.All Cities') }}
-                    </a>
-                    <a class="collapse-item {{ isActiveRoute('cities.create', 'bg-primary text-white') }}" href="{{ route('cities.create') }}">
-                        <i class="ion-plus-circled"></i> {{ __('admin.Add New City') }}
                     </a>
                     <a class="collapse-item {{ isActiveRoute('cities.trashed', 'bg-primary text-white') }}" href="{{ route('cities.trashed') }}">
                         <i class="ion-alert"></i> {{ __('admin.All Trashed Cites') }}
@@ -419,7 +433,7 @@
 
                 <div class="copyright text-center mt-2 ms-5">
                     <h6 class="text-primary">
-                        <i class="far fa-calendar-alt"></i> {{ date("F Y") }}
+                        <i class="far fa-calendar-alt"></i> {{ now()->translatedFormat('F Y') }}
                     </h6>
                 </div>
 
@@ -473,10 +487,9 @@
                         <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
                             aria-labelledby="alertsDropdown">
                             <h6 class="dropdown-header">
-                                Alerts Center
+                                {{ __('admin.Alerts Center') }}
                             </h6>
-                            @foreach(auth()->guard('admin')->user()->unreadNotifications as $notification)
-
+                            @foreach(auth()->guard('admin')->user()->unreadNotifications->sortByDesc('created_at')->take(5) as $notification)
                             <a class="dropdown-item d-flex align-items-center" href="{{ route('notifications.show', $notification->id) }}">
                                 <div class="mr-3">
                                     <div class="icon-circle bg-primary">
@@ -506,7 +519,7 @@
 
                             <img class="img-profile rounded-circle"
                                 src="{{asset('assets/img/undraw_profile.svg')}}">
-                        </a>
+                          </a>
                        
                         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                             aria-labelledby="userDropdown">

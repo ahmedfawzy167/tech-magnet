@@ -5,6 +5,10 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Blog;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreBlogRequest;
+use App\Http\Requests\UpdateBlogRequest;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class BlogController extends Controller
 {
@@ -28,33 +32,35 @@ class BlogController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreBlogRequest $request)
     {
+        DB::beginTransaction();
 
-        $request->validate([
-            'title' => 'required|string|between:2,100',
-            'description' => 'required|string|max:1000',
-            'image' => 'required|image|mimes:png,jpg,jpeg|max:2048',
-        ]);
+        try {
+            $blog = new Blog();
+            $blog->title = $request->title;
+            $blog->description = $request->description;
+            $blog->save();
 
-        $img = $request->file('image');
-        $ext = $img->getClientOriginalExtension();
-        $fileName = Date("Y-m-d-h-i-s") . '.' . $ext;
-        $location = "public/";
-        $img->storeAs($location, $fileName);
+            if ($request->hasFile('image')) {
+                $img = $request->file('image');
+                $ext = $img->getClientOriginalExtension();
+                $fileName = Date("Y-m-d-h-i-s") . '.' . $ext;
+                $location = "public/";
+                $img->storeAs($location, $fileName);
 
-        $blog = new Blog();
-        $blog->title = $request->title;
-        $blog->description = $request->description;
-        $blog->save();
-
-        $blog->image()->create([
-            'path' => $fileName,
-            'imageable_id' => $blog->id,
-            'imageable_type' => 'App\Models\Blog',
-        ]);
-
-        return redirect(route('blogs.index'))->with('message', 'Blog Created Successfully');
+                $blog->image()->create([
+                    'path' => $fileName,
+                    'imageable_id' => $blog->id,
+                    'imageable_type' => 'App\Models\Blog',
+                ]);
+            }
+            DB::commit();
+            return redirect(route('blogs.index'))->with('message', 'Blog Created Successfully');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->back()->withErrors('error', $e->getMessage());
+        }
     }
 
     /**
@@ -77,33 +83,33 @@ class BlogController extends Controller
      * Update the specified resource in storage.
      */
 
-    public function update(Request $request, Blog $blog)
+    public function update(UpdateBlogRequest $request, Blog $blog)
     {
-        $request->validate([
-            'title' => 'required|string|between:2,100',
-            'description' => 'required|string|max:1000',
-            'image' => 'nullable|image|mimes:png,jpg,jpeg|max:2048',
-        ]);
+        DB::beginTransaction();
+        try {
+            $blog->title = $request->title;
+            $blog->description = $request->description;
+            $blog->save();
 
-        $blog->title = $request->title;
-        $blog->description = $request->description;
-        $blog->save();
+            if ($request->hasFile('image')) {
+                $img = $request->file('image');
+                $ext = $img->getClientOriginalExtension();
+                $fileName = Date("Y-m-d-h-i-s") . '.' . $ext;
+                $location = "public/";
+                $img->storeAs($location, $fileName);
 
-        if ($request->hasFile('image')) {
-            $img = $request->file('image');
-            $ext = $img->getClientOriginalExtension();
-            $fileName = Date("Y-m-d-h-i-s") . '.' . $ext;
-            $location = "public/";
-            $img->storeAs($location, $fileName);
-
-            $blog->image()->update([
-                'path' => $fileName,
-                'imageable_id' => $blog->id,
-                'imageable_type' => 'App\Models\Blog',
-            ]);
+                $blog->image()->update([
+                    'path' => $fileName,
+                    'imageable_id' => $blog->id,
+                    'imageable_type' => 'App\Models\Blog',
+                ]);
+            }
+            DB::commit();
+            return redirect(route('blogs.index'))->with('message', 'Blog Updated Sucessfully');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->back()->withErrors('error', $e->getMessage());
         }
-
-        return redirect(route('blogs.index'))->with('message', 'Blog Updated Successfully');
     }
 
     public function destroy(Blog $blog)
@@ -114,7 +120,7 @@ class BlogController extends Controller
 
     public function trash()
     {
-        $trashedBlogs = Blog::onlyTrashed()->get();
+        $trashedBlogs = Blog::with('image')->onlyTrashed()->get();
         return view('blogs.trashed', compact('trashedBlogs'));
     }
 
@@ -122,14 +128,19 @@ class BlogController extends Controller
     {
         $blog = Blog::withTrashed()->findOrFail($id);
         $blog->restore();
-        return redirect()->route('blogs.index')->with('message', 'Blog Restored Successfully');
+        return redirect()->back()->with('message', 'Blog Restored Successfully');
     }
 
     public function forceDelete($id)
     {
         $blog = Blog::withTrashed()->findOrFail($id);
-        $blog->forceDelete();
+
+        // Check if Bundle has an image
+        if ($blog->image()->exists()) {
+            Storage::disk('public')->delete($blog->image->path);
+        }
         $blog->image()->delete();
-        return redirect()->route('blogs.index')->with('message', 'Blog Permenantly Deleted Successfully');
+        $blog->forceDelete();
+        return redirect()->back()->with('message', 'Blog Permenantly Deleted Successfully');
     }
 }

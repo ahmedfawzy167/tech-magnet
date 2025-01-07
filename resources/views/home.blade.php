@@ -5,15 +5,9 @@
 @endsection
 
 @section('page-head')
-<style>
-    .border-left-pink {
-        border-left: 0.25rem solid #ff69b4;
-    }
-    
-    .text-pink {
-        color: #ff69b4;
-    }
-</style>
+
+<link rel="stylesheet" href="{{ asset('assets/css/home/home.css') }}">
+
 @endsection
 
 
@@ -202,7 +196,7 @@
                 <div class="col-xl-12 mb-4">
                     <div class="card">
                         <div class="card-header">
-                          <h4><i class="ion-ios-pie"></i> Users By City</h4>
+                          <h4><i class="ion-ios-pie"></i> {{ __('admin.Users By City') }}</h4>
                         </div>
                         
                         <div class="card-body" style="width: 500px; height: 500px; margin: auto;">
@@ -224,21 +218,25 @@
                         <table class="table table-hover table-bordered" id="data-table">
                             <thead class="table-dark">
                                 <tr>
-                                    <th>{{ __('admin.Name') }}</th>
-                                    <th>{{ __('admin.Category') }}</th>
-                                    <th>{{ __('admin.Price') }}</th>
-                                    <th>{{ __('admin.Date') }}</th>
-                                    <th>{{ __('admin.Image') }}</th>
+                                    <th class="text-center">{{ __('admin.ID') }}</th>
+                                    <th class="text-center">{{ __('admin.Name') }}</th>
+                                    <th class="text-center">{{ __('admin.Category') }}</th>
+                                    <th class="text-center">{{ __('admin.Price') }}</th>
+                                    <th class="text-center">{{ __('admin.Hours') }}</th>
+                                    <th class="text-center">{{ __('admin.Date') }}</th>
+                                    <th class="text-center">{{ __('admin.Image') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($coursesThisMonth as $course)
                                     <tr>
-                                       <td>{{ $course->name }}</td>
-                                        <td>{{ $course->category->name }}</td>
-                                        <td>EGP {{ $course->price }}</td>
-                                        <td>{{ \Carbon\Carbon::parse($course->created_at)->diffForHumans() }}</td>
-                                        <td>
+                                        <td class="text-center">{{ $loop->iteration }}</td>
+                                        <td class="text-center">{{ $course->name }}</td>
+                                        <td class="text-center">{{ $course->category->name }}</td>
+                                        <td class="text-center">EGP {{ $course->price }}</td>
+                                        <td class="text-center">{{ $course->hours }}</td>
+                                        <td class="text-center">{{ \Carbon\Carbon::parse($course->created_at)->diffForHumans() }}</td>
+                                        <td class="text-center">
                                              @if($course->image)
                                               <img src="{{ asset('storage/' . $course->image->path) }}" width="70px" class="mr-2">
                                              @endif

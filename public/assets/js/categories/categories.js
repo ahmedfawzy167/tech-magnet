@@ -11,7 +11,7 @@ $(document).ready(function () {
 
         $('#updateCategoryId').val(categoryId);
         $('#updateCategoryName').val(categoryName);
-        $('#updateCategoryForm').attr('action', '/admin/categories/' + categoryId); // Set the action URL
+        $('#updateCategoryForm').attr('action', '/admin/categories/' + categoryId);
 
     });
 });

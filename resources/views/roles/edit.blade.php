@@ -12,7 +12,7 @@
             @csrf
             @method('PUT')
             <div class="form-group col-md-12">
-                <label for="name"><i class="fa-solid fa-file-signature"></i> {{ __('admin.Name') }}<span class="text-danger ms-2">*</span></label>
+                <label for="name"> {{ __('admin.Name') }}<span class="text-danger ms-2">*</span></label>
                 <input type="text" name="name" id="name" value="{{ $role->name }}"
                     class="form-control @error('name') is-invalid @enderror">
             </div>

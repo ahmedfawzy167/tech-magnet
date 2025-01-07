@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Roadmap;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreRoadmapRequest;
+use App\Http\Requests\UpdateRoadmapRequest;
 
 class RoadmapController extends Controller
 {
@@ -19,13 +21,8 @@ class RoadmapController extends Controller
         return view('roadmaps.create');
     }
 
-    public function store(Request $request)
+    public function store(StoreRoadmapRequest $request)
     {
-        $request->validate([
-            'title' => 'required|string|between:2,100',
-            'description' => 'required|string|max:1000',
-        ]);
-
         $roadmap = new Roadmap();
         $roadmap->title = $request->title;
         $roadmap->description = $request->description;
@@ -42,16 +39,9 @@ class RoadmapController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Roadmap $roadmap)
+    public function update(UpdateRoadmapRequest $request, Roadmap $roadmap)
     {
-        $request->validate([
-            'title' => 'required|string|between:2,100',
-            'description' => 'required|string|max:1000',
-        ]);
-
-        $roadmap->title = $request->title;
-        $roadmap->description = $request->description;
-        $roadmap->save();
+        $roadmap->update($request->validated());
 
         return redirect(route('roadmaps.index'))->with('message', 'Roadmap Updated Successfully');
     }

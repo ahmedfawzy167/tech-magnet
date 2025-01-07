@@ -44,17 +44,20 @@ class BundleController extends Controller
             $bundle->save();
             $bundle->courses()->attach($request->courses);
 
-            $img = $request->file('image');
-            $ext = $img->getClientOriginalExtension();
-            $fileName = Date("Y-m-d-h-i-s") . '.' . $ext;
-            $location = "public/";
-            $img->storeAs($location, $fileName);
+            // Check If Bundle Has Image
+            if ($request->hasFile('image')) {
+                $img = $request->file('image');
+                $ext = $img->getClientOriginalExtension();
+                $fileName = Date("Y-m-d-h-i-s") . '.' . $ext;
+                $location = "public/";
+                $img->storeAs($location, $fileName);
 
-            $bundle->image()->create([
-                'path' => $fileName,
-                'imageable_id' => $bundle->id,
-                'imageable_type' => 'App\Models\Bundle',
-            ]);
+                $bundle->image()->create([
+                    'path' => $fileName,
+                    'imageable_id' => $bundle->id,
+                    'imageable_type' => 'App\Models\Bundle',
+                ]);
+            }
             DB::commit();
             return redirect()->route('bundles.index')->with('message', 'Bundle Created Successfully');
         } catch (\Exception $e) {
@@ -92,6 +95,10 @@ class BundleController extends Controller
             $bundle->courses()->sync($request->courses);
 
             if ($request->hasFile('image')) {
+                // Delete Old image if it exists
+                if ($bundle->image) {
+                    Storage::disk('public')->delete($bundle->image->path);
+                }
 
                 $img = $request->file('image');
                 $ext = $img->getClientOriginalExtension();
@@ -133,7 +140,7 @@ class BundleController extends Controller
         $bundle = Bundle::withTrashed()->findOrFail($id);
         $bundle->restore();
 
-        return redirect()->route('bundles.index')->with('message', 'Bundle Restored Successfully');
+        return redirect()->back()->with('message', 'Bundle Restored Successfully');
     }
 
     public function forceDelete($id)
@@ -156,6 +163,6 @@ class BundleController extends Controller
         $bundle->image()->delete();
         $bundle->forceDelete();
 
-        return redirect()->route('bundles.index')->with('message', 'Bundle Permanently Deleted');
+        return redirect()->back()->with('message', 'Bundle Permanently Deleted');
     }
 }

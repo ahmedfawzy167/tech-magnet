@@ -20,6 +20,7 @@
                      <tr>
                         <th class="text-center">{{ __('admin.ID') }}</th>
                         <th class="text-center">{{ __('admin.Name') }}</th>
+                        <th class="text-center">{{ __('admin.Date') }}</th>
                         <th class="text-center">{{ __('admin.Actions') }}</th>
                      </tr>
                     </thead>
@@ -28,6 +29,7 @@
                             <tr>
                                 <td class="text-center">{{ $loop->index + 1 }}</td>
                                 <td class="text-center">{{ $category->name }}</td>
+                                <td class="text-center">{{\Carbon\Carbon::parse($category->created_at)->diffForHumans()}}</td>
                                 <td class="text-center">
                                     <a href="{{ route('categories.show', $category->id) }}"><i class="fa-solid fa-eye text-info"></i></a>
                                     <a href="#" class="btn-edit" data-id="{{ $category->id }}" data-name="{{ $category->name }}" data-toggle="modal" data-target="#updateCategoryModal">
@@ -49,7 +51,7 @@
       </div>
 
 
-<!-- Modal -->
+<!-- Modal For Adding Category -->
 <div class="modal fade" id="categoryModal" tabindex="-1" aria-labelledby="categoryModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">

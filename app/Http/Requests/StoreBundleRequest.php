@@ -25,8 +25,9 @@ class StoreBundleRequest extends FormRequest
             'name' => 'required|string|max:100',
             'description' => 'required|string',
             'price' => 'required|numeric|min:0',
-            'courses.*' => 'nullable|exists:courses,id',
-            'image'  => 'required|image|mimes:jpeg,png,jpg|max:3000',
+            'courses' => ['required', 'array'],
+            'courses.*' => ['exists:courses,id'],
+            'image'  => 'nullable|image|mimes:jpeg,png,jpg|max:3000',
         ];
     }
 }

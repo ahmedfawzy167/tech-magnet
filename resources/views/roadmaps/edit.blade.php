@@ -12,13 +12,13 @@
                 @csrf
                 @method('PUT')
                 <div class="form-group col-md-12">
-                    <label for="title"><i class="fa-solid fa-file-signature"></i> {{ __('admin.Name') }}<span class="text-danger ms-2">*</span></label>
+                    <label for="title">{{ __('admin.Name') }}<span class="text-danger ms-2">*</span></label>
                     <input type="text" name="title" id="title" value="{{$roadmap->title}}"
                         class="form-control @error('title') is-invalid @enderror">
                 </div>
 
                 <div class="form-group col-md-12">
-                    <label for="description"><i class="ion-ios-albums"></i> {{ __('admin.Description') }}<span class="text-danger ms-2">*</span></label>
+                    <label for="description">{{ __('admin.Description') }}<span class="text-danger ms-2">*</span></label>
                     <textarea name="description"
                         class="form-control @error('description') is-invalid @enderror">{{$roadmap->description}}</textarea>
                 </div>
