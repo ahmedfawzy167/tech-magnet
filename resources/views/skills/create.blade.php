@@ -19,8 +19,7 @@
 
                 <div class="form-group col-12">
                     <label for="content">{{ __('admin.Content') }}<span class="text-danger ms-2">*</span></label>
-                    <textarea name="content" id="content" class="form-control @error('content') is-invalid @enderror"></textarea>
-                    </textarea> 
+                    <textarea name="content" id="cKEditor" class="form-control @error('content') is-invalid @enderror"></textarea> 
                 </div>
                  
               <div class="form-group col-12">

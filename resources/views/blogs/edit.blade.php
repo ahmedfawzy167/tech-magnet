@@ -21,20 +21,20 @@
 
        <div class="form-group col-md-12">
           <label for="description">{{ __('admin.Description') }}<span class="text-danger ms-2">*</span></label>
-          <textarea name="description" id="summernote" class="form-control @error('description') is-invalid @enderror">{{$blog->description}}</textarea>
+          <textarea name="description" id="cKEditor" class="form-control @error('description') is-invalid @enderror">{{$blog->description}}</textarea>
       </div>
 
       <div class="form-group col-md-12">
         <label for="image">{{ __('admin.Image') }}<span class="text-muted">{{ __('admin.(Optional)') }}</span></label>
         <input type="file" name="images" id="image" class="form-control @error('images') is-invalid @enderror" onchange="previewImage(event)">
-        @if($blog?->image && $blog?->image?->path)
+          @if($blog?->image && $blog?->image?->path)
             <img src="{{ asset('storage/blogs/' . $blog->id . '/' . $blog->image->path) }}" id="imagePreview"  class="mt-3" style="max-width: 300px; height: auto;">
-        @else
+          @else
             <div class="mt-2 text-danger d-flex align-items-center">
                 <i class="fas fa-exclamation-triangle me-2"></i>
                 <p class="mb-0">{{ __('admin.No Image Available') }}</p>
             </div>
-        @endif
+          @endif
        </div>
 
       <div class="text-center mt-3">

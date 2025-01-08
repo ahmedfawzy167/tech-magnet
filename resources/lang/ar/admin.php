@@ -25,6 +25,7 @@ return [
     'No Roadmap Defined!'  => 'لا يوجد متطلبات!',
     'Original Price'    => 'السعر الاساسي',
     'No Image Available' => 'لا توجد صورة متاحة',
+    'File'  => 'الملف',
     'New Skill' => 'مهارة جديدة',
     'Courses This Month'    =>                    "كورسات هذا الشهر",
     'Hours'                 =>            'عدد الساعات',

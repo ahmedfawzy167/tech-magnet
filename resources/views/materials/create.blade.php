@@ -12,7 +12,7 @@
                 @csrf
 
                 <div class="form-group col-md-12">
-                    <label for="file">File <span class="text-danger ms-2">*</span></label>
+                    <label for="file">{{ __('admin.File') }} <span class="text-danger ms-2">*</span></label>
                     <input type="file" name="file" id="file"
                         class="form-control @error('file') is-invalid @enderror">
                 </div>

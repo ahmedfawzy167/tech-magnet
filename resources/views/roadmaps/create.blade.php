@@ -18,8 +18,7 @@
 
                 <div class="form-group col-md-12">
                     <label for="description"> {{ __('admin.Description') }}<span class="text-danger ms-2">*</span></label>
-                    <textarea name="description" id="summernote"
-                        class="form-control @error('description') is-invalid @enderror"></textarea>
+                    <textarea name="description" id="cKEditor"  class="form-control @error('description') is-invalid @enderror"></textarea>
                 </div>
 
                 <div class="text-center">

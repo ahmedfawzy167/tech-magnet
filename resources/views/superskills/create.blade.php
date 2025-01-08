@@ -10,20 +10,20 @@
             <h1 class="text-center bg-primary text-white"><i class="ion-plus-circled"></i> {{ __('admin.Add Super Skill') }}</h1>
             <form action="{{ route('super-skills.store') }}" method="POST" class="row">
                 @csrf
+
                 <div class="form-group col-md-12">
                     <label for="name">{{ __('admin.Name') }}<span class="text-danger ms-2">*</span></label>
-                    <input type="text" name="name" id="name"
-                        class="form-control @error('name') is-invalid @enderror">
+                    <input type="text" name="name" id="name" class="form-control @error('name') is-invalid @enderror">
                 </div>
 
               <div class="form-group col-12">
-               <label for="course_id">{{__('admin.Course')}}<span class="text-danger ms-2">*</span></label>
-               <select name="course_id" id="course_id" class="select2 form-select @error('course_id') is-invalid @enderror">
-                <option value="#" selected>Choose One</option>
-                @foreach($courses as $course)
-                  <option value="{{$course->id}}">{{$course->name}}</option>
-                @endforeach
-                </select>
+                 <label for="course_id">{{__('admin.Course')}}<span class="text-danger ms-2">*</span></label>
+                 <select name="course_id" id="course_id" class="select2 form-select @error('course_id') is-invalid @enderror">
+                   <option value="#" selected>Choose One</option>
+                        @foreach($courses as $course)
+                            <option value="{{$course->id}}">{{$course->name}}</option>
+                        @endforeach
+                 </select>
               </div>
 
                 <div class="text-center">

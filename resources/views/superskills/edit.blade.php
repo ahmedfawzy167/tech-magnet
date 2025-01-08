@@ -11,6 +11,7 @@
             <form action="{{ route('super-skills.update', $superSkill->id) }}" method="POST" class="row">
                 @csrf
                 @method('PUT')
+                
                 <div class="form-group col-md-12">
                     <label for="name">{{ __('admin.Name') }}<span class="text-danger ms-2">*</span></label>
                     <input type="text" name="name" id="name" value="{{$superSkill->name}}"

@@ -470,6 +470,7 @@ return [
     'All Mediators' => 'All Mediators',
     'no_advertiser' => 'no advertiser',
     'No Image Available' => 'No Image Available',
+    'File'  => 'File',
     'swear_ar' => 'swear_ar',
     'swear_en' => 'swear_en',
     'commission' => 'commission',

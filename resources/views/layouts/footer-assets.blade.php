@@ -80,23 +80,6 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 @endif
 
 <script>
-    // $(document).ready(function() {
-    //     $('#data-table').DataTable({
-    //         dom: 'Bfrtip',
-    //         buttons: [
-    //             {
-    //                 extend: 'excelHtml5',
-    //                 text: 'Export to Excel',
-    //                 className: 'btn btn-success me-2' 
-    //             },
-    //             {
-    //                 extend: 'pdfHtml5',
-    //                 text: 'Export to PDF',
-    //                 className: 'btn btn-danger'
-    //             }
-    //         ]
-    //     });
-    // });
 
     $(document).ready(function() {
     let table = new DataTable('#data-table', {
@@ -124,16 +107,21 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     });
 });
 
-
 </script>
 
 
+<script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script>
 
 <script>
-$(document).ready(function() {
-    $('#summernote').summernote();
-});
+    // Initialize CKEditor
+    ClassicEditor
+        .create(document.querySelector('#cKEditor'))
+        .catch(error => {
+            console.error(error);
+        });
 </script>
+
+
 
 <script>
     $(document).ready(function() {

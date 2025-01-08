@@ -13,15 +13,12 @@
                 @method('PUT')
                 <div class="form-group col-md-12">
                     <label for="title"> {{ __('admin.Title') }}<span class="text-danger ms-2">*</span></label>
-                    <input type="text" name="title" id="title" value="{{$skill->title}}"
-                        class="form-control @error('title') is-invalid @enderror">
-                    
+                    <input type="text" name="title" id="title" value="{{$skill->title}}" class="form-control @error('title') is-invalid @enderror">
                 </div>
 
                 <div class="form-group col-md-12">
                     <label for="content">{{ __('admin.Description') }}<span class="text-danger ms-2">*</span></label>
-                    <textarea name="content"
-                        class="form-control @error('content') is-invalid @enderror">{{$skill->content}}</textarea>
+                    <textarea name="content" id="cKEditor" class="form-control @error('content') is-invalid @enderror">{{$skill->content}}</textarea>
                 </div>
                  
               <div class="form-group col-12">
