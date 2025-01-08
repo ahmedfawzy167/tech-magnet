@@ -14,7 +14,13 @@
       <ul class="list-group list-group-flush">
         <h6 class="list-group-item">{{__('admin.Title')}}: {{$blog->title}}</h6>
         <h6 class="list-group-item">{{__('admin.Description')}}: {{$blog->description}}</h6>
-        <h6 class="list-group-item">{{__('admin.Image')}}: <img src="{{asset('storage/'.$blog->image->path)}}" width="100px" class="rounded-circle ms-3"></h6>
+        <h6 class="list-group-item">{{__('admin.Image')}}: 
+          @if($blog?->image && $blog?->image?->path)
+            <img src="{{ asset('storage/blogs/' . $blog->id . '/' . $blog->image->path) }}" width="100px" class="rounded-circle">
+          @else
+            <span class="badge bg-danger">{{ __('admin.No Image Available') }}</span>
+          @endif
+        </h6>
       </ul>
     </div>
   </div>

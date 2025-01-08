@@ -20,7 +20,7 @@ class BundleResource extends JsonResource
             'name' => $this->name,
             'description' => $this->description,
             'price' => $this->price,
-            'image'  =>  $this->image ? asset('storage/' . $this->image->path) : null,
+            'image' => $this->image ? asset('storage/bundles/' . $this->id . '/' . $this->image->path) : null,
             'courses' => CourseResource::collection($this->courses),
         ];
     }

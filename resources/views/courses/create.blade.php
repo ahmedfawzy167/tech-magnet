@@ -53,8 +53,8 @@
 
                 <div class="form-group col-md-12">
                     <label for="image"> {{ __('admin.Image') }} <span class="text-muted">{{ (__('admin.(Optional)'))}}</span></label>
-                    <input type="file" name="image" id="image"
-                        class="form-control @error('image') is-invalid @enderror" onchange="previewImage(event)">
+                    <input type="file" name="images" id="image"
+                        class="form-control @error('images') is-invalid @enderror" onchange="previewImage(event)">
                     <img id="imagePreview" class="mt-3" src="#" alt="Image Preview" style="display:none; max-width: 300px; height: auto;">
                 </div>
                 <div class="form-check ms-3">

@@ -7,11 +7,14 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreBlogRequest;
 use App\Http\Requests\UpdateBlogRequest;
+use App\Traits\FileUpload;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class BlogController extends Controller
 {
+    use FileUpload;
+
     /**
      * Display a listing of the resource.
      */
@@ -41,20 +44,8 @@ class BlogController extends Controller
             $blog->title = $request->title;
             $blog->description = $request->description;
             $blog->save();
+            $this->uploadImages($request, $blog);
 
-            if ($request->hasFile('image')) {
-                $img = $request->file('image');
-                $ext = $img->getClientOriginalExtension();
-                $fileName = Date("Y-m-d-h-i-s") . '.' . $ext;
-                $location = "public/";
-                $img->storeAs($location, $fileName);
-
-                $blog->image()->create([
-                    'path' => $fileName,
-                    'imageable_id' => $blog->id,
-                    'imageable_type' => 'App\Models\Blog',
-                ]);
-            }
             DB::commit();
             return redirect(route('blogs.index'))->with('message', 'Blog Created Successfully');
         } catch (\Exception $e) {
@@ -91,19 +82,7 @@ class BlogController extends Controller
             $blog->description = $request->description;
             $blog->save();
 
-            if ($request->hasFile('image')) {
-                $img = $request->file('image');
-                $ext = $img->getClientOriginalExtension();
-                $fileName = Date("Y-m-d-h-i-s") . '.' . $ext;
-                $location = "public/";
-                $img->storeAs($location, $fileName);
-
-                $blog->image()->update([
-                    'path' => $fileName,
-                    'imageable_id' => $blog->id,
-                    'imageable_type' => 'App\Models\Blog',
-                ]);
-            }
+            $this->uploadImages($request, $blog);
             DB::commit();
             return redirect(route('blogs.index'))->with('message', 'Blog Updated Sucessfully');
         } catch (\Exception $e) {
@@ -135,9 +114,10 @@ class BlogController extends Controller
     {
         $blog = Blog::withTrashed()->findOrFail($id);
 
-        // Check if Bundle has an image
+        // Check if Blog has an image
         if ($blog->image()->exists()) {
-            Storage::disk('public')->delete($blog->image->path);
+            $directory = 'blogs/' . $blog->id;
+            Storage::disk('public')->deleteDirectory($directory);
         }
         $blog->image()->delete();
         $blog->forceDelete();

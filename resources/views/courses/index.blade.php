@@ -38,11 +38,11 @@
                                 <td class="text-center">{{ $course->hours }}</td>
                                 <td class="text-center">{{ $course?->category?->name ?? 'UnCategorized' }}</td>
                                 <td class="text-center">
-                                    @if($course?->image)
-                                      <img src="{{ asset('storage/' . $course->image->path) }}" width="70px" class="mr-2">
-                                    @else
-                                     <span class="badge bg-danger">{{__('admin.No Image Found!')}}</span>
-                                    @endif
+                                  @if($course?->image)
+                                      <img src="{{ asset('storage/courses/' . $course->id . '/' . $course->image->path) }}" width="70px" class="mr-2">
+                                  @else
+                                      <span class="badge bg-danger">{{ __('admin.No Image Available') }}</span>
+                                  @endif
                                 </td>
                                 <td class="text-center">{{\Carbon\Carbon::parse($course->created_at)->diffForHumans()}}</td>
                                 <td class="text-center">{!! $course->status->icon() !!}</td>

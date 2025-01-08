@@ -26,11 +26,11 @@
                   <td class="text-center">{{\Str::limit($blog->description,20)}}</td>
                   <td class="text-center">
                     @if($blog?->image)
-                      <img src="{{ asset('storage/' . $blog->image->path) }}" width="70px" class="mr-2">
+                        <img src="{{ asset('storage/blogs/' . $blog->id . '/' . $blog->image->path) }}" width="70px" class="mr-2">
                     @else
-                      <span class="badge bg-danger">{{__('admin.No Image Found!')}}</span>
+                        <span class="badge bg-danger">{{ __('admin.No Image Available') }}</span>
                     @endif
-                </td>
+                  </td>
                   <td class="text-center">
                     <a href="{{ route('blogs.show', $blog->id) }}"><i class="fa-solid fa-eye text-info"></i></a>
                     <a href="{{ route('blogs.edit', $blog->id) }}"><i class="fa-solid fa-file-signature text-success"></i></a>

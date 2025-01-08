@@ -15,7 +15,12 @@
         <h4 class="list-group-item">{{__('admin.Name')}}: {{$bundle->name}}</h4>
         <h4 class="list-group-item">{{ __('admin.Price')}} ${{$bundle->price}}</h4>
         <h4 class="list-group-item">{{__('admin.Image')}}: 
-         <img src="{{ asset('storage/'.$bundle->image->path) }}" width="100px">
+          @if($bundle?->image && $bundle?->image?->path)
+            <img src="{{ asset('storage/bundles/' . $bundle->id . '/' . $bundle->image->path) }}" width="100px" class="rounded-circle">
+          @else
+            <span class="badge bg-danger">{{ __('admin.No Image Available') }}</span>
+          @endif
+          </h4>
         <h6 class="list-group-item">{{__('admin.Courses')}}:
           @foreach ($bundle->courses as $course)
               <li class="ms-4">{{$course?->name ?? 'No Course Name Defined!'}}</li>

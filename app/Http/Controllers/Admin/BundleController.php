@@ -9,9 +9,12 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\StoreBundleRequest;
 use App\Http\Requests\UpdateBundleRequest;
+use App\Traits\FileUpload;
 
 class BundleController extends Controller
 {
+    use FileUpload;
+
     /**
      * Display a listing of the resource.
      */
@@ -44,20 +47,7 @@ class BundleController extends Controller
             $bundle->save();
             $bundle->courses()->attach($request->courses);
 
-            // Check If Bundle Has Image
-            if ($request->hasFile('image')) {
-                $img = $request->file('image');
-                $ext = $img->getClientOriginalExtension();
-                $fileName = Date("Y-m-d-h-i-s") . '.' . $ext;
-                $location = "public/";
-                $img->storeAs($location, $fileName);
-
-                $bundle->image()->create([
-                    'path' => $fileName,
-                    'imageable_id' => $bundle->id,
-                    'imageable_type' => 'App\Models\Bundle',
-                ]);
-            }
+            $this->uploadImages($request, $bundle);
             DB::commit();
             return redirect()->route('bundles.index')->with('message', 'Bundle Created Successfully');
         } catch (\Exception $e) {
@@ -94,24 +84,7 @@ class BundleController extends Controller
             $bundle->update($request->validated());
             $bundle->courses()->sync($request->courses);
 
-            if ($request->hasFile('image')) {
-                // Delete Old image if it exists
-                if ($bundle->image) {
-                    Storage::disk('public')->delete($bundle->image->path);
-                }
-
-                $img = $request->file('image');
-                $ext = $img->getClientOriginalExtension();
-                $fileName = Date("Y-m-d-h-i-s") . '.' . $ext;
-                $location = "public/";
-                $img->storeAs($location, $fileName);
-
-                $bundle->image()->update([
-                    'path' => $fileName,
-                    'imageable_id' => $bundle->id,
-                    'imageable_type' => 'App\Models\Bundle',
-                ]);
-            }
+            $this->uploadImages($request, $bundle);
             DB::commit();
             return redirect()->route('bundles.index')->with('message', 'Bundle Updated Successfully');
         } catch (\Exception $e) {
@@ -156,7 +129,8 @@ class BundleController extends Controller
 
         // Check if Bundle has an image
         if ($bundle->image()->exists()) {
-            Storage::disk('public')->delete($bundle->image->path);
+            $directory = 'bundles/' . $bundle->id;
+            Storage::disk('public')->deleteDirectory($directory);
         }
 
         $bundle->courses()->detach();

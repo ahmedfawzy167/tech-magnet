@@ -31,11 +31,11 @@
                                 <td class="text-center" data-bs-toggle="tooltip" data-bs-html="true" title="{{ implode(', ', $bundle->courses->pluck('name')->toArray()) }}">
                                     {{ $bundle->courses->count() }}
                                 </td>
-                                <td>
-                                    @if($bundle->image)
-                                        <img src="{{ asset('storage/' . $bundle->image->path) }}" width="70px" class="mr-2">
+                                <td class="text-center">
+                                    @if($bundle?->image)
+                                        <img src="{{ asset('storage/bundles/' . $bundle->id . '/' . $bundle->image->path) }}" width="70px" class="mr-2">
                                     @else
-                                        <span class="badge bg-danger">{{__('admin.No Image Found!')}}</span>
+                                        <span class="badge bg-danger">{{ __('admin.No Image Available') }}</span>
                                     @endif
                                 </td>
                                 <td>

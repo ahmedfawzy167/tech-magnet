@@ -20,7 +20,7 @@ class CourseCollection extends JsonResource
             'count' => $this->count(),
             'courses' => array_map(function ($course) {
                 return [
-                    'image' => $course->image ? asset('storage/' . $course->image->path) : null,
+                    'image' => $course->image ? asset('storage/courses/' . $course->id . '/' . $course->image->path) : null,
                     'id' => $course->id,
                     'name' => $course->name,
                     'description' => $course->description,

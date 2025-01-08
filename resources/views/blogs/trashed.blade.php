@@ -27,11 +27,11 @@
                                 <td class="text-center">{{\Str::limit($blog->description,20)}}</td>
                                 <td class="text-center">
                                     @if($blog?->image)
-                                    <img src="{{ asset('storage/' . $blog->image->path) }}" width="70px" class="mr-2">
-                                  @else
-                                    <span class="badge bg-danger">{{__('admin.No Image Found!')}}</span>
-                                  @endif
-                                </td>
+                                        <img src="{{ asset('storage/blogs/' . $blog->id . '/' . $blog->image->path) }}" width="70px" class="mr-2">
+                                    @else
+                                        <span class="badge bg-danger">{{ __('admin.No Image Available') }}</span>
+                                    @endif
+                                  </td>
                                 <td class="text-center">
                                     <a href="#" onclick="event.preventDefault(); document.getElementById('restore-form-{{ $blog->id }}').submit();">
                                         <i class="fa-solid fa-arrow-rotate-left text-success"></i>                                    

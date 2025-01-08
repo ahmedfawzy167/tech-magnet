@@ -27,7 +27,7 @@ class StoreCourseRequest extends FormRequest
             'price' => ['required', 'regex:/^\d+(\.\d{1,2})?$/', 'gt:0'],
             'hours' => 'required|numeric:gt:0',
             'category_id' => 'required|exists:categories,id',
-            'image'       => 'nullable|image|mimes:jpeg,png,jpg|max:3000',
+            'images'     => 'nullable|image|mimes:jpeg,png,jpg|max:3000',
             'roadmaps' => 'required|array',
             'roadmaps.*' => 'exists:roadmaps,id'
         ];

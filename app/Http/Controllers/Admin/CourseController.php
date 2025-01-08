@@ -9,9 +9,12 @@ use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\StoreCourseRequest;
 use App\Http\Requests\UpdateCourseRequest;
 use App\Models\{Course, Category, Roadmap};
+use App\Traits\FileUpload;
 
 class CourseController extends Controller
 {
+    use FileUpload;
+
     public function index()
     {
         $courses = Course::with(['category', 'image'])->get();
@@ -41,20 +44,7 @@ class CourseController extends Controller
             $course->save();
             $course->roadmaps()->attach($request->roadmaps);
 
-            if ($request->hasFile('image')) {
-                $img = $request->file('image');
-                $ext = $img->getClientOriginalExtension();
-                $fileName = Date("Y-m-d-h-i-s") . '.' . $ext;
-                $location = "public/";
-                $img->storeAs($location, $fileName);
-
-                $course->image()->create([
-                    'path' => $fileName,
-                    'imageable_id' => $course->id,
-                    'imageable_type' => 'App\Models\Course',
-                ]);
-            }
-
+            $this->uploadImages($request, $course);
             DB::commit();
             return redirect(route('courses.index'))->with('message', 'Course Created Successfully');
         } catch (\Exception $e) {
@@ -104,20 +94,7 @@ class CourseController extends Controller
             $course->save();
             $course->roadmaps()->sync($request->roadmaps);
 
-            if ($request->hasFile('image')) {
-                $img = $request->file('image');
-                $ext = $img->getClientOriginalExtension();
-                $fileName = Date("Y-m-d-h-i-s") . '.' . $ext;
-                $location = "public/";
-                $img->storeAs($location, $fileName);
-
-                $course->image()->update([
-                    'path' => $fileName,
-                    'imageable_id' => $course->id,
-                    'imageable_type' => 'App\Models\Course',
-                ]);
-            }
-
+            $this->uploadImages($request, $course);
             DB::commit();
             return redirect(route('courses.index'))->with('message', 'Course Updated Sucessfully');
         } catch (\Exception $e) {
@@ -158,7 +135,8 @@ class CourseController extends Controller
 
         // Check if Course has image
         if ($course->image()->exists()) {
-            Storage::disk('public')->delete($course->image->path);
+            $directory = 'courses/' . $course->id;
+            Storage::disk('public')->deleteDirectory($directory);
         }
 
         $course->roadmaps()->detach();

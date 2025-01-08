@@ -18,7 +18,7 @@ class BlogResource extends JsonResource
             'blog' => [
                 'title' => $this->title,
                 'description' => $this->description,
-                'image'  =>  $this->image ? asset('storage/' . $this->image->path) : null,
+                'image' => $this->image ? asset('storage/blogs/' . $this->id . '/' . $this->image->path) : null,
             ]
         ];
     }

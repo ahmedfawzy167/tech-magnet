@@ -25,10 +25,17 @@
       </div>
 
       <div class="form-group col-md-12">
-        <label for="image"> {{ __('admin.Image') }} <span class="text-muted">{{ (__('admin.(Optional)'))}}</span></label>
-        <input type="file" name="image" id="image" class="form-control @error('image') is-invalid @enderror" onchange="previewImage(event)">
-        <img src="{{asset('storage/'.$blog->image->path)}}" id="imagePreview" class="mt-3" style="max-width: 300px; height: auto;">
-      </div>
+        <label for="image">{{ __('admin.Image') }}<span class="text-muted">{{ __('admin.(Optional)') }}</span></label>
+        <input type="file" name="images" id="image" class="form-control @error('images') is-invalid @enderror" onchange="previewImage(event)">
+        @if($blog?->image && $blog?->image?->path)
+            <img src="{{ asset('storage/blogs/' . $blog->id . '/' . $blog->image->path) }}" id="imagePreview"  class="mt-3" style="max-width: 300px; height: auto;">
+        @else
+            <div class="mt-2 text-danger d-flex align-items-center">
+                <i class="fas fa-exclamation-triangle me-2"></i>
+                <p class="mb-0">{{ __('admin.No Image Available') }}</p>
+            </div>
+        @endif
+       </div>
 
       <div class="text-center mt-3">
         <button type="submit" class="btn btn-primary btn-lg">{{__('admin.Update')}}</button>

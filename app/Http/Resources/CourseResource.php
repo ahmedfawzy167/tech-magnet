@@ -15,7 +15,7 @@ class CourseResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'image'  =>  $this->image ? asset('storage/' . $this->image->path) : null,
+            'image'  =>  $this->image ? asset('storage/courses/' . $this->id . '/' . $this->image->path) : null,
             'id' => $this->id,
             'name' => $this->name,
             'description' => $this->description,

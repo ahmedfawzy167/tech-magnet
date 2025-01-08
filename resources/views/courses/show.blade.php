@@ -13,14 +13,20 @@
       </div>
       <ul class="list-group list-group-flush">
         <h4 class="list-group-item">{{__('admin.Name')}}: {{$course->name}}</h4>
-        <h4 class="list-group-item">Original Price: ${{$course->price}}</h4>
-        <h4 class="list-group-item">Discounted Price: ${{ $finalPrice }}</h4>
+        <h4 class="list-group-item">{{ __('admin.Original Price') }}: ${{$course->price}}</h4>
+        <h4 class="list-group-item">{{ __('admin.Discounted Price') }}: ${{ $finalPrice }}</h4>
         <h4 class="list-group-item">{{__('admin.Hours')}}: {{$course->hours}}</h4>
         <h4 class="list-group-item">{{__('admin.Category')}}: {{$course?->category?->name}}</h4>
-        <h4 class="list-group-item">{{__('admin.Image')}}: <img src="{{asset('storage/'.$course->image->path)}}" width="100px" class="rounded-circle ms-3"></h4>
+        <h4 class="list-group-item">{{__('admin.Image')}}: 
+          @if($course?->image && $course?->image?->path)
+            <img src="{{ asset('storage/courses/' . $course->id . '/' . $course->image->path) }}" width="100px" class="rounded-circle">
+          @else
+            <span class="badge bg-danger">{{ __('admin.No Image Available') }}</span>
+          @endif
+        </h4>
         <h6 class="list-group-item">{{__('admin.Roadmaps')}}:
           @foreach ($course->roadmaps as $roadmap)
-              <li class="ms-4">{{$roadmap?->title ?? 'No Roadmap Defined!'}}</li>
+            <li class="ms-4">{{ $roadmap?->title ?? __('admin.No Roadmap Defined!') }}</li>
           @endforeach
       </h6>
       </ul>
