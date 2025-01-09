@@ -52,15 +52,12 @@
                    </div>
 
                 <div class="text-center">
-                    <button type="submit" class="btn btn-primary btn-lg">{{ __('admin.Save Changes') }}</button>
-                    <button type="reset" class="btn btn-secondary btn-lg">{{ __('admin.Reset') }}</button>
+                    <button type="submit" class="btn btn-primary btn-lg">{{ __('admin.Update') }}</button>
                 </div>
-
             </form>
         </div>
     </div>
     @endsection
-
 
 @section('page-scripts')
   <script src="{{ asset('assets/js/imagePreview.js') }}"></script>

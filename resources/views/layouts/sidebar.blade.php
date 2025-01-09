@@ -219,6 +219,25 @@
 
 
 <li class="nav-item">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAddress"
+        aria-expanded="true" aria-controls="collapseAddress">
+        <span>{{__('admin.Addresses')}}</span>
+    </a>
+    <div id="collapseAddress" class="collapse" aria-labelledby="headingAddress"
+        data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">
+            <a class="collapse-item {{ isActiveRoute('addresses.index', 'bg-primary text-white') }}" href="{{ route('addresses.index') }}">
+                <i class="fa-solid fa-list"></i> {{ __('admin.All Addresses') }}
+            </a>
+            <a class="collapse-item {{ isActiveRoute('addresses.create', 'bg-primary text-white') }}" href="{{ route('addresses.create') }}">
+                <i class="ion-plus-circled"></i> {{ __('admin.Add New Address') }}
+            </a>
+    </div>
+    </div>
+</li>
+
+
+<li class="nav-item">
     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsespecs"
         aria-expanded="true" aria-controls="collapsespecs">
         <span>{{__('admin.Roles')}}</span>
@@ -433,20 +452,23 @@
 
                 <div class="copyright text-center mt-2 ms-5">
                     <h6 class="text-primary">
-                        <i class="far fa-calendar-alt"></i> {{ now()->translatedFormat('F Y') }}
+                        <i class="far fa-calendar-alt"></i>  {{ now()->translatedFormat('M Y') }}
                     </h6>
                 </div>
 
-     <div class="dropdown ms-5">
-       <button class="btn btn-primary dropdown-toggle btn-sm" type="button" id="languageDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          {{__('admin.Language')}}
-       </button>
-    <div class="dropdown-menu" aria-labelledby="languageDropdown">
-      <a class="dropdown-item" href="{{ route('change.language',['locale' => 'en']) }}"> <span class="fi fi-us"></span> English - EN</a>
-      <a class="dropdown-item" href="{{ route('change.language', ['locale' => 'ar']) }}"> <span class="fi fi-eg"></span> العربية - AR</a>
+     <div class="dropdown ms-2">
+        <a class="nav-link dropdown-toggle text-primary" id="languageDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span>{{ __('admin.Language') }} <i class="fas fa-language"></i></span>
+        </a>
+        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="languageDropdown">
+            <a class="dropdown-item" href="{{ route('change.language', ['locale' => 'en']) }}">
+                <span class="fi fi-us"></span> English - EN
+            </a>
+            <a class="dropdown-item" href="{{ route('change.language', ['locale' => 'ar']) }}">
+                <span class="fi fi-eg"></span> العربية - AR
+            </a>
+        </div>
     </div>
-    </div>
-
 
    <!-- Topbar Navbar -->
     <ul class="navbar-nav ml-auto">

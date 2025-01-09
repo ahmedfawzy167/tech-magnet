@@ -2,10 +2,12 @@
 
 use App\Models\Setting;
 
-function settings()
-{
-    $setting = Setting::first();
-    return $setting;
+if (!function_exists('settings')) {
+    function settings()
+    {
+        $setting = Setting::first();
+        return $setting;
+    }
 }
 
 if (!function_exists('isActiveRoute')) {

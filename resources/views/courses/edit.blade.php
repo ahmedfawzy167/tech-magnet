@@ -64,7 +64,6 @@
                 @endif
                </div>
             
-            
                 <div class="form-check">
                   <input type="checkbox" name="status" id="status" class="form-check-input" @checked($course->status->value === 1)>
                   <label for="status" class="form-check-label">{{ __('admin.Show on Website') }}</label>
@@ -72,7 +71,6 @@
     
                 <div class="text-center">
                     <button type="submit" class="btn btn-primary btn-lg">{{ __('admin.Update') }}</button>
-                    <button type="reset" class="btn btn-secondary btn-lg">{{ __('admin.Reset') }}</button>
                 </div>
 
             </form>

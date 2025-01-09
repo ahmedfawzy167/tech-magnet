@@ -10,7 +10,6 @@
 
 @endsection
 
-
 @section('page-content')
 
     <body id="page-top">
@@ -228,7 +227,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($coursesThisMonth as $course)
+                                @foreach ($juneCourses as $course)
                                     <tr>
                                         <td class="text-center">{{ $loop->iteration }}</td>
                                         <td class="text-center">{{ $course->name }}</td>
@@ -238,16 +237,13 @@
                                         <td class="text-center">{{ \Carbon\Carbon::parse($course->created_at)->diffForHumans() }}</td>
                                         <td class="text-center">
                                              @if($course->image)
-                                              <img src="{{ asset('storage/' . $course->image->path) }}" width="70px" class="mr-2">
+                                                <img src="{{ asset('storage/courses/' .$course->id . '/'. $course->image->path) }}" width="70px" class="mr-2">
                                              @endif
                                         </td>
-                                         
                                     </tr>
                                 @endforeach
                             </tbody>
                         </table>
-
-
                     </div>
                 </div>
             </div>

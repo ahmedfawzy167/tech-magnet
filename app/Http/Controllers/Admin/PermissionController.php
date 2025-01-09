@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Permission;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StorePermissionRequest;
+use App\Http\Requests\UpdatePermissionRequest;
 
 class PermissionController extends Controller
 {
@@ -24,15 +26,12 @@ class PermissionController extends Controller
     }
 
 
-    public function store(Request $request)
+    public function store(StorePermissionRequest $request)
     {
-        $request->validate([
-            'name' => ['required', 'string', 'max:100']
-        ]);
-
         $permission = new Permission();
         $permission->name = $request->name;
         $permission->save();
+
         return redirect(route('permissions.index'))->with('message', 'Permission Created Successfully');
     }
 
@@ -49,12 +48,8 @@ class PermissionController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Permission $permission)
+    public function update(UpdatePermissionRequest $request, Permission $permission)
     {
-        $request->validate([
-            'name' => ['required', 'string', 'max:100']
-        ]);
-
         $permission->name = $request->name;
         $permission->save();
 
@@ -66,8 +61,13 @@ class PermissionController extends Controller
      */
     public function destroy(Permission $permission)
     {
-        $permission->delete();
+        if ($permission->roles()->exists()) {
+            return redirect()->back()->withErrors([
+                'error' => 'Permission is being Used by a Role'
+            ]);
+        }
 
+        $permission->delete();
         return redirect(route('permissions.index'))->with('message', 'Permission Deleted Successfully');
     }
 }

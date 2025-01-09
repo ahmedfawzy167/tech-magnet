@@ -34,6 +34,10 @@ Route::middleware(['auth:admin', 'Language'])
         Route::get('/language/{locale}', 'LanguageController@changeLanguage')->name('change.language');
         /* End of Basic Routes */
 
+        /* Start of Addresses Routes */
+        Route::resource('addresses', 'AddressController');
+        /* End of Addresses Routes */
+
         /* Start of Instructor Routes */
         Route::put('instructors/update-status/{id}', 'InstructorController@updateStatus')->name('instructors.update-status');
         Route::resource('instructors', 'InstructorController');

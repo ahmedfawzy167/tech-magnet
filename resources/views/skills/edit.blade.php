@@ -29,12 +29,10 @@
                 @endforeach
                 </select>
               </div>
-
-                <div class="text-center">
+ 
+               <div class="text-center">
                     <button type="submit" class="btn btn-primary btn-lg">{{ __('admin.Update') }}</button>
-                    <button type="reset" class="btn btn-secondary btn-lg">{{ __('admin.Reset') }}</button>
                 </div>
-
             </form>
         </div>
     </div>

@@ -18,7 +18,7 @@
             </div>
 
             <div class="form-group col-md-12">
-                <label>{{ __('admin.Permissions') }}</label>
+                <label>{{ __('admin.Permissions') }} <span class="text-muted">{{ __('admin.(Optional)') }}</span></label>
                 <div class="row">
                     @foreach($permissions as $permission)
                     <div class="col-4">
@@ -35,7 +35,6 @@
 
             <div class="text-center">
                 <button type="submit" class="btn btn-primary btn-lg">{{ __('admin.Update') }}</button>
-                <button type="reset" class="btn btn-secondary btn-lg">{{ __('admin.Reset') }}</button>
             </div>
 
         </form>

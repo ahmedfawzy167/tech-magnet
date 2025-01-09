@@ -25,7 +25,7 @@ class HomeController extends Controller
     $enrollments = CourseUser::where('status', 'pending')->count();
 
     //Fetch The Number Of Courses For June Month//
-    $coursesThisMonth = Course::with(['category', 'image'])->whereMonth('created_at', 6)->orderBy('id', 'DESC')->whereStatus(true)->get();
+    $juneCourses = Course::with(['category', 'image'])->whereMonth('created_at', 6)->whereStatus(true)->get();
 
     //Fetch The Number Of Sessions//
     $sessions = Session::count();
@@ -64,7 +64,7 @@ class HomeController extends Controller
 
     $chart2 = new LaravelChart($chart_options2);
 
-    return view('home', compact('courses', 'reviews', 'categories', 'enrollments', 'coursesThisMonth', 'sessions', 'bundles', 'users', 'cities', 'chart1', 'chart2'));
+    return view('home', compact('courses', 'reviews', 'categories', 'enrollments', 'juneCourses', 'sessions', 'bundles', 'users', 'cities', 'chart1', 'chart2'));
   }
 
   public function search(Request $request)

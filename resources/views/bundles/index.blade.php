@@ -18,7 +18,7 @@
                             <th class="text-center">{{ __('admin.Price') }}</th>
                             <th class="text-center">{{ __('admin.Courses') }}</th>
                             <th class="text-center">{{ __('admin.Image') }}</th>
-                            <th>{{ __('admin.Actions') }}</th>
+                            <th class="text-center">{{ __('admin.Actions') }}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -38,7 +38,7 @@
                                         <span class="badge bg-danger">{{ __('admin.No Image Available') }}</span>
                                     @endif
                                   </td>
-                                <td>
+                                <td class="text-center">
                                     <a href="{{ route('bundles.show', $bundle->id) }}"><i class="fa-solid fa-eye text-info"></i></a>
                                     <a href="{{ route('bundles.edit', $bundle->id) }}"><i class="fa-solid fa-file-signature text-success"></i></a>
                                     <a href="#" class="btn-delete" data-url="{{ route('bundles.destroy', $bundle->id) }}">

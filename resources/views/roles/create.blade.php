@@ -17,7 +17,7 @@
                 </div>
 
                 <div class="form-group col-md-12">
-                    <label>{{ __('admin.Permissions') }}</label>
+                    <label>{{ __('admin.Permissions') }}<span class="text-danger ms-2">*</span></label>
                     <div class="row">
                         @foreach($permissions as $permission)
                         <div class="col-4">

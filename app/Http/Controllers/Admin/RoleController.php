@@ -6,6 +6,8 @@ use App\Models\{Role, Permission};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreRoleRequest;
+use App\Http\Requests\UpdateRoleRequest;
 
 class RoleController extends Controller
 {
@@ -24,20 +26,13 @@ class RoleController extends Controller
         return view('roles.create', compact('permissions'));
     }
 
-    public function store(Request $request)
+    public function store(StoreRoleRequest $request)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'permissions' => 'array',
-            'permissions.*' => 'exists:permissions,id',
-        ]);
-
         $role = new Role();
         $role->name = $request->name;
         $role->save();
 
-        $role->permissions()->attach($request->input('permissions', []));
-
+        $role->permissions()->attach($request->permissions);
         return redirect()->route('roles.index')->with('message', 'Role Created Successfully.');
     }
 
@@ -48,7 +43,7 @@ class RoleController extends Controller
     {
         $users = $role->users;
         $permissions = $role->permissions;
-        return view('roles.show', compact('role', 'users','permissions'));
+        return view('roles.show', compact('role', 'users', 'permissions'));
     }
 
     /**
@@ -63,19 +58,12 @@ class RoleController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Role $role)
+    public function update(UpdateRoleRequest $request, Role $role)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'permissions' => 'array',
-            'permissions.*' => 'exists:permissions,id',
-        ]);
-
         $role->name = $request->name;
         $role->save();
 
-        $role->permissions()->sync($request->input('permissions', []));
-
+        $role->permissions()->sync($request->permissions);
         return redirect()->route('roles.index')->with('message', 'Role Updated Successfully.');
     }
 
@@ -85,6 +73,7 @@ class RoleController extends Controller
     public function destroy(Role $role)
     {
         $role->delete();
+        $role->permissions()->detach();
         return redirect(route('roles.index'))->with('message', 'Role Deleted Successfully');
     }
 }

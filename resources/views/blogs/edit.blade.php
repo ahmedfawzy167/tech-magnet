@@ -39,7 +39,6 @@
 
       <div class="text-center mt-3">
         <button type="submit" class="btn btn-primary btn-lg">{{__('admin.Update')}}</button>
-        <button type="reset" class="btn btn-secondary btn-lg">{{__('admin.Reset')}}</button>
        </div>
 
 </form>
