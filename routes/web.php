@@ -72,6 +72,10 @@ Route::middleware(['auth:admin', 'Language'])
         Route::resource('settings', 'SettingController');
         /* End of Settings Routes */
 
+        /* Start of Sessions Routes */
+         Route::resource('sessions', 'SessionController');
+        /* End of Sessions Routes */
+
         /* Start of Categories Routes */
         Route::get('categories/trash', 'CategoryController@trash')->name('categories.trashed');
         Route::put('categories/restore/{id}', 'CategoryController@restore')->name('categories.restore');

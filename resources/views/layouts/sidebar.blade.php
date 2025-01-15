@@ -136,6 +136,22 @@
 
          <!-- Nav Item - Pages Collapse Menu -->
          <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSession"
+                aria-expanded="true" aria-controls="collapseSession">
+                <span>{{__('admin.Sessions')}}</span>
+            </a>
+            <div id="collapseSession" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item {{ isActiveRoute('sessions.index', 'bg-primary text-white') }}" href="{{ route('sessions.index') }}">
+                        <i class="fa-solid fa-list"></i> {{ __('admin.All Sessions') }}
+                    </a>
+                </div>
+            </div>
+        </li>
+
+
+         <!-- Nav Item - Pages Collapse Menu -->
+         <li class="nav-item">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseDiscount"
                 aria-expanded="true" aria-controls="collapseDiscount">
                 <span>{{__('admin.Discounts')}}</span>
