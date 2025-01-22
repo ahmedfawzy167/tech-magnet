@@ -19,6 +19,7 @@ return [
     'Start Date' => 'Start Date',
     'End Date' => 'End Date',
     'Meeting ID' => 'Meeting ID',
+    'All Students' => 'All Students',
     'Start Url' => 'Start Url',
     'Join Url' => 'Join Url',
     'Start Session' => 'Start Session',

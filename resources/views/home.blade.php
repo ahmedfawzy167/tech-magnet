@@ -237,7 +237,7 @@
                                         <td class="text-center">{{ \Carbon\Carbon::parse($course->created_at)->diffForHumans() }}</td>
                                         <td class="text-center">
                                              @if($course->image)
-                                                <img src="{{ asset('storage/courses/' .$course->id . '/'. $course->image->path) }}" width="70px" class="mr-2">
+                                                 <img src="{{ getPath('courses', $course->id, $course->image->path) }}" width="70px" class="mr-2">
                                              @endif
                                         </td>
                                     </tr>

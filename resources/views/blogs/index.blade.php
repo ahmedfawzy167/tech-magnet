@@ -26,7 +26,7 @@
                   <td class="text-center">{{\Str::limit($blog->description,20)}}</td>
                   <td class="text-center">
                     @if($blog?->image)
-                        <img src="{{ asset('storage/blogs/' . $blog->id . '/' . $blog->image->path) }}" width="70px" class="mr-2">
+                        <img src="{{ getPath('blogs', $blog->id, $blog->image->path) }}" width="70px" class="mr-2">
                     @else
                         <span class="badge bg-danger">{{ __('admin.No Image Available') }}</span>
                     @endif

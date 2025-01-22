@@ -33,7 +33,7 @@
                                 </td>
                                 <td class="text-center">
                                     @if($bundle?->image)
-                                        <img src="{{ asset('storage/bundles/' . $bundle->id . '/' . $bundle->image->path) }}" width="70px" class="mr-2">
+                                        <img src="{{ getPath('bundles', $bundle->id, $bundle->image->path) }}" width="70px" class="mr-2">
                                     @else
                                         <span class="badge bg-danger">{{ __('admin.No Image Available') }}</span>
                                     @endif

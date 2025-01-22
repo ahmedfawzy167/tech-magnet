@@ -16,7 +16,7 @@
         <h4 class="list-group-item">{{ __('admin.Price')}} ${{$bundle->price}}</h4>
         <h4 class="list-group-item">{{__('admin.Image')}}: 
           @if($bundle?->image && $bundle?->image?->path)
-            <img src="{{ asset('storage/bundles/' . $bundle->id . '/' . $bundle->image->path) }}" width="100px" class="rounded-circle">
+            <img src="{{ getPath('bundles', $bundle->id, $bundle->image->path) }}" width="100px" class="rounded-circle">
           @else
             <span class="badge bg-danger">{{ __('admin.No Image Available') }}</span>
           @endif

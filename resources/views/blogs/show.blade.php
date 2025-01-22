@@ -16,7 +16,7 @@
         <h6 class="list-group-item">{{__('admin.Description')}}: {{$blog->description}}</h6>
         <h6 class="list-group-item">{{__('admin.Image')}}: 
           @if($blog?->image && $blog?->image?->path)
-            <img src="{{ asset('storage/blogs/' . $blog->id . '/' . $blog->image->path) }}" width="100px" class="rounded-circle">
+            <img src="{{ getPath('blogs', $blog->id, $blog->image->path) }}" width="100px" class="rounded-circle">
           @else
             <span class="badge bg-danger">{{ __('admin.No Image Available') }}</span>
           @endif

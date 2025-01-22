@@ -19,7 +19,7 @@
         <h6 class="list-group-item">{{__('admin.Category')}}: {{$course?->category?->name}}</h6>
         <h6 class="list-group-item">{{__('admin.Image')}}: 
           @if($course?->image && $course?->image?->path)
-            <img src="{{ asset('storage/courses/' . $course->id . '/' . $course->image->path) }}" width="100px" class="rounded-circle">
+            <img src="{{ getPath('courses', $course->id, $course->image->path) }}" width="100px" class="rounded-circle">
           @else
             <span class="badge bg-danger">{{ __('admin.No Image Available') }}</span>
           @endif
