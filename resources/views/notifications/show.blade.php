@@ -6,7 +6,7 @@
 
 @section('page-content')
 
-<div class="d-flex justify-content-center align-items-center vh-60 mt-3">
+<div class="d-flex justify-content-center align-items-center vh-60 mt-3 mb-4">
     <div class="card" style="width: 60rem;">
       <div class="card-body">
         <h2 class="card-title text-center bg-success text-white">{{ $notification->data['message'] }}</h2>
