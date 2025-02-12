@@ -13,6 +13,8 @@
         integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+
     <style>
         .rounded-t-5 {
             border-top-left-radius: 0.5rem;
@@ -48,9 +50,15 @@
                         </div>
                         <div class="form-group">
                             <label for="password"><i class="fa-solid fa-lock mb-2"></i> Password</label>
-                            <input type="password" id="password" name="password"
-                                class="form-control form-control-lg  @error('password') is-invalid @enderror" />
+                            <div class="input-group">
+                                <input type="password" id="password" class="form-control @error('password') is-invalid @enderror"
+                                       name="password" required autocomplete="current-password" />
+                                <span class="input-group-text cursor-pointer" id="togglePassword" style="cursor: pointer;">
+                                    <i class="ti ti-eye-off"></i>
+                                </span>
+                            </div>
                         </div>
+                        
 
                         <div class="row mb-4">
                             <div class="col d-flex justify-content-center">
@@ -72,6 +80,8 @@
             </div>
         </div>
     </div>
+
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
@@ -84,37 +94,63 @@
         @endforeach
     @endif
 
-    <script>
-        $(document).ready(function() {
-            $("#loginForm").validate({
-                rules: {
-                    email: {
-                        required: true,
-                        email: true
-                    },
-                    password: {
-                        required: true,
-                        minlength: 8,
-                    }
-                },
-                messages: {
-                    email: {
-                        required: "<span style='color:red;font-weight:bold;'>Please Enter your Email Address.</span>",
-                        email: "<span style='color:red;font-weight:bold;'>Please Enter a Valid Email Address.</span>"
-                    },
-                    password: {
-                        required: "<span style='color:red;font-weight:bold;'>Please Enter your Password.</span>",
-                        minlength: "<span style='color:red;font-weight:bold;'>Password must be at Least 8 Characters Long.</span>",
-                    }
-                },
-                errorClass: "is-invalid",
-                validClass: "is-valid",
-                submitHandler: function(form) {
-                    form.submit();
-                }
-            });
-        });
-    </script>
+   
+<script>
+ $(document).ready(function() {
+    $("#loginForm").validate({
+        rules: {
+            email: {
+                required: true,
+                email: true
+            },
+            password: {
+                required: true,
+                minlength: 8,
+            }
+        },
+        messages: {
+            email: {
+                required: "Please Enter your Email Address.",
+                email: "Please Enter a Valid Email Address."
+            },
+            password: {
+                required: "Please Enter your Password.",
+                minlength: "Password must be at Least 8 Characters Long.",
+            }
+        },
+        errorClass: "is-invalid",
+        validClass: "is-valid",
+        errorElement: "div", 
+        errorPlacement: function(error, element) {
+            if (element.attr("id") === "password") {
+                error.addClass("text-danger mt-1").insertAfter(element.closest(".input-group"));
+            } else {
+                error.addClass("text-danger mt-1").insertAfter(element);
+            }
+        },
+        submitHandler: function(form) {
+            form.submit();
+        }
+    });
+
+    $("#togglePassword").click(function() {
+        let passwordInput = $("#password");
+        let icon = $(this).find("i");
+
+        if (passwordInput.attr("type") === "password") {
+            passwordInput.attr("type", "text");
+            icon.removeClass("ti-eye-off").addClass("ti-eye");
+        } else {
+            passwordInput.attr("type", "password");
+            icon.removeClass("ti-eye").addClass("ti-eye-off");
+        }
+    });
+});
+
+</script>
+
+
+
    
            
 </body>

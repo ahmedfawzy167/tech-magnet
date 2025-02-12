@@ -134,7 +134,7 @@
         </li>
 
 
-         <!-- Nav Item - Pages Collapse Menu -->
+        <!-- Nav Item - Pages Collapse Menu -->
          <li class="nav-item">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSession"
                 aria-expanded="true" aria-controls="collapseSession">
@@ -144,6 +144,22 @@
                 <div class="bg-white py-2 collapse-inner rounded">
                     <a class="collapse-item {{ isActiveRoute('sessions.index', 'bg-primary text-white') }}" href="{{ route('sessions.index') }}">
                         <i class="fa-solid fa-list"></i> {{ __('admin.All Sessions') }}
+                    </a>
+                </div>
+            </div>
+        </li>
+
+
+          <!-- Nav Item - Pages Collapse Menu -->
+          <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseEvent"
+                aria-expanded="true" aria-controls="collapseEvent">
+                <span>{{__('admin.Events')}}</span>
+            </a>
+            <div id="collapseEvent" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item {{ isActiveRoute('events', 'bg-primary text-white') }}" href="{{ route('events') }}">
+                        <i class="fa-solid fa-list"></i> {{ __('admin.All Events') }}
                     </a>
                 </div>
             </div>

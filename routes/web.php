@@ -161,6 +161,11 @@ Route::middleware(['auth:admin', 'Language'])
         /* Start of Notifications Routes */
         Route::get('/notifications/{id}', 'NotificationController@show')->name('notifications.show');
         /* End of Notifications Routes */
+
+         /* Start of Events Routes */
+         Route::get('/full-calender', 'FullCalenderController@index')->name('events');
+         Route::post('/full-calender-ajax', 'FullCalenderController@ajax')->name('events.ajax');
+         /* End of Events Routes */
     });
 
 Auth::routes();
