@@ -31,15 +31,16 @@ class FullCalenderController extends Controller
     
  
     public function ajax(Request $request)
-{
-    switch ($request->type) {
+    {
+      switch ($request->type) {
         case 'add':
             $event = Event::create([
                 'title' => $request->title,
                 'start' => $request->start,
                 'end' => $request->end,
             ]);
-            return response()->json($event);
+            return response()->json(['success' => true, 'message' => 'Event Created Successfully']);
+
             break;
 
         case 'update':
@@ -51,14 +52,18 @@ class FullCalenderController extends Controller
                     'end' => $request->end,
                 ]);
             }
-            return response()->json($event);
+            return response()->json(['success' => true, 'message' => 'Event Updated Successfully']);
+
             break;
 
-        case 'delete':
-            Event::find($request->id)->delete();
-            return response()->json(['status' => 'Deleted']);
+            case 'delete':
+                $event = Event::find($request->id);
+                if ($event) {
+                    $event->delete();
+                    return response()->json(['success' => true, 'message' => 'Event Deleted Successfully']);
+                }
             break;
+      }
     }
-}
 
 }

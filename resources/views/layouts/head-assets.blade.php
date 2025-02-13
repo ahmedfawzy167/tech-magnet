@@ -23,4 +23,5 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
 <link rel="stylesheet" href="{{ asset('assets/css/' . $lang . '.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/css/chat.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/css/settings.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/css/sb-admin-2.min.css') }}" rel="stylesheet">

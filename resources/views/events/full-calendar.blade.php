@@ -5,10 +5,8 @@
 @endsection
 
 @section('page-head')
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <!-- FullCalendar v6 CSS -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/main.min.css" />
 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/main.min.css" />
 @endsection
 
 @section('page-content')
@@ -71,13 +69,18 @@
                         _token: "{{ csrf_token() }}"
                     },
                     success: function(response) {
-                        toastr.success("Event Created Successfully"); 
-                        calendar.refetchEvents(); 
-                    },
-                    error: function(xhr) {
-                        toastr.error("Error adding event."); 
-                    }
-                });
+                        if (response.success) {
+                             toastr.success(response.message);
+                                calendar.refetchEvents(); 
+                             } else {
+                                  toastr.error(response.message);
+                            }
+                          },
+                          error: function(xhr) {
+                            toastr.error("Something went wrong");
+                            console.error(xhr.responseText);
+                        }
+                      });
             }
             calendar.unselect();
         },
@@ -97,11 +100,17 @@
                     _token: "{{ csrf_token() }}"
                 },
                 success: function(response) {
-                    toastr.success("Event Updated Successfully");
-                },
-                error: function(xhr) {
-                    toastr.error("Error Updating Event."); 
-                }
+                    if (response.success) {
+                         toastr.success(response.message);
+                         calendar.refetchEvents(); 
+                } else {
+                     toastr.error(response.message);
+                 }           
+            },
+            error: function(xhr) {
+                 toastr.error("Something went wrong. Please check the console.");
+                console.error(xhr.responseText);
+            }
             });
         },
 
@@ -121,11 +130,15 @@
                         _token: "{{ csrf_token() }}"
                     },
                     success: function(response) {
-                        toastr.success("Event title updated successfully!");  // Toastr success notification
-                        info.event.setProp("title", newTitle);
+                        if (response.success) {
+                           toastr.success(response.message);
+                           calendar.refetchEvents(); 
+                      } else {
+                            toastr.error(response.message);
+                       }
                     },
-                    error: function(xhr) {
-                        toastr.error("Error updating event title.");  // Toastr error notification
+                  error: function(xhr) {
+                     toastr.error("Something went wrong. Please check the console.");
                     }
                 });
             }
@@ -135,7 +148,7 @@
         eventDidMount: function(info) {
             info.el.addEventListener("contextmenu", function (e) {
                 e.preventDefault();
-                if (confirm("Are you sure you want to delete this event?")) {
+                if (confirm("Are you sure you want to Delete this Event?")) {
                     $.ajax({
                         url: "{{ route('events.ajax') }}",
                         type: "POST",
@@ -144,13 +157,17 @@
                             type: "delete",
                             _token: "{{ csrf_token() }}"
                         },
-                        success: function(response) {
-                            toastr.success("Event Deleted Successfully!"); 
-                            info.event.remove(); 
-                        },
-                        error: function(xhr) {
-                            toastr.error("Error Deleting Event.");
-                        }
+                            success: function(response) {
+                              if (response.success) {
+                                toastr.success(response.message);
+                                    calendar.refetchEvents(); 
+                                } else {
+                                   toastr.error(response.message);
+                                 }
+                               },
+                             error: function(xhr) {
+                                 toastr.error("Something went wrong. Please check the console.");
+                            }
                     });
                 }
             });

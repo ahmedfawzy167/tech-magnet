@@ -2,7 +2,7 @@
 <div id="wrapper">
 
     <!-- Sidebar -->
-    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+    <ul class="navbar-nav  sidebar sidebar-dark accordion" id="accordionSidebar">
 
         <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('home') }}">
             <div class="sidebar-brand-icon">
@@ -483,13 +483,13 @@
                 </form>
 
                 <div class="copyright text-center mt-2 ms-5">
-                    <h6 class="text-primary">
+                    <h6>
                         <i class="far fa-calendar-alt"></i>  {{ now()->translatedFormat('M Y') }}
                     </h6>
                 </div>
 
      <div class="dropdown ms-2">
-        <a class="nav-link dropdown-toggle text-primary" id="languageDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <a class="nav-link dropdown-toggle" id="languageDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <span>{{ __('admin.Language') }} <i class="fas fa-language"></i></span>
         </a>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="languageDropdown">

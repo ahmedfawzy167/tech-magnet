@@ -1,0 +1,62 @@
+
+/* Default styles for light mode */
+body {
+    background-color: white;
+    color: black;
+}
+
+.sidebar {
+    background-color: #ffffff; /* Light background for sidebar in light mode */
+    color: black; /* Text color in sidebar for light mode */
+}
+
+/* Dark mode styles */
+body.dark-mode {
+    background-color: #121212; /* Dark background for body */
+}
+
+body.dark-mode .sidebar {
+    background-color: #333333; /* Dark background for sidebar in dark mode */
+    color: #e0e0e0; /* Light text color for sidebar */
+}
+
+#customizer-icon {
+    position: fixed;
+    top: 93%;
+    right: 80px;
+    transform: translateY(-50%);
+    background-color: #010101;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    padding: 15px;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Navbar and Sidebar Dark Mode */
+body.dark-mode .sidebar,
+body.dark-mode .navbar {
+    background-color: #1e1e1e !important;
+    color: white !important;
+}
+
+
+
+body.dark-mode #customizer-panel {
+    background-color: #030303;
+    color: white;
+}
+
+.bg-blue-500 {
+    background-color: blue !important;
+    color: aliceblue;
+}
+
+.bg-gray-800 {
+    background-color: #020202 !important;
+    color: aliceblue;
+}
+
+
+

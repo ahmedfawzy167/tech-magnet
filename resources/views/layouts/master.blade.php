@@ -9,9 +9,11 @@
     <title>@yield('page-title') - {{ __('admin.Dashboard') }}</title>
     @include('layouts.head-assets')
     @yield('page-head')
+    
 </head>
 
-<body id="page-top">
+<body id="page-top" class="dark-mode">
+
     <button id="chatbot-icon"><i class="fas fa-comments"></i></button>
 
     <div id="chat-window" style="display: none;">
@@ -19,7 +21,7 @@
         <div class="messages">
             <div class="left message">
                 <img src="{{asset('assets/img/undraw_profile_1.svg')}}" alt="Avatar">
-                <p class="mt-2">Chatting With Gemini</p>
+                <p class="mt-4">Chatting With Gemini</p>
             </div>
         </div>
         <div class="bottom">
@@ -31,7 +33,36 @@
         </div>
     </div>
 
+
+    <div class="modal fade" id="customizer-modal" tabindex="-1" aria-labelledby="customizerModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="customizerModalLabel">Theme Customizer</h5>
+                    <button type="button" class="btn-close" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3 ms-3">
+                        <label for="dark-mode-toggle" class="form-check-label">
+                            <input type="checkbox" id="dark-mode-toggle" class="form-check-input"> Dark Mode
+                        </label>
+                    </div>
     
+                    <div class="mb-3">
+                        <label for="sidebar-color" class="form-label">Sidebar Color</label>
+                        <select id="sidebar-color" class="form-select">
+                            <option value="bg-blue-500">Blue</option>
+                            <option value="bg-gray-800">Dark</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+    <button id="customizer-icon" class="fixed-icon-btn"><i class="fas fa-cog"></i></button>
+
     @include('layouts.sidebar')
 
     @yield('page-content')
@@ -43,6 +74,7 @@
     @yield('page-scripts')
 
     <script>
+        
         let chatHistory = [];
     
         document.getElementById('chatbot-icon').onclick = function() {
@@ -50,7 +82,7 @@
             chatWindow.style.display = chatWindow.style.display === 'none' ? 'block' : 'none';
             if (chatWindow.style.display === 'block') {
                 document.getElementById('message').focus();
-                renderChatHistory(); // Render chat history when opening
+                renderChatHistory(); 
             }
         };
     
@@ -78,7 +110,6 @@
             messageInput.prop('disabled', true);
             $("#send-button").prop('disabled', true);
     
-            // Store user message in history
             chatHistory.push({ isUser: true, content: messageContent });
     
             // Send AJAX request
@@ -93,7 +124,6 @@
                 },
                 success: function(response) {                    
                     const botReply = response.candidates[0].content.parts[0].text;
-                    // Store bot reply in history
                     chatHistory.push({ isUser: false, content: botReply });
     
                     renderChatHistory();
@@ -130,11 +160,62 @@
             }
         }
     
-        // Close chat window
         $(".close-chat").click(function() {
             $("#chat-window").hide();
         });
+
+        
     </script>
+
+  <script>
+    
+    var myModal = new bootstrap.Modal(document.getElementById('customizer-modal'));
+
+    // Show the modal when the customizer icon is clicked
+    document.getElementById("customizer-icon").onclick = function () {
+            myModal.show();
+    };
+
+    document.addEventListener("DOMContentLoaded", function () {
+    const darkModeToggle = document.getElementById("dark-mode-toggle");
+    const sidebarColorSelect = document.getElementById("sidebar-color");
+
+    const sidebar = document.querySelector(".sidebar");
+
+    if (localStorage.getItem("darkMode") === "enabled") {
+        document.body.classList.add("dark-mode");
+        darkModeToggle.checked = true;
+    }
+
+    if (localStorage.getItem("sidebarColor")) {
+        sidebar.classList.remove("bg-blue-500","bg-gray-800");
+        sidebar.classList.add(localStorage.getItem("sidebarColor"));
+        sidebarColorSelect.value = localStorage.getItem("sidebarColor");
+    }
+
+    darkModeToggle.addEventListener("change", function () {
+        document.body.classList.toggle("dark-mode");
+        localStorage.setItem("darkMode", document.body.classList.contains("dark-mode") ? "enabled" : "disabled");
+    });
+
+    sidebarColorSelect.addEventListener("change", function () {
+        const selectedColor = this.value;
+        sidebar.classList.remove("bg-blue-500", "bg-gray-800");
+        sidebar.classList.add(selectedColor);
+
+        // Store in localStorage
+        localStorage.setItem("sidebarColor", selectedColor);
+    });
+
+    
+});
+    
+    document.querySelector(".btn-close").addEventListener("click", function() {
+         myModal.hide();
+    });
+
+  </script>
+
 
 </body>
 </html>
