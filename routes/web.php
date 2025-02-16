@@ -162,10 +162,18 @@ Route::middleware(['auth:admin', 'Language'])
         Route::get('/notifications/{id}', 'NotificationController@show')->name('notifications.show');
         /* End of Notifications Routes */
 
-         /* Start of Events Routes */
+        /* Start of Events Routes */
          Route::get('/full-calender', 'FullCalenderController@index')->name('events');
          Route::post('/full-calender-ajax', 'FullCalenderController@ajax')->name('events.ajax');
-         /* End of Events Routes */
+        /* End of Events Routes */
+
+        /* Start of Banners Routes */
+          Route::resource('banners', 'BannerController');
+        /* End of Banners Routes */
+
+        /* Start of Locations Routes */
+           Route::resource('locations', 'LocationController');
+        /* End of Locations Routes */
     });
 
 Auth::routes();

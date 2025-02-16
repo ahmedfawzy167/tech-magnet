@@ -43,6 +43,41 @@
             </div>
         </li>
 
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#bannersCollapse"
+                aria-expanded="true" aria-controls="bannersCollapse">
+                <span>{{__('admin.Banners')}}</span>
+            </a>
+            <div id="bannersCollapse" class="collapse" aria-labelledby="headingBanners" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item {{ isActiveRoute('banners.index', 'bg-primary text-white') }}" href="{{ route('banners.index') }}">
+                        <i class="fa-solid fa-list"></i> {{ __('admin.All Banners') }}
+                    </a>
+                    <a class="collapse-item {{ isActiveRoute('banners.create', 'bg-primary text-white') }}" href="{{ route('banners.create') }}">
+                        <i class="ion-plus-circled"></i> {{ __('admin.Add New Banner') }}
+                    </a>
+                </div>
+            </div>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#locationsCollapse"
+                aria-expanded="true" aria-controls="locationsCollapse">
+                <span>{{__('admin.Locations')}}</span>
+            </a>
+            <div id="locationsCollapse" class="collapse" aria-labelledby="headingLocations" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item {{ isActiveRoute('locations.index', 'bg-primary text-white') }}" href="{{ route('locations.index') }}">
+                        <i class="fa-solid fa-list"></i> {{ __('admin.All Locations') }}
+                    </a>
+                    <a class="collapse-item {{ isActiveRoute('locations.create', 'bg-primary text-white') }}" href="{{ route('locations.create') }}">
+                        <i class="ion-plus-circled"></i> {{ __('admin.Add New Location') }}
+                    </a>
+                </div>
+            </div>
+        </li>
+
         <li class="nav-item">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#usersCollapse"
                 aria-expanded="true" aria-controls="usersCollapse">
@@ -163,7 +198,7 @@
                     </a>
                 </div>
             </div>
-        </li>
+          </li>
 
 
          <!-- Nav Item - Pages Collapse Menu -->

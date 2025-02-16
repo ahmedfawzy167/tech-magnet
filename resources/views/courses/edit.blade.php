@@ -55,7 +55,7 @@
                 <label for="image">{{ __('admin.Image') }}<span class="text-muted">{{ __('admin.(Optional)') }}</span></label>
                 <input type="file" name="images" id="image" class="form-control @error('images') is-invalid @enderror" onchange="previewImage(event)">
                 @if($course?->image && $course?->image?->path)
-                    <img src="{{ asset('storage/courses/' . $course->id . '/' . $course->image->path) }}" id="imagePreview"  class="mt-3" style="max-width: 300px; height: auto;">
+                <img id="imagePreview" src="{{ getPath('courses', $course->id, $course->image->path) }}" width="70px" class="mr-2">                       
                 @else
                     <div class="mt-2 text-danger d-flex align-items-center">
                         <i class="fas fa-exclamation-triangle me-2"></i>
