@@ -44,6 +44,8 @@ Route::middleware(['auth:admin', 'Language'])
         /* End of Instructor Routes */
 
         /* Start of Students Routes */
+        Route::put('/students/{student}/block', 'StudentController@block')->name('students.block');
+        Route::put('/students/{student}/unblock', 'StudentController@unblock')->name('students.unblock');
         Route::put('students/update-status/{id}', 'StudentController@updateStatus')->name('students.update-status');
         Route::resource('students', 'StudentController');
         /* End of Students Routes */

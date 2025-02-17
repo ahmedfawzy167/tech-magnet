@@ -42,7 +42,7 @@
                     <label for="image">{{ __('admin.Image') }}<span class="text-muted">{{ __('admin.(Optional)') }}</span></label>
                     <input type="file" name="images" id="image" class="form-control @error('images') is-invalid @enderror" onchange="previewImage(event)">
                     @if($bundle?->image && $bundle?->image?->path)
-                        <img src="{{ asset('storage/bundles/' . $bundle->id . '/' . $bundle->image->path) }}" id="imagePreview"  class="mt-3" style="max-width: 300px; height: auto;">
+                    <img id="imagePreview" src="{{ getPath('bundles', $bundle->id, $bundle->image->path) }}" width="200px" class="mt-2">                       
                     @else
                         <div class="mt-2 text-danger d-flex align-items-center">
                             <i class="fas fa-exclamation-triangle me-2"></i>

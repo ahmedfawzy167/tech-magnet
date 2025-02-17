@@ -19,7 +19,6 @@
                             <th class="text-center">{{ __('admin.Course') }}</th>
                             <th class="text-center">{{ __('admin.User') }}</th>
                             <th class="text-center">{{ __('admin.Meeting ID') }}</th>
-                            <th class="text-center">{{ __('admin.Start Url') }}</th>
                             <th class="text-center">{{ __('admin.Join Url') }}</th>
                             <th class="text-center">{{ __('admin.Actions') }}</th>
                        </tr>
@@ -34,11 +33,6 @@
                                 <td class="text-center">{{ $session->course->name }}</td>
                                 <td class="text-center">{{ $session->user->name }}</td>
                                 <td class="text-center"><span class="badge badge-danger" >{{ $session->meeting_id }}</span></td>
-                                <td class="text-center">
-                                    <a href="{{ $session->start_url }}" class="btn btn-primary" title="{{ __('admin.Start Session') }}">
-                                        <i class="fa-solid fa-play"></i>
-                                    </a>
-                                </td>
                                 <td class="text-center">
                                     <a href="{{ $session->join_url }}" class="btn btn-success" title="{{ __('admin.Join Session') }}">
                                         <i class="fa-solid fa-user-plus"></i>

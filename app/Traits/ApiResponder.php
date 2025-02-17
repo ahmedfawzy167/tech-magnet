@@ -57,4 +57,14 @@ trait ApiResponder
     {
         return $this->error($message, 500);
     }
+
+    protected function responseWithToken($token, $data = null, $message = 'Login Successfully', $statusCode = 200): JsonResponse
+    {
+        return response()->json([
+            'status' => true,
+            'message' => $message,
+            'data' => $data,
+            'token' => $token,
+        ], $statusCode);
+    }
 }

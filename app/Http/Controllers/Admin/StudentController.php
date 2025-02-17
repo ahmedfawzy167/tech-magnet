@@ -76,4 +76,24 @@ class StudentController extends Controller
 
         return redirect()->route('students.index')->with('message', 'Student Status Updated Successfully');
     }
+
+    public function block(Request $request,$id)
+  {
+    $student = User::findOrFail($id);
+    $duration = $request->input('duration');
+    $unit = $request->input('unit', 'minutes');
+
+    $student->blockUser($duration, $unit);
+    return redirect()->route('students.index')->with('message', 'Student Blocked Successfully');
+
+  }
+
+    public function unblock($id)
+  {
+    $student = User::findOrFail($id);
+    $student->unblockUser();
+    return redirect()->route('students.index')->with('message', 'Student UnBlocked Successfully');
+  }
+
+
 }

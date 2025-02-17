@@ -34,6 +34,7 @@ return [
     'Edit Banner' => 'Edit Banner',
     'All Banners' => 'All Banners',
     'Banners'  => 'Banners',
+    'Block/Unblock'  => 'Block/Unblock',
     'Start Url' => 'Start Url',
     'Join Url' => 'Join Url',
     'Start Session' => 'Start Session',

@@ -19,14 +19,14 @@
                 <div class="form-group col-md-12">
                     <label for="image"> {{ __('admin.Image') }} <span class="text-muted">{{ (__('admin.(Optional)'))}}</span></label>
                     <input type="file" name="images" id="image" class="form-control @error('images') is-invalid @enderror" onchange="previewImage(event)">
-                    @if($banner?->image && $banner?->image?->path)
-                        <img id="imagePreview"  src="{{ getPath('banners', $banner->id, $banner->image->path) }}" width="70px" class="mr-2">                       
-                        @else
-                         <div class="mt-2 text-danger d-flex align-items-center">
-                            <i class="fas fa-exclamation-triangle me-2"></i>
-                            <p class="mb-0">{{ __('admin.No Image Available') }}</p>
-                         </div>
-                      @endif
+                     @if($bundle?->image && $bundle?->image?->path)
+                      <img id="imagePreview" src="{{ getPath('bundles', $bundle->id, $bundle->image->path) }}" width="200px" class="mt-2">                       
+                     @else
+                       <div class="mt-2 text-danger d-flex align-items-center">
+                          <i class="fas fa-exclamation-triangle me-2"></i>
+                          <p class="mb-0">{{ __('admin.No Image Available') }}</p>
+                      </div>
+                    @endif
                 </div>
 
                <div class="form-group col-12 mt-3">

@@ -156,4 +156,38 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->hasMany(Wishlist::class);
     }
+
+    public function isBlocked()
+    {
+        if ($this->is_blocked) {
+            if ($this->blocked_until && now()->isPast($this->blocked_until)) {
+                $this->is_blocked = false;
+                $this->blocked_until = null;
+                $this->save();
+            }
+            return true;
+        }
+        return false;
+    }
+
+    public function blockUser($duration = null, $unit = 'minutes')
+    {
+         $this->is_blocked = true;
+
+         if ($duration) {
+            if ($unit === 'days') {
+                $this->blocked_until = now()->addDays($duration);
+            } else {
+            $this->blocked_until = now()->addMinutes($duration);
+        }
+    }
+
+    $this->save();
+}
+    public function unblockUser()
+    {
+        $this->is_blocked = false;
+        $this->blocked_until = null;
+        $this->save();
+    }
 }

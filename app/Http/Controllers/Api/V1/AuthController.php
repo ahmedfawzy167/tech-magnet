@@ -46,17 +46,19 @@ class AuthController extends Controller
 
     public function login(LoginRequest $request)
     {
+        $user = User::where('email', $request->email)->first();
+
+        if ($user && $user->isBlocked()) {
+            return $this->forbidden('Your Account is Blocked.');
+         }
+
         $credentials = $request->only('email', 'password');
         if (!$token = JwtAuth::attempt($credentials)) {
             return $this->unauthorized("Invalid Credentials");
         }
 
-        $user = JwtAuth::user();
+        return $this->responseWithToken($token, new LoginResource($user), 'Login Successfully');
 
-        return $this->success([
-            'user' => new LoginResource($user),
-            'token' => $token,
-        ], 'Login Successfully');
     }
 
     public function logout(Request $request)

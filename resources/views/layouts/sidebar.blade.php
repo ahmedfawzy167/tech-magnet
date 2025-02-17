@@ -43,6 +43,23 @@
             </div>
         </li>
 
+         <!-- Nav Item - Pages Collapse Menu -->
+         <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                aria-expanded="true" aria-controls="collapseTwo">
+                <span>{{__('admin.Categories')}}</span>
+            </a>
+            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item {{ isActiveRoute('categories.index', 'bg-primary text-white') }}" href="{{ route('categories.index') }}">
+                        <i class="fa-solid fa-list"></i> {{ __('admin.All Categories') }}
+                    </a>
+                    <a class="collapse-item {{ isActiveRoute('categories.trashed', 'bg-primary text-white') }}" href="{{ route('categories.trashed') }}">
+                        <i class="ion-alert"></i> {{ __('admin.All Trashed Categories') }}
+                    </a>
+                </div>
+            </div>
+        </li>
 
         <li class="nav-item">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#bannersCollapse"
@@ -149,24 +166,6 @@
             </div>
         </li>
 
-
-        <!-- Nav Item - Pages Collapse Menu -->
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-                aria-expanded="true" aria-controls="collapseTwo">
-                <span>{{__('admin.Categories')}}</span>
-            </a>
-            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item {{ isActiveRoute('categories.index', 'bg-primary text-white') }}" href="{{ route('categories.index') }}">
-                        <i class="fa-solid fa-list"></i> {{ __('admin.All Categories') }}
-                    </a>
-                    <a class="collapse-item {{ isActiveRoute('categories.trashed', 'bg-primary text-white') }}" href="{{ route('categories.trashed') }}">
-                        <i class="ion-alert"></i> {{ __('admin.All Trashed Categories') }}
-                    </a>
-                </div>
-            </div>
-        </li>
 
 
         <!-- Nav Item - Pages Collapse Menu -->
@@ -523,19 +522,23 @@
                     </h6>
                 </div>
 
-     <div class="dropdown ms-2">
-        <a class="nav-link dropdown-toggle" id="languageDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <span>{{ __('admin.Language') }} <i class="fas fa-language"></i></span>
-        </a>
-        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="languageDropdown">
-            <a class="dropdown-item" href="{{ route('change.language', ['locale' => 'en']) }}">
-                <span class="fi fi-us"></span> English - EN
+        <div class="dropdown ms-2">
+            <a class="nav-link dropdown-toggle" id="languageDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span>{{ __('admin.Language') }} <i class="fas fa-language"></i></span>
             </a>
-            <a class="dropdown-item" href="{{ route('change.language', ['locale' => 'ar']) }}">
-                <span class="fi fi-eg"></span> العربية - AR
-            </a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="languageDropdown">
+                @if (app()->getLocale() === 'en')
+                  <a class="dropdown-item" href="{{ route('change.language', ['locale' => 'ar']) }}">
+                    <span class="fi fi-eg"></span>  العربية - AR
+                  </a>
+                @else
+                 <a class="dropdown-item" href="{{ route('change.language', ['locale' => 'en']) }}">
+                   <span class="fi fi-us"></span> English - EN
+                 </a>
+                @endif
+         </div>
         </div>
-    </div>
+
 
    <!-- Topbar Navbar -->
     <ul class="navbar-nav ml-auto">

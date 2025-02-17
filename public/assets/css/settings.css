@@ -32,10 +32,9 @@ body.dark-mode .sidebar {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-body.dark-mode .sidebar,
-body.dark-mode .navbar {
+body.dark-mode .sidebar{
     background-color: #1e1e1e !important;
-    color: white !important;
+    color: rgb(11, 11, 11) !important;
 }
 
 
@@ -46,12 +45,12 @@ body.dark-mode #customizer-panel {
 
 .bg-blue-500 {
     background-color: #007bff !important;
-    color: aliceblue;
+    color: rgb(13, 14, 14);
 }
 
 .bg-gray-800 {
     background-color: #020202 !important;
-    color: aliceblue;
+    color: rgb(18, 19, 20);
 }
 
 
