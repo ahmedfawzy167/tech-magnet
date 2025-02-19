@@ -18,19 +18,27 @@ class CartController extends Controller
 
     public function index()
     {
-        $this->authorize('viewAny', Cart::class);
+        if (!auth()->user()->hasRole('Student')) {
+            return $this->forbidden('Access Forbidden');
+        }
         $carts = Cart::where('user_id', auth()->user()->id)->with('course')->get();
         return $this->success(CartResource::collection($carts));
     }
 
     public function totalCartItems()
     {
+        if (!auth()->user()->hasRole('Student')) {
+            return $this->forbidden('Access Forbidden');
+        }
         $cartItems = Cart::where('user_id', auth()->user()->id)->with('course')->count();
         return $this->success($cartItems);
     }
 
     public function store(StoreCartRequest $request)
     {
+        if (!auth()->user()->hasRole('Student')) {
+            return $this->forbidden('Access Forbidden');
+        }
         $this->authorize('create', Cart::class);
         $userId = Auth::id();
 
@@ -60,6 +68,9 @@ class CartController extends Controller
     public function destroy($courseId)
     {
 
+        if (!auth()->user()->hasRole('Student')) {
+            return $this->forbidden('Access Forbidden');
+        }
 
         $userId = Auth::id();
 
@@ -83,6 +94,10 @@ class CartController extends Controller
 
     public function increaseQuantity(IncreaseQuantityRequest $request)
     {
+        if (!auth()->user()->hasRole('Student')) {
+            return $this->forbidden('Access Forbidden');
+        }
+
         $userId = Auth::id();
 
         $cart = Cart::where('user_id', $userId)
@@ -103,6 +118,10 @@ class CartController extends Controller
 
     public function decreaseQuantity(DecreaseQuantityRequest $request)
     {
+        if (!auth()->user()->hasRole('Student')) {
+            return $this->forbidden('Access Forbidden');
+        }
+
         $userId = Auth::id();
 
         $cart = Cart::where('user_id', $userId)

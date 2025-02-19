@@ -27,8 +27,7 @@ class StoreUserRequest extends FormRequest
             'email' => 'required|email|string|unique:users|max:50',
             'password' => ['required', Password::defaults()],
             'phone' => 'required|string|max:11',
-            'city_id' => 'required|numeric|gt:0',
-            'role_id' => 'required|numeric|gt:0',
+            'role_id' => 'required|exists:roles,id',
         ];
     }
 

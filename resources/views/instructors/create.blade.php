@@ -43,15 +43,6 @@
         </select>
       </div>
 
-      <div class="form-group col-12">
-        <label for="city_id"> {{__('admin.City')}}<span class="text-danger ms-2">*</span></label>
-        <select name="city_id" id="city_id" class="form-select select2">
-            @foreach ($cities as $city)
-              <option value="{{$city->id}}">{{$city->name}}</option>
-            @endforeach
-        </select>
-      </div>
-
       <div class="text-center">
             <button type="submit" class="btn btn-primary btn-lg">{{__('admin.Add')}}</button>
             <button type="reset" class="btn btn-secondary btn-lg">{{__('admin.Reset')}}</button>

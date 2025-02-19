@@ -17,7 +17,9 @@ class SessionController extends Controller
 
     public function store(StoreSessionRequest $request)
     {
-        $this->authorize('create', Session::class);
+        if (!auth()->user()->hasRole('Instructor')) {
+            return $this->forbidden('Access Forbidden');
+        }
 
         try {
             $meeting = $this->createMeeting($request);
@@ -45,7 +47,9 @@ class SessionController extends Controller
 
     public function update(UpdateSessionRequest $request, Session $session)
     {
-        $this->authorize('update', $session);
+        if (!auth()->user()->hasRole('Instructor')) {
+            return $this->forbidden('Access Forbidden');
+        }
 
         try {
             $this->updateMeeting($session->meeting_id, $request);
@@ -63,7 +67,9 @@ class SessionController extends Controller
 
     public function index()
     {
-        $this->authorize('viewAny', Session::class);
+        if (!auth()->user()->hasRole('Instructor')) {
+            return $this->forbidden('Access Forbidden');
+        }
         $response = $this->getAllMeetings();
 
         if ($response['success']) {
@@ -75,6 +81,9 @@ class SessionController extends Controller
 
     public function show($id)
     {
+        if (!auth()->user()->hasRole(['Instructor','Student'])) {
+            return $this->forbidden('Access Forbidden');
+        }
         $session = Session::find($id);
         $response = $this->getMeetingById($session->meeting_id);
 
@@ -88,6 +97,9 @@ class SessionController extends Controller
 
     public function destroy($id)
     {
+        if (!auth()->user()->hasRole('Instructor')) {
+            return $this->forbidden('Access Forbidden');
+        }
         $session = Session::find($id);
         if (!$session) {
             return $this->notFound('Session Not Found');

@@ -15,8 +15,7 @@
     <div class="row">
         <div class="card">
          <div class="card-body">
-                <h1 class="text-center bg-dark text-light"><i class="fa-solid fa-list"></i>
-                    {{ __('admin.All Students') }}</h1>
+                <h1 class="text-center bg-dark text-light"><i class="fa-solid fa-list"></i> {{ __('admin.All Students') }}</h1>
                 <table class="table table-hover table-bordered" id="data-table">
                     <thead class="table-dark">
                         <tr>
@@ -24,7 +23,6 @@
                             <th class="text-center">{{ __('admin.Name') }}</th>
                             <th class="text-center">{{ __('admin.Email') }}</th>
                             <th class="text-center">{{ __('admin.Phone') }}</th>
-                            <th class="text-center">{{ __('admin.City') }}</th>
                             <th class="text-center">{{__('admin.Status')}}</th>
                             <th class="text-center">{{ __('admin.Block/Unblock') }}</th>
                             <th class="text-center">{{ __('admin.Actions') }}</th>
@@ -37,8 +35,7 @@
                                 <td class="text-center">{{ $student->name }}</td>
                                 <td class="text-center">{{ $student->email }}</td>
                                 <td class="text-center">{{ $student->phone }}</td>
-                                <td class="text-center">{{ $student?->city?->name ??__('admin.No City Found') }}</td>
-                                <td>
+                                <td class="text-center">
                                     <form action="{{ route('students.update-status', $student->id) }}" method="POST" id="status-form-{{ $student->id }}">
                                         @csrf
                                         @method('PUT')

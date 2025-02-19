@@ -31,9 +31,8 @@ class RoleController extends Controller
         $role = new Role();
         $role->name = $request->name;
         $role->save();
-
-        $role->permissions()->attach($request->permissions);
-        return redirect()->route('roles.index')->with('message', 'Role Created Successfully.');
+        $role->givePermissions($request->permissions);
+        return redirect()->route('roles.index')->with('message', 'Role Created Successfully');
     }
 
     /**
@@ -62,9 +61,8 @@ class RoleController extends Controller
     {
         $role->name = $request->name;
         $role->save();
-
-        $role->permissions()->sync($request->permissions);
-        return redirect()->route('roles.index')->with('message', 'Role Updated Successfully.');
+        $role->syncPermissions($request->permissions);
+        return redirect()->route('roles.index')->with('message', 'Role Updated Successfully');
     }
 
     /**

@@ -10,15 +10,16 @@ class City extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['name'];
+    protected $fillable = ['name','country_id'];
 
-    public function users()
-    {
-        return $this->hasMany(User::class);
-    }
-
+    
     public function addresses()
     {
         return $this->hasMany(Address::class);
+    }
+
+    public function country()
+    {
+        return $this->belongsTo(Country::class);
     }
 }

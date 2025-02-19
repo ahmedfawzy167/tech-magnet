@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api\V1;
 use App\Models\Project;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreProjectRequest;
+use App\Http\Requests\UpdateProjectRequest;
 use App\Http\Resources\ProjectResource;
 use App\Traits\ApiResponder;
 
@@ -12,17 +14,12 @@ class ProjectController extends Controller
 {
     use ApiResponder;
 
-    public function __construct()
+    public function store(StoreProjectRequest $request)
     {
-        $this->authorizeResource(Project::class);
-    }
-
-    public function store(Request $request)
-    {
-        $request->validate([
-            'file'  => 'required|file|mimes:pdf|max:2048',
-        ]);
-
+        if (!auth()->user()->hasRole('Student')) {
+            return $this->forbidden('Access Forbidden');
+        }
+    
         $file = $request->file('file');
         $fileName = $file->getClientOriginalName();
         $location = "public/projects";
@@ -36,11 +33,11 @@ class ProjectController extends Controller
         return $this->created($project, "Project Created Successfully");
     }
 
-    public function update(Request $request, Project $project)
+    public function update(UpdateProjectRequest $request, Project $project)
     {
-        $request->validate([
-            'status'  => 'required|string',
-        ]);
+        if (!auth()->user()->hasRole('Instructor')) {
+            return $this->forbidden('Access Forbidden');
+        }
 
         $project->status = $request->status;
         $project->update();
@@ -51,6 +48,9 @@ class ProjectController extends Controller
 
     public function index()
     {
+        if (!auth()->user()->hasRole('Instructor')) {
+            return $this->forbidden('Access Forbidden');
+        }
         $projects = Project::all();
         return $this->success(ProjectResource::collection($projects));
     }

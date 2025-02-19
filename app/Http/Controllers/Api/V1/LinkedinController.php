@@ -31,16 +31,13 @@ class LinkedinController extends Controller
                 return response()->json(['user' => $findUser, 'token' => $token], 200);
             } else {
                 $phone = '01234567890';
-                $city_id = 1;
-                $role_id = 2;
+               
 
                 $newUser = User::create([
                     'name' => $user->name,
                     'email' => $user->email,
                     'password' => bcrypt($user->password),
                     'phone' => $phone,
-                    'city_id' => $city_id,
-                    'role_id' => $role_id,
                     'social_id' => $user->id,
                     'social_type' => 'linkedin',
                 ]);

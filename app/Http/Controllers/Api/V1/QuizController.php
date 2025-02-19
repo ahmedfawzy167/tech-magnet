@@ -16,13 +16,11 @@ class QuizController extends Controller
 {
     use ApiResponder;
 
-    public function __construct()
-    {
-        $this->authorizeResource(Quiz::class);
-    }
-
     public function index()
     {
+        if (!auth()->user()->hasRole(['Student','Instructor'])) {
+            return $this->forbidden('Access Forbidden');
+        }
         $quizzes = Quiz::whereHas('users', function ($query) {
             $query->where('user_id', Auth::id());
         })->get();
@@ -31,7 +29,9 @@ class QuizController extends Controller
 
     public function store(StoreQuizRequest $request)
     {
-
+        if (!auth()->user()->hasRole('Instructor')) {
+            return $this->forbidden('Access Forbidden');
+        }
         $quiz = new Quiz();
         $quiz->name = $request->name;
         $quiz->description = $request->description;
@@ -43,6 +43,9 @@ class QuizController extends Controller
 
     public function update(UpdateQuizRequest $request, Quiz $quiz)
     {
+        if (!auth()->user()->hasRole('Instructor')) {
+            return $this->forbidden('Access Forbidden');
+        }
         $quiz->name = $request->name;
         $quiz->description = $request->description;
         $quiz->course_id = $request->course_id;
@@ -53,6 +56,9 @@ class QuizController extends Controller
 
     public function show(Quiz $quiz)
     {
+        if (!auth()->user()->hasRole(['Student','Instructor'])) {
+            return $this->forbidden('Access Forbidden');
+        }
         if ($quiz != null) {
             return $this->success(new QuizResource($quiz));
         } else {
@@ -62,6 +68,9 @@ class QuizController extends Controller
 
     public function attach(Request $request)
     {
+        if (!auth()->user()->hasRole('Student')) {
+            return $this->forbidden('Access Forbidden');
+        }
         $user = auth()->user();
         $quiz = Quiz::find($request->quiz_id);
 

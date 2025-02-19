@@ -37,16 +37,7 @@
         <label for="role_id">{{__('admin.Role')}}<span class="text-danger ms-2">*</span></label>
         <select name="role_id" id="role_id" class="form-select select2">
             @foreach($roles as $role)
-              <option value="{{$role->id}}" {{ $role->id == $operation->role_id ? 'selected' : ''}}>{{$role->name}}</option>
-            @endforeach
-        </select>
-      </div>
-
-      <div class="form-group col-12">
-        <label for="city_id">{{__('admin.City')}}<span class="text-danger ms-2">*</span></label>
-        <select name="city_id" id="city_id" class="form-select select2">
-            @foreach($cities as $city)
-              <option value="{{$city->id}}" {{ $city->id == $operation->city_id ? 'selected' : ''}}>{{$city->name}}</option>
+              <option value="{{$role->id}}" {{ $operation->hasRole($role->name) ? 'selected' : '' }}>{{$role->name}}</option>
             @endforeach
         </select>
       </div>

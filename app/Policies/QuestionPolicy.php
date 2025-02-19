@@ -13,7 +13,7 @@ class QuestionPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->role_id == 2 || $user->role_id == 1;
+        return $user->hasRole(['Instructor','Student']);
     }
 
     /**
@@ -21,7 +21,7 @@ class QuestionPolicy
     */
     public function create(User $user): bool
     {
-        return $user->role_id == 2;
+        return $user->hasRole('Instructor');
     }
 
 

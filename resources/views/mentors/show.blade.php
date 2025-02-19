@@ -15,8 +15,11 @@
         <h4 class="list-group-item">{{__('admin.Name')}}: {{$mentor->name}}</h4>
         <h4 class="list-group-item">{{__('admin.Email')}}: {{$mentor->email}}</h4>
         <h4 class="list-group-item">{{__('admin.Phone')}}: {{$mentor->phone}}</h4>
-        <h4 class="list-group-item">{{__('admin.Role')}}: {{$mentor->role->name}}</h4>
-        <h4 class="list-group-item">{{__('admin.City')}}: {{$mentor->city->name}}</h4>
+        <h4 class="list-group-item">{{ __('admin.Role') }}: 
+          @if ($mentor->roles->isNotEmpty())
+            {{ $mentor->roles->pluck('name')->implode(', ') }} 
+          @endif
+        </h4>
         <h4 class="list-group-item">{{__('admin.Addresses')}}:
           @if ($mentor->addresses->isEmpty())
             <li class="badge bg-danger" >{{ __('admin.No Address Defined!') }}</li>

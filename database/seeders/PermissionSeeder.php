@@ -19,7 +19,6 @@ class PermissionSeeder extends Seeder
         Permission::create(["name"=>"view-courseRecordings"]);
         Permission::create(["name"=>"add-projects"]);
         Permission::create(["name"=>"send-supportRequest"]);
-        Permission::create(["name"=>"add-projects"]);
         Permission::create(["name"=>"view-quiz"]);
         Permission::create(["name"=>"view-assignments"]);
         Permission::create(["name"=>"create-courseMaterial"]);

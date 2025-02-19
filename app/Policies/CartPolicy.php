@@ -13,7 +13,7 @@ class CartPolicy
      */
     public function viewAny(User $user)
     {
-        return $user->role_id === 1;
+        return $user->hasRole('Student'); 
     }
 
 
@@ -22,7 +22,7 @@ class CartPolicy
      */
     public function create(User $user)
     {
-        return $user->role_id === 1;
+        return $user->hasRole('Student'); 
     }
 
 
@@ -31,6 +31,6 @@ class CartPolicy
      */
     public function delete(User $user)
     {
-        return $user->role_id === 1;
+        return $user->hasRole('Student'); 
     }
 }

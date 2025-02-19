@@ -14,6 +14,9 @@ class CheckoutController extends Controller
 
     public function checkout()
     {
+        if (!auth()->user()->hasRole('Student')) {
+            return $this->forbidden('Access Forbidden');
+        }
         try {
             $cartItems = Cart::where('user_id', auth()->user()->id)->get();
             if ($cartItems->isEmpty()) {

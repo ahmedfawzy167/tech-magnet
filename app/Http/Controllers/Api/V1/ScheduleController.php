@@ -15,19 +15,21 @@ class ScheduleController extends Controller
 {
     use ApiResponder;
 
-    public function __construct()
-    {
-        $this->authorizeResource(Schedule::class);
-    }
 
     public function index()
     {
+        if (!auth()->user()->hasRole('Operations')) {
+            return $this->forbidden('Access Forbidden');
+        }
         $schedules = Schedule::with('course')->get();
         return $this->success(ScheduleCollection::collection($schedules));
     }
 
     public function store(StoreScheduleRequest $request)
     {
+        if (!auth()->user()->hasRole('Operations')) {
+            return $this->forbidden('Access Forbidden');
+        }
         $schedule = new Schedule();
         $schedule->start_date = $request->start_date;
         $schedule->end_date = $request->end_date;
@@ -39,6 +41,9 @@ class ScheduleController extends Controller
 
     public function show(Schedule $schedule)
     {
+        if (!auth()->user()->hasRole('Operations')) {
+            return $this->forbidden('Access Forbidden');
+        }
         if ($schedule != null) {
             return $this->success(new ScheduleResource($schedule));
         } else {
@@ -48,11 +53,14 @@ class ScheduleController extends Controller
 
     public function update(UpdateScheduleRequest $request, Schedule $schedule)
     {
+        if (!auth()->user()->hasRole('Operations')) {
+            return $this->forbidden('Access Forbidden');
+        }
         $schedule->start_date = $request->start_date;
         $schedule->end_date = $request->end_date;
         $schedule->course_id = $request->course_id;
         $schedule->save();
 
-        return $this->success($schedule, "Schedule Updated Successfully!");
+        return $this->success($schedule, "Schedule Updated Successfully");
     }
 }

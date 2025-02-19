@@ -13,7 +13,7 @@ class ProjectPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->role_id == 2;
+        return $user->hasRole('Instructor');
     }
 
     /**
@@ -21,8 +21,7 @@ class ProjectPolicy
      */
     public function create(User $user): bool
     {
-        return $user->role_id == 1;
-
+        return $user->hasRole('Student');
     }
 
     /**
@@ -30,7 +29,7 @@ class ProjectPolicy
      */
     public function update(User $user): bool
     {
-        return $user->role_id == 2;
+        return $user->hasRole('Instructor');
     }
 
 

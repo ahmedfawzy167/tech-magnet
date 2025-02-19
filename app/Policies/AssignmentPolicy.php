@@ -13,7 +13,7 @@ class AssignmentPolicy
      */
     public function viewAny(User $user): bool
     {
-       return $user->role_id = 2;
+        return $user->hasRole('Instructor'); 
     }
 
     /**
@@ -21,7 +21,7 @@ class AssignmentPolicy
      */
     public function view(User $user, Assignment $assignment): bool
     {
-       return $user->role_id == 1 || $user->role_id == 2 ; 
+        return $user->hasRole(['Instructor','Student']); 
     }
 
     /**
@@ -29,7 +29,7 @@ class AssignmentPolicy
      */
     public function create(User $user): bool
     {
-        return $user->role_id == 2;
+        return $user->hasRole('Instructor'); 
     }
 
 
@@ -38,8 +38,7 @@ class AssignmentPolicy
      */
     public function update(User $user, Assignment $assignment): bool
     {
-        return $user->role_id = 2;
-
+        return $user->hasRole('Instructor'); 
     }
 
    

@@ -21,7 +21,6 @@
                             <th class="text-center">{{ __('admin.Name') }}</th>
                             <th class="text-center">{{ __('admin.Email') }}</th>
                             <th class="text-center">{{ __('admin.Phone') }}</th>
-                            <th class="text-center">{{ __('admin.City') }}</th>
                             <th class="text-center">{{__('admin.Status')}}</th>
                             <th class="text-center">{{ __('admin.Actions') }}</th>
                         </tr>
@@ -33,8 +32,7 @@
                                 <td class="text-center">{{ $mentor->name }}</td>
                                 <td class="text-center">{{ $mentor->email }}</td>
                                 <td class="text-center">{{ $mentor->phone }}</td>
-                                <td class="text-center">{{ $mentor?->city?->name ?? __('admin.No City Found')}}</td>
-                                <td>
+                                <td class="text-center">
                                     <form action="{{ route('mentors.update-status', $mentor->id) }}" method="POST" id="status-form-{{ $mentor->id }}">
                                         @csrf
                                         @method('PUT')

@@ -32,15 +32,11 @@ class GithubController extends Controller
                 return $this->success(['user' => $findUser, 'token' => $token], 'Login successful');
             } else {
                 $phone = '01137847742';
-                $city_id = 1;
-                $role_id = 1;
 
                 $newUser = User::create([
                     'name' => $user->name,
                     'email' => $user->email,
                     'phone' => $phone,
-                    'city_id' => $city_id,
-                    'role_id' => $role_id,
                     'password' => bcrypt($user->password),
                     'social_id' => $user->id,
                     'social_type' => 'github',

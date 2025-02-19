@@ -13,7 +13,7 @@ class QuizPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->role_id == 1 || $user->role_id == 2;
+        return $user->hasRole(['Instructor','Student']);
     }
 
     /**
@@ -21,7 +21,7 @@ class QuizPolicy
      */
     public function view(User $user, Quiz $quiz): bool
     {
-        return $user->role_id == 1 || $user->role_id == 2;
+        return $user->hasRole(['Instructor','Student']);
     }
 
     /**
@@ -29,7 +29,7 @@ class QuizPolicy
      */
     public function create(User $user): bool
     {
-        return $user->role_id == 2;
+        return $user->hasRole('Instructor');
     }
 
     /**
@@ -37,6 +37,6 @@ class QuizPolicy
      */
     public function update(User $user): bool
     {
-        return $user->role_id == 2;
+        return $user->hasRole('Instructor');
     }
 }

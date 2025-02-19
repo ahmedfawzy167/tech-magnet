@@ -14,13 +14,11 @@ class AssignmentController extends Controller
 {
     use ApiResponder;
 
-    public function __construct()
-    {
-        $this->authorizeResource(Assignment::class);
-    }
-
     public function store(StoreAssignmentRequest $request)
     {
+        if (!auth()->user()->hasRole('Instructor')) {
+            return $this->forbidden('Access Forbidden');
+        }
         $assignment = new Assignment();
         $assignment->title = $request->title;
         $assignment->description = $request->description;
@@ -28,22 +26,28 @@ class AssignmentController extends Controller
         $assignment->course_id = $request->course_id;
         $assignment->save();
 
-        return $this->created($assignment, "Assignment Created Successfully!");
+        return $this->created($assignment, "Assignment Created Successfully");
     }
 
     public function update(UpdateAssignmentRequest $request, Assignment $assignment)
     {
+        if (!auth()->user()->hasRole('Instructor')) {
+            return $this->forbidden('Access Forbidden');
+        }
         $assignment->title = $request->title;
         $assignment->description = $request->description;
         $assignment->deadline = $request->deadline;
         $assignment->course_id = $request->course_id;
         $assignment->save();
 
-        return $this->success($assignment, "Assignment Updated Successfully!");
+        return $this->success($assignment, "Assignment Updated Successfully");
     }
 
     public function index()
     {
+        if (!auth()->user()->hasRole('Instructor')) {
+            return $this->forbidden('Access Forbidden');
+        }
         $assignments = Assignment::whereHas('users', function ($query) {
             $query->where('user_id', auth()->id());
         })->get();
@@ -52,6 +56,9 @@ class AssignmentController extends Controller
 
     public function attach(Request $request)
     {
+        if (!auth()->user()->hasRole('Student')) {
+            return $this->forbidden('Access Forbidden');
+        }
         $user = auth()->user();
         $assignment = Assignment::find($request->assignment_id);
 
@@ -60,6 +67,6 @@ class AssignmentController extends Controller
             'date' => $request->date,
         ]);
 
-        return $this->created($assignment, "Assignment Submitted Successfully!");
+        return $this->created($assignment, "Assignment Submitted Successfully");
     }
 }

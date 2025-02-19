@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\{City, Role, User};
+use App\Models\{Role, User};
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUserRequest;
@@ -12,13 +12,12 @@ class StudentController extends Controller
 {
     public function index()
     {
-        $students = User::with('city')->where('role_id', 1)->get();
+        $students = User::whereHasRole('Student')->get();
         return view('students.index', compact('students'));
     }
 
     public function create()
     {
-        $cities = City::all();
         $roles = Role::all();
         return view('students.create', get_defined_vars());
     }
@@ -30,22 +29,25 @@ class StudentController extends Controller
         $student->email = $request->email;
         $student->password = bcrypt($request->password);
         $student->phone = $request->phone;
-        $student->role_id = $request->role_id;
-        $student->city_id = $request->city_id;
         $student->save();
+
+        $role = Role::find($request->role_id);
+
+        if ($role) {
+            $student->addRole($role);
+        }
 
         return redirect()->route('students.index')->with('message', 'Student Created Successfully');
     }
 
     public function show(User $student)
     {
-        $student->load(['city', 'role', 'addresses']);
+        $student->load('addresses');
         return view('students.show', compact('student'));
     }
 
     public function edit(User $student)
     {
-        $cities = City::all();
         $roles = Role::all();
         return view('students.edit', get_defined_vars());
     }
@@ -55,9 +57,14 @@ class StudentController extends Controller
         $student->name = $request->name;
         $student->email = ($request->email);
         $student->password = bcrypt($request->password);
-        $student->city_id = $request->city_id;
-        $student->role_id = $request->role_id;
+        $student->phone = $request->phone;
         $student->save();
+
+        $role = Role::find($request->role_id);
+
+        if ($role) {
+            $student->syncRoles([$role]);
+        }
 
         return redirect()->route('students.index')->with('message', 'Student Updated Successfully');
     }
@@ -90,9 +97,9 @@ class StudentController extends Controller
 
     public function unblock($id)
   {
-    $student = User::findOrFail($id);
-    $student->unblockUser();
-    return redirect()->route('students.index')->with('message', 'Student UnBlocked Successfully');
+     $student = User::findOrFail($id);
+     $student->unblockUser();
+     return redirect()->route('students.index')->with('message', 'Student UnBlocked Successfully');
   }
 
 

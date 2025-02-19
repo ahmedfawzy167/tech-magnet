@@ -2,17 +2,18 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Laravel\Sanctum\HasApiTokens;
+use Laratrust\Contracts\LaratrustUser;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Notifications\Notifiable;
+use Laratrust\Traits\HasRolesAndPermissions;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-
-class User extends Authenticatable implements JWTSubject
+class User extends Authenticatable implements JWTSubject , LaratrustUser
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, HasRolesAndPermissions;
 
     /**
      * The attributes that are mass assignable.
@@ -24,8 +25,6 @@ class User extends Authenticatable implements JWTSubject
         'email',
         'password',
         'phone',
-        'city_id',
-        'role_id',
         'status',
         'social_id',
         'social_type'
@@ -82,16 +81,7 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasMany(Review::class);
     }
 
-    public function city()
-    {
-        return $this->belongsTo(City::class);
-    }
-
-    public function role()
-    {
-        return $this->belongsTo(Role::class);
-    }
-
+    
     public function projects()
     {
         return $this->hasMany(Project::class);
@@ -190,4 +180,6 @@ class User extends Authenticatable implements JWTSubject
         $this->blocked_until = null;
         $this->save();
     }
+
+
 }

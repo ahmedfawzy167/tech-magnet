@@ -261,6 +261,25 @@
             </div>
         </li>
 
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsecountries"
+                aria-expanded="true" aria-controls="collapsecountries">
+                <span>{{__('admin.Countries')}}</span>
+            </a>
+            <div id="collapsecountries" class="collapse" aria-labelledby="headingcountries"
+                data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item {{ isActiveRoute('countries.index', 'bg-primary text-white') }}" href="{{ route('countries.index') }}">
+                        <i class="fa-solid fa-list"></i> {{ __('admin.All Countries') }}
+                    </a>
+                    <a class="collapse-item {{ isActiveRoute('countries.create', 'bg-primary text-white') }}" href="{{ route('countries.create') }}">
+                        <i class="ion-plus-circled"></i> {{ __('admin.Add New Country') }}
+                    </a>
+                </div>
+            </div>
+        </li>
+
+
 
 <li class="nav-item">
     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseMeetings"

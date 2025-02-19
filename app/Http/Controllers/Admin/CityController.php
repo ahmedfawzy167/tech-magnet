@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\City;
+use App\Models\Country;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreCityRequest;
@@ -12,22 +13,22 @@ class CityController extends Controller
 {
     public function index()
     {
-        $cities = City::all();
-        Log::info("Cities Logged Successfully!");
-        return view('cities.index', compact('cities'));
+        $cities = City::with('country')->get();
+        $countries = Country::all();
+        return view('cities.index', compact('cities','countries'));
     }
 
     public function show(City $city)
     {
-        $users = $city->users;
-        return view('cities.show', compact('city', 'users'));
+       $city->load('country');
+        return view('cities.show', compact('city'));
     }
 
     public function store(StoreCityRequest $request, City $city)
     {
         $city::create($request->validated());
 
-        return redirect(route('cities.index'))->with('message', 'City Updated Successfully');
+        return redirect(route('cities.index'))->with('message', 'City Created Successfully');
     }
 
     public function update(UpdateCityRequest $request, City $city)

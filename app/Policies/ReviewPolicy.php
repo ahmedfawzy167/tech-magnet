@@ -14,7 +14,7 @@ class ReviewPolicy
 
     public function create(User $user)
     {
-        return $user->role_id == 1;
+        return $user->hasRole('Student');
     }
 
     /**
@@ -22,6 +22,6 @@ class ReviewPolicy
      */
     public function delete(User $user, Review $review)
     {
-        return $user->id == $review->user_id;
+        return $user->hasRole('Student');
     }
 }

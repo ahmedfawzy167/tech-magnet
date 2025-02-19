@@ -13,7 +13,7 @@ class PortfolioPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->role_id == 6;
+        return $user->hasRole('Company'); 
     }
 
 
@@ -22,7 +22,7 @@ class PortfolioPolicy
      */
     public function create(User $user): bool
     {
-        return $user->role_id == 1;
+        return $user->hasRole('Student'); 
     }
 
     

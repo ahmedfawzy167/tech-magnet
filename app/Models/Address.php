@@ -20,4 +20,9 @@ class Address extends Model
     {
         return $this->belongsTo(City::class);
     }
+
+    public function country()
+    {
+        return $this->hasOneThrough(Country::class, City::class, 'id', 'id', 'city_id', 'country_id');
+    }
 }

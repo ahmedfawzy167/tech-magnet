@@ -192,18 +192,7 @@
                     </div>
                 </div>
 
-                <div class="col-xl-12 mb-4">
-                    <div class="card">
-                        <div class="card-header">
-                          <h4><i class="ion-ios-pie"></i> {{ __('admin.Users By City') }}</h4>
-                        </div>
-                        
-                        <div class="card-body" style="width: 500px; height: 500px; margin: auto;">
-                            {!! $chart2->renderHtml() !!}
-                        </div>
-                    </div>
-                </div>
-
+        
                 <div class="col-xl-12 mb-4">
                     <div class="card">
                         <div class="card-header">
@@ -256,6 +245,5 @@
 @section('page-scripts')
 {!! $chart1->renderChartJsLibrary() !!}
 {!! $chart1->renderJs() !!}
-{!! $chart2->renderJs() !!}
 @endsection
 

@@ -5,24 +5,19 @@ namespace App\Http\Controllers\Api\V1;
 use App\Models\Review;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreReviewRequest;
+use App\Traits\ApiResponder;
 use Illuminate\Support\Facades\Validator;
 
 class ReviewController extends Controller
 {
-    public function __construct()
-    {
-        $this->authorizeResource(Review::class);
-    }
+   use ApiResponder;
 
-    public function store(Request $request)
+    public function store(StoreReviewRequest $request)
     {
-        $request->validate([
-            'course_id' => 'required|numeric|gt:0',
-            'user_id' => 'required|numeric|gt:0',
-            'content' =>  'required|string|max:500',
-            'rating' => 'required|numeric|gt:0',
-        ]);
-
+        if (!auth()->user()->hasRole('Student')) {
+            return $this->forbidden('Access Forbidden');
+        }
         $review = new Review();
         $review->course_id = $request->course_id;
         $review->user_id = $request->user_id;
@@ -35,6 +30,9 @@ class ReviewController extends Controller
 
     public function destroy(Review $review)
     {
+        if (!auth()->user()->hasRole('Student')) {
+            return $this->forbidden('Access Forbidden');
+        }
         $review->delete();
         return $this->success($review, "Review Deleted Successfully");
     }

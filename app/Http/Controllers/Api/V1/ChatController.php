@@ -14,6 +14,9 @@ class ChatController extends Controller
 
     public function sendMessage($user_id, Request $request, UserService $userService)
     {
+        if (!auth()->user()->hasRole(['Student','Instructor'])) {
+            return $this->forbidden('Access Forbidden');
+        }
         $message = $request->input('message');
         $userService->sendMessage($user_id, $message);
         $user = auth()->user();

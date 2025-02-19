@@ -13,7 +13,7 @@ class StudentProgressPolicy
      */
     public function viewAny(User $user): bool
     {
-       return $user->role_id == 5;
+        return $user->hasRole('Mentor');
     }
 
     /**
@@ -21,7 +21,7 @@ class StudentProgressPolicy
      */
     public function view(User $user, StudentProgress $studentProgress): bool
     {
-        return $user->role_id == 5 || $user->role_id == 1;
+        return $user->hasRole('Mentor');
     }
 
     /**
@@ -30,7 +30,7 @@ class StudentProgressPolicy
 
     public function create(User $user): bool
     {
-        return $user->role_id == 5;
+        return $user->hasRole('Mentor');
     }
 
     /**
@@ -38,9 +38,7 @@ class StudentProgressPolicy
      */
     public function update(User $user, StudentProgress $studentProgress): bool
     {
-        return $user->role_id == 5;
+        return $user->hasRole('Mentor');
     }
 
-   
-    
 }

@@ -15,8 +15,11 @@
         <h4 class="list-group-item">{{__('admin.Name')}}: {{$instructor->name}}</h4>
         <h4 class="list-group-item">{{__('admin.Email')}}: {{$instructor->email}}</h4>
         <h4 class="list-group-item">{{__('admin.Phone')}}: {{$instructor->phone}}</h4>
-        <h4 class="list-group-item">{{__('admin.Role')}}: {{$instructor->role->name}}</h4>
-        <h4 class="list-group-item">{{__('admin.City')}}: {{$instructor->city->name}}</h4>
+        <h4 class="list-group-item">{{ __('admin.Role') }}: 
+          @if ($instructor->roles->isNotEmpty())
+            {{ $instructor->roles->pluck('name')->implode(', ') }} 
+          @endif
+        </h4>
         <h4 class="list-group-item">{{ __('admin.Addresses') }}:
           @if ($instructor->addresses->isEmpty())
             <li class="badge bg-danger">{{ __('admin.No Address Defined!') }}</li>

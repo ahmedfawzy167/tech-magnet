@@ -13,7 +13,7 @@ class AttendancePolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->role_id == 5;
+        return $user->hasRole('Mentor'); 
     }
 
     /**
@@ -21,7 +21,7 @@ class AttendancePolicy
      */
     public function view(User $user, Attendance $attendance): bool
     {
-        return $user->role_id == 5;
+        return $user->hasRole('Mentor'); 
     }
 
     /**
@@ -29,7 +29,7 @@ class AttendancePolicy
      */
     public function create(User $user): bool
     {
-        return $user->role_id == 5;
+        return $user->hasRole('Mentor'); 
     }
 
     /**
@@ -37,8 +37,7 @@ class AttendancePolicy
      */
     public function update(User $user, Attendance $attendance): bool
     {
-        return $user->role_id == 5;
-
+        return $user->hasRole('Mentor'); 
     }
 
 

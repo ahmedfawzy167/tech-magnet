@@ -13,7 +13,7 @@ class WishlistPolicy
      */
     public function viewAny(User $user)
     {
-        return $user->role_id = 1;
+        return $user->hasRole('Student');
     }
 
     /**
@@ -21,7 +21,7 @@ class WishlistPolicy
      */
     public function view(User $user, Wishlist $wishlist)
     {
-        return $user->id == $wishlist->user_id;
+        return $user->hasRole('Student');
     }
 
     /**
@@ -29,6 +29,14 @@ class WishlistPolicy
      */
     public function create(User $user)
     {
-        return $user->role_id = 1;
+        return $user->hasRole('Student');
+    }
+
+     /**
+     * Determine whether the user can delete models.
+     */
+    public function delete(User $user, Wishlist $wishlist)
+    {
+        return $user->hasRole('Student');
     }
 }

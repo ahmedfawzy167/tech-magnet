@@ -13,26 +13,26 @@ class QuestionController extends Controller
 {
     use ApiResponder;
 
-    public function __construct()
-    {
-        $this->authorizeResource(Question::class);
-    }
-
     public function index()
     {
+        if (!auth()->user()->hasRole('Instructor')) {
+            return $this->forbidden('Access Forbidden');
+        }
         $questions = Question::with('quiz')->get();
         return $this->success(QuestionCollection::collection($questions));
     }
 
     public function store(StoreQuestionRequest $request)
     {
+        if (!auth()->user()->hasRole('Instructor')) {
+            return $this->forbidden('Access Forbidden');
+        }
+        $question = new Question();
+        $question->question_text = $request->question_text;
+        $question->answers = $request->answers;
+        $question->quiz_id = $request->quiz_id;
+        $question->save();
 
-        $quesion = new Question();
-        $quesion->question_text = $request->question_text;
-        $quesion->answers = $request->answers;
-        $quesion->quiz_id = $request->quiz_id;
-        $quesion->save();
-
-        return $this->created("Question Created Successfully");
+        return $this->created($question,"Question Created Successfully");
     }
 }

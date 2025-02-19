@@ -13,13 +13,11 @@ class SupportRequestController extends Controller
 {
     use ApiResponder;
 
-    public function __construct()
-    {
-        $this->authorizeResource(SupportRequest::class);
-    }
-
     public function store(StoreSupportRequest $request)
     {
+        if (!auth()->user()->hasRole('Student')) {
+            return $this->forbidden('Access Forbidden');
+        }
         $support_request = new SupportRequest();
         $support_request->problem_description = $request->problem_description;
         $support_request->date = $request->date;
@@ -31,6 +29,9 @@ class SupportRequestController extends Controller
 
     public function index()
     {
+        if (!auth()->user()->hasRole('Operations')) {
+            return $this->forbidden('Access Forbidden');
+        }
         $support_requests = SupportRequest::with('user')->get();
         return $this->success(SupportRequestCollection::collection($support_requests));
     }

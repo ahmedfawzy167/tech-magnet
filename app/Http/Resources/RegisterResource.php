@@ -19,8 +19,7 @@ class RegisterResource extends JsonResource
             'name' => $this->name,
             'email' => $this->email,
             'phone' => $this->phone,
-            'city' => $this->city->name,
-            'role' => $this->role->name,
+            'role' => $this->roles->pluck('name')->first(),
         ];
     }
 }

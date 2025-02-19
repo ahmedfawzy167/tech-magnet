@@ -13,7 +13,7 @@ class SchedulePolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->role_id == 3;
+        return $user->hasRole('Operations');
     }
 
     /**
@@ -21,7 +21,7 @@ class SchedulePolicy
      */
     public function view(User $user, Schedule $schedule): bool
     {
-       return $user->role_id == 3 || $user->role_id == 1;
+        return $user->hasRole('Operations');
     }
 
     /**
@@ -29,7 +29,7 @@ class SchedulePolicy
      */
     public function create(User $user): bool
     {
-        return $user->role_id == 3;
+        return $user->hasRole('Operations');
     }
 
     /**
@@ -37,7 +37,7 @@ class SchedulePolicy
      */
     public function update(User $user, Schedule $schedule): bool
     {
-        return $user->role_id == 3;
+        return $user->hasRole('Operations');
     }
 
     

@@ -150,4 +150,12 @@ Route::namespace('App\Http\Controllers\Api\V1')->group(function () {
     Route::apiResource('banners', 'BannerController');
     /* End of Banners Routes */
 
+    /* Start of Countries Routes */
+    Route::apiResource('countries', 'CountryController');
+    /* End of Countries Routes */
+
+    /* Start of Cities Routes */
+    Route::apiResource('cities', 'CityController');
+    /* End of Cities Routes */
+
 });

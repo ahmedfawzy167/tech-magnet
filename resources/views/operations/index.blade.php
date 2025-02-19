@@ -22,7 +22,6 @@
                             <th class="text-center">{{ __('admin.Name') }}</th>
                             <th class="text-center">{{ __('admin.Email') }}</th>
                             <th class="text-center">{{ __('admin.Phone') }}</th>
-                            <th class="text-center">{{ __('admin.City') }}</th>
                             <th class="text-center">{{__('admin.Status')}}</th>
                             <th class="text-center">{{ __('admin.Actions') }}</th>
                         </tr>
@@ -34,8 +33,7 @@
                                 <td class="text-center">{{ $operation->name }}</td>
                                 <td class="text-center">{{ $operation->email }}</td>
                                 <td class="text-center">{{ $operation->phone }}</td>
-                                <td class="text-center">{{ $operation->city->name }}</td>
-                                <td>
+                                <td class="text-center">
                                     <form action="{{ route('operations.update-status', $operation->id) }}" method="POST" id="status-form-{{ $operation->id }}">
                                         @csrf
                                         @method('PUT')

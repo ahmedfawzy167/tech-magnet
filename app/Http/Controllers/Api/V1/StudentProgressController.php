@@ -15,13 +15,11 @@ class StudentProgressController extends Controller
 {
     use ApiResponder;
 
-    public function __construct()
-    {
-        $this->authorizeResource(StudentProgress::class);
-    }
-
     public function store(StoreStudentProgressRequest $request)
     {
+        if (!auth()->user()->hasRole('Mentor')) {
+            return $this->forbidden('Access Forbidden');
+        }
         $student_progress = new StudentProgress();
         $student_progress->rank = $request->rank;
         $student_progress->total_points = $request->total_points;
@@ -32,11 +30,14 @@ class StudentProgressController extends Controller
         $student_progress->skill_id = $request->skill_id;
         $student_progress->save();
 
-        return $this->created($student_progress, "Progress Created Successfully!");
+        return $this->created($student_progress, "Progress Created Successfully");
     }
 
     public function update(UpdateStudentProgressRequest $request, StudentProgress $student_progress)
     {
+        if (!auth()->user()->hasRole('Mentor')) {
+            return $this->forbidden('Access Forbidden');
+        }
         $student_progress->rank = $request->rank;
         $student_progress->total_points = $request->total_points;
         $student_progress->points_earned = $request->points_earned;
@@ -51,12 +52,18 @@ class StudentProgressController extends Controller
 
     public function index()
     {
+        if (!auth()->user()->hasRole('Mentor')) {
+            return $this->forbidden('Access Forbidden');
+        }
         $student_progress = StudentProgress::with(['user', 'course', 'skill'])->get();
         return $this->success(StudentProgressCollection::collection($student_progress));
     }
 
     public function show(StudentProgress $student_progress)
     {
+        if (!auth()->user()->hasRole('Mentor')) {
+            return $this->forbidden('Access Forbidden');
+        }
         if ($student_progress != null) {
             return $this->success(new StudentProgressResource($student_progress));
         } else {

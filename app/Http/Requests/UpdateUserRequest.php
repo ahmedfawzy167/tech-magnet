@@ -27,8 +27,7 @@ class UpdateUserRequest extends FormRequest
             'email' => 'required|email|string|max:50',
             'password' => ['nullable', Password::defaults()],
             'phone' => 'required|string|max:11',
-            'city_id' => 'required|numeric|gt:0',
-            'role_id' => 'required|numeric|gt:0',
+            'role_id' => 'required|exists:roles,id',
         ];
     }
 }

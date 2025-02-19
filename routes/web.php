@@ -176,6 +176,10 @@ Route::middleware(['auth:admin', 'Language'])
         /* Start of Locations Routes */
            Route::resource('locations', 'LocationController');
         /* End of Locations Routes */
+
+        /* Start of Countries Routes */
+        Route::resource('countries', 'CountryController');
+        /* End of Countries Routes */
     });
 
 Auth::routes();

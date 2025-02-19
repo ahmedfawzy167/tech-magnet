@@ -28,9 +28,16 @@ class AuthController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'phone' =>  $request->phone,
-            'city_id' =>  $request->city,
-            'role_id' =>  $request->role,
         ]);
+
+        // Assign Role Based on role_type Parameter
+        if ($request->role_type === 'student') {
+             $user->addRole('Student');
+        } elseif ($request->role_type === 'company') {
+               $user->addRole('Company');
+        }else{
+            return $this->error('Invalid Role Type');
+        }
 
         activity()
             ->performedOn($user)

@@ -13,13 +13,11 @@ class PortfolioController extends Controller
 {
     use ApiResponder;
 
-    public function __construct()
-    {
-        $this->authorizeResource(Portfolio::class);
-    }
-
     public function index()
     {
+        if (!auth()->user()->hasRole('Company')) {
+            return $this->forbidden('Access Forbidden');
+        }
         $portfolios = Portfolio::with(['user', 'course'])->get();
 
         return $this->success(PortfolioResource::collection($portfolios));
@@ -27,7 +25,9 @@ class PortfolioController extends Controller
 
     public function store(StorePortfolioRequest $request)
     {
-
+        if (!auth()->user()->hasRole('Student')) {
+            return $this->forbidden('Access Forbidden');
+        }
         $file = $request->file('file');
         $fileName = $file->getClientOriginalName();
         $location = "public/portfolios";

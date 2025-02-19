@@ -14,15 +14,7 @@ class SupportRequestPolicy
 
     public function viewAny(User $user): bool
     {
-        return $user->role_id == 3;
-    }
-
-    /**
-     * Determine whether the user can view the model.
-     */
-    public function view(User $user, SupportRequest $supportRequest): bool
-    {
-        return $user->role_id == 3;
+        return $user->hasRole('Operations');
     }
 
     /**
@@ -30,16 +22,7 @@ class SupportRequestPolicy
      */
     public function create(User $user): bool
     {
-       return $user->role_id = 1;
+        return $user->hasRole('Student');
     }
-
-    /**
-     * Determine whether the user can update the model.
-     */
-    public function update(User $user, SupportRequest $supportRequest): bool
-    {
-        return $user->id == $supportRequest->user_id;
-    }
-
     
 }

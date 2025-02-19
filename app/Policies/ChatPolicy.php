@@ -14,7 +14,7 @@ class ChatPolicy
 
     public function create(User $user): bool
     {
-        return $user->role_id == 2 || $user->role_id == 1;
+        return $user->hasRole(['Student','Instructor']); 
     }
 
 

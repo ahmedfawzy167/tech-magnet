@@ -18,6 +18,9 @@ class EnrollmentController extends Controller
 
    public function enroll(StoreEnrollmentRequest $request)
    {
+      if (!auth()->user()->hasRole('Student')) {
+         return $this->forbidden('Access Forbidden');
+     }
       try {
          $user = auth()->user();
 
@@ -37,7 +40,7 @@ class EnrollmentController extends Controller
          // Notify the student
          $user->notify(new NewEnrollmentNotification($course));
 
-         // Notify all Admins
+         // Notify Admins
          $admins = Admin::all();
          foreach ($admins as $admin) {
             $admin->notify(new StudentEnrollmentAdminNotification($user, $course));

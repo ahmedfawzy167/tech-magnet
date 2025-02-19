@@ -52,19 +52,7 @@ class HomeController extends Controller
     ];
     $chart1 = new LaravelChart($chart_options);
 
-
-    $chart_options2 = [
-      'chart_title' => 'Users by City',
-      'report_type' => 'group_by_relationship',
-      'model' => 'App\Models\User',
-      'relationship_name' => 'city',
-      'group_by_field' => 'name',
-      'chart_type' => 'pie',
-    ];
-
-    $chart2 = new LaravelChart($chart_options2);
-
-    return view('home', compact('courses', 'reviews', 'categories', 'enrollments', 'juneCourses', 'sessions', 'bundles', 'users', 'cities', 'chart1', 'chart2'));
+    return view('home', compact('courses', 'reviews', 'categories', 'enrollments', 'juneCourses', 'sessions', 'bundles', 'users', 'cities', 'chart1'));
   }
 
   public function search(Request $request)

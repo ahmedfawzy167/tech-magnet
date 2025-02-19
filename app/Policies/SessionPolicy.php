@@ -13,7 +13,7 @@ class SessionPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->role_id == 1 || $user->role_id == 2;
+        return $user->hasRole('Instructor');
     }
 
     /**
@@ -21,7 +21,7 @@ class SessionPolicy
      */
     public function view(User $user): bool
     {
-        return $user->role_id == 1 || $user->role_id == 2;
+        return $user->hasRole(['Instructor','Student']);
     }
 
     /**
@@ -29,7 +29,7 @@ class SessionPolicy
      */
     public function create(User $user): bool
     {
-        return $user->role_id == 2;
+        return $user->hasRole('Instructor');
     }
 
     /**
@@ -37,7 +37,7 @@ class SessionPolicy
      */
     public function update(User $user, Session $session)
     {
-        return $user->role_id == 2 && $user->id == $session->user_id;
+        return $user->hasRole('Instructor');
     }
 
     /**
@@ -45,6 +45,6 @@ class SessionPolicy
      */
     public function delete(User $user, Session $session)
     {
-        return $user->role_id == 2 && $user->id == $session->user_id;
+        return $user->hasRole('Instructor');
     }
 }

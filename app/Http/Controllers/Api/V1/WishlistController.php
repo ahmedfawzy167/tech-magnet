@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\V1;
 use App\Models\Wishlist;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreWishlistRequest;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\WishlistResource;
 use App\Traits\ApiResponder;
@@ -13,30 +14,31 @@ class WishlistController extends Controller
 {
     use ApiResponder;
 
-    public function __construct()
-    {
-        $this->authorizeResource(Wishlist::class);
-    }
-
     public function index()
     {
+        if (!auth()->user()->hasRole('Student')) {
+            return $this->forbidden('Access Forbidden');
+        }
         $wishlists = Wishlist::where('user_id', auth()->user()->id)->with('course')->get();
         return $this->success(WishlistResource::collection($wishlists));
     }
 
     public function totalWishlistItems()
     {
+        if (!auth()->user()->hasRole('Student')) {
+            return $this->forbidden('Access Forbidden');
+        }
         $wishlistItems = Wishlist::where('user_id', auth()->user()->id)->with('course')->count();
         return $this->success($wishlistItems);
     }
 
 
-    public function store(Request $request)
+    public function store(StoreWishlistRequest $request)
     {
-        $request->validate([
-            'course_id' => 'required|exists:courses,id',
-        ]);
-
+        if (!auth()->user()->hasRole('Student')) {
+            return $this->forbidden('Access Forbidden');
+        }
+    
         $userId = Auth::id();
 
         // Check if the course is already in the wishlist
@@ -63,6 +65,9 @@ class WishlistController extends Controller
 
     public function destroy($courseId)
     {
+        if (!auth()->user()->hasRole('Student')) {
+            return $this->forbidden('Access Forbidden');
+        }
         $userId = Auth::id();
 
         $wishlist = Wishlist::where('user_id', $userId)

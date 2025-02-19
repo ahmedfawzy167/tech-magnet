@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\{City, Role, User};
+use App\Models\{Role, User};
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUserRequest;
@@ -12,13 +12,12 @@ class MentorController extends Controller
 {
     public function index()
     {
-        $mentors = User::with('city')->where('role_id', 5)->get();
+        $mentors = User::whereHasRole('Mentor')->get();
         return view('mentors.index', compact('mentors'));
     }
 
     public function create()
     {
-        $cities = City::all();
         $roles = Role::all();
         return view('mentors.create', get_defined_vars());
     }
@@ -30,22 +29,25 @@ class MentorController extends Controller
         $mentor->email = $request->email;
         $mentor->password = bcrypt($request->password);
         $mentor->phone = $request->phone;
-        $mentor->role_id = $request->role_id;
-        $mentor->city_id = $request->city_id;
         $mentor->save();
+
+        $role = Role::find($request->role_id);
+
+        if ($role) {
+            $mentor->addRole($role);
+        }
 
         return redirect()->route('mentors.index')->with('message', 'Mentor Created Successfully');
     }
 
     public function show(User $mentor)
     {
-        $mentor->load(['city', 'role', 'addresses']);
+        $mentor->load('addresses');
         return view('mentors.show', compact('mentor'));
     }
 
     public function edit(User $mentor)
     {
-        $cities = City::all();
         $roles = Role::all();
         return view('mentors.edit', get_defined_vars());
     }
@@ -55,9 +57,14 @@ class MentorController extends Controller
         $mentor->name = $request->name;
         $mentor->email = ($request->email);
         $mentor->password = bcrypt($request->password);
-        $mentor->city_id = $request->city_id;
-        $mentor->role_id = $request->role_id;
+        $mentor->phone = $request->phone;
         $mentor->save();
+
+        $role = Role::find($request->role_id);
+
+        if ($role) {
+            $mentor->syncRoles([$role]);
+        }
 
         return redirect()->route('mentors.index')->with('message', 'Mentor Updated Successfully');
     }
