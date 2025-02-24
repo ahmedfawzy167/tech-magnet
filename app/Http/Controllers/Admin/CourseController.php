@@ -10,16 +10,26 @@ use App\Http\Requests\StoreCourseRequest;
 use App\Http\Requests\UpdateCourseRequest;
 use App\Models\{Course, Category, Roadmap};
 use App\Traits\FileUpload;
-
+use Spatie\QueryBuilder\QueryBuilder;
+use Spatie\QueryBuilder\AllowedFilter;
 class CourseController extends Controller
 {
     use FileUpload;
 
     public function index()
     {
-        $courses = Course::with(['category', 'image'])->get();
+        $courses = QueryBuilder::for(Course::class)
+        ->allowedFilters([
+            AllowedFilter::exact('category_id'),
+            AllowedFilter::exact('status'),
+            AllowedFilter::partial('name'),
+        ])
+        ->allowedSorts(['name', 'price', 'hours','created_at'])
+        ->with(['category', 'image'])
+        ->get();
         $averagePrice = $courses->averageOf('price');
-        return view('courses.index', compact('courses', 'averagePrice'));
+        $categories = Category::all();
+        return view('courses.index', compact('courses', 'averagePrice','categories'));
     }
 
     public function create()
