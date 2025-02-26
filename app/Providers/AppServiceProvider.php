@@ -50,5 +50,11 @@ class AppServiceProvider extends ServiceProvider
         Collection::macro('averageOf', function ($attribute) {
             return $this->avg($attribute);
         });
+
+        view()->composer('*', function ($view) {
+            $view->with('locale', app()->getLocale());
+        });
+
+       
     }
 }

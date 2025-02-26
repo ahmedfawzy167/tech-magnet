@@ -546,7 +546,7 @@
                 <span>{{ __('admin.Language') }} <i class="fas fa-language"></i></span>
             </a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="languageDropdown">
-                @if (app()->getLocale() === 'en')
+                @if ($locale === 'en')
                   <a class="dropdown-item" href="{{ route('change.language', ['locale' => 'ar']) }}">
                     <span class="fi fi-eg"></span>  العربية - AR
                   </a>
