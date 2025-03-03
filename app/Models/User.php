@@ -172,8 +172,10 @@ class User extends Authenticatable implements JWTSubject , LaratrustUser
         }
     }
 
-    $this->save();
-}
+      $this->save();
+  }
+
+
     public function unblockUser()
     {
         $this->is_blocked = false;

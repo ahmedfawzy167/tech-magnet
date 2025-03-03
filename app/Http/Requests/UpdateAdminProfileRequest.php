@@ -26,6 +26,7 @@ class UpdateAdminProfileRequest extends FormRequest
             'email' => 'nullable|string|max:100',
             'current_password' => 'nullable|current_password',
             'new_password' => 'nullable|string|min:8|confirmed',
+            'images'     => 'nullable|image|mimes:jpeg,png,jpg|max:3000',
         ];
     }
 }

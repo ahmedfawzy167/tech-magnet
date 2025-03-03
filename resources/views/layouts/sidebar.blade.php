@@ -627,9 +627,7 @@
                             <span class="mr-2 d-none d-lg-inline text-gray-600 small">
                                 @name
                             </span>
-
-                            <img class="img-profile rounded-circle"
-                                src="{{asset('assets/img/undraw_profile.svg')}}">
+                            <img class="img-profile rounded-circle"  src="{{ auth()->guard('admin')->user()->image ? getPath('admins', auth()->guard('admin')->user()->id, auth()->guard('admin')->user()->image->path) : asset('assets/img/undraw_profile.svg') }}">
                           </a>
                        
                         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"

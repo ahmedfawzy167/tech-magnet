@@ -2,14 +2,17 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\UpdateAdminProfileRequest;
 use App\Models\Admin;
+use App\Traits\FileUpload;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\UpdateAdminProfileRequest;
 
 class ProfileController extends Controller
 {
+    use FileUpload;
+
     public function show()
     {
         $admin = Auth::guard('admin')->user();
@@ -33,6 +36,7 @@ class ProfileController extends Controller
             $admin->password = bcrypt($request->new_password);
         }
         $admin->save();
+        $this->uploadImages($request,$admin);
 
         return redirect()->route('profile.edit')->with('message', 'Credentials Updated Successfully');
     }

@@ -6,11 +6,22 @@
 
 @section('page-content')
 
-<form method="POST" action="{{ route('profile.update',$admin->id) }}">
+<form method="POST" action="{{ route('profile.update',$admin->id) }}" enctype="multipart/form-data">
   @csrf
   @method('PUT')
 
-<div class="card">
+  <div class="card">
+    <div class="card-body">
+    <div class="form-group">
+        <label for="image">  <i class="fa-solid fa-camera"></i> {{ __('admin.Image') }}</label>
+        <input type="file" name="images" id="image" class="form-control @error('images') is-invalid @enderror" onchange="previewImage(event)">
+        <img id="imagePreview" src="{{ auth()->guard('admin')->user()->image ? getPath('admins', auth()->guard('admin')->user()->id, auth()->guard('admin')->user()->image->path) : asset('assets/img/undraw_profile.svg') }}" width="200px">                       
+
+    </div>
+    </div>
+  </div>
+
+<div class="card mt-5">
    <div class="card-body">
           <div class="form-group">
               <label for="name"><i class="fa-solid fa-user"></i> {{ __('admin.Name') }}</label>
@@ -60,9 +71,15 @@
 </div>
 
 
-<div class="text-center mt-2">
+<div class="mx-3 mt-2">
     <button type="submit" class="btn btn-primary">{{ __('admin.Save Changes') }}</button>
 </div>
 
 </form>
 @endsection
+
+
+@section('page-scripts')
+<script src="{{ asset('assets/js/imagePreview.js') }}"></script>
+@endsection
+    
