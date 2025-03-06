@@ -7,7 +7,7 @@
 @section('page-content')
     <div class="card">
         <div class="card-body">
-            <h1 class="text-center bg-primary text-white"><i class="ion-plus-circled"></i> {{ __('admin.Edit Banner') }}</h1>
+            <h1 class="text-center bg-success text-white"><i class="fa-solid fa-pen-to-square"></i> {{ __('admin.Edit Banner') }}</h1>
             <form action="{{ route('banners.update',$banner->id) }}" method="POST" enctype="multipart/form-data" class="row">
                 @csrf
                 @method('PUT')
@@ -19,8 +19,8 @@
                 <div class="form-group col-md-12">
                     <label for="image"> {{ __('admin.Image') }} <span class="text-muted">{{ (__('admin.(Optional)'))}}</span></label>
                     <input type="file" name="images" id="image" class="form-control @error('images') is-invalid @enderror" onchange="previewImage(event)">
-                     @if($bundle?->image && $bundle?->image?->path)
-                      <img id="imagePreview" src="{{ getPath('bundles', $bundle->id, $bundle->image->path) }}" width="200px" class="mt-2">                       
+                     @if($banner?->image && $banner?->image?->path)
+                      <img id="imagePreview" src="{{ getPath('banners', $banner->id, $banner->image->path) }}" width="200px" class="mt-2">                       
                      @else
                        <div class="mt-2 text-danger d-flex align-items-center">
                           <i class="fas fa-exclamation-triangle me-2"></i>

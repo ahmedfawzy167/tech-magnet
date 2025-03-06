@@ -24,7 +24,7 @@ class CourseController extends Controller
             AllowedFilter::exact('status'),
             AllowedFilter::partial('name'),
         ])
-        ->allowedSorts(['name', 'price', 'hours','created_at'])
+        ->allowedSorts(['name', 'price','created_at'])
         ->with(['category', 'image'])
         ->get();
         $averagePrice = $courses->averageOf('price');
