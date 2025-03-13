@@ -27,6 +27,11 @@ class UpdateAdminProfileRequest extends FormRequest
             'current_password' => 'nullable|current_password',
             'new_password' => 'nullable|string|min:8|confirmed',
             'images'     => 'nullable|image|mimes:jpeg,png,jpg|max:3000',
+            'phone' => 'nullable|string|max:20',
+            'city_id' => 'nullable|exists:cities,id',
+            'country_id' => 'nullable|exists:countries,id',
+            'address' => 'nullable|string|max:255',
+            'timezone' => 'nullable|string|max:100',
         ];
     }
 }

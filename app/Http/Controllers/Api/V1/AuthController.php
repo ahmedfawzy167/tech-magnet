@@ -30,7 +30,7 @@ class AuthController extends Controller
             'phone' =>  $request->phone,
         ]);
 
-        // Assign Role Based on role_type Parameter
+        // Assign Role
         if ($request->role_type === 'student') {
              $user->addRole('Student');
         } elseif ($request->role_type === 'company') {

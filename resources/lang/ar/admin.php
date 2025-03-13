@@ -665,4 +665,12 @@ return [
     'Commission' => 'العمولة',
     'All Packages' => ' كل الباقات',
     'Price' => 'السعر',
+
+    'Select City' => 'اخطر مدينة',
+    'Timezone' => 'الوقت الزمنية',
+    'Country' => 'الدولة',
+    'Upload New Image' => 'رفع صورة جديدة',
+    'Allowed Extensions: JPG, JPEG, PNG' => 'الامتدادات المسموح بها: JPG، JPEG، PNG',
+    'Admin Profile' => 'الملف الشخصي للمسؤول',
+
 ];

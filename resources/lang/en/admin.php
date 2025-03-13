@@ -662,13 +662,16 @@ return [
     'how_use_ar' => 'how to use arabic',
     'how_use_en' => 'how to use english',
 
-
-    'Commissions' => 'Commissions',
-    'All Commissions' => 'All Commissions',
     'User' => 'User',
     'Name' => 'Name',
     'Price' => 'Price',
     'Commission' => 'Commission',
     'All Packages' => 'All Packages',
+    'Select City' => 'Select City',
+    'Timezone' => 'Timezone',
+    'Country' => 'Country',
+    'Upload New Image' => 'Upload New Image',
+    'Allowed Extensions: JPG, JPEG, PNG' => 'Allowed Extensions: JPG, JPEG, PNG',
+    'Admin Profile' => 'Admin Profile',
 
 ];
