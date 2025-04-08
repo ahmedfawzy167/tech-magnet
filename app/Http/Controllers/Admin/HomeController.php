@@ -33,8 +33,8 @@ class HomeController extends Controller
     //Fetch The Number Of Bundles//
     $bundles = Bundle::count();
 
-    //Fetch The Number Of Users//
-    $users = User::count();
+    //Fetch The Number Of Students//
+    $students = User::whereHasRole('Student')->count();
 
     //Fetch The Number Of Cities//
     $cities = City::count();
@@ -52,7 +52,7 @@ class HomeController extends Controller
     ];
     $chart1 = new LaravelChart($chart_options);
 
-    return view('home', compact('courses', 'reviews', 'categories', 'enrollments', 'juneCourses', 'sessions', 'bundles', 'users', 'cities', 'chart1'));
+    return view('home', compact('courses', 'reviews', 'categories', 'enrollments', 'juneCourses', 'sessions', 'bundles', 'students', 'cities', 'chart1'));
   }
 
   public function search(Request $request)

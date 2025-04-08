@@ -51,6 +51,7 @@ class AppServiceProvider extends ServiceProvider
             return $this->avg($attribute);
         });
 
+         /* Use Locale in Some Views */
         view()->composer('*', function ($view) {
             $view->with('locale', app()->getLocale());
         });
