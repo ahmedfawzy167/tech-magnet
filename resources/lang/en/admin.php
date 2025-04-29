@@ -673,5 +673,6 @@ return [
     'Upload New Image' => 'Upload New Image',
     'Allowed Extensions: JPG, JPEG, PNG' => 'Allowed Extensions: JPG, JPEG, PNG',
     'Admin Profile' => 'Admin Profile',
+    'Chatbot' => 'Chatting With Gemini',
 
 ];

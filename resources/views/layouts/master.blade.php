@@ -12,7 +12,7 @@
     
 </head>
 
-<body id="page-top" class="dark-mode">
+<body id="page-top">
 
     <button id="chatbot-icon"><i class="fas fa-comments"></i></button>
 
@@ -21,7 +21,7 @@
         <div class="messages">
             <div class="left message">
                 <img src="{{asset('assets/img/undraw_profile_1.svg')}}" alt="Avatar">
-                <p class="mt-4">Chatting With Gemini</p>
+                <p class="mt-4">{{ __('admin.Chatbot') }}</p>
             </div>
         </div>
         <div class="bottom">
@@ -34,35 +34,7 @@
     </div>
 
 
-    <div class="modal fade" id="customizer-modal" tabindex="-1" aria-labelledby="customizerModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="customizerModalLabel">Theme Customizer</h5>
-                    <button type="button" class="btn-close" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="mb-3 ms-3">
-                        <label for="dark-mode-toggle" class="form-check-label">
-                            <input type="checkbox" id="dark-mode-toggle" class="form-check-input"> Dark Mode
-                        </label>
-                    </div>
     
-                    <div class="mb-3">
-                        <label for="sidebar-color" class="form-label">Sidebar Color</label>
-                        <select id="sidebar-color" class="form-select">
-                            <option value="bg-blue-500">Blue</option>
-                            <option value="bg-gray-800">Dark</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    
-    <button id="customizer-icon" class="fixed-icon-btn"><i class="fas fa-cog"></i></button>
-
     @include('layouts.sidebar')
 
     @yield('page-content')
