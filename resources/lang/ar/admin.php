@@ -672,6 +672,6 @@ return [
     'Upload New Image' => 'رفع صورة جديدة',
     'Allowed Extensions: JPG, JPEG, PNG' => 'الامتدادات المسموح بها: JPG، JPEG، PNG',
     'Admin Profile' => 'الملف الشخصي للمسؤول',
-    'Chatbot' => 'دردشة مع جيميناي'
-
+    'Chatbot' => 'دردشة مع جيميناي',
+    'not_allowed' => 'طريقة الطلب غير مسموح بها'
 ];

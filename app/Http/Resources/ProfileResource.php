@@ -19,8 +19,6 @@ class ProfileResource extends JsonResource
             'name' => $this->name,
             'email' => $this->email,
             'phone' => $this->phone,
-            'city' => $this->city->name,
-            'role' => $this->role->name,
             'assignments' => AssignmentResource::collection($this->assignments()->withPivot('file', 'date')->get()),
             'quizzes' => QuizResource::collection($this->quizzes()->withPivot('score', 'date')->get()),
         ];

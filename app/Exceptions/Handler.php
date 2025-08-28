@@ -2,11 +2,14 @@
 
 namespace App\Exceptions;
 
-use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
+use App\Traits\ApiResponder;
+use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 
 class Handler extends ExceptionHandler
 {
+    use ApiResponder;
     /**
      * A list of exception types with their corresponding custom log levels.
      *
@@ -44,5 +47,12 @@ class Handler extends ExceptionHandler
         $this->reportable(function (Throwable $e) {
             //
         });
+    }
+    public function render($request, Throwable $exception)
+    {
+      if ($exception instanceof MethodNotAllowedHttpException) {
+         return $this->notAllowed(__('admin.not_allowed'));
+        }
+        return parent::render($request, $exception);
     }
 }

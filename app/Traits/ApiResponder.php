@@ -9,7 +9,7 @@ trait ApiResponder
     protected function success($data = null, $message = 'Success', $statusCode = 200): JsonResponse
     {
         return response()->json([
-            'status' => true,
+            'success' => true,
             'message' => $message,
             'data' => $data,
         ], $statusCode);
@@ -23,7 +23,7 @@ trait ApiResponder
     protected function error($message = 'Error', $statusCode = 400): JsonResponse
     {
         return response()->json([
-            'status' => false,
+            'success' => false,
             'message' => $message,
         ], $statusCode);
     }
@@ -51,6 +51,10 @@ trait ApiResponder
     protected function validationError($message = 'Unprocessable Content'): JsonResponse
     {
         return $this->error($message, 422);
+    }
+     protected function notAllowed($message = 'Request method is not allowed'): JsonResponse
+    {
+        return $this->error($message, 405);
     }
 
     protected function serverError($message = 'Internal Server Error'): JsonResponse

@@ -674,5 +674,5 @@ return [
     'Allowed Extensions: JPG, JPEG, PNG' => 'Allowed Extensions: JPG, JPEG, PNG',
     'Admin Profile' => 'Admin Profile',
     'Chatbot' => 'Chatting With Gemini',
-
+    'not_allowed' => 'The Request Method is Not Allowed'
 ];
