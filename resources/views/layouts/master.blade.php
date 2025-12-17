@@ -15,7 +15,9 @@
 <body id="page-top">
 
     <button id="chatbot-icon"><i class="fas fa-comments"></i></button>
-
+    {{-- <a href="https://wa.me/201063574479?text=Hello%20I%20need%20help" target="_blank" style="color: #25D366;">
+        <i class="fab fa-whatsapp fa-2x"></i>
+    </a> --}}
     <div id="chat-window" style="display: none;">
         <div class="close-chat" style="position: absolute; right: 10px; top: 10px; cursor: pointer; font-size: 20px;">&times;</div>
         <div class="messages">
@@ -33,8 +35,6 @@
         </div>
     </div>
 
-
-    
     @include('layouts.sidebar')
 
     @yield('page-content')

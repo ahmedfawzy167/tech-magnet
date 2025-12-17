@@ -18,11 +18,10 @@ return new class extends Migration
             $table->float('price');
             $table->integer('hours');
             $table->unsignedBigInteger('category_id')->index();
-            $table->unsignedBigInteger('objective_id')->index();
+            $table->boolean('status')->default(false);
             $table->timestamps();
             $table->softDeletes();
             $table->foreign('category_id')->references('id')->on('categories')->cascadeOnDelete();
-            $table->foreign('objective_id')->references('id')->on('objectives')->cascadeOnDelete();
         });
     }
 

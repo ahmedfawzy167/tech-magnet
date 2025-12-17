@@ -21,9 +21,6 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             PermissionSeeder::class,
             RoadmapSeeder::class,
-            AddressSeeder::class,
-            CartSeeder::class,
-            WishlistSeeder::class,
         ]);
     }
 }

@@ -22,6 +22,8 @@ return new class extends Migration
             $table->rememberToken();
             $table->string('social_id')->nullable();
             $table->string('social_type')->nullable();
+            $table->boolean('is_blocked')->default(false);
+            $table->timestamp('blocked_until')->nullable();
             $table->timestamps();
         });
     }
