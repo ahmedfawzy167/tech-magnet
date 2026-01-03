@@ -26,7 +26,7 @@ class ProfileController extends Controller
         $admin = Auth::guard('admin')->user();
         $countries = Country::all();
         $cities = City::all();
-        
+
         return view('profile.edit', compact('admin', 'countries', 'cities'));
     }
 
@@ -43,11 +43,11 @@ class ProfileController extends Controller
             'timezone' => $request->timezone,
         ]);
 
-         // Update Password if New Password is Provided
+        // Update Password if New Password is Provided
         if ($request->new_password) {
-           $admin->update(['password' => bcrypt($request->new_password)]);
+            $admin->update(['password' => bcrypt($request->new_password)]);
         }
-        $this->uploadImages($request,$admin);
+        $this->uploadImages($request, $admin);
 
         return redirect()->route('profile.edit')->with('message', 'Credentials Updated Successfully');
     }

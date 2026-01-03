@@ -12,9 +12,9 @@
         <h2 class="card-title text-center bg-info text-white"><i class="fa-solid fa-eye"></i> Activity Log Details</h2>
       </div>
       <ul class="list-group list-group-flush">
-        <h6 class="list-group-item">Name: {{$lastActivity->getExtraProperty('name')}}</h6>
-        <h6 class="list-group-item">Description: {{$lastActivity->description}}</h6>
-        <h6 class="list-group-item">Event: {{$lastActivity->event}} </h6>
+        <h6 class="list-group-item">Name: {{$lastActivity?->name}}</h6>
+        <h6 class="list-group-item">Description: {{$lastActivity?->description}}</h6>
+        <h6 class="list-group-item">Event: {{$lastActivity?->event}} </h6>
       </ul>
     </div>
   </div>

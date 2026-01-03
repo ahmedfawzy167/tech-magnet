@@ -12,13 +12,13 @@
         <h2 class="card-title text-center bg-primary text-white"><i class="fa-solid fa-eye"></i> {{__('admin.Admin Profile')}}</h2>
       </div>
       <ul class="list-group list-group-flush">
-        <h4 class="list-group-item">{{__('admin.Name')}}: {{ $admin->name}}</h4>
-        <h4 class="list-group-item">{{__('admin.Email')}}: {{ $admin->email}}</h4>
-        <h4 class="list-group-item">{{__('admin.Phone')}}: {{ $admin->phone}}</h4>
-        <h4 class="list-group-item">{{__('admin.Country')}}: {{ $admin->country->name}}</h4>
-        <h4 class="list-group-item">{{__('admin.City')}}: {{ $admin->city->name}}</h4>
-        <h4 class="list-group-item">{{__('admin.Address')}}: {{ $admin->address}}</h4>
-        <h4 class="list-group-item">{{__('admin.Timezone')}}: {{ $admin->timezone}}</h4>
+        <h4 class="list-group-item">{{__('admin.Name')}}: {{ $admin?->name}}</h4>
+        <h4 class="list-group-item">{{__('admin.Email')}}: {{ $admin?->email}}</h4>
+        <h4 class="list-group-item">{{__('admin.Phone')}}: {{ $admin?->phone}}</h4>
+        <h4 class="list-group-item">{{__('admin.Country')}}: {{ $admin?->country?->name}}</h4>
+        <h4 class="list-group-item">{{__('admin.City')}}: {{ $admin?->city?->name}}</h4>
+        <h4 class="list-group-item">{{__('admin.Address')}}: {{ $admin?->address}}</h4>
+        <h4 class="list-group-item">{{__('admin.Timezone')}}: {{ $admin?->timezone}}</h4>
       </ul>
     </div>
 </div>

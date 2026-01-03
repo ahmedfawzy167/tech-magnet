@@ -55,7 +55,7 @@ class LoginController extends Controller
         } else {
             return redirect()->back()->withErrors(['message' => 'Invalid Email or Password']);
         }
-        return redirect()->intended();
+        return redirect()->intended(RouteServiceProvider::HOME);
     }
 
     public function logout(Request $request)

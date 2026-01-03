@@ -6,11 +6,11 @@
 
         <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('home') }}">
             <div class="sidebar-brand-icon">
-                <img src="{{ asset('storage/'.settings()->logo) }}" width="30px">
+                <img src="{{ asset('storage/'.settings()?->logo) }}" width="30px">
             </div>
 
               <div class="sidebar-brand-text mx-3">
-                {{__('admin.Hello')}} @name
+                {{__('admin.Hello')}} {{ auth()->guard('admin')->user()->name }}
               </div>
         </a>
 
@@ -625,7 +625,7 @@
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 
                             <span class="mr-2 d-none d-lg-inline text-gray-600 small">
-                                @name
+                                {{ auth()->guard('admin')->user()->name }}
                             </span>
                             <img class="img-profile rounded-circle"  src="{{ auth()->guard('admin')->user()->image ? getPath('admins', auth()->guard('admin')->user()->id, auth()->guard('admin')->user()->image->path) : asset('assets/img/undraw_profile.svg') }}">
                           </a>
