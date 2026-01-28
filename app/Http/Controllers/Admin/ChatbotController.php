@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Admin;
 
-use OpenAI;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Http;
@@ -17,21 +16,67 @@ class ChatbotController extends Controller
             'contents' => [
                 [
                     'parts' => [
-                        ['text' => $request->message],
+                        ['text' => $request->message ?? ''],
                     ],
                 ],
             ],
         ];
 
-        $response = Http::withHeaders([
-            'Content-Type' => 'application/json',
-        ])->post("https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key={$apiKey}", $data);
-
-        if ($response->successful()) {
-            $result = $response->json();
-            return response()->json($result);
+        try {
+            $modelsResp = Http::withHeaders([
+                'Content-Type' => 'application/json',
+            ])->get("https://generativelanguage.googleapis.com/v1/models?key={$apiKey}");
+        } catch (\Exception $e) {
+           return response()->json([
+                'error' => 'Failed to fetch models list: ' . $e->getMessage(),
+            ], 500);
         }
 
-        return response()->json(['error' => 'Failed to Communicate With Google Gemini API', 'details' => $response->body()], $response->status());
+        if (! $modelsResp->successful()) {
+            return response()->json(['error' => 'Failed to fetch models list: ' . $modelsResp->body()], 500);
+        }
+
+        $modelsJson = $modelsResp->json();
+        $models = $modelsJson['models'] ?? [];
+
+        $selectedModelName = null;
+        foreach ($models as $m) {
+            $name = $m['name'] ?? ($m['model'] ?? null);
+            if (!empty($m['supportedMethods']) && is_array($m['supportedMethods'])) {
+                if (in_array('generateContent', $m['supportedMethods'])) {
+                    $selectedModelName = $name;
+                    break;
+                }
+            }
+
+            if (strpos(json_encode($m), 'generateContent') !== false) {
+                $selectedModelName = $name;
+                break;
+            }
+        }
+
+        if (! $selectedModelName && isset($models[0]['name'])) {
+            $selectedModelName = $models[0]['name'];
+        }
+
+        if (! $selectedModelName) {
+            return response()->json(['error' => 'No available model found that supports generateContent. Call ListModels and pick a model that supports generateContent.','models_list' => $modelsJson], 500);
+        }
+
+        $postUrl = "https://generativelanguage.googleapis.com/v1/{$selectedModelName}:generateContent?key={$apiKey}";
+
+        try {
+            $response = Http::withHeaders([
+                'Content-Type' => 'application/json',
+            ])->post($postUrl, $data);
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => 'Failed to generate content: ' . $e->getMessage(),
+            ], 500);
+        }
+
+        if ($response->successful()) {
+            return response()->json($response->json());
+        }
     }
 }

@@ -229,56 +229,6 @@
 
     </script>
 
-    <script>
-
-        var myModal = new bootstrap.Modal(document.getElementById('customizer-modal'));
-
-        // Show the modal when the customizer icon is clicked
-        document.getElementById("customizer-icon").onclick = function () {
-            myModal.show();
-        };
-
-        document.addEventListener("DOMContentLoaded", function () {
-            const darkModeToggle = document.getElementById("dark-mode-toggle");
-            const sidebarColorSelect = document.getElementById("sidebar-color");
-
-            const sidebar = document.querySelector(".sidebar");
-
-            if (localStorage.getItem("darkMode") === "enabled") {
-                document.body.classList.add("dark-mode");
-                darkModeToggle.checked = true;
-            }
-
-            if (localStorage.getItem("sidebarColor")) {
-                sidebar.classList.remove("bg-blue-500", "bg-gray-800");
-                sidebar.classList.add(localStorage.getItem("sidebarColor"));
-                sidebarColorSelect.value = localStorage.getItem("sidebarColor");
-            }
-
-            darkModeToggle.addEventListener("change", function () {
-                document.body.classList.toggle("dark-mode");
-                localStorage.setItem("darkMode", document.body.classList.contains("dark-mode") ? "enabled" : "disabled");
-            });
-
-            sidebarColorSelect.addEventListener("change", function () {
-                const selectedColor = this.value;
-                sidebar.classList.remove("bg-blue-500", "bg-gray-800");
-                sidebar.classList.add(selectedColor);
-
-                // Store in localStorage
-                localStorage.setItem("sidebarColor", selectedColor);
-            });
-
-
-        });
-
-        document.querySelector(".btn-close").addEventListener("click", function () {
-            myModal.hide();
-        });
-
-    </script>
-
-
 </body>
 
 </html>
